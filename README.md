@@ -13,4 +13,4 @@ An NUS Orbital 2020 independent software development  project.
 ## License
 
 #### Master branch build status:
-![](https://travis-ci.org/Trav1sT/MovingHelper.svg?branch=master)
+![](https://travis-ci.com/Trav1sT/HyperBeam.svg?token=LuyZVpFpzSb5D1pq9HFw&branch=master)
