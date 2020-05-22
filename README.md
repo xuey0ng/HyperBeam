@@ -11,5 +11,3 @@ An NUS Orbital 2020 independent software development  project.
 ## Libraries used
 
 ## License
-
-
