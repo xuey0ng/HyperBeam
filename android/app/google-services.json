@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "672703029409",
+    "firebase_url": "https://hyper-beam.firebaseio.com",
+    "project_id": "hyper-beam",
+    "storage_bucket": "hyper-beam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672703029409:android:665a288e3dcfb2a85c50e0",
+        "android_client_info": {
+          "package_name": "com.highlightCollabLearning.HyperBeam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672703029409-9bi7rffduro3q9oh3t72eu7gvl4jbm5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq-YaqUBxc8qMoxgm5RMQ76I2io91YHr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672703029409-9bi7rffduro3q9oh3t72eu7gvl4jbm5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
