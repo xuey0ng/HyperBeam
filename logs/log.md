@@ -1,6 +1,6 @@
 ## Sprint 1
 
-   |Guan Wei|Xue Yong
+Meeting|Guan Wei|Xue Yong
 ---|--------|--------
 To-do|Quiz Creation, Upload of .pdf files, Checklist Creation|
 01/06/20||
