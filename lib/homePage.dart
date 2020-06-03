@@ -3,6 +3,7 @@ import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/viewQuizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
+import 'package:HyperBeam/createQuiz.dart';
 
 class HomePage extends StatefulWidget {
   final BaseAuth baseAuth;
@@ -74,7 +75,25 @@ class _HomePageState extends State<HomePage>{
               ProgressChart(),
               UpdateProgress(onChanged: _handleProgressChanged),
               ViewQuizzes(),
-              CreateQuiz(),
+              RaisedButton(
+                child: Text("Create Quiz"),
+                onPressed: (){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context){
+                      return Scaffold(
+                        appBar: AppBar(
+                          title: Text("Create Quiz"),
+                        ),
+                        body: CreateQuiz(),
+                        floatingActionButton: FloatingActionButton(
+                          onPressed: ()=>{},
+                          child: const Icon(Icons.assignment_turned_in),
+                        ),
+                      );
+                    }),
+                  );
+                },
+              ),
               UploadFile(),
             ],
           )
@@ -97,19 +116,6 @@ class UpdateProgress extends StatelessWidget{
         child: Text("Update Progress"),
         onPressed: _handleTap,
       );
-  }
-}
-class CreateQuiz extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      child: Text("Create Quiz"),
-      /*onPressed: (){
-        Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Page1()),
-        );
-      },*/
-    );
   }
 }
 

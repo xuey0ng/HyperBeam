@@ -14,6 +14,10 @@ class DataRepo {
     return await tasksCollection.getDocuments().then((val) => val.documents.length);
   }
 
+  Future<void> delete(DocumentSnapshot doc) async{
+    return await tasksCollection.document(doc.documentID).delete();
+  }
+
   updatePet(Task task) async {
     await tasksCollection.document(task.reference.documentID).updateData(task.toJson());
   }

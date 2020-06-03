@@ -59,7 +59,30 @@ class _ProgressChartState extends State<ProgressChart>{
                 ],
               ),
               onTap: () {
-                //Todo: details of task
+                Task currTask = Task.fromSnapshot(snapshot);
+                return showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(currTask.name),
+                        actions: <Widget>[
+                          FlatButton(
+                              child: Text("Delete"),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                                taskRepository.delete(snapshot);
+                              }
+                          ),
+                          FlatButton(
+                              child: Text("Update"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }
+                          )
+                        ]
+                    );
+                  }
+                );
               },
             )
           )
@@ -158,7 +181,6 @@ class Task {
   }
 
   Map<String, dynamic> toJson() {
-    print("HIT");
     return <String, dynamic> {
       'code': this.name,
       'completed': this.completed,
