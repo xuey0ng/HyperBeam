@@ -1,4 +1,5 @@
 import 'package:HyperBeam/dataRepo.dart';
+import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class ProgressChart extends StatefulWidget {
 }
 
 class _ProgressChartState extends State<ProgressChart>{
-  final DataRepo taskRepository = DataRepo();
+  final DataRepo taskRepository = DataRepo("Tasks");
 
   Widget currentTasks() {
     return   StreamBuilder<QuerySnapshot>(
@@ -162,16 +163,17 @@ class _AlertDialogWidgetState extends State<AlertDialogWidget> {
 
 }
 
-class Task {
+class Task implements iDatabaseable{
   final String name;
   bool completed;
+  @override
   DocumentReference reference;
 
   Task(this.name, {this.completed: false});
 
   //factory constructor
   factory Task.fromJson(Map<String, dynamic> json) {
-    return Task(json['code'] as String, completed: json['completed'] as bool);
+    return Task(json['name'] as String, completed: json['completed'] as bool);
   }
   //factory constructor
   factory Task.fromSnapshot(DocumentSnapshot snapshot) {
@@ -182,7 +184,7 @@ class Task {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic> {
-      'code': this.name,
+      'name': this.name,
       'completed': this.completed,
     };
   }
@@ -190,4 +192,6 @@ class Task {
   toString(){
     return name;
   }
+
+
 }

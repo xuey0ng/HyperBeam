@@ -1,24 +1,28 @@
-import 'package:HyperBeam/progressChart.dart';
+import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataRepo {
-  final CollectionReference tasksCollection = Firestore.instance.collection('Tasks');
+  CollectionReference db;
+
+  DataRepo(String name) {
+    this.db = Firestore.instance.collection(name);
+  }
 
   Stream<QuerySnapshot> getStream() {
-    return tasksCollection.snapshots();
+    return db.snapshots();
   }
-  Future<DocumentReference> addTask(Task task) {
-    return tasksCollection.add(task.toJson());
+  Future<DocumentReference> addDoc(iDatabaseable obj) {
+    return db.add(obj.toJson());
   }
   Future<int> documentCount() async{
-    return await tasksCollection.getDocuments().then((val) => val.documents.length);
+    return await db.getDocuments().then((val) => val.documents.length);
   }
 
   Future<void> delete(DocumentSnapshot doc) async{
-    return await tasksCollection.document(doc.documentID).delete();
+    return await db.document(doc.documentID).delete();
   }
 
-  updatePet(Task task) async {
-    await tasksCollection.document(task.reference.documentID).updateData(task.toJson());
+  updateDoc(iDatabaseable task) async {
+    await db.document(task.reference.documentID).updateData(task.toJson());
   }
 }

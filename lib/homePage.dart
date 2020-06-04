@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
   List<Task> taskList =  new List<Task>();
-  final DataRepo taskRepository = DataRepo();
+  final DataRepo taskRepository = DataRepo("Tasks");
 
   void _signOut() async {
     try {
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage>{
               onPressed: () {
                 Navigator.of(context).pop();
                 Task newTask = Task(dialogWidget.taskName, completed: dialogWidget.taskCompleted);
-                taskRepository.addTask(newTask);
+                taskRepository.addDoc(newTask);
               }
             )
           ]
@@ -80,16 +80,8 @@ class _HomePageState extends State<HomePage>{
                 onPressed: (){
                   Navigator.push(context,
                     MaterialPageRoute(builder: (context){
-                      return Scaffold(
-                        appBar: AppBar(
-                          title: Text("Create Quiz"),
-                        ),
-                        body: CreateQuiz(),
-                        floatingActionButton: FloatingActionButton(
-                          onPressed: ()=>{},
-                          child: const Icon(Icons.assignment_turned_in),
-                        ),
-                      );
+                      CreateQuiz quiz = CreateQuiz();
+                      return quiz;
                     }),
                   );
                 },
