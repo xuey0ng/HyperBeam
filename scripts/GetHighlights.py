@@ -3,6 +3,7 @@ import sys
 import PyQt5
 from TextStore import LineStore
 
+## Program returns a list of LineStore objects, an object that stores all the words in a highlight and its coordinates
 
 resolution = 150
 

@@ -11,6 +11,8 @@ from pdfminer.high_level import extract_pages
 import pdfminer
 from TextStore import Token
 
+## Program returns the an array containing all of the coords of the pdf to be preprocessed
+
 class PDFpos:
     
     def __init__(self):
@@ -96,6 +98,7 @@ class PDFpos:
 
             # extract text from this object
             self.parse_page(layout._objs, i)
+            return self.word_array
     
 
 PDFpos().parsepdf("FinancialAccounting1.pdf")
