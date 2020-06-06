@@ -5,7 +5,10 @@ class Token:
         self.y_coord = y_coord
         self.content = content
         self.page = page
+        self.count = 0
         self.qns = list()  ##qns should be a list of Questions
+        self.hashstr = str(page).zfill(3) + str(x_coord).zfill(4) + str(y_coord).zfill(3)
+        self.hashcode = hash(self.hashstr)
     
     def getXCoord(self):
         return self.x_coord
@@ -21,6 +24,15 @@ class Token:
 
     def getQns(self):
         return self.qns
+    
+    def hashCode(self):
+        return self.hashcode
+    
+    def getCount(self):
+        return self.count
+    
+    def incrCount(self):
+        self.count +=1
 
 
 class LineStore:
@@ -47,3 +59,4 @@ class LineStore:
     
     def getContent(self):
         return self.content
+    
