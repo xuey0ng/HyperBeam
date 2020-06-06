@@ -7,7 +7,7 @@ To-do|Quiz Creation, Upload of .pdf files, Checklist Creation|
 02/06/20|Progress Chart shows the list of completed and uncompleted tasks|
 03/06/20|Implemented create Quiz function. Implemented view quiz which shows the quiz questons. Refactored dataRepo|
 04/06/20|Added function to upload pdf files, added time stamp for scheduled quiz, change layout of homepage to bottom widget to avoid cluttering|
-05/06/20||
-06/06/20||
+05/06/20|Fixed user authentication & establish connection to firebase storage|
+06/06/20|Added quiz scheduler|
 07/06/20||
 Sprint review and retrospective||
