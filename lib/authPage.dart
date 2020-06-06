@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/loginPage.dart';
+import 'package:HyperBeam/loadingPage.dart';
 import 'package:flutter/material.dart';
 
 import 'homePage.dart';
@@ -52,10 +55,9 @@ class _AuthPageState extends State<AuthPage> {
         onSignedIn: _signedIn,
       );
     } else {
-      return new HomePage(
+      return LoadingPage(
         baseAuth: widget.baseAuth,
-        onSignedOut: _signedOut,
-      );
+        onSignedOut: _signedOut,);
     }
   }
 

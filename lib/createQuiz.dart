@@ -1,26 +1,36 @@
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'dataRepo.dart';
+import 'package:HyperBeam/auth.dart';
 
 class CreateQuiz extends StatefulWidget {
-  void setQuiz() async{
-    try {
+  DataRepo quizRepository;
 
-    } catch (err) {
-      print("Error: $err");
-    }
-  }
+  CreateQuiz(this.quizRepository);
+
   @override
   State<StatefulWidget> createState() => _CreateQuizState();
 }
+
+const textInputDecoration = InputDecoration(
+  fillColor: Colors.white,
+  filled: true,
+  contentPadding: EdgeInsets.all(12.0),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.white, width: 2.0),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.pink, width: 2.0),
+  ),
+);
 
 class _CreateQuizState extends State<CreateQuiz> {
   final quizFormKey = new GlobalKey<FormState>();
   var _questions = new List(10);
   var _answers = new List(10);
-  final quizRepository= DataRepo("Quizzes");
+  Timestamp _quizDate;
 
   Widget _buildSuggestions() {
     Quiz newQuiz;
@@ -35,10 +45,33 @@ class _CreateQuizState extends State<CreateQuiz> {
           }),
       floatingActionButton:FloatingActionButton(
         onPressed: ()=>{
+          AlertDialog(
+            title: const Text("Schedule quiz"),
+            content: FormBuilder(
+              key: quizFormKey,
+              autovalidate: true,
+              child: Column(
+                children: <Widget>[/*
+                    FormBuilderDateTimePicker(
+                      attribute: "date",
+                      inputType: InputType.date,
+                      decoration: textInputDecoration.copyWith(
+                      hintText: 'Enter a Date',
+                      labelText: "Date"),
+                      onChanged: (text) {
+                      setState(() {
+                        _quizDate = text.toString();
+                      });
+                      },
+                    ),*/
+                  ],
+                )
+              )
+          ),
           for(int i = 0; i < _questions.length; i++){
             if(_questions[i] != null) {
               newQuiz = new Quiz(question: _questions[i], answer: _answers[i]),
-              quizRepository.addDoc(newQuiz),
+              widget.quizRepository.addDoc(newQuiz),
             }
           },
           Navigator.of(context).pop(),
@@ -82,14 +115,16 @@ class _CreateQuizState extends State<CreateQuiz> {
 class Quiz implements iDatabaseable {
   String question;
   String answer;
+  Timestamp quizDate;
   @override
   DocumentReference reference;
 
-  Quiz({this.question: "", this.answer: ""});
+  Quiz({this.question: "", this.answer: "", this.quizDate});
 
   //factory constructor
   factory Quiz.fromJson(Map<String, dynamic> json) {
-    return Quiz(question: json['question'] as String, answer: json['answer'] as String);
+    return Quiz(question: json['question'] as String, answer: json['answer'] as String,
+    quizDate: json['quizDate'] as Timestamp);
   }
   //factory constructor
   factory Quiz.fromSnapshot(DocumentSnapshot snapshot) {
@@ -102,6 +137,7 @@ class Quiz implements iDatabaseable {
     return <String, dynamic> {
       'question': this.question,
       'answer' : this.answer,
+      'quizDate' : this.quizDate
     };
   }
 

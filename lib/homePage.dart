@@ -3,20 +3,36 @@ import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/viewQuizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
-import 'package:HyperBeam/createQuiz.dart';
+import 'package:HyperBeam/fileHandler.dart';
 
 class HomePage extends StatefulWidget {
   final BaseAuth baseAuth;
   final VoidCallback onSignedOut;
-  HomePage({this.baseAuth, this.onSignedOut});
+  final String userId;
+  HomePage({this.baseAuth, this.onSignedOut, this.userId});
 
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => _HomePageState(userId);
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
   List<Task> taskList =  new List<Task>();
-  final DataRepo taskRepository = DataRepo("Tasks");
+  String userId;
+  TabController _tabController;
+  List<Widget> _kTabPages;
+
+  _HomePageState(String userId) {
+    this.userId = userId;
+    _kTabPages = <Widget> [
+      ProgressChart(userId),
+      ViewQuizzes(userId),
+      UploadFile(),
+    ];
+    _tabController = TabController(
+      length: _kTabPages.length,
+      vsync: this,
+    );
+  }
 
   void _signOut() async {
     try {
@@ -26,37 +42,16 @@ class _HomePageState extends State<HomePage>{
       print(err);
     }
   }
-  void _handleProgressChanged(){
-    AlertDialogWidget dialogWidget = AlertDialogWidget();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Add module"),
-          content: dialogWidget,
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Cancel"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }
-            ),
-            FlatButton(
-              child: Text("Add"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Task newTask = Task(dialogWidget.taskName, completed: dialogWidget.taskCompleted);
-                taskRepository.addDoc(newTask);
-              }
-            )
-          ]
-        );
-      }
-    );
-  }
+
+  List<Widget> _kTabs = <Tab>[
+    Tab(icon: Icon(Icons.home), text: 'Home'),
+    Tab(icon: Icon(Icons.lightbulb_outline), text: 'Quiz'),
+    Tab(icon: Icon(Icons.insert_drive_file), text: 'File'),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    print(_kTabPages.toString());
     return Scaffold(
       appBar: AppBar(
           title: Text("Dashboard"),
@@ -67,58 +62,21 @@ class _HomePageState extends State<HomePage>{
             )
           ]
       ),
-      body: new Center(
-          child:
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              ProgressChart(),
-              UpdateProgress(onChanged: _handleProgressChanged),
-              ViewQuizzes(),
-              RaisedButton(
-                child: Text("Create Quiz"),
-                onPressed: (){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context){
-                      CreateQuiz quiz = CreateQuiz();
-                      return quiz;
-                    }),
-                  );
-                },
-              ),
-              UploadFile(),
-            ],
-          )
+      body: TabBarView(
+        children: _kTabPages,
+        controller: _tabController,
+      ),
+      bottomNavigationBar: Material(
+        color: Color(0xFFFFFFFF),
+        child: TabBar(
+          tabs: _kTabs,
+          controller: _tabController,
+        )
       ),
     );
   }
 }
 
-class UpdateProgress extends StatelessWidget{
-  final VoidCallback onChanged;
 
-  UpdateProgress({Key key, @required this.onChanged}): super(key: key);
 
-  void _handleTap(){
-    onChanged();
-  }
-  @override
-  Widget build(BuildContext context) {
-      return RaisedButton(
-        child: Text("Update Progress"),
-        onPressed: _handleTap,
-      );
-  }
-}
 
-class UploadFile extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      child: Text("Upload File"),
-      onPressed: (){
-        // TODO Upload file from phone
-      },
-    );
-  }
-}

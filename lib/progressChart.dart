@@ -1,20 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:HyperBeam/auth.dart';
 
 class ProgressChart extends StatefulWidget {
+  final String userId;
+  ProgressChart(this.userId);
+
   @override
-  _ProgressChartState createState() => _ProgressChartState();
+  _ProgressChartState createState() => _ProgressChartState(DataRepo(userId, "Tasks"));
 }
 
 class _ProgressChartState extends State<ProgressChart>{
-  final DataRepo taskRepository = DataRepo("Tasks");
+  final DataRepo taskRepository;
+
+  _ProgressChartState(this.taskRepository);
 
   Widget currentTasks() {
-    return   StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot>(
         stream: taskRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
@@ -35,15 +43,21 @@ class _ProgressChartState extends State<ProgressChart>{
       return Container();
     } else {
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
         child:
           Material(
+            borderRadius: BorderRadius.circular(10),
             color: task.completed ? Color(0xFF00f0f0) : Color(0xFFf1948a),
             child: InkWell(
               child: Row(
                 children: <Widget>[
                   Expanded(
-                      child: Text(task.name == null ? "" : task.name)),
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Text(task.name == null ? "" : task.name),
+                    )
+                  )
+                  ,
                   task.completed ? IconButton(
                     icon: Icon(
                       Icons.check,
@@ -91,33 +105,36 @@ class _ProgressChartState extends State<ProgressChart>{
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-      return Container(
-          height: 200,
-          color: Color(0xFFE3F2FD),
-          margin: EdgeInsets.all(10.0),
-          padding: EdgeInsets.all(0.0),
-          child:
-          Expanded(
-              child: Column(
-                  children: [
-                    Text("ProgressChart"),
-                    new CircularPercentIndicator(
-                      radius: 60.0,
-                      lineWidth: 5.0,
-                      percent: 1.0,
-                      //center: new Text("${taskRepository.documentCount()}"),
-                      progressColor: Colors.red,
-                    ),
-                    Expanded(
-                      child: currentTasks(),
-                    ),
-                  ]
-              )
-          )
-      );
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            height: 300,
+            color: Color(0xFFE3F2FD),
+            margin: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(0.0),
+            child:
+              Column(
+                    children: [
+                      Text("ProgressChart"),
+                      new CircularPercentIndicator(
+                        radius: 60.0,
+                        lineWidth: 5.0,
+                        percent: 1.0,
+                        //center: new Text("${taskRepository.documentCount()}"),
+                        progressColor: Colors.red,
+                      ),
+                      Expanded(
+                        child: currentTasks(),
+                      ),
+                    ]
+                )
+            ),
+            UpdateProgress(taskRepository),
+          ]
+        );
     }
 }
 
@@ -192,6 +209,54 @@ class Task implements iDatabaseable{
   toString(){
     return name;
   }
+}
 
+class UpdateProgress extends StatelessWidget{
+  final taskRepository;
+  UpdateProgress(this.taskRepository);
 
+  void _handleProgressChanged(BuildContext context){
+    AlertDialogWidget dialogWidget = AlertDialogWidget();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: const Text("Add module"),
+              content: dialogWidget,
+              actions: <Widget>[
+                FlatButton(
+                    child: Text("Cancel"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
+                ),
+                FlatButton(
+                    child: Text("Add"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Task newTask = Task(dialogWidget.taskName, completed: dialogWidget.taskCompleted);
+                      taskRepository.addDoc(newTask);
+                    }
+                )
+              ]
+          );
+        }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: GFButton(
+        onPressed:() {
+          _handleProgressChanged(context);
+        },
+        text: "Add task",
+        shape: GFButtonShape.pills,
+        color: Color(0xFFfce8e8),
+        textStyle: TextStyle(fontSize: 30, color: Colors.black),
+      )
+    );
+  }
 }

@@ -3,9 +3,15 @@ import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:HyperBeam/auth.dart';
+
 
 class ViewQuizzes extends StatelessWidget{
-  final DataRepo quizRepository = DataRepo("Quizzes");
+  DataRepo quizRepository;
+
+  ViewQuizzes(String id){
+    this.quizRepository = DataRepo(id, "Quizzes");
+  }
 
   Widget currentTasks() {
     return   StreamBuilder<QuerySnapshot>(
@@ -76,22 +82,37 @@ class ViewQuizzes extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 200,
-        color: Color(0xFFE3F2FD),
-        margin: EdgeInsets.all(10.0),
-        padding: EdgeInsets.all(0.0),
-        child:
-        Expanded(
-            child: Column(
-                children: [
-                  Text("Quiz overview"),
-                  Expanded(
-                    child: currentTasks(),
-                  ),
-                ]
-            )
-        )
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+              height: 200,
+              color: Color(0xFFE3F2FD),
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(0.0),
+              child:
+              Expanded(
+                  child: Column(
+                      children: [
+                        Text("Quiz overview"),
+                        Expanded(
+                          child: currentTasks(),
+                        ),
+                      ]
+                  )
+              )
+          ),
+          RaisedButton(
+          child: Text("Create Quiz"),
+          onPressed: (){
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context){
+                CreateQuiz quiz = CreateQuiz(this.quizRepository);
+                return quiz;
+              }),
+            );
+          },
+        ),]
     );
   }
 }
