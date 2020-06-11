@@ -1,5 +1,4 @@
 import 'package:HyperBeam/auth.dart';
-import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/viewQuizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
@@ -12,27 +11,18 @@ class HomePage extends StatefulWidget {
   HomePage({this.baseAuth, this.onSignedOut, this.userId});
 
   @override
-  State<StatefulWidget> createState() => _HomePageState(userId);
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   List<Task> taskList =  new List<Task>();
-  String userId;
+  String userId = "";
   TabController _tabController;
-  List<Widget> _kTabPages;
-
-  _HomePageState(String userId) {
-    this.userId = userId;
-    _kTabPages = <Widget> [
-      ProgressChart(userId),
-      ViewQuizzes(userId),
-      UploadFile(),
-    ];
-    _tabController = TabController(
-      length: _kTabPages.length,
-      vsync: this,
-    );
-  }
+  List<Widget> _kTabPages = <Widget> [
+    Text("loading"),
+    Text("loading"),
+    Text("loading"),
+  ];
 
   void _signOut() async {
     try {
@@ -50,8 +40,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   ];
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _kTabPages = <Widget> [
+        ProgressChart(widget.userId),
+        ViewQuizzes(widget.userId),
+        UploadFile(widget.userId),
+      ];
+      _tabController = TabController(
+        length: _kTabPages.length,
+        vsync: this,
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(_kTabPages.toString());
     return Scaffold(
       appBar: AppBar(
           title: Text("Dashboard"),

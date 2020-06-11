@@ -13,13 +13,15 @@ class ProgressChart extends StatefulWidget {
   ProgressChart(this.userId);
 
   @override
-  _ProgressChartState createState() => _ProgressChartState(DataRepo(userId, "Tasks"));
+  _ProgressChartState createState() => _ProgressChartState(DataRepo(userId, "Tasks"), DataRepo(userId, "metaData"));
 }
 
 class _ProgressChartState extends State<ProgressChart>{
   final DataRepo taskRepository;
+  final DataRepo metaDataRepository;
 
-  _ProgressChartState(this.taskRepository);
+
+  _ProgressChartState(this.taskRepository, this.metaDataRepository);
 
   Widget currentTasks() {
     return StreamBuilder<QuerySnapshot>(
@@ -56,8 +58,7 @@ class _ProgressChartState extends State<ProgressChart>{
                       padding: const EdgeInsets.only(left: 5.0),
                       child: Text(task.name == null ? "" : task.name),
                     )
-                  )
-                  ,
+                  ),
                   task.completed ? IconButton(
                     icon: Icon(
                       Icons.check,
@@ -91,6 +92,7 @@ class _ProgressChartState extends State<ProgressChart>{
                           FlatButton(
                               child: Text("Update"),
                               onPressed: () {
+                              //todo
                                 Navigator.of(context).pop();
                               }
                           )
@@ -132,7 +134,7 @@ class _ProgressChartState extends State<ProgressChart>{
                     ]
                 )
             ),
-            UpdateProgress(taskRepository),
+            UpdateProgress(taskRepository, metaDataRepository),
           ]
         );
     }
@@ -177,12 +179,12 @@ class _AlertDialogWidgetState extends State<AlertDialogWidget> {
       )
     );
   }
-
 }
 
 class Task implements iDatabaseable{
   final String name;
   bool completed;
+
   @override
   DocumentReference reference;
 
@@ -213,9 +215,10 @@ class Task implements iDatabaseable{
 
 class UpdateProgress extends StatelessWidget{
   final taskRepository;
-  UpdateProgress(this.taskRepository);
+  final metaDataRepository;
+  UpdateProgress(this.taskRepository, this.metaDataRepository);
 
-  void _handleProgressChanged(BuildContext context){
+  void _handleProgressChanged(BuildContext context) {
     AlertDialogWidget dialogWidget = AlertDialogWidget();
     showDialog(
         context: context,
