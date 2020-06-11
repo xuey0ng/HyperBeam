@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/loginPage.dart';
-import 'package:HyperBeam/loadingPage.dart';
 import 'package:flutter/material.dart';
 
 import 'homePage.dart';
@@ -24,12 +23,14 @@ enum AuthStatus {
 
 class _AuthPageState extends State<AuthPage> {
   AuthStatus _authStatus = AuthStatus.notSignedIn; //default
+  String userId = "";
 
   @override
   void initState() {
     super.initState();
     widget.baseAuth.currentUser().then((Id) {
       setState((){
+        userId = Id;
         _authStatus = Id == null ? AuthStatus.notSignedIn: AuthStatus.signedIn;
       });
     });
@@ -55,10 +56,11 @@ class _AuthPageState extends State<AuthPage> {
         onSignedIn: _signedIn,
       );
     } else {
-      return LoadingPage(
+      return new HomePage(
         baseAuth: widget.baseAuth,
-        onSignedOut: _signedOut,);
+        onSignedOut: _signedOut,
+        userId: userId,
+      );
     }
   }
-
 }
