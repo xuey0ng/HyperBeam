@@ -1,66 +1,46 @@
-import 'dart:io';
-
-import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/loginPage.dart';
+import 'package:HyperBeam/services/firebase_metadata_service.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'homePage.dart';
+import 'package:HyperBeam/services/firebase_storage_service.dart';
 
-
-class AuthPage extends StatefulWidget {
-  final BaseAuth baseAuth;
-  AuthPage({this.baseAuth});
-
-  @override
-  State<StatefulWidget> createState() => new _AuthPageState();
-
-}
-
-enum AuthStatus {
-  signedIn,
-  notSignedIn,
-}
-
-class _AuthPageState extends State<AuthPage> {
-  AuthStatus _authStatus = AuthStatus.notSignedIn; //default
-  String userId = "";
-
-  @override
-  void initState() {
-    super.initState();
-    widget.baseAuth.currentUser().then((Id) {
-      setState((){
-        userId = Id;
-        _authStatus = Id == null ? AuthStatus.notSignedIn: AuthStatus.signedIn;
-      });
-    });
-  }
-
-  void _signedIn() {
-    setState(() {
-      _authStatus = AuthStatus.signedIn;
-    });
-  }
-
-  void _signedOut() {
-    setState(() {
-      _authStatus = AuthStatus.notSignedIn;
-    });
-  }
-
+class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (_authStatus == AuthStatus.notSignedIn) {
-      return new LoginPage(
-        baseAuth: widget.baseAuth,
-        onSignedIn: _signedIn,
-      );
-    } else {
-      return new HomePage(
-        baseAuth: widget.baseAuth,
-        onSignedOut: _signedOut,
-        userId: userId,
-      );
-    }
+    final authService =
+    Provider.of<FirebaseAuthService>(context, listen: false);
+    return StreamBuilder<User>(
+      stream: authService.onAuthStateChanged,
+      builder: (context, snapshot) {
+        final user = snapshot.data;
+        print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id}');
+        if (snapshot.connectionState == ConnectionState.active) {
+          return MultiProvider(
+            providers: [
+              Provider<User>.value(value: user),
+              Provider<FirebaseMetadataService>.value(value: FirebaseMetadataService(id: user ==null ? "" : user.id),
+              ),
+              Provider<FirebaseQuizService>.value(value: FirebaseQuizService(id: user ==null ? "" : user.id),
+              ),
+              Provider<FirebaseTaskService>.value(value: FirebaseTaskService(id: user ==null ? "" : user.id),
+              ),
+              Provider<FirebaseStorageService>.value(value: FirebaseStorageService(id: user ==null ? "" : user.id),
+              ),
+            ],
+            child: user != null ? HomePage() : LoginPage(),
+          );
+          return user != null ? HomePage() : HomePage();
+        }
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
   }
 }
