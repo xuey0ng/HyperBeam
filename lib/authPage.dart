@@ -1,66 +1,26 @@
-import 'dart:io';
-
-import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/loginPage.dart';
+import 'package:HyperBeam/services/firebase_metadata_service.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'homePage.dart';
+import 'package:HyperBeam/services/firebase_storage_service.dart';
 
-
-class AuthPage extends StatefulWidget {
-  final BaseAuth baseAuth;
-  AuthPage({this.baseAuth});
-
-  @override
-  State<StatefulWidget> createState() => new _AuthPageState();
-
-}
-
-enum AuthStatus {
-  signedIn,
-  notSignedIn,
-}
-
-class _AuthPageState extends State<AuthPage> {
-  AuthStatus _authStatus = AuthStatus.notSignedIn; //default
-  String userId = "";
-
-  @override
-  void initState() {
-    super.initState();
-    widget.baseAuth.currentUser().then((Id) {
-      setState((){
-        userId = Id;
-        _authStatus = Id == null ? AuthStatus.notSignedIn: AuthStatus.signedIn;
-      });
-    });
-  }
-
-  void _signedIn() {
-    setState(() {
-      _authStatus = AuthStatus.signedIn;
-    });
-  }
-
-  void _signedOut() {
-    setState(() {
-      _authStatus = AuthStatus.notSignedIn;
-    });
-  }
+class AuthPage extends StatelessWidget {
+  const AuthPage({Key key, @required this.userSnapshot}) : super(key: key);
+  final AsyncSnapshot<User> userSnapshot;
 
   @override
   Widget build(BuildContext context) {
-    if (_authStatus == AuthStatus.notSignedIn) {
-      return new LoginPage(
-        baseAuth: widget.baseAuth,
-        onSignedIn: _signedIn,
-      );
-    } else {
-      return new HomePage(
-        baseAuth: widget.baseAuth,
-        onSignedOut: _signedOut,
-        userId: userId,
-      );
-    }
+        if (userSnapshot.connectionState == ConnectionState.active) {
+            return userSnapshot.hasData ? HomePage() : LoginPage();
+        }
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
   }
 }

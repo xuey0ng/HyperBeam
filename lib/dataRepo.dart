@@ -12,7 +12,6 @@ class DataRepo {
     return db;
   }
 
-
   Stream<QuerySnapshot> getStream() {
     return db.snapshots();
   }
@@ -37,9 +36,5 @@ class DataRepo {
   updateDoc(iDatabaseable task) async {
     await db.document(task.reference.documentID).updateData(task.toJson());
   }
-/*
-  updateDoc2(Map<String, dynamic> json) async {
-    int db.do
-    await db.document("TaskCounters").setData({'completedTaskCount' : })
-  }*/
+
 }

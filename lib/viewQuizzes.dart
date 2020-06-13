@@ -1,19 +1,14 @@
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/dataRepo.dart';
-import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:HyperBeam/auth.dart';
-
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
 
 class ViewQuizzes extends StatelessWidget{
-  DataRepo quizRepository;
 
-  ViewQuizzes(String id){
-    this.quizRepository = DataRepo(id, "Quizzes");
-  }
-
-  Widget currentTasks() {
+  Widget currentTasks(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     return   StreamBuilder<QuerySnapshot>(
         stream: quizRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
@@ -30,6 +25,7 @@ class ViewQuizzes extends StatelessWidget{
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     final Quiz quiz = Quiz.fromSnapshot(snapshot);
     if (quiz == null) {
       return Container();
@@ -82,6 +78,7 @@ class ViewQuizzes extends StatelessWidget{
 
 
   void _handleCreateQuiz(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     QuizDialogWidget dialogWidget = QuizDialogWidget();
     showDialog(
         context: context,
@@ -101,7 +98,7 @@ class ViewQuizzes extends StatelessWidget{
                     onPressed: () {
                       Navigator.push(context,
                         MaterialPageRoute(builder: (context){
-                          CreateQuiz quiz = CreateQuiz(this.quizRepository);
+                          CreateQuiz quiz = CreateQuiz();
                           return quiz;
                         }),
                       );
@@ -129,7 +126,7 @@ class ViewQuizzes extends StatelessWidget{
                       children: [
                         Text("Quiz overview"),
                         Expanded(
-                          child: currentTasks(),//todo
+                          child: currentTasks(context),//todo
                         ),
                       ]
                   )

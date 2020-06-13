@@ -2,13 +2,11 @@ import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:provider/provider.dart';
 import 'dataRepo.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
 
 class CreateQuiz extends StatefulWidget {
-  DataRepo quizRepository;
-
-  CreateQuiz(this.quizRepository);
-
   @override
   State<StatefulWidget> createState() => _CreateQuizState();
 }
@@ -32,13 +30,14 @@ class _CreateQuizState extends State<CreateQuiz> {
   Quiz newQuiz;
   DateTime quizDate;
 
-  void validateAndSetQuiz() {
+  void validateAndSetQuiz(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     quizFormKey.currentState.save();
-    widget.quizRepository.updateTime(quizDate);
+    quizRepository.updateTime(quizDate);
     for(int i = 0; i < _questions.length; i++){
       if(_questions[i] != null) {
         newQuiz = new Quiz(question: _questions[i], answer: _answers[i]);
-        widget.quizRepository.addDoc(newQuiz);
+        quizRepository.addDoc(newQuiz);
       }
     }
   }
@@ -81,7 +80,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                           RaisedButton(
                             child: Text("Set Quiz"),
                             onPressed: () {
-                              validateAndSetQuiz();
+                              validateAndSetQuiz(context);
                               Navigator.of(context).pop();
                             },
                           )
