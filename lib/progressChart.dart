@@ -7,21 +7,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:HyperBeam/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_task_service.dart';
+import 'package:HyperBeam/services/firebase_metadata_service.dart';
 
 class ProgressChart extends StatefulWidget {
-  final String userId;
-  ProgressChart(this.userId);
-
   @override
-  _ProgressChartState createState() => _ProgressChartState(DataRepo(userId, "Tasks"));
+  _ProgressChartState createState() => _ProgressChartState();
 }
 
 class _ProgressChartState extends State<ProgressChart>{
-  final DataRepo taskRepository;
 
-  _ProgressChartState(this.taskRepository);
-
-  Widget currentTasks() {
+  Widget currentTasks(BuildContext context) {
+    final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
     return StreamBuilder<QuerySnapshot>(
         stream: taskRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
@@ -39,6 +37,7 @@ class _ProgressChartState extends State<ProgressChart>{
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
     final Task task = Task.fromSnapshot(snapshot);
+    final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
     if (task == null) {
       return Container();
     } else {
@@ -56,8 +55,7 @@ class _ProgressChartState extends State<ProgressChart>{
                       padding: const EdgeInsets.only(left: 5.0),
                       child: Text(task.name == null ? "" : task.name),
                     )
-                  )
-                  ,
+                  ),
                   task.completed ? IconButton(
                     icon: Icon(
                       Icons.check,
@@ -79,7 +77,7 @@ class _ProgressChartState extends State<ProgressChart>{
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text(currTask.name),
+                      title: Text(currTask.name ?? "No name given"),
                         actions: <Widget>[
                           FlatButton(
                               child: Text("Delete"),
@@ -91,6 +89,7 @@ class _ProgressChartState extends State<ProgressChart>{
                           FlatButton(
                               child: Text("Update"),
                               onPressed: () {
+                              //todo
                                 Navigator.of(context).pop();
                               }
                           )
@@ -127,12 +126,12 @@ class _ProgressChartState extends State<ProgressChart>{
                         progressColor: Colors.red,
                       ),
                       Expanded(
-                        child: currentTasks(),
+                        child: currentTasks(context),
                       ),
                     ]
                 )
             ),
-            UpdateProgress(taskRepository),
+            UpdateProgress(),
           ]
         );
     }
@@ -177,12 +176,12 @@ class _AlertDialogWidgetState extends State<AlertDialogWidget> {
       )
     );
   }
-
 }
 
 class Task implements iDatabaseable{
   final String name;
   bool completed;
+
   @override
   DocumentReference reference;
 
@@ -212,10 +211,9 @@ class Task implements iDatabaseable{
 }
 
 class UpdateProgress extends StatelessWidget{
-  final taskRepository;
-  UpdateProgress(this.taskRepository);
-
-  void _handleProgressChanged(BuildContext context){
+  void _handleProgressChanged(BuildContext context) {
+    final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
+    final metaDataRepository = Provider.of<FirebaseMetadataService>(context).getRepo();
     AlertDialogWidget dialogWidget = AlertDialogWidget();
     showDialog(
         context: context,

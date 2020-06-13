@@ -1,19 +1,14 @@
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/dataRepo.dart';
-import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:HyperBeam/auth.dart';
-
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
 
 class ViewQuizzes extends StatelessWidget{
-  DataRepo quizRepository;
 
-  ViewQuizzes(String id){
-    this.quizRepository = DataRepo(id, "Quizzes");
-  }
-
-  Widget currentTasks() {
+  Widget currentTasks(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     return   StreamBuilder<QuerySnapshot>(
         stream: quizRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
@@ -30,6 +25,7 @@ class ViewQuizzes extends StatelessWidget{
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     final Quiz quiz = Quiz.fromSnapshot(snapshot);
     if (quiz == null) {
       return Container();
@@ -43,8 +39,8 @@ class ViewQuizzes extends StatelessWidget{
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                        child: Text(quiz.question == null ?
-                        "" : "Q: ${quiz.question} A:${quiz.question}")),
+                        child: Text(quiz.question == null ?//todo need add header
+                        "" : "Q1: ${quiz.question} A:${quiz.question}")),
                   ],
                 ),
                 onTap: () {
@@ -80,6 +76,40 @@ class ViewQuizzes extends StatelessWidget{
   }
 
 
+
+  void _handleCreateQuiz(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    QuizDialogWidget dialogWidget = QuizDialogWidget();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: const Text("Create quiz"),
+              content: dialogWidget,
+              actions: <Widget>[
+                FlatButton(
+                    child: Text("Cancel"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
+                ),
+                FlatButton(
+                    child: Text("Add"),
+                    onPressed: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context){
+                          CreateQuiz quiz = CreateQuiz();
+                          return quiz;
+                        }),
+                      );
+                    }
+                )
+              ]
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +126,7 @@ class ViewQuizzes extends StatelessWidget{
                       children: [
                         Text("Quiz overview"),
                         Expanded(
-                          child: currentTasks(),
+                          child: currentTasks(context),//todo
                         ),
                       ]
                   )
@@ -105,14 +135,38 @@ class ViewQuizzes extends StatelessWidget{
           RaisedButton(
           child: Text("Create Quiz"),
           onPressed: (){
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context){
-                CreateQuiz quiz = CreateQuiz(this.quizRepository);
-                return quiz;
-              }),
-            );
+            _handleCreateQuiz(context);
           },
         ),]
     );
   }
+}
+
+
+class QuizDialogWidget extends StatefulWidget {
+  String quizName;
+
+  @override
+  _QuizDialogWidgetState createState() => _QuizDialogWidgetState();
+}
+
+class _QuizDialogWidgetState extends State<QuizDialogWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            TextField(
+              autofocus: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Enter a quiz name",
+              ),
+              onChanged: (val) => widget.quizName = val,
+            ),
+          ],
+        )
+    );
+  }
+
 }

@@ -2,14 +2,11 @@ import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:provider/provider.dart';
 import 'dataRepo.dart';
-import 'package:HyperBeam/auth.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
 
 class CreateQuiz extends StatefulWidget {
-  DataRepo quizRepository;
-
-  CreateQuiz(this.quizRepository);
-
   @override
   State<StatefulWidget> createState() => _CreateQuizState();
 }
@@ -29,11 +26,23 @@ const textInputDecoration = InputDecoration(
 class _CreateQuizState extends State<CreateQuiz> {
   final quizFormKey = new GlobalKey<FormState>();
   var _questions = new List(10);
-  var _answers = new List(10);
-  Timestamp _quizDate;
+  var _answers = new List(10); //var = string , var = annotation in pdf???
+  Quiz newQuiz;
+  DateTime quizDate;
+
+  void validateAndSetQuiz(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    quizFormKey.currentState.save();
+    quizRepository.updateTime(quizDate);
+    for(int i = 0; i < _questions.length; i++){
+      if(_questions[i] != null) {
+        newQuiz = new Quiz(question: _questions[i], answer: _answers[i]);
+        quizRepository.addDoc(newQuiz);
+      }
+    }
+  }
 
   Widget _buildSuggestions() {
-    Quiz newQuiz;
     return Scaffold(
       appBar:AppBar(
         title: Text("Create Quiz")
@@ -45,36 +54,42 @@ class _CreateQuizState extends State<CreateQuiz> {
           }),
       floatingActionButton:FloatingActionButton(
         onPressed: ()=>{
-          AlertDialog(
-            title: const Text("Schedule quiz"),
-            content: FormBuilder(
-              key: quizFormKey,
-              autovalidate: true,
-              child: Column(
-                children: <Widget>[/*
-                    FormBuilderDateTimePicker(
-                      attribute: "date",
-                      inputType: InputType.date,
-                      decoration: textInputDecoration.copyWith(
-                      hintText: 'Enter a Date',
-                      labelText: "Date"),
-                      onChanged: (text) {
-                      setState(() {
-                        _quizDate = text.toString();
-                      });
-                      },
-                    ),*/
-                  ],
-                )
-              )
-          ),
-          for(int i = 0; i < _questions.length; i++){
-            if(_questions[i] != null) {
-              newQuiz = new Quiz(question: _questions[i], answer: _answers[i]),
-              widget.quizRepository.addDoc(newQuiz),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: const Text("Schedule quiz"),
+                  content: Form(
+                      key: quizFormKey,
+                      autovalidate: true,
+                      child: Column(
+                        children: <Widget>[
+                          FormBuilderDateTimePicker(
+                            initialValue: DateTime.now(),
+                            attribute: "date",
+                            inputType: InputType.both,
+                            decoration: textInputDecoration.copyWith(
+                                hintText: 'Enter a Date',
+                                labelText: "Pick a date"),
+                            onSaved: (text) {
+                              setState(() {
+                                quizDate = text;
+                              });
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text("Set Quiz"),
+                            onPressed: () {
+                              validateAndSetQuiz(context);
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      )
+                  )
+              );
             }
-          },
-          Navigator.of(context).pop(),
+          )
         },
         child: const Icon(Icons.assignment_turned_in),
       ),
