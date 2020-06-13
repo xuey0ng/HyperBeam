@@ -7,8 +7,6 @@ import 'dataRepo.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 
 class CreateQuiz extends StatefulWidget {
-  final quizRepository;
-  CreateQuiz(this.quizRepository);
   @override
   State<StatefulWidget> createState() => _CreateQuizState();
 }
@@ -33,12 +31,13 @@ class _CreateQuizState extends State<CreateQuiz> {
   DateTime quizDate;
 
   void validateAndSetQuiz(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     quizFormKey.currentState.save();
-    widget.quizRepository.updateTime(quizDate);
+    quizRepository.updateTime(quizDate);
     for(int i = 0; i < _questions.length; i++){
       if(_questions[i] != null) {
         newQuiz = new Quiz(question: _questions[i], answer: _answers[i]);
-        widget.quizRepository.addDoc(newQuiz);
+        quizRepository.addDoc(newQuiz);
       }
     }
   }

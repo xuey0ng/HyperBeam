@@ -98,7 +98,7 @@ class ViewQuizzes extends StatelessWidget{
                     onPressed: () {
                       Navigator.push(context,
                         MaterialPageRoute(builder: (context){
-                          CreateQuiz quiz = CreateQuiz(quizRepository);
+                          CreateQuiz quiz = CreateQuiz();
                           return quiz;
                         }),
                       );

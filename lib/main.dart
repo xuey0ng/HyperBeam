@@ -1,5 +1,6 @@
 import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/authPage.dart';
+import 'package:HyperBeam/auth_widget_builder.dart';
 import 'package:HyperBeam/loginPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,11 +19,13 @@ class MyApp extends StatelessWidget {
           create: (_) => FirebaseAuthService(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Hyper Beam',
-        theme: ThemeData(primarySwatch: Colors.cyan),
-        home: AuthPage(),
-      ),
+      child: AuthWidgetBuilder(builder: (context, userSnapshot){
+        return MaterialApp(
+          title: 'Hyper Beam',
+          theme: ThemeData(primarySwatch: Colors.cyan),
+          home: AuthPage(userSnapshot: userSnapshot),
+        );
+      }),
     );
   }
 }
