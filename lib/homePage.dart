@@ -1,4 +1,5 @@
 import 'package:HyperBeam/auth.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/viewQuizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     setState(() {
       _kTabPages = <Widget> [
         ProgressChart(),
-        ViewQuizzes(),
+        QuizHandler(),
         UploadFile(),
       ];
       _tabController = TabController(
