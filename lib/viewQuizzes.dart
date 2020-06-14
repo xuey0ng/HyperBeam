@@ -43,8 +43,8 @@ class ViewQuizzes extends StatelessWidget{
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                        child: Text(quiz.question == null ?
-                        "" : "Q: ${quiz.question} A:${quiz.question}")),
+                        child: Text(quiz.question == null ?//todo need add header
+                        "" : "Q1: ${quiz.question} A:${quiz.question}")),
                   ],
                 ),
                 onTap: () {
@@ -80,6 +80,39 @@ class ViewQuizzes extends StatelessWidget{
   }
 
 
+
+  void _handleCreateQuiz(BuildContext context) {
+    QuizDialogWidget dialogWidget = QuizDialogWidget();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: const Text("Create quiz"),
+              content: dialogWidget,
+              actions: <Widget>[
+                FlatButton(
+                    child: Text("Cancel"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
+                ),
+                FlatButton(
+                    child: Text("Add"),
+                    onPressed: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context){
+                          CreateQuiz quiz = CreateQuiz(this.quizRepository);
+                          return quiz;
+                        }),
+                      );
+                    }
+                )
+              ]
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +129,7 @@ class ViewQuizzes extends StatelessWidget{
                       children: [
                         Text("Quiz overview"),
                         Expanded(
-                          child: currentTasks(),
+                          child: currentTasks(),//todo
                         ),
                       ]
                   )
@@ -105,14 +138,38 @@ class ViewQuizzes extends StatelessWidget{
           RaisedButton(
           child: Text("Create Quiz"),
           onPressed: (){
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context){
-                CreateQuiz quiz = CreateQuiz(this.quizRepository);
-                return quiz;
-              }),
-            );
+            _handleCreateQuiz(context);
           },
         ),]
     );
   }
+}
+
+
+class QuizDialogWidget extends StatefulWidget {
+  String quizName;
+
+  @override
+  _QuizDialogWidgetState createState() => _QuizDialogWidgetState();
+}
+
+class _QuizDialogWidgetState extends State<QuizDialogWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            TextField(
+              autofocus: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Enter a quiz name",
+              ),
+              onChanged: (val) => widget.quizName = val,
+            ),
+          ],
+        )
+    );
+  }
+
 }
