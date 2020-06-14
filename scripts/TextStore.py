@@ -1,6 +1,6 @@
 class Token:
 
-    def __init__(self, page, x_coord, y_coord, content): ## x_coord refers to the coordinate of the top left hand corner of the text
+    def __init__(self, page, x_coord, y_coord, content, filename): ## x_coord refers to the coordinate of the top left hand corner of the text
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.content = content
@@ -9,6 +9,10 @@ class Token:
         self.qns = list()  ##qns should be a list of Questions
         self.hashstr = str(page).zfill(3) + str(x_coord).zfill(4) + str(y_coord).zfill(3)
         self.hashcode = hash(self.hashstr)
+        self.filename = filename
+    
+    def getPage(self):
+        return self.page
     
     def getXCoord(self):
         return self.x_coord
@@ -31,8 +35,30 @@ class Token:
     def getCount(self):
         return self.count
     
+    def getFilename(self):
+        return self.filename
+    
     def incrCount(self):
         self.count +=1
+    
+    @staticmethod
+    def from_dict(source):
+        return Token(source.get('page'), source.get('x'), source.get('y'), source.get('content'), source.get('filename'))
+    
+    def to_dict(self):
+        return {'page': self.page, 'x' : self.x_coord, 'y' : self.y_coord, 'content' : self.content, 'filename' : self.filename, 'count' : self.getCount}
+
+    def __repr__(self):
+        return(
+            f'Word(\
+                page={self.page}, \
+                x_coord={self.x_coord}, \
+                y_coord={self.y_coord}, \
+                content={self.content}, \
+                filename={self.filename}, \
+                count={self.count}\
+            )'
+        )
 
 
 class LineStore:
