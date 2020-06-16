@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/routing_constants.dart';
 
 class QuizForm extends StatefulWidget {
   String quizName;
@@ -72,7 +73,7 @@ class _QuizFormState extends State<QuizForm> {
                               child: Text("Set Quiz"),
                               onPressed: () {
                                 validateAndSetQuiz(context);
-                                Navigator.pushNamed(context, '/');
+                                Navigator.pushNamed(context, HomeRoute);
                               },
                             )
                           ],

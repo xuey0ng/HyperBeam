@@ -21,6 +21,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     Text("loading"),
     Text("loading"),
   ];
+  List<Widget> _kTabs = <Tab>[
+    Tab(icon: Icon(Icons.home, color: Color(0xFF0000FF)), text: 'Home'),
+    Tab(icon: Icon(Icons.lightbulb_outline, color: Color(0xFF0000FF)), text: 'Quiz'),
+    Tab(icon: Icon(Icons.insert_drive_file, color: Color(0xFF0000FF)), text: 'File'),
+  ];
 
   void _signOut(BuildContext context) async {
     try {
@@ -31,11 +36,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     }
   }
 
-  List<Widget> _kTabs = <Tab>[
-    Tab(icon: Icon(Icons.home), text: 'Home'),
-    Tab(icon: Icon(Icons.lightbulb_outline), text: 'Quiz'),
-    Tab(icon: Icon(Icons.insert_drive_file), text: 'File'),
-  ];
+
 
   @override
   void initState() {

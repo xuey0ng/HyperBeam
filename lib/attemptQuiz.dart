@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/quizHandler.dart';
+import 'package:HyperBeam/routing_constants.dart';
 
 class AttemptQuiz extends StatefulWidget {
   Quiz quiz;
@@ -33,6 +34,10 @@ class _AttemptQuizState extends State<AttemptQuiz> {
       body: Column(
         children: <Widget>[
           Text("You scored ${quizScore} out of ${fullScore}"),
+          RaisedButton(
+            child: Text('Return'),
+            onPressed: () => Navigator.pushNamed(context, HomeRoute),
+          )
         ],
       ),
     );
