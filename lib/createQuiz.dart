@@ -72,7 +72,7 @@ class _QuizFormState extends State<QuizForm> {
                               child: Text("Set Quiz"),
                               onPressed: () {
                                 validateAndSetQuiz(context);
-                                Navigator.of(context).pop();
+                                Navigator.pushNamed(context, '/');
                               },
                             )
                           ],

@@ -1,6 +1,7 @@
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:HyperBeam/viewQuizzes.dart';
+import 'package:HyperBeam/routing_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +26,14 @@ class QuizHandler extends StatelessWidget {
           RaisedButton(
             child: Text("Create Quiz"),
             onPressed: () {
+              Navigator.pushNamed(context, CreateQuizRoute);
+              /*
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) {
                   return CreateQuiz();
                 })
               );
+               */
             },
           ),]
     );
