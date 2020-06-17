@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getflutter/getflutter.dart';
-import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
+import 'package:HyperBeam/widgets/progressCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:HyperBeam/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:HyperBeam/services/firebase_metadata_service.dart';
@@ -24,18 +22,29 @@ class _ProgressChartState extends State<ProgressChart>{
         stream: taskRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
-          return _buildList(context, snapshot.data.documents);
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+              child: _buildList(context, snapshot.data.documents)
+          );
         });
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshots) {
-    return ListView(
-      padding: const EdgeInsets.only(top: 5.0),
-      children: snapshots.map((data) => _buildListItem(context, data)).toList(),
+    var size = MediaQuery.of(context).size;
+    List<Widget> lst = snapshots.map((data) => _buildListItem(context, data, size))
+        .toList();
+    lst.add(ProgressAdditionCard(size: size));
+
+    return Row(
+      //padding: const EdgeInsets.only(top: 5.0),
+      children: lst,
     );
   }
 
-  Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
+  Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot, Size size) {
+    return ProgressCard(title: "testtt", size: size);
+
+    /*
     final Task task = Task.fromSnapshot(snapshot);
     final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
     if (task == null) {
@@ -102,10 +111,19 @@ class _ProgressChartState extends State<ProgressChart>{
           )
       );
     }
+
+     */
   }
 
   @override
   Widget build(BuildContext context) {
+    return currentTasks(context);
+    /*
+    return  SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: currentTasks(context),
+    );*/
+    /*
     return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -134,6 +152,7 @@ class _ProgressChartState extends State<ProgressChart>{
             UpdateProgress(),
           ]
         );
+     */
     }
 }
 
