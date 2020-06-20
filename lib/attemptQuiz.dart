@@ -1,12 +1,18 @@
+import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
+import 'package:provider/provider.dart';
 
 class AttemptQuiz extends StatefulWidget {
-  Quiz quiz;
-  AttemptQuiz({this.quiz});
+  DocumentSnapshot snapshot;
+  AttemptQuiz({this.snapshot});
+
   @override
-  State<StatefulWidget> createState() => _AttemptQuizState(quiz: quiz);
+  State<StatefulWidget> createState() => _AttemptQuizState(quiz: Quiz.fromSnapshot(snapshot));
 }
 
 class _AttemptQuizState extends State<AttemptQuiz> {
@@ -16,6 +22,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
   _AttemptQuizState({this.quiz});
 
   Widget _quizResult() {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     int quizScore = 0;
     int fullScore = 0;
     for(int i=0 ; i < 10; i++) {
@@ -36,7 +43,11 @@ class _AttemptQuizState extends State<AttemptQuiz> {
           Text("You scored ${quizScore} out of ${fullScore}"),
           RaisedButton(
             child: Text('Return'),
-            onPressed: () => Navigator.pushNamed(context, HomeRoute),
+            onPressed: () => {
+              quiz.score = quizScore,
+              quizRepository.updateDoc(quiz),
+              Navigator.pushNamed(context, HomeRoute),
+            },
           )
         ],
       ),
@@ -73,17 +84,47 @@ class _AttemptQuizState extends State<AttemptQuiz> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(quiz.questions[ind]),
-              TextFormField(
-                autofocus: true,
-                controller: controller1,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: (ind+1).toString() + '   Enter your answer here'
-                ),
-                onChanged: (val) => _givenAnswers[ind] = val,
+              Padding(
+                  padding: EdgeInsets.only(top:24, left: 16),
+                  child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline4,
+                          children: [
+                            TextSpan(text: "Question "),
+                            TextSpan(text: "${index+1}\n", style: TextStyle(fontWeight: FontWeight.bold)),
+                          ]
+                      )
+                  ),
               ),
+              Padding(
+                padding: EdgeInsets.only(top:24, left: 16),
+                child: RichText(
+                    textAlign: TextAlign.left,
+                    text: TextSpan(
+                        style: Theme.of(context).textTheme.headline5,
+                        children: [
+                          TextSpan(text: quiz.questions[ind]),
+                        ]
+                    )
+                ),
+              ),
+              SizedBox(height: 30,),
+              Padding(
+                padding: EdgeInsets.only(top:24, left: 64),
+                child: TextFormField(
+                  autofocus: true,
+                  controller: controller1,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: (ind+1).toString() + '   Enter your answer here'
+                  ),
+                  onChanged: (val) => _givenAnswers[ind] = val,
+                ),
+              ),
+              SizedBox(height: 48),
               RaisedButton(
+                color: kAccentColor,
                 child: Text("Next Question"),
                 onPressed: () {
                   setState(() {
@@ -101,14 +142,25 @@ class _AttemptQuizState extends State<AttemptQuiz> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar:AppBar(
-          title: Text("Attempt Quiz")
-      ),
-      body: Column(
-        children: <Widget>[
-          _buildRow(index),
-        ],
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/bg1.jpg"),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              _buildRow(index),
+            ],
+          ),
+        ]
       ),
     );
   }

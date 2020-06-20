@@ -57,7 +57,9 @@ class Quiz implements iDatabaseable {
     return Quiz(json['name'] as String,
         questions: json['question'] as List<dynamic>,
         answers: json['answer'] as List<dynamic>,
-        quizDate: json['quizDate'] as Timestamp);
+        quizDate: json['quizDate'] as Timestamp,
+        score: json['score'] ?? 0,
+    );
   }
   //factory constructor
   factory Quiz.fromSnapshot(DocumentSnapshot snapshot) {
@@ -71,11 +73,12 @@ class Quiz implements iDatabaseable {
       'name' : this.name,
       'question': this.questions,
       'answer' : this.answers,
-      'quizDate' : this.quizDate
+      'quizDate' : this.quizDate,
+      'score' : this.score,
     };
   }
 
   toString(){
-    return 'Quiz: $name';
+    return 'Quiz: $name with a score of $score';
   }
 }

@@ -1,4 +1,7 @@
+import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
+import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -8,7 +11,8 @@ import 'package:HyperBeam/routing_constants.dart';
 
 class QuizForm extends StatefulWidget {
   String quizName;
-  QuizForm(this.quizName);
+  Module module;
+  QuizForm(this.quizName, {this.module});
 
   @override
   State<StatefulWidget> createState() => _QuizFormState();
@@ -22,27 +26,42 @@ class _QuizFormState extends State<QuizForm> {
   DateTime quizDate;
   int index = 1;
 
-
   FocusNode f1;
   FocusNode f2;
-  void validateAndSetQuiz(BuildContext context) {
+  void validateAndSetQuiz(BuildContext context) async {
+    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     quizFormKey.currentState.save();
-    //quizRepository.updateTime(quizDate);
     newQuiz = Quiz(widget.quizName, questions: _questions,
       answers: _answers, quizDate: Timestamp.fromDate(quizDate));
-    quizRepository.addDoc(newQuiz);
+    var newList = widget.module.quizList.toList(growable: true);
+    DocumentReference docRef;
+    await quizRepository.addDoc(newQuiz).then((value) => docRef = value);
+    newList.add(docRef);
+    widget.module.quizList = newList;
+    print("Module here is ${widget.module}");
+    moduleRepository.updateDoc(widget.module);
   }
 
   Widget _buildSuggestions() {
     return Scaffold(
-      appBar:AppBar(
-          title: Text("Create Quiz")
-      ),
-      body: Column(
-        children: <Widget>[
-          _buildRow(index),
-        ],
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/bg1.jpg"),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              _buildRow(index),
+            ],
+          ),
+        ]
       ),
       floatingActionButton:FloatingActionButton(
         onPressed: ()=>{
@@ -107,45 +126,63 @@ class _QuizFormState extends State<QuizForm> {
     var controller1 = TextEditingController();
     var controller2 = TextEditingController();
     //bug of having both fields focused if  focusNodes are initialised here
-    return new Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            TextFormField(
-              autofocus: true,
-              focusNode: f1,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: ind.toString() + '   Enter your question here'
+    return Form(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        style: Theme.of(context).textTheme.headline3,
+                        children: [
+                          TextSpan(text: "Question "),
+                          TextSpan(text: "$ind", style: TextStyle(fontWeight: FontWeight.bold))
+                        ]
+                    )
+                  ),
+                 SizedBox(height: 40),
+                  TextFormField(
+                    autofocus: true,
+                    focusNode: f1,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ind.toString() + '   Enter your question here'
+                    ),
+                    onChanged: (val) => _questions[ind-1] = val,
+                    controller: controller1,
+                  ),
+                  SizedBox(height: 40),
+                  TextFormField(
+                    focusNode: f2,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ind.toString() + '   Enter your answer here'
+                    ),
+                    onChanged: (val) => _answers[ind-1] = val,
+                    controller: controller2,
+                  ),
+                  SizedBox(height: 40),
+                  RaisedButton(
+                    color: kSecondaryColor,
+                    child: Text("Next Question"),
+                    onPressed: () {
+                      setState(() {
+                        index++;
+                        controller1.clear();
+                        controller2.clear();
+                        f1.requestFocus();
+                      });
+                    },
+                  ),
+
+                ],
               ),
-              onChanged: (val) => _questions[ind-1] = val,
-              controller: controller1,
-            ),
-            TextFormField(
-              focusNode: f2,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: ind.toString() + '   Enter your answer here'
-              ),
-              onChanged: (val) => _answers[ind-1] = val,
-              controller: controller2,
-            ),
-            RaisedButton(
-              child: Text("Next Question"),
-              onPressed: () {
-                setState(() {
-                  index++;
-                  controller1.clear();
-                  controller2.clear();
-                  f1.requestFocus();
-                });
-              },
-            ),
-          ],
-        )
-    );
+            )
+        );
   }
 
   @override
@@ -156,6 +193,9 @@ class _QuizFormState extends State<QuizForm> {
 }
 
 class CreateQuiz extends StatefulWidget {
+  DocumentSnapshot snapshot;
+  CreateQuiz({this.snapshot});
+
   @override
   State<StatefulWidget> createState() => _CreateQuizState();
 }
@@ -163,7 +203,6 @@ class CreateQuiz extends StatefulWidget {
 class _CreateQuizState extends State<CreateQuiz> {
   @override
   Widget build(BuildContext context) {
-    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     QuizDialogWidget dialogWidget = QuizDialogWidget();
     return Scaffold(
       appBar:  AppBar(title: Text("Create Quiz")),

@@ -70,7 +70,7 @@ class ViewQuizzes extends StatelessWidget{
                                   onPressed: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
-                                          return AttemptQuiz(quiz: quiz);
+                                          return AttemptQuiz(snapshot: snapshot);
                                         })
                                     );
                                   }

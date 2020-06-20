@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
-    
+
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
@@ -72,20 +72,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 SizedBox(height: size.height * .02),
                 ProgressChart(),
                 SizedBox(height: size.height * .02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                      Container(
-                          width: size.width * 0.6,
-                          child: RaisedButton(
-                            color: kAccentColor,
-                            child: Text("Create aaQuiz"),
-                            onPressed: () => CreateQuiz(),
-                      ),
-                    ),
-                  ]
-                ),
-                SizedBox(height: size.height * .02),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: RichText(
@@ -93,8 +79,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         text: TextSpan(
                             style: Theme.of(context).textTheme.headline5,
                             children: [
-                              TextSpan(text: "Here are your generated \n "),
-                              TextSpan(text: "files...", style: TextStyle(fontWeight: FontWeight.bold))
+                              TextSpan(text: "At a "),
+                              TextSpan(text: "glance...", style: TextStyle(fontWeight: FontWeight.bold))
                             ]
                         )
                     )
@@ -108,7 +94,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     ],
                   )
                 ),*/
-
               ],
             )
           ),
