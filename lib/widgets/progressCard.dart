@@ -55,11 +55,9 @@ class ProgressCard extends StatelessWidget {
           }
         }
         await getWidget();
-        print("LIST IS ${taskSnapList.length}");
         Args arg = new Args(quizList: quizSnapList,
             taskList: taskSnapList,
             moduleSnapshot: snapshot);
-        print("ARG IS $arg");
         Navigator.pushNamed(
             context,
             ModuleDetailsRoute,
@@ -183,7 +181,7 @@ class ProgressCard extends StatelessWidget {
                                     style: TextStyle(color: Colors.black),
                                     children: [
                                       TextSpan(
-                                        text: "Uncompleted quiz:",
+                                        text: "Quizzes:", //todo: uncompleted quiz
                                         style: TextStyle(
                                           fontSize: kSmallText,
                                         ),
@@ -199,6 +197,7 @@ class ProgressCard extends StatelessWidget {
                         ),
                       ],
                     ),
+                    /*
                     Spacer(),
                     Row(
                       children: [
@@ -225,6 +224,8 @@ class ProgressCard extends StatelessWidget {
                         ),
                       ]
                     ),
+
+                     */
                     Spacer(),
                     Spacer(),
                     Row(
@@ -279,15 +280,24 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                 height: 300,
                 child: Column(
                   children: [
+                    Spacer(),
+                    RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                          text: "Add a new module",
+                        )
+                    ),
+                    Spacer(),
                     Form(
                       key: moduleFormKey,
                       autovalidate: true,
                       child: Container(
-                        height:300,
                         width: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+
                             TextFormField(
                               autofocus: true,
                               decoration: InputDecoration(
@@ -300,7 +310,7 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                 });
                               },
                             ),
-                            SizedBox(height: 100),
+                            SizedBox(height: 80),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

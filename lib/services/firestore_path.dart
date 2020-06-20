@@ -1,3 +1,3 @@
 class FirestorePath {
-  static String pdf(String uid) => 'pdf/$uid';
+  static String pdf(String uid, String docId) => 'pdf/$uid/$docId';
 }

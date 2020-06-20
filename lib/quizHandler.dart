@@ -45,12 +45,13 @@ class Quiz implements iDatabaseable {
   List<dynamic> questions;
   List<dynamic> answers;
   Timestamp quizDate;
+  String masterPdfUri;
   int score;
 
   @override
   DocumentReference reference;
 
-  Quiz(this.name, {this.questions, this.answers, this.quizDate, this.score});
+  Quiz(this.name, {this.questions, this.answers, this.quizDate, this.score, this.masterPdfUri});
 
   //factory constructor
   factory Quiz.fromJson(Map<String, dynamic> json) {
@@ -59,6 +60,7 @@ class Quiz implements iDatabaseable {
         answers: json['answer'] as List<dynamic>,
         quizDate: json['quizDate'] as Timestamp,
         score: json['score'] ?? 0,
+        masterPdfUri: json['masterPdfUri'] ??  "",
     );
   }
   //factory constructor
@@ -75,6 +77,7 @@ class Quiz implements iDatabaseable {
       'answer' : this.answers,
       'quizDate' : this.quizDate,
       'score' : this.score,
+      'masterPdfUri' : this.masterPdfUri,
     };
   }
 

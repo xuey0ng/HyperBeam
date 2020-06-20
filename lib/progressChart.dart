@@ -69,6 +69,15 @@ class _ProgressChartState extends State<ProgressChart>{
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
+                              Spacer(),
+                              RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                    text: "Add a new Quiz",
+                                  )
+                              ),
+                              Spacer(),
                               TextFormField(
                                 autofocus: true,
                                 decoration: InputDecoration(
@@ -81,7 +90,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                   });
                                 },
                               ),
-                              SizedBox(height: 100),
+                              SizedBox(height: 80),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -139,11 +148,20 @@ class _ProgressChartState extends State<ProgressChart>{
                       key: taskFormKey,
                       autovalidate: true,
                       child: Container(
-                        height:300,
+                        height: 300,
                         width: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+                            Spacer(),
+                            RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                  text: "Add a new Task",
+                                )
+                            ),
+                            Spacer(),
                             TextFormField(
                               autofocus: true,
                               decoration: InputDecoration(
@@ -156,7 +174,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                 });
                               },
                             ),
-                            SizedBox(height: 100),
+                            SizedBox(height: 80),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

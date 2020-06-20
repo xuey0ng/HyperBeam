@@ -1,3 +1,4 @@
+import 'package:HyperBeam/quizResultPage.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
@@ -5,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class AttemptQuiz extends StatefulWidget {
@@ -20,7 +22,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
   List<String> _givenAnswers = new List(10);
   int index = 0;
   _AttemptQuizState({this.quiz});
-
+/*
   Widget _quizResult() {
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     int quizScore = 0;
@@ -52,7 +54,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildRow(int ind) {
     if(quiz.questions[ind] == null) {
@@ -62,17 +64,30 @@ class _AttemptQuizState extends State<AttemptQuiz> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("You have reached the end of quiz"),
-              RaisedButton(
-                child: Text("Submit"),
-                onPressed: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return _quizResult();
-                    }),
-                  );
-                },
-              )
+              Padding(
+                padding: EdgeInsets.only(top: 80),
+                child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                      text: "You have reached the end of quiz",
+                    )
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 24),
+                child: RaisedButton(
+                  child: Text("Submit"),
+                  color: kAccentColor,
+                  onPressed: () {
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) {
+                        return QuizResultPage(quiz: quiz, givenAnswers: _givenAnswers);
+                      }),
+                    );
+                  },
+                ),
+              ),
             ],
         ),
       );
