@@ -34,19 +34,22 @@ class ViewQuizzes extends StatelessWidget{
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
           child:
           Material(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
               color: quiz.score != null ? Color(0xFF00f0f0) : Color(0xFFf1948a),
               child: InkWell(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          padding: const EdgeInsets.only(left: 5.0),
-                      child: Text(quiz.name),
-                      )
-                    ),
-                    Text("${quiz.score ?? "Not attempted"}"),
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.only(left: 5.0),
+                        child: Text(quiz.name),
+                        )
+                      ),
+                      Text("${quiz.score ?? "Not attempted"}"),
+                    ],
+                  ),
                 ),
                 onTap: () {
                   Quiz currQuiz = Quiz.fromSnapshot(snapshot);

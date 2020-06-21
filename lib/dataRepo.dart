@@ -24,6 +24,10 @@ class DataRepo {
     return await db.add(obj.toJson());
   }
 
+  Future<void> setDoc(iDatabaseable obj) async {
+    return await db.document(obj.reference.documentID).setData(obj.toJson(), merge: true);
+  }
+
   void updateTime(DateTime date) {
     Map<String, dynamic> updates = new Map();
     updates['quizDate'] = Timestamp.fromDate(date);
