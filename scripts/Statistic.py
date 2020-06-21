@@ -35,7 +35,7 @@ class Statistics:
                 j += 1
         return wordlist
 
-    def test(self, basefile, infile):
+    def compute(self, basefile, infile):
         position_list = PDFpos(basefile)
         position_list = position_list.parsepdf()
         #print(len(position_list))
@@ -57,6 +57,6 @@ class Statistics:
 #             return o.__dict__
 
 current = Statistics()
-current.test('FinancialAccounting1.pdf', 'FinancialAccounting1.pdf')
+current.compute('FinancialAccounting1.pdf', 'FinancialAccounting1.pdf')
 #print(StatisticsEncoder.encode(current))
         
