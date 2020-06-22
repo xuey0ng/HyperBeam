@@ -1,5 +1,5 @@
-import 'package:HyperBeam/createQuiz.dart';
-import 'package:HyperBeam/dataRepo.dart';
+import 'package:HyperBeam/attemptQuiz.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,17 +31,25 @@ class ViewQuizzes extends StatelessWidget{
       return Container();
     } else {
       return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
           child:
           Material(
-              color: Color(0xFF00f0f0),
+              borderRadius: BorderRadius.circular(8),
+              color: quiz.score != null ? Color(0xFF00f0f0) : Color(0xFFf1948a),
               child: InkWell(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Text(quiz.question == null ?//todo need add header
-                        "" : "Q1: ${quiz.question} A:${quiz.question}")),
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.only(left: 5.0),
+                        child: Text(quiz.name),
+                        )
+                      ),
+                      Text("${quiz.score ?? "Not attempted"}"),
+                    ],
+                  ),
                 ),
                 onTap: () {
                   Quiz currQuiz = Quiz.fromSnapshot(snapshot);
@@ -49,7 +57,9 @@ class ViewQuizzes extends StatelessWidget{
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                            title: Text("Update quiz"),
+                            title: Text("${quiz.name}\n"
+                                "score: ${quiz.score?? "Not attempted"}\n"
+                                "To be taken by : ${quiz.quizDate.toDate()}"),
                             actions: <Widget>[
                               FlatButton(
                                   child: Text("Delete"),
@@ -59,9 +69,13 @@ class ViewQuizzes extends StatelessWidget{
                                   }
                               ),
                               FlatButton(
-                                  child: Text("Update"),
+                                  child: Text("Attempt"),
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return AttemptQuiz(snapshot: snapshot);
+                                        })
+                                    );
                                   }
                               )
                             ]
@@ -75,98 +89,11 @@ class ViewQuizzes extends StatelessWidget{
     }
   }
 
-
-
-  void _handleCreateQuiz(BuildContext context) {
-    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-    QuizDialogWidget dialogWidget = QuizDialogWidget();
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: const Text("Create quiz"),
-              content: dialogWidget,
-              actions: <Widget>[
-                FlatButton(
-                    child: Text("Cancel"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }
-                ),
-                FlatButton(
-                    child: Text("Add"),
-                    onPressed: () {
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context){
-                          CreateQuiz quiz = CreateQuiz();
-                          return quiz;
-                        }),
-                      );
-                    }
-                )
-              ]
-          );
-        }
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-              height: 200,
-              color: Color(0xFFE3F2FD),
-              margin: EdgeInsets.all(10.0),
-              padding: EdgeInsets.all(0.0),
-              child:
-              Expanded(
-                  child: Column(
-                      children: [
-                        Text("Quiz overview"),
-                        Expanded(
-                          child: currentTasks(context),//todo
-                        ),
-                      ]
-                  )
-              )
-          ),
-          RaisedButton(
-          child: Text("Create Quiz"),
-          onPressed: (){
-            _handleCreateQuiz(context);
-          },
-        ),]
+    return Expanded(
+      child: currentTasks(context),
     );
   }
 }
 
-
-class QuizDialogWidget extends StatefulWidget {
-  String quizName;
-
-  @override
-  _QuizDialogWidgetState createState() => _QuizDialogWidgetState();
-}
-
-class _QuizDialogWidgetState extends State<QuizDialogWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            TextField(
-              autofocus: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter a quiz name",
-              ),
-              onChanged: (val) => widget.quizName = val,
-            ),
-          ],
-        )
-    );
-  }
-
-}

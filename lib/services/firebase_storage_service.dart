@@ -9,10 +9,11 @@ class FirebaseStorageService {
 
   Future<String> uploadPdf({
     @required File file,
+    @required String docId
   }) async =>
       await upload(
         file: file,
-        path: FirestorePath.pdf(id) + '/avatar.png',
+        path: FirestorePath.pdf(id,docId) + '/avatar.pdf',
         contentType: 'image/png',
       );
 
@@ -25,7 +26,7 @@ class FirebaseStorageService {
     print('uploading to: $path');
     final storageReference = FirebaseStorage.instance.ref().child(path);
     final uploadTask = storageReference.putFile(
-        file, StorageMetadata(contentType: contentType));
+        file);
     final snapshot = await uploadTask.onComplete;
     if (snapshot.error != null) {
       print('upload error code: ${snapshot.error}');
@@ -36,4 +37,9 @@ class FirebaseStorageService {
     print('downloadUrl: $downloadUrl');
     return downloadUrl;
   }
+
+  Future<void> setAvatarReference(){
+
+  }
+
 }

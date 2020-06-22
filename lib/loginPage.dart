@@ -76,16 +76,30 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginBody(BuildContext context){
-    return Container(
-        padding: EdgeInsets.all(28),
-        //form to  be filled in
-        child: new Form(
-            key: loginFormKey,
-            child: Column(
-              children: buildInputs() + [Spacer(flex: 1)] +
-                  buildButtons() + [Spacer(flex: 12)],
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bg2.jpg"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Container(
+            padding: EdgeInsets.all(28),
+            //form to  be filled in
+            child: new Form(
+                key: loginFormKey,
+                child: Column(
+                  children: buildInputs() + [Spacer(flex: 1)] +
+                      buildButtons() + [Spacer(flex: 12)],
+                )
             )
-        )
+        ),
+      ]
+
     );
   }
 
