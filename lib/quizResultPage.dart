@@ -9,8 +9,10 @@ import 'package:provider/provider.dart';
 class QuizResultPage extends StatelessWidget{
   final Quiz quiz;
   final List<String> givenAnswers;
+  final int fullScore;
+  final int quizScore;
 
-  const QuizResultPage({Key key, this.quiz, this.givenAnswers}) : super(key: key);
+  const QuizResultPage({Key key, this.quiz, this.givenAnswers, this.fullScore, this.quizScore}) : super(key: key);
 
   Widget _listItem(String question, String answer, String givenAnswer, int index){
     return Container(
@@ -73,80 +75,71 @@ class QuizResultPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-    int fullScore = 0;
-    for(int i = 0; i < 10; i++){
-      if(quiz.questions[i]!=null) {
-        fullScore++;
-      }
-    }
-    int quizScore = 0;
     List<Widget> columnItems = new List(fullScore);
     for(int i = 0; i < fullScore; i++) {
       if(quiz.questions[i] != null) {
-        if(quiz.answers[i] == givenAnswers[i]){
-          quizScore++;
-        }
         columnItems[i] = _listItem(quiz.questions[i], quiz.answers[i], givenAnswers[i], i);
       }
     }
-    print(columnItems);
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/bg1.jpg"),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          ListView(
-           // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top:24, left: 32),
-                child: RichText(
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.headline3,
-                        children: [
-                          TextSpan(text: "Summary\n", style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(text: "Score: $quizScore out of $fullScore", style: TextStyle(fontSize: kMediumText)),
-                        ]
-                    )
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushNamed(context, HomeRoute);
+        return true;
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/bg1.jpg"),
+                  fit: BoxFit.fill,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: columnItems,
-              ),
-              Row(
-                children: [
-                  Spacer(),
-                  Padding(
-                    padding: EdgeInsets.all(30),
-                    child: RaisedButton(
-                      color: kAccentColor,
-                      child: Text('Return'),
-                      onPressed: () => {
-                        quiz.score = quizScore,
-                        quizRepository.updateDoc(quiz),
-                        Navigator.pushNamed(context, HomeRoute),
-                      },
-                    ),
+            ),
+            ListView(
+             // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top:24, left: 32),
+                  child: RichText(
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline3,
+                          children: [
+                            TextSpan(text: "Summary\n", style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: "Score: $quizScore out of $fullScore", style: TextStyle(fontSize: kMediumText)),
+                          ]
+                      )
                   ),
-                  Spacer(),
-                ]
-              )
-            ],
-          ),
-        ]
-
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: columnItems,
+                ),
+                Row(
+                  children: [
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.all(30),
+                      child: RaisedButton(
+                        color: kAccentColor,
+                        child: Text('Return'),
+                        onPressed: () => {
+                          quiz.score = quizScore,
+                          quizRepository.updateDoc(quiz),
+                          Navigator.pushNamed(context, HomeRoute),
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                  ]
+                )
+              ],
+            ),
+          ]
+        ),
       ),
     );
-    
-    
-    
   }
 }

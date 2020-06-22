@@ -1,3 +1,4 @@
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
@@ -42,25 +43,42 @@ class _QuizFormState extends State<QuizForm> {
     moduleRepository.updateDoc(widget.module);
   }
 
-  Widget _buildSuggestions() {
+
+  @override
+  void initState() {
+    super.initState();
+
+    f1 = FocusNode();
+    f2 = FocusNode();
+  }
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    f1.dispose();
+    f2.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/bg1.jpg"),
-                fit: BoxFit.fill,
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/bg1.jpg"),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          Column(
-            children: <Widget>[
-              _buildRow(index),
-            ],
-          ),
-        ]
+            Column(
+              children: <Widget>[
+                _buildRow(index),
+              ],
+            ),
+          ]
       ),
       floatingActionButton:FloatingActionButton(
         onPressed: ()=>{
@@ -105,21 +123,6 @@ class _QuizFormState extends State<QuizForm> {
         child: const Icon(Icons.assignment_turned_in),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    f1 = FocusNode();
-    f2 = FocusNode();
-  }
-  @override
-  void dispose() {
-    // Clean up the focus node when the Form is disposed.
-    f1.dispose();
-    f2.dispose();
-    super.dispose();
   }
 
   Widget _buildRow(int ind) {
@@ -185,10 +188,7 @@ class _QuizFormState extends State<QuizForm> {
         );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return _buildSuggestions();
-  }
+
 
 }
 

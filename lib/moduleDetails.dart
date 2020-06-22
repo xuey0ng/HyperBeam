@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:HyperBeam/pdfView.dart';
+import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
+import 'package:HyperBeam/routing_constants.dart';
+import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_storage_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:HyperBeam/widgets/progressCard.dart';
@@ -24,135 +27,225 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 
 class ModuleDetails extends StatefulWidget {
-
   @override
   _ModuleDetailsState createState() => _ModuleDetailsState();
 }
 
 class _ModuleDetailsState extends State<ModuleDetails> {
-  var moduleRepository;
   var size;
+  var args;
 
-  Widget _buildTaskList(List<dynamic> snapshots) {
-    if(snapshots == null) {
-      return Container(
-        child: Text("loading"),
-      );
-    }
-    return Column(
-      children: snapshots.map((data) => TaskCard(data)).toList(),
+  Widget buildQuizItem(DocumentReference docRef) {
+    return StreamBuilder<DocumentSnapshot> (
+        stream: docRef.snapshots(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) return LinearProgressIndicator();
+          return QuizCard(snapshot.data, args);
+        }
     );
   }
-  Widget _buildQuizList(List<dynamic> snapshots) {
-    if(snapshots == null) {
-      return Container(
-        child: Text("loading"),
-      );
-    }
-    return Column(
-      children: snapshots.map((data) => QuizCard(data)).toList(),
+
+
+  Widget buildQuizList(DocumentSnapshot modSnapshot) {
+    print(modSnapshot.documentID);
+    return SingleChildScrollView(
+      child: Column(
+          children: Module.fromSnapshot(modSnapshot)
+              .quizList
+              .map((e) => buildQuizItem(e))
+              .toList(),
+        ),
     );
   }
+
+  Widget _quizList(Module args) {
+    return StreamBuilder<DocumentSnapshot> (
+        stream: args.reference.snapshots(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) return LinearProgressIndicator();
+          return buildQuizList(snapshot.data);
+        }
+    );
+  }
+  Widget buildTaskItem(DocumentReference docRef) {
+    return StreamBuilder<DocumentSnapshot> (
+        stream: docRef.snapshots(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) return LinearProgressIndicator();
+          return TaskCard(snapshot.data, args);
+        }
+    );
+  }
+
+
+  Widget buildTaskList(DocumentSnapshot modSnapshot) {
+    print(modSnapshot.documentID);
+    return SingleChildScrollView(
+      child: Column(
+        children: Module.fromSnapshot(modSnapshot)
+            .taskList
+            .map((e) => buildTaskItem(e))
+            .toList(),
+      ),
+    );
+  }
+
+  Widget _taskList(Module args) {
+    return StreamBuilder<DocumentSnapshot> (
+        stream: args.reference.snapshots(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) return LinearProgressIndicator();
+          return buildTaskList(snapshot.data);
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Args args = ModalRoute.of(context).settings.arguments;
     size = MediaQuery.of(context).size;
-    moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-    return Scaffold(
-        body: Stack(
-            children: <Widget> [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/bg1.jpg"),
-                    fit: BoxFit.fill,
+    args = ModalRoute.of(context).settings.arguments;
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushNamed(context, HomeRoute);
+        return true;
+      },
+      child: Scaffold(
+          body: Stack(
+              children: <Widget> [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/bg1.jpg"),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-              SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.topCenter,
-                        padding: EdgeInsets.only(top: size.height * .03),
-                        height: size.height * .1,
-                        decoration: BoxDecoration(
-                          color: kSecondaryColor,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
+                SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.topCenter,
+                          padding: EdgeInsets.only(top: size.height * .03),
+                          height: size.height * .1,
+                          decoration: BoxDecoration(
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(50),
+                              bottomRight: Radius.circular(50),
+                            ),
+                          ),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                              text: " ${args.name}",
+                            ),
                           ),
                         ),
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
-                            text: " ${args.moduleSnapshot.data['name']}",
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      _buildTaskList(args.taskList),
-                      _buildQuizList(args.quizList),
-                      Container(
-                      ),
-                    ],
-                  )
-              ),
-            ]
-        )
+                        SizedBox(height: 10),
+                        _taskList(args),
+                        _quizList(args),
+                        Container(),
+                      ],
+                    )
+                ),
+              ]
+          )
+      ),
     );
   }
 }
 
 class TaskCard extends StatelessWidget {
   DocumentSnapshot snapshot;
-  TaskCard(this.snapshot);
+  Module module;
+  TaskCard(this.snapshot, this.module);
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-      margin: EdgeInsets.all(16),
-      width: size.width,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(38.5),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 10),
-            blurRadius: 16,
-            color: Color(0xFFD3D3D3).withOpacity(.84),
-          ),
-        ],
-      ),
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top:20, left: 15),
-            child: RichText(
-              text: TextSpan(
-                text: "Task:  ${snapshot.data['name']}\n",
-                style: TextStyle(
-                  fontSize: kMediumText,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              final dialogContext = context;
+              return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:  BorderRadius.circular(20.0)
+                  ),
+                  backgroundColor: kSecondaryColor,
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Container(
+                      height: 120,
+                      child: Column(
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text("Delete"),
+                            color:  kPrimaryColor,
+                            onPressed: () async  {
+                              final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
+                              final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                              taskRepository.delete(snapshot);
+                              Module mod = module;
+                              var newList = new List<DocumentReference>.from(mod.taskList);
+                              newList.remove(snapshot.reference);
+                              mod.taskList = newList;
+                              moduleRepository.updateDoc(mod);
+                              Navigator.pop(dialogContext);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+              );
+            }
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+        margin: EdgeInsets.all(16),
+        width: size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(38.5),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              blurRadius: 16,
+              color: Color(0xFFD3D3D3).withOpacity(.84),
+            ),
+          ],
+        ),
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top:20, left: 15),
+              child: RichText(
+                text: TextSpan(
+                  text: "Task:  ${snapshot.data['name']}\n",
+                  style: TextStyle(
+                    fontSize: kMediumText,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Spacer(),
-          IconButton(
-            icon: Icon(
-              Icons.arrow_forward_ios,
-              size: 18,
-            ),
-            onPressed: (){},
-          )
-        ],
+            Spacer(),
+            IconButton(
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+              ),
+              onPressed: (){},
+            )
+          ],
+        ),
       ),
     );
 
@@ -160,14 +253,11 @@ class TaskCard extends StatelessWidget {
 }
 class QuizCard extends StatelessWidget {
   DocumentSnapshot snapshot;
-  QuizCard(this.snapshot);
-
-
+  Module module;
+  QuizCard(this.snapshot, this.module);
 
   @override
   Widget build(BuildContext context) {
-
-
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -200,7 +290,6 @@ class QuizCard extends StatelessWidget {
                                     builder: (context) => PdfViewer(doc)
                                     )
                             );
-
                           }
                         },
                       ),
@@ -211,12 +300,15 @@ class QuizCard extends StatelessWidget {
                             child: Text("Delete"),
                             color: Colors.red,
                             onPressed: () async {
-                              print("DELETE");
-                              /*
                               final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                              final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                               quizRepository.delete(snapshot);
-
-                               */
+                              print(module);
+                              Module mod = module;
+                              var newList = new List<DocumentReference>.from(mod.quizList);
+                              newList.remove(snapshot.reference);
+                              mod.quizList = newList;
+                              moduleRepository.updateDoc(mod);
                               Navigator.pop(dialogContext);
                             },
                           ),
@@ -236,12 +328,6 @@ class QuizCard extends StatelessWidget {
                               snapshot.data['masterPdfUri'] = pdfUrl;
                               await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
                               await file.delete();
-                              /*
-                              Navigator.push(context,
-                                MaterialPageRoute(builder: (context){
-                                }),
-                              );
-                              */
                             },
                           )
                         ],

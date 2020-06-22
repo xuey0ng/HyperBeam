@@ -8,6 +8,7 @@ import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/moduleDetails.dart';
+import '../objectClasses.dart';
 import '../routing_constants.dart';
 
 class ProgressCard extends StatelessWidget {
@@ -40,28 +41,10 @@ class ProgressCard extends StatelessWidget {
     int taskCount = snapshot.data['tasks'].length;
     return GestureDetector(
       onTap: () async {
-        List<dynamic> taskList = snapshot.data['tasks'];
-        List<dynamic> taskSnapList = new List(taskList.length);
-        List<dynamic> quizList = snapshot.data['quizzes'];
-        List<dynamic> quizSnapList = new List(quizList.length);
-        Future<void> getWidget() async {
-          for(int i = 0; i< taskList.length; i++) {
-            DocumentSnapshot taskSnap = await taskList[i].get();
-            taskSnapList[i] = taskSnap;
-          }
-          for(int i = 0; i < quizList.length; i++){
-            DocumentSnapshot quizSnap = await quizList[i].get();
-            quizSnapList[i] = quizSnap;
-          }
-        }
-        await getWidget();
-        Args arg = new Args(quizList: quizSnapList,
-            taskList: taskSnapList,
-            moduleSnapshot: snapshot);
         Navigator.pushNamed(
             context,
             ModuleDetailsRoute,
-            arguments: arg,
+            arguments: Module.fromSnapshot(snapshot),
         );
       },
       child: Container(

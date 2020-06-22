@@ -22,39 +22,6 @@ class _AttemptQuizState extends State<AttemptQuiz> {
   List<String> _givenAnswers = new List(10);
   int index = 0;
   _AttemptQuizState({this.quiz});
-/*
-  Widget _quizResult() {
-    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-    int quizScore = 0;
-    int fullScore = 0;
-    for(int i=0 ; i < 10; i++) {
-      if(quiz.questions[i] != null) {
-        fullScore++;
-        if(quiz.answers[i] == _givenAnswers[i]){
-          quizScore++;
-        }
-      }
-    }
-
-    return Scaffold(
-      appBar:AppBar(
-          title: Text("Quiz result")
-      ),
-      body: Column(
-        children: <Widget>[
-          Text("You scored ${quizScore} out of ${fullScore}"),
-          RaisedButton(
-            child: Text('Return'),
-            onPressed: () => {
-              quiz.score = quizScore,
-              quizRepository.updateDoc(quiz),
-              Navigator.pushNamed(context, HomeRoute),
-            },
-          )
-        ],
-      ),
-    );
-  }*/
 
   Widget _buildRow(int ind) {
     if(quiz.questions[ind] == null) {
@@ -80,9 +47,22 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                   child: Text("Submit"),
                   color: kAccentColor,
                   onPressed: () {
+                    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                    int fullScore = 0;
+                    int quizScore = 0;
+                    for(int i = 0; i < 10; i++) {
+                      if(quiz.questions[i] != null) {
+                        fullScore++;
+                        if(quiz.answers[i] == _givenAnswers[i]){
+                          quizScore++;
+                        }
+                      }
+                    }
+                    quiz.score = quizScore;
+                    quizRepository.updateDoc(quiz);
                     Navigator.push(context,
                       MaterialPageRoute(builder: (context) {
-                        return QuizResultPage(quiz: quiz, givenAnswers: _givenAnswers);
+                        return QuizResultPage(quiz: quiz, givenAnswers: _givenAnswers, fullScore: fullScore, quizScore: quizScore,);
                       }),
                     );
                   },
