@@ -1,3 +1,4 @@
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizResultPage.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
@@ -11,7 +12,8 @@ import 'package:provider/provider.dart';
 
 class AttemptQuiz extends StatefulWidget {
   DocumentSnapshot snapshot;
-  AttemptQuiz({this.snapshot});
+  Module module;
+  AttemptQuiz({this.snapshot, this.module});
 
   @override
   State<StatefulWidget> createState() => _AttemptQuizState(quiz: Quiz.fromSnapshot(snapshot));
@@ -134,28 +136,36 @@ class _AttemptQuizState extends State<AttemptQuiz> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/bg1.jpg"),
-                fit: BoxFit.fill,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushNamed(
+          context,
+          ModuleDetailsRoute,
+          arguments: widget.module,
+        );
+        return true;
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/bg1.jpg"),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          Column(
-            children: <Widget>[
-              _buildRow(index),
-            ],
-          ),
-        ]
+            Column(
+              children: <Widget>[
+                _buildRow(index),
+              ],
+            ),
+          ]
+        ),
       ),
     );
   }

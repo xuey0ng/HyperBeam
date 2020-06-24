@@ -230,7 +230,6 @@ class _CreateQuizState extends State<CreateQuiz> {
             ]
           ),
     );
-    //return _buildSuggestions();
   }
 }
 

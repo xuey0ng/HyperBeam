@@ -1,3 +1,4 @@
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';

@@ -72,3 +72,53 @@ class Task implements iDatabaseable {
     return name;
   }
 }
+
+class Quiz implements iDatabaseable {
+  String name;
+  List<dynamic> questions;
+  List<dynamic> answers;
+  Timestamp quizDate;
+  String masterPdfUri;
+  int score;
+  int fullScore;
+
+  @override
+  DocumentReference reference;
+
+  Quiz(this.name, {this.questions, this.answers, this.quizDate, this.score, this.masterPdfUri, this.fullScore});
+
+  //factory constructor
+  factory Quiz.fromJson(Map<String, dynamic> json) {
+    return Quiz(json['name'] as String,
+      questions: json['question'] as List<dynamic>,
+      answers: json['answer'] as List<dynamic>,
+      quizDate: json['quizDate'] as Timestamp,
+      score: json['score'] ?? 0,
+      fullScore: json['fullScore'] ?? 0,
+      masterPdfUri: json['masterPdfUri'] ??  "",
+    );
+  }
+  //factory constructor
+  factory Quiz.fromSnapshot(DocumentSnapshot snapshot) {
+    Quiz newQuiz = Quiz.fromJson(snapshot.data);
+    newQuiz.reference = snapshot.reference;
+    return newQuiz;
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic> {
+      'name' : this.name,
+      'question': this.questions,
+      'answer' : this.answers,
+      'quizDate' : this.quizDate,
+      'score' : this.score,
+      'masterPdfUri' : this.masterPdfUri,
+      'fullScore' : this.fullScore,
+    };
+  }
+
+  toString(){
+    return 'Quiz: $name with a score of $score';
+  }
+}
+

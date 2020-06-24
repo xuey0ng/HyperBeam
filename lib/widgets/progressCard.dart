@@ -207,7 +207,6 @@ class ProgressCard extends StatelessWidget {
                         ),
                       ]
                     ),
-
                      */
                     Spacer(),
                     Spacer(),
@@ -326,7 +325,6 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
               ),
             );
           },
-
         );
       },
       child: Container(
@@ -345,12 +343,12 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                 ),
                 height: 288,
                 decoration: BoxDecoration(
-                  color: Color(0x88FFFFFF),
+                  color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 33,
+                      offset: Offset(0, 8),
+                      blurRadius: 8,
                       color: kShadowColor,
                     ),
                   ],

@@ -12,7 +12,6 @@ import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_storage_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
-import 'package:HyperBeam/widgets/progressCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -145,9 +144,46 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                           ),
                         ),
                         SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.width*0.01),
+                          child: Container(
+                            width: size.width*0.98,
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                            ),
+                            child: RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                    style: Theme.of(context).textTheme.headline5,
+                                    children: [
+                                      TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                    ]
+                                )
+                            )
+                          ),
+                        ),
+
                         _taskList(args),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                          child: Container(
+                              width: size.width*0.98,
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                              ),
+                              child: RichText(
+                                  textAlign: TextAlign.left,
+                                  text: TextSpan(
+                                      style: Theme.of(context).textTheme.headline5,
+                                      children: [
+                                        TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                      ]
+                                  )
+                              )
+                          ),
+                        ),
                         _quizList(args),
-                        Container(),
+                        SizedBox(height: 30),
                       ],
                     )
                 ),
@@ -207,17 +243,17 @@ class TaskCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.only(top: 0, bottom: 0, left: 10),
+        margin: EdgeInsets.all(8),
         width: size.width,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(38.5),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 16,
-              color: Color(0xFFD3D3D3).withOpacity(.84),
+              offset: Offset(0, 4),
+              blurRadius: 8,
+              color: Color(0xFFD3D3D3).withOpacity(.88),
             ),
           ],
         ),
@@ -227,7 +263,7 @@ class TaskCard extends StatelessWidget {
               padding: EdgeInsets.only(top:20, left: 15),
               child: RichText(
                 text: TextSpan(
-                  text: "Task:  ${snapshot.data['name']}\n",
+                  text: " ${snapshot.data['name']}\n",
                   style: TextStyle(
                     fontSize: kMediumText,
                     color: Colors.black,
@@ -349,8 +385,8 @@ class QuizCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(38.5),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 33,
+              offset: Offset(0, 8),
+              blurRadius: 8,
               color: Color(0xFFD3D3D3).withOpacity(.84),
             ),
           ],
@@ -364,7 +400,7 @@ class QuizCard extends StatelessWidget {
                 child: RichText(
                   overflow: TextOverflow.fade,
                   text: TextSpan(
-                    text: "Quiz: ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
+                    text: " ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
                     style: TextStyle(
                       fontSize: kMediumText,
                       color: Colors.black,
@@ -397,7 +433,7 @@ class QuizCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context){
-                    return AttemptQuiz(snapshot: snapshot,);
+                    return AttemptQuiz(snapshot: snapshot, module: module);
                   }),
                 );
               },
