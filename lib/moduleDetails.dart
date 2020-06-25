@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:HyperBeam/homePage.dart';
+import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
@@ -309,7 +310,7 @@ class QuizCard extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Container(
-                  height: 120,
+                  height: 200,
                   child: Column(
                     children: <Widget>[
                       RaisedButton(
@@ -329,44 +330,48 @@ class QuizCard extends StatelessWidget {
                           }
                         },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RaisedButton(
-                            child: Text("Delete"),
-                            color: Colors.red,
-                            onPressed: () async {
-                              final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                              final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                              quizRepository.delete(snapshot);
-                              print(module);
-                              Module mod = module;
-                              var newList = new List<DocumentReference>.from(mod.quizList);
-                              newList.remove(snapshot.reference);
-                              mod.quizList = newList;
-                              moduleRepository.updateDoc(mod);
-                              Navigator.pop(dialogContext);
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text("Upload PDF file"),
-                            color: kAccentColor,
-                            onPressed: () async {
-                              final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
-                              final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                              File file = await FilePicker.getFile(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                              );
-                              final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
-                                  docId: snapshot.documentID);
-                              print("PDFURL is $pdfUrl");
-                              snapshot.data['masterPdfUri'] = pdfUrl;
-                              await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
-                              await file.delete();
-                            },
-                          )
-                        ],
+                      RaisedButton(
+                        child: Text("View past results"),
+                        color:  Colors.yellow,
+                        onPressed: () async  {
+                          Navigator.push(context, new MaterialPageRoute(builder: (context) =>
+                            new PastResultsPage(quizSnapshot: snapshot),
+                          ));
+                        },
+                      ),
+                      RaisedButton(
+                        child: Text("Upload PDF file"),
+                        color: kAccentColor,
+                        onPressed: () async {
+                          final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+                          final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                          File file = await FilePicker.getFile(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                          );
+                          final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+                              docId: snapshot.documentID);
+                          print("PDFURL is $pdfUrl");
+                          snapshot.data['masterPdfUri'] = pdfUrl;
+                          await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
+                          await file.delete();
+                        },
+                      ),
+                      RaisedButton(
+                        child: Text("Delete"),
+                        color: Colors.red,
+                        onPressed: () async {
+                          final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                          final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                          quizRepository.delete(snapshot);
+                          print(module);
+                          Module mod = module;
+                          var newList = new List<DocumentReference>.from(mod.quizList);
+                          newList.remove(snapshot.reference);
+                          mod.quizList = newList;
+                          moduleRepository.updateDoc(mod);
+                          Navigator.pop(dialogContext);
+                        },
                       ),
                     ],
                   ),

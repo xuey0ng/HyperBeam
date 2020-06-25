@@ -12,8 +12,9 @@ class QuizResultPage extends StatelessWidget{
   final List<String> givenAnswers;
   final int fullScore;
   final int quizScore;
+  final Module module;
 
-  const QuizResultPage({Key key, this.quiz, this.givenAnswers, this.fullScore, this.quizScore}) : super(key: key);
+  const QuizResultPage({Key key, this.quiz, this.givenAnswers, this.fullScore, this.quizScore, this.module}) : super(key: key);
 
   Widget _listItem(String question, String answer, String givenAnswer, int index){
     return Container(
@@ -84,7 +85,11 @@ class QuizResultPage extends StatelessWidget{
     }
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushNamed(context, HomeRoute);
+        Navigator.pushNamed(
+          context,
+          ModuleDetailsRoute,
+          arguments: module,
+        );
         return true;
       },
       child: Scaffold(
@@ -127,9 +132,11 @@ class QuizResultPage extends StatelessWidget{
                         color: kAccentColor,
                         child: Text('Return'),
                         onPressed: () => {
-                          quiz.score = quizScore,
-                          quizRepository.updateDoc(quiz),
-                          Navigator.pushNamed(context, HomeRoute),
+                          Navigator.pushNamed(
+                          context,
+                          ModuleDetailsRoute,
+                          arguments: module,
+                          ),
                         },
                       ),
                     ),

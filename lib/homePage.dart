@@ -1,5 +1,6 @@
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/quizHandler.dart';
+import 'package:HyperBeam/widgets/atAGlance.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/fileHandler.dart';
@@ -14,6 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PageController _controller = PageController(
+    initialPage: 0,
+  );
 
   void _signOut(BuildContext context) async {
     try {
@@ -71,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: size.height * .02),
                   ProgressChart(),
-                  SizedBox(height: size.height * .02),
+                  SizedBox(height: size.height * .01),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: RichText(
@@ -85,6 +89,7 @@ class _HomePageState extends State<HomePage> {
                           )
                       )
                   ),
+                  AtAGlance(screenHeight: size.height, screenWidth: size.width),
                   SizedBox(height: size.height * .02),
                 ],
               )

@@ -39,6 +39,7 @@ class ProgressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     int quizCount = snapshot.data['quizzes'].length;
     int taskCount = snapshot.data['tasks'].length;
+
     return GestureDetector(
       onTap: () async {
         Navigator.pushNamed(

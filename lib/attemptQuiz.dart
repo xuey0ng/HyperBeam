@@ -1,6 +1,7 @@
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizResultPage.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_quizAttempt_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,8 +49,9 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                 child: RaisedButton(
                   child: Text("Submit"),
                   color: kAccentColor,
-                  onPressed: () {
+                  onPressed: () async {
                     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                    final quizAttemptRepository = Provider.of<FirebaseQuizAttemptService>(context).getRepo();
                     int fullScore = 0;
                     int quizScore = 0;
                     for(int i = 0; i < 10; i++) {
@@ -61,10 +63,28 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                       }
                     }
                     quiz.score = quizScore;
+                    QuizAttempt currAttempt = QuizAttempt(
+                      date: DateTime.now(),
+                      givenAnswers: _givenAnswers,
+                      quiz: quiz,
+                      score: quizScore,
+                    );
+                    DocumentReference currAttemptRef = await quizAttemptRepository.addDoc(currAttempt);
+                    var quizAttempts = List.from(quiz.attempts);
+                    quizAttempts == null ?
+                    quizAttempts = List.from([currAttemptRef]) : quizAttempts.add(currAttemptRef);
+                    print("ATTEMPT IS $currAttemptRef");
+                    quiz.attempts = quizAttempts;
                     quizRepository.updateDoc(quiz);
                     Navigator.push(context,
                       MaterialPageRoute(builder: (context) {
-                        return QuizResultPage(quiz: quiz, givenAnswers: _givenAnswers, fullScore: fullScore, quizScore: quizScore,);
+                        return QuizResultPage(
+                          quiz: quiz,
+                          givenAnswers: _givenAnswers,
+                          fullScore: fullScore,
+                          quizScore: quizScore,
+                          module: widget.module,
+                        );
                       }),
                     );
                   },
