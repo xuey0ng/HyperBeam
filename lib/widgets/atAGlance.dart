@@ -42,7 +42,7 @@ class _AtAGlanceState extends State<AtAGlance> {
       ),
       child: Stack(
         children: <Widget>[
-            PageView.builder(
+          PageView.builder(
             physics: new AlwaysScrollableScrollPhysics(),
             controller: controller,
             itemBuilder: (BuildContext context, int index) {

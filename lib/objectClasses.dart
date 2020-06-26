@@ -84,11 +84,20 @@ class Quiz implements iDatabaseable {
   String masterPdfUri;
   int score;
   int fullScore;
+  String moduleName;
 
   @override
   DocumentReference reference;
 
-  Quiz(this.name, {this.questions, this.answers, this.attempts, this.quizDate, this.score, this.masterPdfUri, this.fullScore});
+  Quiz(this.name, {this.questions,
+    this.answers,
+    this.attempts,
+    this.quizDate,
+    this.score,
+    this.masterPdfUri,
+    this.fullScore,
+    this.moduleName,
+  });
 
   //factory constructor
   factory Quiz.fromJson(Map<String, dynamic> json) {
@@ -100,6 +109,7 @@ class Quiz implements iDatabaseable {
       score: json['score'] ?? 0,
       fullScore: json['fullScore'] ?? 0,
       masterPdfUri: json['masterPdfUri'] ??  "",
+      moduleName: json['moduleName'] as String,
     );
   }
   //factory constructor
@@ -119,6 +129,7 @@ class Quiz implements iDatabaseable {
       'score' : this.score,
       'masterPdfUri' : this.masterPdfUri,
       'fullScore' : this.fullScore,
+      'moduleName' : this.moduleName,
     };
   }
 
