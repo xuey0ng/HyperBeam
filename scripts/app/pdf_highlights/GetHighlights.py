@@ -1,7 +1,7 @@
-import popplerqt5
 import sys
 import PyQt5
-from TextStore import LineStore
+import popplerqt5
+from pdf_highlights.TextStore import LineStore
 
 ## Program returns a list of LineStore objects, an object that stores all the words in a highlight and its coordinates
 

@@ -1,6 +1,6 @@
 class Token:
 
-    def __init__(self, page, x_coord, y_coord, content, filename): ## x_coord refers to the coordinate of the top left hand corner of the text
+    def __init__(self, page, x_coord, y_coord, content, filename, hashed): ## x_coord refers to the coordinate of the top left hand corner of the text
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.content = content
@@ -10,6 +10,7 @@ class Token:
         self.hashstr = str(page).zfill(3) + str(x_coord).zfill(4) + str(y_coord).zfill(3)
         self.hashcode = hash(self.hashstr)
         self.filename = filename
+        self.hashed = hashed
     
     def getPage(self):
         return self.page
@@ -38,27 +39,31 @@ class Token:
     def getFilename(self):
         return self.filename
     
+    def getHashed(self):
+        return self.hashed
+    
     def incrCount(self):
         self.count +=1
     
     @staticmethod
-    def from_dict(source):
-        return Token(source.get('page'), source.get('x'), source.get('y'), source.get('content'), source.get('filename'))
+    def from_dict(source, hashed):
+        return Token(source.get('page'), source.get('x'), source.get('y'), source.get('content'), source.get('filename'), hashed)
     
     def to_dict(self):
-        return {'page': self.page, 'x' : self.x_coord, 'y' : self.y_coord, 'content' : self.content, 'filename' : self.filename, 'count' : self.getCount}
+        return {u'page': self.page, u'x' : self.x_coord, u'y' : self.y_coord, u'content' : self.content, u'filename' : self.filename, u'count' : self.count, \
+            u'hashed' : self.hashed}
 
-    def __repr__(self):
-        return(
-            f'Word(\
-                page={self.page}, \
-                x_coord={self.x_coord}, \
-                y_coord={self.y_coord}, \
-                content={self.content}, \
-                filename={self.filename}, \
-                count={self.count}\
-            )'
-        )
+    # def __repr__(self):
+    #     return(
+    #         f'Word(\
+    #             page={self.page}, \
+    #             x_coord={self.x_coord}, \
+    #             y_coord={self.y_coord}, \
+    #             content={self.content}, \
+    #             filename={self.filename}, \
+    #             count={self.count}\
+    #         )'
+    #     )
 
 
 class LineStore:
