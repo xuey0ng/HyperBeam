@@ -103,7 +103,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    args = ModalRoute.of(context).settings.arguments;
+    args = ModalRoute.of(context).settings.arguments; //Module
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(context, HomeRoute);
@@ -163,7 +163,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                             )
                           ),
                         ),
-
                         _taskList(args),
                         Padding(
                           padding: EdgeInsets.only(left: size.width*0.01, top: 8),

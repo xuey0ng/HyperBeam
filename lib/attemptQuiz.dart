@@ -70,7 +70,8 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                       score: quizScore,
                     );
                     DocumentReference currAttemptRef = await quizAttemptRepository.addDoc(currAttempt);
-                    var quizAttempts = List.from(quiz.attempts);
+                    print(quiz.attempts);
+                    var quizAttempts = quiz.attempts == null ? null:List.from(quiz.attempts);
                     quizAttempts == null ?
                     quizAttempts = List.from([currAttemptRef]) : quizAttempts.add(currAttemptRef);
                     print("ATTEMPT IS $currAttemptRef");

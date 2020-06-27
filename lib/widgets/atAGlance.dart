@@ -16,7 +16,22 @@ class _AtAGlanceState extends State<AtAGlance> {
   final List<Widget> _pages = <Widget>[
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
-      child: new FlutterLogo(colors: Colors.blue),
+      child: Container(
+        padding: EdgeInsets.only(left: 8,top: 8),
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "You have 0 task(s) coming up",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: kMediumText
+                )
+              )
+            ]
+          )
+        )
+      ),
     ),
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
@@ -31,47 +46,53 @@ class _AtAGlanceState extends State<AtAGlance> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
-      padding: EdgeInsets.only(left: 10,top: 10),
-      height: widget.screenHeight * 0.20,
-      width: widget.screenWidth * 0.8,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 2.0, color: kPrimaryColor),
-      ),
-      child: Stack(
-        children: <Widget>[
-          PageView.builder(
-            physics: new AlwaysScrollableScrollPhysics(),
-            controller: controller,
-            itemBuilder: (BuildContext context, int index) {
-              return _pages[index % _pages.length];
-            },
-          ),
-          Positioned(
-            bottom: 4,
-            left: 0.0,
-            right: 0.0,
-            child: Center(
-              child: SmoothPageIndicator(
-                controller: controller,
-                count: 3,
-                effect: WormEffect(),
+    return Stack(
+      children: [
+        Opacity(
+          opacity: 0.6,
+          child: Container(
+              margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
+              padding: EdgeInsets.only(left: 10,top: 10),
+              height: widget.screenHeight * 0.20,
+              width: widget.screenWidth * 0.8,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 2.0, color: kPrimaryColor),
+                color: kPrimaryColor,
               ),
-            )
           ),
-        ],
-      )
+        ),
+        Container(
+            margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
+            padding: EdgeInsets.only(left: 10,top: 10),
+            height: widget.screenHeight * 0.20,
+            width: widget.screenWidth * 0.8,
+            child: Stack(
+              children: <Widget>[
+                PageView.builder(
+                  physics: new AlwaysScrollableScrollPhysics(),
+                  controller: controller,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _pages[index % _pages.length];
+                  },
+                ),
+                Positioned(
+                    bottom: 4,
+                    left: 0.0,
+                    right: 0.0,
+                    child: Center(
+                      child: SmoothPageIndicator(
+                        controller: controller,
+                        count: 3,
+                        effect: WormEffect(),
+                      ),
+                    )
+                ),
+              ],
+            )
+        ),
+      ]
 
-/*
-        SmoothPageIndicator(
-          controller: controller,
-          count: 3,
-          effect: WormEffect(),
-        )
-
- */
     );
   }
 }
