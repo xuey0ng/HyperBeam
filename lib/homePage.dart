@@ -1,124 +1,97 @@
-import 'package:HyperBeam/auth.dart';
-import 'package:HyperBeam/dataRepo.dart';
-import 'package:HyperBeam/viewQuizzes.dart';
+import 'package:HyperBeam/createQuiz.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
-import 'package:HyperBeam/createQuiz.dart';
+import 'package:HyperBeam/fileHandler.dart';
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
+import 'package:flutter/services.dart';
+
 
 class HomePage extends StatefulWidget {
-  final BaseAuth baseAuth;
-  final VoidCallback onSignedOut;
-  HomePage({this.baseAuth, this.onSignedOut});
-
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
-  List<Task> taskList =  new List<Task>();
-  final DataRepo taskRepository = DataRepo("Tasks");
+class _HomePageState extends State<HomePage> {
 
-  void _signOut() async {
+  void _signOut(BuildContext context) async {
     try {
-      await widget.baseAuth.signOut();
-      widget.onSignedOut();
+      final auth = Provider.of<FirebaseAuthService>(context);
+      await auth.signOut();
     } catch (err) {
       print(err);
     }
   }
-  void _handleProgressChanged(){
-    AlertDialogWidget dialogWidget = AlertDialogWidget();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Add module"),
-          content: dialogWidget,
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Cancel"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    var size = MediaQuery.of(context).size;
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Stack(
+          children: <Widget>[
+            Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/bg2.jpg"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
             ),
-            FlatButton(
-              child: Text("Add"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Task newTask = Task(dialogWidget.taskName, completed: dialogWidget.taskCompleted);
-                taskRepository.addDoc(newTask);
-              }
-            )
-          ]
-        );
-      }
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text("Dashboard"),
-          actions: <Widget> [
-            new FlatButton(
-              child: new Text('Logout'),
-              onPressed: _signOut,
-            )
-          ]
+            SingleChildScrollView(
+              padding: EdgeInsets.only(left: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      FlatButton(
+                        child: new Text('Logout'),
+                        onPressed: () => _signOut(context),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                              style: Theme.of(context).textTheme.headline5,
+                              children: [
+                                TextSpan(text: "What are you \ndoing "),
+                                TextSpan(text: "today?", style: TextStyle(fontWeight: FontWeight.bold))
+                              ]
+                          )
+                      )
+                  ),
+                  SizedBox(height: size.height * .02),
+                  ProgressChart(),
+                  SizedBox(height: size.height * .02),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                              style: Theme.of(context).textTheme.headline5,
+                              children: [
+                                TextSpan(text: "At a "),
+                                TextSpan(text: "glance...", style: TextStyle(fontWeight: FontWeight.bold))
+                              ]
+                          )
+                      )
+                  ),
+                  SizedBox(height: size.height * .02),
+                ],
+              )
+            ),
+          ],
+        )
       ),
-      body: new Center(
-          child:
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              ProgressChart(),
-              UpdateProgress(onChanged: _handleProgressChanged),
-              ViewQuizzes(),
-              RaisedButton(
-                child: Text("Create Quiz"),
-                onPressed: (){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context){
-                      CreateQuiz quiz = CreateQuiz();
-                      return quiz;
-                    }),
-                  );
-                },
-              ),
-              UploadFile(),
-            ],
-          )
-      ),
-    );
-  }
-}
-
-class UpdateProgress extends StatelessWidget{
-  final VoidCallback onChanged;
-
-  UpdateProgress({Key key, @required this.onChanged}): super(key: key);
-
-  void _handleTap(){
-    onChanged();
-  }
-  @override
-  Widget build(BuildContext context) {
-      return RaisedButton(
-        child: Text("Update Progress"),
-        onPressed: _handleTap,
-      );
-  }
-}
-
-class UploadFile extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      child: Text("Upload File"),
-      onPressed: (){
-        // TODO Upload file from phone
-      },
     );
   }
 }

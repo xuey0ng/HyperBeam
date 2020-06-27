@@ -1,15 +1,17 @@
 import 'package:HyperBeam/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({this.baseAuth, this.onSignedIn});
-  final BaseAuth baseAuth;
-  final VoidCallback onSignedIn;
+  //final BaseAuth baseAuth;
+  //final VoidCallback onSignedIn;
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 }
 
+//Single page
 enum FormType {
   login,
   register,
@@ -20,7 +22,10 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   final loginFormKey = new GlobalKey<FormState>();
   final dynamic style1 = TextStyle(fontSize: 20.0);
+
+
   FormType _formType = FormType.login;
+
 
   bool validateAndSave() {
     final form = loginFormKey.currentState;
@@ -31,17 +36,18 @@ class _LoginPageState extends State<LoginPage> {
       return false;
     }
   }
-  void validateAndSubmit() async {
+  void validateAndSubmit(BuildContext context) async {
+    final auth = Provider.of<FirebaseAuthService>(context);
     if(validateAndSave()) {
       try{
         if(_formType == FormType.login){
-          String userId = await widget.baseAuth.signInWithEmailAndPassword(_email, _password);
-          print("Signed in: $userId");
+          User user = await auth.signInWithEmailAndPassword(_email, _password);
+          print("Signed in: ${user.id}");
         } else {
-          String userId = await widget.baseAuth.createWithEmailAndPassword(_email, _password);
-          print("Created user: $userId");
+          User user = await auth.createWithEmailAndPassword(_email, _password);
+          print("Created user: ${user.id}");
         }
-        widget.onSignedIn(); //call back on handler
+        //widget.onSignedIn(); //call back on handler
       } catch (err) {
         print("Error: $err");
       }
@@ -70,16 +76,30 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginBody(BuildContext context){
-    return Container(
-        padding: EdgeInsets.all(28),
-        //form to  be filled in
-        child: new Form(
-            key: loginFormKey,
-            child: Column(
-              children: buildInputs() + [Spacer(flex: 1)] +
-                  buildButtons() + [Spacer(flex: 12)],
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bg2.jpg"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Container(
+            padding: EdgeInsets.all(28),
+            //form to  be filled in
+            child: new Form(
+                key: loginFormKey,
+                child: Column(
+                  children: buildInputs() + [Spacer(flex: 1)] +
+                      buildButtons() + [Spacer(flex: 12)],
+                )
             )
-        )
+        ),
+      ]
+
     );
   }
 
@@ -104,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
       return [
         RaisedButton(
           child: Text('Login', style: style1),
-          onPressed: validateAndSubmit,
+          onPressed: () => validateAndSubmit(context),
         ),
         Spacer(flex: 1),
         FlatButton(
@@ -116,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
       return [
         RaisedButton(
           child: Text('Create an account', style: style1),
-          onPressed: validateAndSubmit,
+          onPressed: () => validateAndSubmit(context),
         ),
         Spacer(flex: 1),
         FlatButton(
@@ -125,6 +145,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ];
     }
-
   }
 }

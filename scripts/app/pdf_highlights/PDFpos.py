@@ -16,12 +16,20 @@ from pdf_highlights.TextStore import Token
 
 #consider comparing base on creationg date of the pdf
 
+## Program returns the an array containing all of the coords of the pdf to be preprocessed
+
+
+#consider comparing base on creationg date of the pdf
+
 class PDFpos:
     
     def __init__(self, filename):
         self.word_array = list()
         self.filename = filename
+<<<<<<< HEAD:scripts/app/pdf_highlights/PDFpos.py
         self.hashed = 0
+=======
+>>>>>>> master:scripts/PDFpos.py
 
     def parse_page(self, lt_page, pageno):
 
@@ -50,7 +58,11 @@ class PDFpos:
                 # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
                 thisword = obj.get_text()
                 if thisword == '\n' or thisword == ' ':
+<<<<<<< HEAD:scripts/app/pdf_highlights/PDFpos.py
                     temp = Token(pageno, current_x, current_y, current, self.filename, self.hashed)
+=======
+                    temp = Token(pageno, current_x, current_y, current, self.filename)
+>>>>>>> master:scripts/PDFpos.py
                     self.word_array.append(temp)
                     current = ""
                     current_x = -1

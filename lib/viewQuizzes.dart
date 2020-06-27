@@ -1,13 +1,14 @@
-import 'package:HyperBeam/createQuiz.dart';
-import 'package:HyperBeam/dataRepo.dart';
-import 'package:HyperBeam/iDatabaseable.dart';
+import 'package:HyperBeam/attemptQuiz.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
 
 class ViewQuizzes extends StatelessWidget{
-  final DataRepo quizRepository = DataRepo("Quizzes");
 
-  Widget currentTasks() {
+  Widget currentTasks(BuildContext context) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     return   StreamBuilder<QuerySnapshot>(
         stream: quizRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
@@ -24,22 +25,31 @@ class ViewQuizzes extends StatelessWidget{
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     final Quiz quiz = Quiz.fromSnapshot(snapshot);
     if (quiz == null) {
       return Container();
     } else {
       return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
           child:
           Material(
-              color: Color(0xFF00f0f0),
+              borderRadius: BorderRadius.circular(8),
+              color: quiz.score != null ? Color(0xFF00f0f0) : Color(0xFFf1948a),
               child: InkWell(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Text(quiz.question == null ?
-                        "" : "Q: ${quiz.question} A:${quiz.question}")),
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.only(left: 5.0),
+                        child: Text(quiz.name),
+                        )
+                      ),
+                      Text("${quiz.score ?? "Not attempted"}"),
+                    ],
+                  ),
                 ),
                 onTap: () {
                   Quiz currQuiz = Quiz.fromSnapshot(snapshot);
@@ -47,7 +57,9 @@ class ViewQuizzes extends StatelessWidget{
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                            title: Text("Update quiz"),
+                            title: Text("${quiz.name}\n"
+                                "score: ${quiz.score?? "Not attempted"}\n"
+                                "To be taken by : ${quiz.quizDate.toDate()}"),
                             actions: <Widget>[
                               FlatButton(
                                   child: Text("Delete"),
@@ -57,9 +69,13 @@ class ViewQuizzes extends StatelessWidget{
                                   }
                               ),
                               FlatButton(
-                                  child: Text("Update"),
+                                  child: Text("Attempt"),
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return AttemptQuiz(snapshot: snapshot);
+                                        })
+                                    );
                                   }
                               )
                             ]
@@ -73,25 +89,11 @@ class ViewQuizzes extends StatelessWidget{
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 200,
-        color: Color(0xFFE3F2FD),
-        margin: EdgeInsets.all(10.0),
-        padding: EdgeInsets.all(0.0),
-        child:
-        Expanded(
-            child: Column(
-                children: [
-                  Text("Quiz overview"),
-                  Expanded(
-                    child: currentTasks(),
-                  ),
-                ]
-            )
-        )
+    return Expanded(
+      child: currentTasks(context),
     );
   }
 }
+
