@@ -33,8 +33,14 @@ class _QuizFormState extends State<QuizForm> {
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     quizFormKey.currentState.save();
-    newQuiz = Quiz(widget.quizName, questions: _questions,
-      answers: _answers, quizDate: Timestamp.fromDate(quizDate), fullScore: index);
+    newQuiz = Quiz(
+      widget.quizName,
+      questions: _questions,
+      answers: _answers,
+      quizDate: Timestamp.fromDate(quizDate),
+      fullScore: index,
+      moduleName: widget.module.name,
+    );
     var newList = widget.module.quizList.toList(growable: true);
     DocumentReference docRef;
     await quizRepository.addDoc(newQuiz).then((value) => docRef = value);
@@ -230,7 +236,6 @@ class _CreateQuizState extends State<CreateQuiz> {
             ]
           ),
     );
-    //return _buildSuggestions();
   }
 }
 

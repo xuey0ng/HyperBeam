@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:HyperBeam/homePage.dart';
+import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
@@ -12,7 +13,6 @@ import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_storage_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
-import 'package:HyperBeam/widgets/progressCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,7 @@ import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ModuleDetails extends StatefulWidget {
   @override
@@ -103,7 +104,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    args = ModalRoute.of(context).settings.arguments;
+    args = ModalRoute.of(context).settings.arguments; //Module
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(context, HomeRoute);
@@ -145,9 +146,45 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                           ),
                         ),
                         SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.width*0.01),
+                          child: Container(
+                            width: size.width*0.98,
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                            ),
+                            child: RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                    style: Theme.of(context).textTheme.headline5,
+                                    children: [
+                                      TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                    ]
+                                )
+                            )
+                          ),
+                        ),
                         _taskList(args),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                          child: Container(
+                              width: size.width*0.98,
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                              ),
+                              child: RichText(
+                                  textAlign: TextAlign.left,
+                                  text: TextSpan(
+                                      style: Theme.of(context).textTheme.headline5,
+                                      children: [
+                                        TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                      ]
+                                  )
+                              )
+                          ),
+                        ),
                         _quizList(args),
-                        Container(),
+                        SizedBox(height: 30),
                       ],
                     )
                 ),
@@ -207,17 +244,17 @@ class TaskCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.only(top: 0, bottom: 0, left: 10),
+        margin: EdgeInsets.all(8),
         width: size.width,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(38.5),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 16,
-              color: Color(0xFFD3D3D3).withOpacity(.84),
+              offset: Offset(0, 4),
+              blurRadius: 8,
+              color: Color(0xFFD3D3D3).withOpacity(.88),
             ),
           ],
         ),
@@ -227,7 +264,7 @@ class TaskCard extends StatelessWidget {
               padding: EdgeInsets.only(top:20, left: 15),
               child: RichText(
                 text: TextSpan(
-                  text: "Task:  ${snapshot.data['name']}\n",
+                  text: " ${snapshot.data['name']}\n",
                   style: TextStyle(
                     fontSize: kMediumText,
                     color: Colors.black,
@@ -273,16 +310,30 @@ class QuizCard extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Container(
-                  height: 120,
+                  height: 200,
                   child: Column(
                     children: <Widget>[
                       RaisedButton(
                         child: Text("Obtain Master PDF"),
                         color:  kPrimaryColor,
+                        onPressed: () async {
+                          String Url = snapshot.data['masterPdfUri'].toString();
+                          print("Obtaining $Url}");
+
+                          if (await canLaunch(Url)) {
+                            await launch(Url);
+                          } else {
+                            throw 'Could not launch $Url';
+                          }
+                        }
+
+                        /*
                         onPressed: () async  {
-                          print("Obtaining");
-                          PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri']);
+                          String Url = snapshot.data['masterPdfUri'].toString();
+                          print("Obtaining $Url}");
+                          PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri'].toString());
                           print("Obtained $doc");
+
                           if (snapshot.data['masterPdfUri'] != null) {
                             Navigator.push(
                                 context,
@@ -292,45 +343,51 @@ class QuizCard extends StatelessWidget {
                             );
                           }
                         },
+
+                         */
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RaisedButton(
-                            child: Text("Delete"),
-                            color: Colors.red,
-                            onPressed: () async {
-                              final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                              final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                              quizRepository.delete(snapshot);
-                              print(module);
-                              Module mod = module;
-                              var newList = new List<DocumentReference>.from(mod.quizList);
-                              newList.remove(snapshot.reference);
-                              mod.quizList = newList;
-                              moduleRepository.updateDoc(mod);
-                              Navigator.pop(dialogContext);
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text("Upload PDF file"),
-                            color: kAccentColor,
-                            onPressed: () async {
-                              final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
-                              final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                              File file = await FilePicker.getFile(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                              );
-                              final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
-                                  docId: snapshot.documentID);
-                              print("PDFURL is $pdfUrl");
-                              snapshot.data['masterPdfUri'] = pdfUrl;
-                              await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
-                              await file.delete();
-                            },
-                          )
-                        ],
+                      RaisedButton(
+                        child: Text("View past results"),
+                        color:  Colors.yellow,
+                        onPressed: () async  {
+                          Navigator.push(context, new MaterialPageRoute(builder: (context) =>
+                            new PastResultsPage(quizSnapshot: snapshot),
+                          ));
+                        },
+                      ),
+                      RaisedButton(
+                        child: Text("Upload PDF file"),
+                        color: kAccentColor,
+                        onPressed: () async {
+                          final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+                          final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                          File file = await FilePicker.getFile(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                          );
+                          final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+                              docId: snapshot.documentID);
+                          print("PDFURL is $pdfUrl");
+                          snapshot.data['masterPdfUri'] = pdfUrl;
+                          await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
+                          await file.delete();
+                        },
+                      ),
+                      RaisedButton(
+                        child: Text("Delete"),
+                        color: Colors.red,
+                        onPressed: () async {
+                          final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                          final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                          quizRepository.delete(snapshot);
+                          print(module);
+                          Module mod = module;
+                          var newList = new List<DocumentReference>.from(mod.quizList);
+                          newList.remove(snapshot.reference);
+                          mod.quizList = newList;
+                          moduleRepository.updateDoc(mod);
+                          Navigator.pop(dialogContext);
+                        },
                       ),
                     ],
                   ),
@@ -349,8 +406,8 @@ class QuizCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(38.5),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 33,
+              offset: Offset(0, 8),
+              blurRadius: 8,
               color: Color(0xFFD3D3D3).withOpacity(.84),
             ),
           ],
@@ -364,7 +421,7 @@ class QuizCard extends StatelessWidget {
                 child: RichText(
                   overflow: TextOverflow.fade,
                   text: TextSpan(
-                    text: "Quiz: ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
+                    text: " ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
                     style: TextStyle(
                       fontSize: kMediumText,
                       color: Colors.black,
@@ -397,7 +454,7 @@ class QuizCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context){
-                    return AttemptQuiz(snapshot: snapshot,);
+                    return AttemptQuiz(snapshot: snapshot, module: module);
                   }),
                 );
               },
