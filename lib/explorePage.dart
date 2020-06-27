@@ -50,7 +50,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         )
                     ),
                     Container(
-                      height: 600,
+                      height: 580,
                       width: 500,
                       child: CustomScrollView(
                       primary: false,

@@ -25,6 +25,7 @@ import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ModuleDetails extends StatefulWidget {
   @override
@@ -315,10 +316,24 @@ class QuizCard extends StatelessWidget {
                       RaisedButton(
                         child: Text("Obtain Master PDF"),
                         color:  kPrimaryColor,
+                        onPressed: () async {
+                          String Url = snapshot.data['masterPdfUri'].toString();
+                          print("Obtaining $Url}");
+
+                          if (await canLaunch(Url)) {
+                            await launch(Url);
+                          } else {
+                            throw 'Could not launch $Url';
+                          }
+                        }
+
+                        /*
                         onPressed: () async  {
-                          print("Obtaining");
-                          PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri']);
+                          String Url = snapshot.data['masterPdfUri'].toString();
+                          print("Obtaining $Url}");
+                          PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri'].toString());
                           print("Obtained $doc");
+
                           if (snapshot.data['masterPdfUri'] != null) {
                             Navigator.push(
                                 context,
@@ -328,6 +343,8 @@ class QuizCard extends StatelessWidget {
                             );
                           }
                         },
+
+                         */
                       ),
                       RaisedButton(
                         child: Text("View past results"),

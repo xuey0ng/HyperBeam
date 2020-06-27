@@ -15,14 +15,6 @@ class PdfViewer extends StatelessWidget {
       body: Center(
           child: PDFViewer(document: doc)
       ),
-
-      /*
-            body: Center(
-          child: _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : PDFViewer(document: doc)),
-
-       */
     );
   }
 }
