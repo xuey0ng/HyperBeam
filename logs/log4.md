@@ -3,7 +3,7 @@
 Meeting|Guan Wei|Xue Yong
 ---|---------|----------
 To-do|Implement WillPopScope to enforce certain navigation when user presses back button. Initial design for 'At a glance' widget and Explore page.|Rehaul code to support uploading of the master pdf with differing shades depending on number of users who highlighted it.  
-|Implement uploading of PDR files and downloading of master PDF files. Add functionality to view past Quiz results|Change the docker container environment. Smoother data flows within the backend.
+-|Implement uploading of PDR files and downloading of master PDF files. Add functionality to view past Quiz results|Change the docker container environment. Smoother data flows within the backend.
 22/06/20|Implemented WillPopScope to determine what happens when the user clicks on back button| Added logging functionality to the backend code
 23/06/20|Implemented quizAttempt class that record attempts on the quiz as well as its design.|Changed existing code to support the upcoming master pdf generation.
 24/06/20|Added Explore page that shows all the quizzes in repository|Fixed bugs on the server stemming from system dependencies
