@@ -41,6 +41,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) return LinearProgressIndicator();
+          print("NOW IT IS ${snapshot.data.documentID} , ${args}");
           return QuizCard(snapshot.data, args);
         }
     );
@@ -60,6 +61,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   }
 
   Widget _quizList(Module args) {
+    print("HIT");
     return StreamBuilder<DocumentSnapshot> (
         stream: args.reference.snapshots(),
         builder: (context, snapshot) {
@@ -295,6 +297,7 @@ class QuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("SNAP IS ${snapshot.data}");
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -326,7 +329,6 @@ class QuizCard extends StatelessWidget {
                             throw 'Could not launch $Url';
                           }
                         }
-
                         /*
                         onPressed: () async  {
                           String Url = snapshot.data['masterPdfUri'].toString();
@@ -343,7 +345,6 @@ class QuizCard extends StatelessWidget {
                             );
                           }
                         },
-
                          */
                       ),
                       RaisedButton(

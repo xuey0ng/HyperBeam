@@ -85,6 +85,7 @@ class Quiz implements iDatabaseable {
   int score;
   int fullScore;
   String moduleName;
+  String uid;
 
   @override
   DocumentReference reference;
@@ -97,6 +98,7 @@ class Quiz implements iDatabaseable {
     this.masterPdfUri,
     this.fullScore,
     this.moduleName,
+    this.uid,
   });
 
   //factory constructor
@@ -110,6 +112,7 @@ class Quiz implements iDatabaseable {
       fullScore: json['fullScore'] ?? 0,
       masterPdfUri: json['masterPdfUri'] ??  "",
       moduleName: json['moduleName'] as String,
+      uid: json['uid'] as String,
     );
   }
   //factory constructor
@@ -130,6 +133,7 @@ class Quiz implements iDatabaseable {
       'masterPdfUri' : this.masterPdfUri,
       'fullScore' : this.fullScore,
       'moduleName' : this.moduleName,
+      'uid' : this.uid
     };
   }
 

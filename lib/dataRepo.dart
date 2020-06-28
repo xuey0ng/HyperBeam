@@ -16,6 +16,10 @@ class DataRepo {
     return db;
   }
 
+  Query filterOut(String field,  String val) {
+    return db.where(field, isGreaterThan: val);
+  }
+
   Stream<QuerySnapshot> getStream() {
     return db.snapshots();
   }
