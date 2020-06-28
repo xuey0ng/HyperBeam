@@ -9,7 +9,7 @@ To-do|Implement WillPopScope to enforce certain navigation when user presses bac
 24/06/20|Added Explore page that shows all the quizzes in repository|Fixed bugs on the server stemming from system dependencies
 25/06/20|Added UI for 'At a glance' on Homepage, tested the app with different user accounts, quiz types and PDF documents|Created a html page to view messages received by the server.
 26/06/20|Changed the PDF viewer to launch browser instead as default built-in PDF viewer in flutter does not render highlights in PDF|Changed the upload function to fix an issue where documents are not hashing properly.
-27/06/20|Added additional document fields in 'User' collection|Deployed a newer version of the application on the server.
+27/06/20|Added additional document fields in 'User' collection|Deployed a newer version of the application on the server and performed unit testing.
 28/06/20|Finished video as well as first draft of README for milestone 2 submission|Finished the first draft of README for milestone 2 submission
 
 ### Sprint review and retrospective
