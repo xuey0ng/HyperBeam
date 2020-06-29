@@ -1,4 +1,5 @@
 import 'package:HyperBeam/attemptQuiz.dart';
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
