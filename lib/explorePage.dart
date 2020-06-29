@@ -1,6 +1,7 @@
 import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
+import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ExplorePage extends StatefulWidget{
-
   @override
   State<StatefulWidget> createState() => _ExplorePageState();
 }
@@ -206,98 +206,140 @@ class _ExplorePageState extends State<ExplorePage> {
 
 
   Widget _buildQuizCard(Quiz quiz) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () async {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                final dialogContext = context;
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:  BorderRadius.circular(20.0)
-                  ),
-                  backgroundColor: kSecondaryColor,
+    return StreamBuilder<DocumentSnapshot>(
+      stream: Firestore.instance.collection("users").document(quiz.uid).snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        return Stack(
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        final dialogContext = context;
+                        return Dialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:  BorderRadius.circular(20.0)
+                            ),
+                            backgroundColor: kSecondaryColor,
+                            child: Container(
+                                height: 160,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 24,),
+                                    RaisedButton(
+                                      color: kPrimaryColor,
+                                      child: Text('View Quiz'),
+                                      onPressed: (){
+                                        Navigator.push(context,
+                                          MaterialPageRoute(builder: (context){
+                                            return Scaffold(
+                                              body: Column(
+                                                children: <Widget>[
+                                                  Text("test"),
+                                                ],
+                                              )
+                                            );
+                                          })
+                                        );
+                                      },
+                                    ),
+                                    SizedBox(height: 12,),
+                                    RaisedButton(
+                                      color: kAccentColor,
+                                      child: Text('Add Quiz'),
+                                      onPressed: () async {
+                                        final userRepo = Provider.of<User>(context);
+                                        final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+
+                                         DocumentSnapshot quizLst = await moduleRepository
+                                            .getCollectionRef()
+                                             .where('name',isEqualTo: quiz.moduleName)
+                                             .getDocuments()
+                                             .then((value) => value.documents[0]);
+                                         Module mod = Module.fromSnapshot(quizLst);
+                                        var newList = mod.quizList.toList(growable: true);
+                                        newList.add(quiz.reference);
+                                        mod.quizList = newList;
+                                        moduleRepository.updateDoc(mod);
+                                                  //reference.updateData({data})
+                                      },
+                                    ),
+                                  ],
+                                )
+                            )
+                        );
+                      }
+                  );
+                },
+                child: Opacity(
+                  opacity: 0.6,
                   child: Container(
-                    height: 160,
-                    child: Column(
-                      children: [
-                        SizedBox(height: 24,),
-                        RaisedButton(
-                          color: kPrimaryColor,
-                          child: Text('View Quiz'),
-                          onPressed: (){},
-                        ),
-                        SizedBox(height: 12,),
-                        RaisedButton(
-                          color: kAccentColor,
-                          child: Text('Add Quiz'),
-                          onPressed: (){},
-                        ),
-                      ],
-                    )
-                  )
-                );
-              }
-            );
-          },
-          child: Opacity(
-            opacity: 0.6,
-            child: Container(
-                decoration: BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
                 ),
-            ),
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(10),
-              child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: kBigText),
-                    text: "${quiz.moduleName ?? "???"}",
-                  )
               ),
-            ),
-            Container(
-              child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                    text: "${quiz.name}",
-                  )
-              ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                    text: "No. of questions: ${quiz.fullScore}",
-                  )
-              ),
-            ),
-            SizedBox(height: 8),
-            Container(
-              child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                    text: "Ratings: NA",
-                  )
-              ),
-            ),
-          ],
-        )
-      ]
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kBigText),
+                          text: "${quiz.moduleName ?? "???"}",
+                        )
+                    ),
+                  ),
+                  Container(
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kMediumText),
+                          text: "${quiz.name}",
+                        )
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                          text: "No. of questions: ${quiz.fullScore}",
+                        )
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                          text: "Ratings: NA",
+                        )
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(0),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                          text: "Made by: ${snapshot.data['lastName'] ?? "Anon"}",
+                        )
+                    ),
+                  ),
+                ],
+              )
+            ]
+        );
+      }
     );
   }
-
 }

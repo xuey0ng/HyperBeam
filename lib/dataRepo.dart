@@ -16,8 +16,8 @@ class DataRepo {
     return db;
   }
 
-  Query filterOut(String field,  String val) {
-    return db.where(field, isGreaterThan: val);
+  Query whereEqual(String field,  String val) {
+    return db.where(field, isEqualTo: val);
   }
 
   Stream<QuerySnapshot> getStream() {
