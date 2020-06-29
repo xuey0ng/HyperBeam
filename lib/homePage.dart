@@ -2,6 +2,7 @@ import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/explorePage.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/widgets/atAGlance.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
@@ -31,9 +32,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);//hides the app bar above
     var size = MediaQuery.of(context).size;
-
+    final user = Provider.of<User>(context, listen: false);
     return WillPopScope(
       onWillPop: () async => false,
       child: Stack(
@@ -61,6 +62,21 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
+                                /*
+                                Padding(
+                                  padding: const EdgeInsets.only(top:10, left:12),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
+                                      text: TextSpan(
+                                          style: Theme.of(context).textTheme.headline5,
+                                          children: [
+                                            TextSpan(text: "Hi, ", style: TextStyle(fontSize: kExtraBigText)),
+                                            TextSpan(text: "${user.lastName ?? ""}", style: TextStyle(fontSize: kExtraBigText,fontWeight: FontWeight.bold))
+                                          ]
+                                      )
+                                  ),
+                                ),*/
+                                Spacer(),
                                 FlatButton(
                                   child: new Text('Logout'),
                                   onPressed: () => _signOut(context),

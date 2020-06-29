@@ -23,6 +23,7 @@ import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -41,6 +42,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) return LinearProgressIndicator();
+          print("NOW IT IS ${snapshot.data.documentID} , ${args}");
           return QuizCard(snapshot.data, args);
         }
     );
@@ -295,6 +297,7 @@ class QuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("SNAP IS ${snapshot.data}");
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -313,81 +316,95 @@ class QuizCard extends StatelessWidget {
                   height: 200,
                   child: Column(
                     children: <Widget>[
-                      RaisedButton(
-                        child: Text("Obtain Master PDF"),
-                        color:  kPrimaryColor,
-                        onPressed: () async {
-                          String Url = snapshot.data['masterPdfUri'].toString();
-                          print("Obtaining $Url}");
-
-                          if (await canLaunch(Url)) {
-                            await launch(Url);
-                          } else {
-                            throw 'Could not launch $Url';
+                      SizedBox(
+                        width: 180,
+                        child: RaisedButton(
+                          child: Text("Obtain Master PDF"),
+                          color:  kAccentColor,
+                          onPressed: () async {
+                            String Url = snapshot.data['masterPdfUri'].toString();
+                            print("Obtaining $Url}");
+                            final storageReference = FirebaseStorage.instance.ref()
+                                .child("/pdf/fc4u68mNKdYBroNQjBmvxj2XtWB3/POuYbE2uS9gMjowBZ0jS/link.txt");
+                            Uint8List data =  await storageReference.getData(128).then((value) => value);
+                            File file = File.fromRawPath(data);
+                            final uri = file.uri.toFilePath();
+                            if (await canLaunch(uri.toString())) {
+                              await launch(uri.toString());
+                            } else {
+                              throw 'Could not launch $uri';
+                            }
                           }
-                        }
+                          /*
+                          onPressed: () async  {
+                            String Url = snapshot.data['masterPdfUri'].toString();
+                            print("Obtaining $Url}");
+                            PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri'].toString());
+                            print("Obtained $doc");
 
-                        /*
-                        onPressed: () async  {
-                          String Url = snapshot.data['masterPdfUri'].toString();
-                          print("Obtaining $Url}");
-                          PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri'].toString());
-                          print("Obtained $doc");
-
-                          if (snapshot.data['masterPdfUri'] != null) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PdfViewer(doc)
-                                    )
+                            if (snapshot.data['masterPdfUri'] != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PdfViewer(doc)
+                                      )
+                              );
+                            }
+                          },
+                           */
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: RaisedButton(
+                          child: Text("View past results"),
+                          color:  kAccentColor,
+                          onPressed: () async  {
+                            Navigator.push(context, new MaterialPageRoute(builder: (context) =>
+                              new PastResultsPage(quizSnapshot: snapshot),
+                            ));
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: RaisedButton(
+                          child: Text("Upload PDF file"),
+                          color: kAccentColor,
+                          onPressed: () async {
+                            final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+                            final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                            File file = await FilePicker.getFile(
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf'],
                             );
-                          }
-                        },
-
-                         */
+                            final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+                                docId: snapshot.documentID);
+                            print("PDFURL is $pdfUrl");
+                            snapshot.data['masterPdfUri'] = pdfUrl;
+                            await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
+                            await file.delete();
+                          },
+                        ),
                       ),
-                      RaisedButton(
-                        child: Text("View past results"),
-                        color:  Colors.yellow,
-                        onPressed: () async  {
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) =>
-                            new PastResultsPage(quizSnapshot: snapshot),
-                          ));
-                        },
-                      ),
-                      RaisedButton(
-                        child: Text("Upload PDF file"),
-                        color: kAccentColor,
-                        onPressed: () async {
-                          final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
-                          final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                          File file = await FilePicker.getFile(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf'],
-                          );
-                          final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
-                              docId: snapshot.documentID);
-                          print("PDFURL is $pdfUrl");
-                          snapshot.data['masterPdfUri'] = pdfUrl;
-                          await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
-                          await file.delete();
-                        },
-                      ),
-                      RaisedButton(
-                        child: Text("Delete"),
-                        color: Colors.red,
-                        onPressed: () async {
-                          final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                          final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                          quizRepository.delete(snapshot);
-                          print(module);
-                          Module mod = module;
-                          var newList = new List<DocumentReference>.from(mod.quizList);
-                          newList.remove(snapshot.reference);
-                          mod.quizList = newList;
-                          moduleRepository.updateDoc(mod);
-                          Navigator.pop(dialogContext);
-                        },
+                      SizedBox(
+                        width: 180,
+                        child: RaisedButton(
+                          child: Text("Delete quiz"),
+                          color: kAccentColor,
+                          onPressed: () async {
+                            final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                            final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                            quizRepository.delete(snapshot);
+                            print(module);
+                            Module mod = module;
+                            var newList = new List<DocumentReference>.from(mod.quizList);
+                            newList.remove(snapshot.reference);
+                            mod.quizList = newList;
+                            moduleRepository.updateDoc(mod);
+                            Navigator.pop(dialogContext);
+                          },
+                        ),
                       ),
                     ],
                   ),

@@ -139,6 +139,13 @@ class PastResultsPage extends StatelessWidget{
         List<dynamic> listOfAttempts = Quiz.fromSnapshot(snapshot.data)
             .attempts;
         List<Widget> colChildren = List();
+        if(listOfAttempts == null) {
+          return Column(
+            children: <Widget>[
+              Text("Not results found"),
+            ],
+          );
+        }
         for(int i = 0; i < listOfAttempts.length; i++) {
           colChildren.add(buildAttemptItem(listOfAttempts[i], i, i== listOfAttempts.length-1? true : false));
           if( i != listOfAttempts.length-1){

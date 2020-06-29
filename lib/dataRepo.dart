@@ -16,6 +16,10 @@ class DataRepo {
     return db;
   }
 
+  Query whereEqual(String field,  String val) {
+    return db.where(field, isEqualTo: val);
+  }
+
   Stream<QuerySnapshot> getStream() {
     return db.snapshots();
   }
