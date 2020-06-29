@@ -31,8 +31,12 @@ class Token:
 
     def getContent(self):
         return self.content
+    
+    def setCount(self, count):
+        self.count = count
 
-    def addQns(self, question): ##question should be a class that contain the relevant information about that question
+    # Potentially, we can append question numbers to the highlights.
+    def addQns(self, question): 
         self.qns = self.qns.append(question)
 
     def getQns(self):

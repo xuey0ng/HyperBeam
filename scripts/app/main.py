@@ -72,7 +72,7 @@ def pubsub_push():
     overwritten_by_generation = attributes.get('overwrittenByGeneration')
 
     # To check if the upload is a new upload as well by checking if it overwrote something
-    if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master':
+    if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master' and blob[-4:] == '.pdf':
         logging.warning("{} : {} : was downloaded".format(bucket, blob))
         current = PDFHighlights.PDFhighlights()
         current.process(bucket, blob)
