@@ -33,9 +33,7 @@ class Highlights:
                         if (isinstance(annotation, popplerqt5.Poppler.HighlightAnnotation)):
                             quads = annotation.highlightQuads()
                             txt = ""
-                            print('a')
-                            for quad in quads:
-                                print('b')
+                            for quad in quads:\
                                 # print(quad.points[0].x()*pwidth)
                                 # print(int(pheight - quad.points[0].y()*pheight - 9))
                                 rect = (quad.points[0].x() * pwidth,

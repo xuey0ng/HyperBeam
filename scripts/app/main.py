@@ -6,6 +6,7 @@ import os
 
 from flask import current_app, Flask, render_template, request
 from google.cloud import pubsub_v1
+import google.cloud.logging
 
 
 app = Flask(__name__)
@@ -25,6 +26,9 @@ MESSAGES = []
 # Initialize the publisher client once to avoid memory leak
 # and reduce publish latency.
 publisher = pubsub_v1.PublisherClient()
+log_client = google.cloud.logging.Client()
+log_client.get_default_handler()
+log_client.setup_logging()
 
 # Set the logging for the GAE application
 
@@ -68,11 +72,11 @@ def pubsub_push():
     overwritten_by_generation = attributes.get('overwrittenByGeneration')
 
     # To check if the upload is a new upload as well by checking if it overwrote something
-    if event_type == 'OBJECT_FINALIZE':
-        logging.info("{} : {}".format(bucket, blob))
+    if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master' and blob[-4:] == '.pdf':
+        logging.warning("{} : {} : was downloaded".format(bucket, blob))
         current = PDFHighlights.PDFhighlights()
         current.process(bucket, blob)
-    MESSAGES.append(payload)
+    MESSAGES.append(attributes)
     
     # Returning any 2xx status indicates successful receipt of the message.
     return 'OK', 200
