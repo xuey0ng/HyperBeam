@@ -184,7 +184,6 @@ class _LoginPageState extends State<LoginPage> {
           color: kAccentColor,
           onPressed: () {
             validateAndSubmit(context);
-
           }
         ),
         Spacer(flex: 1),

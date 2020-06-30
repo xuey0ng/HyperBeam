@@ -246,6 +246,17 @@ class ProgressAdditionCard extends StatefulWidget {
 class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
   String moduleName;
   final moduleFormKey = new GlobalKey<FormState>();
+  DocumentSnapshot moduleCodes;
+  bool validateAndSave() {
+    final form = moduleFormKey.currentState;
+    if(form.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -280,8 +291,8 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-
                             TextFormField(
+                              validator: (val) => !MODULE_CODES.contains(val) ? "Module not found" : null,
                               autofocus: true,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -307,11 +318,12 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                   child: Text("Add"),
                                   color: kAccentColor,
                                   onPressed: () {
-                                    moduleFormKey.currentState.save();
-                                    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                    Module newModule = Module(moduleName, taskList: List(), quizList: List());
-                                    Navigator.of(context).pop();
-                                    moduleRepository.addDoc(newModule);
+                                    if(validateAndSave()){
+                                      final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                      Module newModule = Module(moduleName, taskList: List(), quizList: List());
+                                      Navigator.of(context).pop();
+                                      moduleRepository.addDoc(newModule);
+                                    }
                                   },
                                 )
                               ],

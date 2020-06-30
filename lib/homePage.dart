@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/bg2.jpg"),
+                image: AssetImage("assets/images/bg2-2.jpg"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
                 Scaffold(
                     backgroundColor: Colors.transparent,
                     body: SingleChildScrollView(
-                        padding: EdgeInsets.only(left: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
