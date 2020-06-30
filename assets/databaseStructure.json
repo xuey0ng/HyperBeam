@@ -1,0 +1,52 @@
+{
+  "users": {
+    "user ID": {
+      "firstName": String,
+      "lastName": String,
+      "Modules": {
+        "Module ID": {
+          "name": String,
+          "quizzes": [
+            DocumentReference of the Quiz
+          ],
+          "tasks": [
+            DocumentReference of Task
+          ]
+        },
+      },
+      "Task": {
+        "Task ID": {
+          "complete": Boolean,
+          "name": String
+        }
+      }
+    },
+  },
+  "Quizzes": {
+    "Quizzes ID": {
+      "answer": [
+        "String"
+      ],
+      "question": [
+        "String"
+      ],
+      "fullScore": Integer,
+      "masterPdfUri": String,
+      "moduleName": String,
+      "name": String,
+      "quizDate": TimeStamp,
+      "score": Integer,
+      "uid": String,
+      "attempts": {
+        "Attempt ID": {
+          "date": TimeStamp,
+          "givenAnswers": [
+            String
+          ],
+          "score": Integer,
+          "quiz": DocumentReference,
+        }
+      },
+    }
+  }
+}
