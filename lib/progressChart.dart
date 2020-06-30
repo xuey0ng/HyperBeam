@@ -1,143 +1,238 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:core';
+import 'package:HyperBeam/createQuiz.dart';
+import 'package:HyperBeam/objectClasses.dart';
+import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:getflutter/getflutter.dart';
-import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
+import 'package:HyperBeam/widgets/progressCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:HyperBeam/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:HyperBeam/services/firebase_task_service.dart';
+import 'package:HyperBeam/services/firebase_metadata_service.dart';
 
 class ProgressChart extends StatefulWidget {
-  final String userId;
-  ProgressChart(this.userId);
-
   @override
-  _ProgressChartState createState() => _ProgressChartState(DataRepo(userId, "Tasks"), DataRepo(userId, "metaData"));
+  _ProgressChartState createState() => _ProgressChartState();
 }
 
 class _ProgressChartState extends State<ProgressChart>{
-  final DataRepo taskRepository;
-  final DataRepo metaDataRepository;
-
-
-  _ProgressChartState(this.taskRepository, this.metaDataRepository);
-
-  Widget currentTasks() {
+  @override
+  Widget build(BuildContext context) {
+    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     return StreamBuilder<QuerySnapshot>(
-        stream: taskRepository.getStream(), //stream<QuerySnapshot>
+        stream: moduleRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
-          return _buildList(context, snapshot.data.documents);
+          return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: _buildList(context, snapshot.data.documents)
+          );
         });
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshots) {
-    return ListView(
-      padding: const EdgeInsets.only(top: 5.0),
-      children: snapshots.map((data) => _buildListItem(context, data)).toList(),
+    var size = MediaQuery.of(context).size;
+    List<Widget> lst = snapshots.map((data) => _buildListItem(context, data, size))
+        .toList();
+    lst.add(ProgressAdditionCard(size: size));
+    return Row(
+      children: lst,
     );
   }
 
-  Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
-    final Task task = Task.fromSnapshot(snapshot);
-    if (task == null) {
-      return Container();
-    } else {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-        child:
-          Material(
-            borderRadius: BorderRadius.circular(10),
-            color: task.completed ? Color(0xFF00f0f0) : Color(0xFFf1948a),
-            child: InkWell(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: Text(task.name == null ? "" : task.name),
-                    )
-                  ),
-                  task.completed ? IconButton(
-                    icon: Icon(
-                      Icons.check,
-                    ),
-                    onPressed: (){},
-                  ) :
-                  IconButton(
-                    icon: Icon(
-                      Icons.check_box_outline_blank,
-                    ),
-                    onPressed: (){},
-                  ),
-
-                ],
-              ),
-              onTap: () {
-                Task currTask = Task.fromSnapshot(snapshot);
-                return showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(currTask.name),
-                        actions: <Widget>[
-                          FlatButton(
-                              child: Text("Delete"),
-                              onPressed: () async {
-                                Navigator.of(context).pop();
-                                taskRepository.delete(snapshot);
-                              }
-                          ),
-                          FlatButton(
-                              child: Text("Update"),
-                              onPressed: () {
-                              //todo
-                                Navigator.of(context).pop();
-                              }
-                          )
-                        ]
-                    );
-                  }
-                );
-              },
-            )
-          )
-      );
-    }
+  Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot, Size size) {
+    Module module = Module.fromSnapshot(snapshot);
+    return ProgressCard(
+        title: module.name,
+        size: size,
+        pressCreateQuiz: () {
+          _createQuiz(module);
+        },
+        pressCreateTask: () {
+          _createTask(module);
+        },
+      snapshot: snapshot,
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            height: 300,
-            color: Color(0xFFE3F2FD),
-            margin: EdgeInsets.all(10.0),
-            padding: EdgeInsets.all(0.0),
-            child:
-              Column(
-                    children: [
-                      Text("ProgressChart"),
-                      new CircularPercentIndicator(
-                        radius: 60.0,
-                        lineWidth: 5.0,
-                        percent: 1.0,
-                        //center: new Text("${taskRepository.documentCount()}"),
-                        progressColor: Colors.red,
-                      ),
-                      Expanded(
-                        child: currentTasks(),
-                      ),
-                    ]
-                )
+
+  Widget _createQuiz(Module module) {
+    String quizName;
+    final quizFormKey = new GlobalKey<FormState>();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:  BorderRadius.circular(20.0)
             ),
-            UpdateProgress(taskRepository, metaDataRepository),
-          ]
-        );
-    }
+            backgroundColor: kSecondaryColor,
+            child: Container(
+              height: 300,
+              child: Column(
+                  children: [
+                    Form(
+                        key: quizFormKey,
+                        autovalidate: true,
+                        child: Container(
+                          height:300,
+                          width: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Spacer(),
+                              RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                    text: "Add a new Quiz",
+                                  )
+                              ),
+                              Spacer(),
+                              TextFormField(
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Enter a quiz name",
+                                ),
+                                onSaved: (text) {
+                                  setState(() {
+                                    quizName = text;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 80),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  FlatButton(
+                                      child: Text("Cancel"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }
+                                  ),
+                                  RaisedButton(
+                                    child: Text("Add"),
+                                    color: kAccentColor,
+                                    onPressed: () async {
+                                      quizFormKey.currentState.save();
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context){
+                                          return QuizForm(quizName, module: module,);
+                                        }),
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        )
+                    ),
+                  ]
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  Widget _createTask(Module module) {
+    String taskName;
+    final taskFormKey = new GlobalKey<FormState>();
+    BuildContext dialogContext;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          dialogContext = context;
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:  BorderRadius.circular(20.0)
+            ),
+            backgroundColor: kSecondaryColor,
+            child: Container(
+              height: 300,
+              child: Column(
+                  children: [
+                    Form(
+                        key: taskFormKey,
+                        autovalidate: true,
+                        child: Container(
+                          height: 300,
+                          width: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Spacer(),
+                              RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                    text: "Add a new Task",
+                                  )
+                              ),
+                              Spacer(),
+                              TextFormField(
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Enter a task name",
+                                ),
+                                onSaved: (text) {
+                                  setState(() {
+                                    taskName = text;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 80),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  FlatButton(
+                                      child: Text("Cancel"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }
+                                  ),
+                                  RaisedButton(
+                                    child: Text("Add"),
+                                    color: kAccentColor,
+                                    onPressed: () async {
+                                      Navigator.pop(dialogContext);
+                                      taskFormKey.currentState.save();
+                                      final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                      final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
+                                      Task newTask = Task(taskName);
+                                      var newList = module.taskList.toList(growable: true);
+                                      DocumentReference docRef;
+                                      await taskRepository.addDoc(newTask).then((value) => {
+                                        docRef = value,
+                                      });
+                                      newList.add(docRef);
+                                      module.taskList = newList;
+                                      moduleRepository.updateDoc(module);
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        )
+                    ),
+                  ]
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+
 }
 
 class AlertDialogWidget extends StatefulWidget {
@@ -176,89 +271,6 @@ class _AlertDialogWidgetState extends State<AlertDialogWidget> {
             ],
           )
         ],
-      )
-    );
-  }
-}
-
-class Task implements iDatabaseable{
-  final String name;
-  bool completed;
-
-  @override
-  DocumentReference reference;
-
-  Task(this.name, {this.completed: false});
-
-  //factory constructor
-  factory Task.fromJson(Map<String, dynamic> json) {
-    return Task(json['name'] as String, completed: json['completed'] as bool);
-  }
-  //factory constructor
-  factory Task.fromSnapshot(DocumentSnapshot snapshot) {
-    Task newTask = Task.fromJson(snapshot.data);
-    newTask.reference = snapshot.reference;
-    return newTask;
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic> {
-      'name': this.name,
-      'completed': this.completed,
-    };
-  }
-
-  toString(){
-    return name;
-  }
-}
-
-class UpdateProgress extends StatelessWidget{
-  final taskRepository;
-  final metaDataRepository;
-  UpdateProgress(this.taskRepository, this.metaDataRepository);
-
-  void _handleProgressChanged(BuildContext context) {
-    AlertDialogWidget dialogWidget = AlertDialogWidget();
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: const Text("Add module"),
-              content: dialogWidget,
-              actions: <Widget>[
-                FlatButton(
-                    child: Text("Cancel"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }
-                ),
-                FlatButton(
-                    child: Text("Add"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Task newTask = Task(dialogWidget.taskName, completed: dialogWidget.taskCompleted);
-                      taskRepository.addDoc(newTask);
-                    }
-                )
-              ]
-          );
-        }
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: GFButton(
-        onPressed:() {
-          _handleProgressChanged(context);
-        },
-        text: "Add task",
-        shape: GFButtonShape.pills,
-        color: Color(0xFFfce8e8),
-        textStyle: TextStyle(fontSize: 30, color: Colors.black),
       )
     );
   }

@@ -4,6 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DataRepo {
   CollectionReference db;
 
+  DataRepo.fromRepo(String name){
+    this.db = Firestore.instance.collection(name);
+  }
+
   DataRepo(String id, String name) {
     this.db = Firestore.instance.collection('users').document(id).collection(name);
   }
@@ -12,18 +16,43 @@ class DataRepo {
     return db;
   }
 
+  Query whereEqual(String field,  String val) {
+    return db.where(field, isEqualTo: val);
+  }
 
   Stream<QuerySnapshot> getStream() {
     return db.snapshots();
   }
-  Future<DocumentReference> addDoc(iDatabaseable obj) {
-    return db.add(obj.toJson());
+
+  Future<QuerySnapshot> getQuery() async {
+    return await db.getDocuments();
+  }
+
+  Future<DocumentReference> addDoc(iDatabaseable obj) async {
+    return await db.add(obj.toJson());
+  }
+
+  Future<void> setDoc(iDatabaseable obj) async {
+    return await db.document(obj.reference.documentID).setData(obj.toJson(), merge: true);
   }
 
   void updateTime(DateTime date) {
     Map<String, dynamic> updates = new Map();
     updates['quizDate'] = Timestamp.fromDate(date);
     db.document("time").updateData(updates);
+  }
+
+  void addUncompletedQuizCount() async {
+    Map<String, dynamic> updates = new Map();
+    DocumentSnapshot snap = await db.document("main").get();
+    updates['count'] = snap.data['count'] + 1;
+    db.document("main").updateData(updates);
+  }
+
+  Future<List<DocumentReference>> getRefList() async {
+    List<DocumentReference> listRef;
+    await db.getDocuments().then((val)=> val.documents.map((x)=> listRef.add(x.reference)));
+    return listRef;
   }
 
   Future<int> documentCount() async{
@@ -37,9 +66,5 @@ class DataRepo {
   updateDoc(iDatabaseable task) async {
     await db.document(task.reference.documentID).updateData(task.toJson());
   }
-/*
-  updateDoc2(Map<String, dynamic> json) async {
-    int db.do
-    await db.document("TaskCounters").setData({'completedTaskCount' : })
-  }*/
+
 }

@@ -2,6 +2,9 @@ import firebase_admin
 from firebase_admin import credentials
 from google.cloud import firestore
 from flask import escape
+from Statistic import Statistics
+from TextStore import Token
+from PDFpos import PDFpos
 
 cred = credentials.Certificate("hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json")
 firebase_admin.initialize_app(cred, )
@@ -42,13 +45,28 @@ def hello_gcs_generic(data, context):
         None; the output is written to Stackdriver Logging
     """
 
-    print('Event ID: {}'.format(context.event_id))
-    print('Event type: {}'.format(context.event_type))
-    print('Bucket: {}'.format(data['bucket']))
-    print('File: {}'.format(data['name']))
-    print('Metageneration: {}'.format(data['metageneration']))
-    print('Created: {}'.format(data['timeCreated']))
-    print('Updated: {}'.format(data['updated']))
+    # print('Event ID: {}'.format(context.event_id))
+    # print('Event type: {}'.format(context.event_type))
+    # print('Bucket: {}'.format(data['bucket']))
+    # print('File: {}'.format(data['name']))
+    # print('Metageneration: {}'.format(data['metageneration']))
+    # print('Created: {}'.format(data['timeCreated']))
+    # print('Updated: {}'.format(data['updated']))
+    doc_ref = db.collection('pdf').document(data['name'])
+    doc = doc_ref.get()
+    current_list = list()
+    if doc.exists:
+        doc = db.collection('pdf').document(data['name']).collection('words').get()
+        for ele in doc:
+            ele.to_dict()
+        current = Statistics()
+        Statistics.compute(current_list, data['name'])
+    else:
+        ## run get pos and initalise
+        new_pdf = PDFpos()
+        
+
+
 
 
 
@@ -70,7 +88,9 @@ def hello_gcs_generic(data, context):
 #                 u'filename': wordstore.getFilename()
 #             })
 
-gcloud functions deploy hello_gcs_generic \
---runtime python37 \
---trigger-resource YOUR_TRIGGER_BUCKET_NAME \
---trigger-event google.storage.object.finalize
+
+
+# gcloud functions deploy hello_gcs_generic \
+# --runtime python37 \
+# --trigger-resource YOUR_TRIGGER_BUCKET_NAME \
+# --trigger-event google.storage.object.finalize
