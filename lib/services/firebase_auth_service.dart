@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
@@ -6,12 +7,29 @@ class User {
   String firstName;
   String lastName;
   String email;
+  DocumentReference ref;
 
   User({@required this.id,
-    this.firstName,
+    @required this.firstName,
     this.lastName,
     this.email,
   });
+
+  factory User.fromJson(Map<String, dynamic> json, DocumentSnapshot snapshot) {
+    return User(
+        id: snapshot.reference.toString(),
+        firstName: json['firstName'] as String,
+        lastName: json['lastName'] as String,
+        email: json['email'] as String,
+    );
+  }
+  factory User.fromSnapshot(DocumentSnapshot snapshot) {
+
+    User newModule = User.fromJson(snapshot.data, snapshot);
+    newModule.ref = snapshot.reference;
+    return newModule;
+  }
+
 
   @override
   String toString() {
@@ -23,7 +41,8 @@ class FirebaseAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
 
   User _userFromFirebase(FirebaseUser user) {
-    return user == null ? null : User(id: user.uid);
+    //Firestore.instance.collection('user').document(user.uid).
+    return user == null ? null : User(id: user.uid, email: user.email);
   }
 
   Stream<User> get onAuthStateChanged {
