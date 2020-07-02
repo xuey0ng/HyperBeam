@@ -16,65 +16,140 @@ class ExplorePage extends StatefulWidget{
 
 class _ExplorePageState extends State<ExplorePage> {
   DataRepo quizRepository;
+  String query;
+  final searchKey = new GlobalKey<FormState>();
   //List<Widget> argument = [Text("loading")];
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildGrid(BuildContext context, String query) {
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     return StreamBuilder<QuerySnapshot>(
         stream: quizRepository.getStream(), //stream<QuerySnapshot>
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
           final user = Provider.of<User>(context, listen: false);
-          List<Widget> lst = snapshot.data.documents.toList()
-              .where((element) => element.data['uid'] != user.id)
-              .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
+          List<Widget> lst;
+          if(query == null || query == "") {
+            lst = snapshot.data.documents.toList()
+                .where((element) => element.data['uid'] != user.id)
+                .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
+          } else {
+            lst = snapshot.data.documents.toList()
+                .where((element) => element.data['moduleName'] == query)
+                .toList()
+                .where((element) => element.data['uid'] != user.id)
+                .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
+          }
           print("begin building list of length ${lst.length}");
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            body:
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              height: 800,
-              width: 500,
-              child: Column(
-                  children: [
-                    Container(
-                        child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                                style: Theme.of(context).textTheme.headline2,
-                                children: [
-                                  TextSpan(text: "Explore",
-                                      style: TextStyle(fontWeight: FontWeight.bold, )
-                                  )
-                                ]
-                            )
-                        )
-                    ),
-                    Container(
-                      height: 580,
-                      width: 500,
-                      child: CustomScrollView(
-                      primary: false,
-                      slivers: <Widget>[
-                        SliverPadding(
-                          padding: const EdgeInsets.all(20),
-                          sliver: SliverGrid.count(
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            crossAxisCount: 2,
-                            children: lst,
-                          ),
-                        ),
-                      ],
-                    ),
-                    ),
-                  ]
-              ),
+          return Container(
+            height: 580,
+            width: 500,
+            child: CustomScrollView(
+              primary: false,
+              slivers: <Widget>[
+                SliverPadding(
+                  padding: const EdgeInsets.all(20),
+                  sliver: SliverGrid.count(
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    children: lst,
+                  ),
+                ),
+              ],
             ),
           );
         });
+  }
+  void validateAndSave() {
+    final form = searchKey.currentState;
+    if(form.validate()) {
+      form.save();
+    } else {
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body:
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        height: 800,
+        width: 500,
+        child: Column(
+            children: [
+              Container(
+                  child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline2,
+                          children: [
+                            TextSpan(text: "Explore",
+                                style: TextStyle(fontWeight: FontWeight.bold, )
+                            ),
+                          ]
+                      )
+                  )
+              ),
+              Form(
+                key: searchKey,
+                autovalidate: true,
+                child: Container(
+                  width: 280,
+                  height: 48,
+                  child: Card(
+                    elevation: 2,
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: TextFormField(
+                            onChanged: (text){
+                              setState(() {
+                                query = text;
+                              });
+                            },
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  contentPadding:
+                                  EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                  hintText: "Search module"),
+                              validator: (val){
+                                print(val);
+                                if(!MODULE_CODES.contains(val) && val != "") {
+                                  return "Please input a valid module";
+                                } else{
+                                  return null;
+                                }
+                              },
+                              onSaved: (val){
+                                setState(() {
+                                  query = val;
+                                });
+                              },
+
+                          ),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              validateAndSave();
+                            },
+                        ),
+                      ]
+                    ),
+                  ),
+                ),
+              ),
+              buildGrid(context, query),
+            ]
+        ),
+      ),
+    );
   }
   /*
   @override
