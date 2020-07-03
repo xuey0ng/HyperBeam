@@ -15,9 +15,9 @@ class User {
     this.email,
   });
 
-  factory User.fromJson(Map<String, dynamic> json, DocumentSnapshot snapshot) {
+  factory User.fromJson(Map<String, dynamic> json, String ID) {
     return User(
-        id: snapshot.reference.toString(),
+        id: ID,
         firstName: json['firstName'] as String,
         lastName: json['lastName'] as String,
         email: json['email'] as String,
@@ -25,7 +25,7 @@ class User {
   }
   factory User.fromSnapshot(DocumentSnapshot snapshot) {
 
-    User newModule = User.fromJson(snapshot.data, snapshot);
+    User newModule = User.fromJson(snapshot.data, snapshot.documentID);
     newModule.ref = snapshot.reference;
     return newModule;
   }
@@ -41,7 +41,6 @@ class FirebaseAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
 
   User _userFromFirebase(FirebaseUser user) {
-    //Firestore.instance.collection('user').document(user.uid).
     return user == null ? null : User(id: user.uid, email: user.email);
   }
 

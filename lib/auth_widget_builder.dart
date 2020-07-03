@@ -15,20 +15,21 @@ class AuthWidgetBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<FirebaseAuthService>(context, listen: false);
     print('AuthWidgetBuilder rebuild');
-    final authService =
-      Provider.of<FirebaseAuthService>(context, listen: false);
     return StreamBuilder<User>(
       stream: authService.onAuthStateChanged,
       builder: (context, snapshot) {
-        print(snapshot.data.id);
+        print(snapshot.toString());
+        final User user = snapshot.data;
+        print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id}');
+        if(!snapshot.hasData) return builder(context, snapshot);
         return StreamBuilder<DocumentSnapshot> (
-          stream: Firestore.instance.collection('users').document(snapshot.data.id).snapshots(),
+          stream: Firestore.instance.collection('users').document(user.id).snapshots(),
           builder: (context, snapshot2){
-            if(!snapshot2.hasData) return LinearProgressIndicator();
-            print(' it is ${snapshot2.data.data}');
-            final User user = User.fromSnapshot(snapshot2.data);
-            print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id}');
+            print(' it is ${snapshot2.hasData? snapshot2.data.data:null}');
+            //final User user = User.fromSnapshot(snapshot2.data);
+           // print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id}');
             if (user != null) {
               return MultiProvider(
                 providers: [
@@ -50,28 +51,6 @@ class AuthWidgetBuilder extends StatelessWidget {
             return builder(context, snapshot);
           },
         );
-        /*
-        print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id}');
-        if (user != null) {
-          return MultiProvider(
-            providers: [
-              Provider<User>.value(value: user),
-              Provider<FirebaseMetadataService>.value(value: FirebaseMetadataService(id: user ==null ? "" : user.id),
-              ),
-              Provider<FirebaseQuizService>.value(value: FirebaseQuizService(id: user ==null ? "" : user.id),
-              ),
-              Provider<FirebaseTaskService>.value(value: FirebaseTaskService(id: user ==null ? "" : user.id),
-              ),
-              Provider<FirebaseStorageService>.value(value: FirebaseStorageService(id: user ==null ? "" : user.id),
-              ),
-              Provider<FirebaseModuleService>.value(value: FirebaseModuleService(id: user ==null ? "" : user.id)),
-              Provider<FirebaseQuizAttemptService>.value(value: FirebaseQuizAttemptService(id: user ==null ? "" : user.id)),
-            ],
-            child: builder(context, snapshot),
-          );
-        }
-        return builder(context, snapshot);
-         */
       },
     );
   }

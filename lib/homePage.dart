@@ -10,6 +10,10 @@ import 'package:HyperBeam/fileHandler.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
+import 'dart:io';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,9 +21,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+  StreamSubscription iosSubscription;
+
   PageController _controller = PageController(
     initialPage: 0,
   );
+
 
   void _signOut(BuildContext context) async {
     try {
@@ -31,10 +41,54 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    final user = Provider.of<User>(context, listen: false);
+    saveDeviceToken() async {
+      String uid = user.id;
+      print("UID IS $uid");
+      String fcmToken = await _fcm.getToken();
+      if (fcmToken != null) {
+        var tokens = _db
+            .collection('users')
+            .document(uid);
+
+        await tokens.setData({
+          'token': fcmToken,
+          'createdAt': FieldValue.serverTimestamp(), // optional
+          'platform': Platform.operatingSystem // optional
+        }, merge: true);
+      }
+    }
+    super.initState();
+    if (Platform.isIOS) {
+      iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
+        saveDeviceToken();
+      });
+      _fcm.requestNotificationPermissions(IosNotificationSettings());
+    } else {
+      saveDeviceToken();
+    }
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        // TODO optional
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);//hides the app bar above
     var size = MediaQuery.of(context).size;
-    final user = Provider.of<User>(context, listen: false);
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Stack(
