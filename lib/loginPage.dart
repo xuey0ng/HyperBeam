@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   //final BaseAuth baseAuth;
@@ -40,35 +41,50 @@ class _LoginPageState extends State<LoginPage> {
       return false;
     }
   }
-  void validateAndSubmit(BuildContext context) async {
+  void validateAndSubmit(BuildContext context, bool googleSignIn) async {
     final auth = Provider.of<FirebaseAuthService>(context);
-    if(validateAndSave()) {
-      try{
-        if(_formType == FormType.login){
-          User user0 = await auth.signInWithEmailAndPassword(_email, _password);
-          User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
-            print("it is ${value.data.toString()}");
-            return User(firstName: value.data['firstName'], lastName: value.data['lastName'],
-            email: value.data['email'], id: user0.id);
-          });
-          print("Signed in: $user");
-        } else {
-          User user = await auth.createWithEmailAndPassword(_email, _password);
-          user.firstName = _firstName;
-          user.lastName = _lastName;
-          user.email = _email;
-          Firestore.instance.collection("users").document(user.id).setData({
-            'firstName' : user.firstName,
-            'lastName' : user.lastName,
-            'email' : user.email,
-          });
-          print("Created user: ${user.id}");
-        }
-        //widget.onSignedIn(); //call back on handler
+
+    if (googleSignIn) {
+      try {
+        User user0 =await auth.signInWithGoogle();
+        // for print purpose only, can delete...
+        User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
+          return User(firstName: value.data['firstName'], lastName: value.data['lastName'],
+              email: value.data['email'], id: user0.id);
+        });
+        print("Signed in: $user");
+        //...to here
       } catch (err) {
         print("Error: $err");
       }
+    } else {
+      if(validateAndSave()) {
+        try{
+          if (_formType == FormType.login) {
+            User user0 = await auth.signInWithEmailAndPassword(_email, _password);
+            User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
+              return User(firstName: value.data['firstName'], lastName: value.data['lastName'],
+                  email: value.data['email'], id: user0.id);
+            });
+            print("Signed in: $user");
+          } else {
+            User user = await auth.createWithEmailAndPassword(_email, _password);
+            user.firstName = _firstName;
+            user.lastName = _lastName;
+            user.email = _email;
+            Firestore.instance.collection("users").document(user.id).setData({
+              'firstName' : user.firstName,
+              'lastName' : user.lastName,
+              'email' : user.email,
+            });
+            print("Created user: ${user.id}");
+          }
+        } catch (err) {
+          print("Error: $err");
+        }
+      }
     }
+
   }
 
   void goToRegister() {
@@ -168,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
         RaisedButton(
           child: Text('Login', style: style1),
           color: kAccentColor,
-          onPressed: () => validateAndSubmit(context),
+          onPressed: () => validateAndSubmit(context, false),
         ),
         Spacer(flex: 1),
         FlatButton(
@@ -176,6 +192,7 @@ class _LoginPageState extends State<LoginPage> {
           color: kAccentColor,
           onPressed: goToRegister,
         ),
+        _signInButton(),
       ];
     } else {
       return [
@@ -183,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Text('Create an account', style: style1),
           color: kAccentColor,
           onPressed: () {
-            validateAndSubmit(context);
+            validateAndSubmit(context, false);
           }
         ),
         Spacer(flex: 1),
@@ -193,5 +210,37 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ];
     }
+  }
+
+  Widget _signInButton() {
+    return OutlineButton(
+      splashColor: Colors.grey,
+      onPressed: () {
+        validateAndSubmit(context, true);
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/images/google_logo.png"), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Sign in with Google',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

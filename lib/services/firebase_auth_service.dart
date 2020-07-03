@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class User {
   final String id;
@@ -39,6 +40,44 @@ class User {
 
 class FirebaseAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<User> signInWithGoogle() async {
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+    await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final AuthResult authResult = await _firebaseAuth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
+
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final FirebaseUser currentUser = await _firebaseAuth.currentUser();
+    assert(user.uid == currentUser.uid);
+    if (authResult.additionalUserInfo.isNewUser) {
+      print("HIT HERE");
+      await Firestore.instance.collection("users").document(user.uid).setData({
+      'firstName' : null,
+      'lastName' : user.displayName,
+      'email' : user.email,
+      });
+      print("DONE");
+    }
+    print("google sign in success ${user.uid}");
+    return _userFromFirebase(user);
+  }
+
+  void signOutGoogle() async{
+    await googleSignIn.signOut();
+
+    print("User Sign Out");
+  }
 
   User _userFromFirebase(FirebaseUser user) {
     return user == null ? null : User(id: user.uid, email: user.email);
