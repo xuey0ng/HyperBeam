@@ -1,5 +1,6 @@
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/explorePage.dart';
+import 'package:HyperBeam/moduleQuery.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/widgets/atAGlance.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
@@ -130,6 +131,14 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),*/
                                 Spacer(),
+                                FlatButton(
+                                  child: new Text('Test'),
+                                  onPressed: (){
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => ModuleQuery()
+                                    ));
+                                  }
+                                ),
                                 FlatButton(
                                   child: new Text('Logout'),
                                   onPressed: () => _signOut(context),

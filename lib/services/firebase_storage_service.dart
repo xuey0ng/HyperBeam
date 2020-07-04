@@ -13,8 +13,8 @@ class FirebaseStorageService {
   }) async =>
       await upload(
         file: file,
-        path: FirestorePath.pdf(id,docId) + '/avatar.pdf',
-        contentType: 'image/png',
+        path: FirestorePath.pdf(id,docId) + '.pdf',
+        contentType: 'application/pdf',
       );
 
   /// Generic file upload for any [path] and [contentType]

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
@@ -260,6 +262,8 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
 
   @override
   Widget build(BuildContext context) {
+    //const List<String> mods = jsonDecode(DefaultAssetBundle.of(context).loadString("assets/NUS/moduleList.json"));
+
     return GestureDetector(
       onTap: () {
         return showDialog(

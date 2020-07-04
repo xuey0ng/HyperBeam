@@ -4,6 +4,7 @@ import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
@@ -295,9 +296,62 @@ class QuizCard extends StatelessWidget {
   Module module;
   QuizCard(this.snapshot, this.module);
 
+  void obtainPDF(BuildContext context) async {
+    final user = Provider.of<User>(context, listen: false);
+
+    String Url = snapshot.data['masterPdfUri'].toString();
+    print("Obtaining $Url}");
+    final storageReference = FirebaseStorage.instance.ref()
+        .child("/pdf/${user.id}/link.txt");
+    Uint8List data =  await storageReference.getData(128)
+        .catchError((e) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("File does not exist"),
+              content: Text("Please come back in a while"),
+              actions: <Widget>[
+                FlatButton(
+                    child: Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
+                ),
+              ],
+            );
+          }
+      );
+    }).then((value) => value);
+    if(data != null) {
+      File file = File.fromRawPath(data);
+      final uri = file.uri.toFilePath();
+      if (await canLaunch(uri.toString())) {
+        await launch(uri.toString());
+      } else {
+        throw 'Could not launch $uri';
+      }
+    }
+
+  }
+
+  void uploadPDF(BuildContext context) async {
+    final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    File file = await FilePicker.getFile(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+        docId: snapshot.documentID); //docID is quit id
+    print("PDFURL is $pdfUrl");
+    snapshot.data['masterPdfUri'] = pdfUrl;
+    await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
+    await file.delete();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("SNAP IS ${snapshot.data}");
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -322,36 +376,8 @@ class QuizCard extends StatelessWidget {
                           child: Text("Obtain Master PDF"),
                           color:  kAccentColor,
                           onPressed: () async {
-                            String Url = snapshot.data['masterPdfUri'].toString();
-                            print("Obtaining $Url}");
-                            final storageReference = FirebaseStorage.instance.ref()
-                                .child("/pdf/fc4u68mNKdYBroNQjBmvxj2XtWB3/POuYbE2uS9gMjowBZ0jS/link.txt");
-                            Uint8List data =  await storageReference.getData(128).then((value) => value);
-                            File file = File.fromRawPath(data);
-                            final uri = file.uri.toFilePath();
-                            if (await canLaunch(uri.toString())) {
-                              await launch(uri.toString());
-                            } else {
-                              throw 'Could not launch $uri';
-                            }
+                            obtainPDF(context);
                           }
-                          /*
-                          onPressed: () async  {
-                            String Url = snapshot.data['masterPdfUri'].toString();
-                            print("Obtaining $Url}");
-                            PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri'].toString());
-                            print("Obtained $doc");
-
-                            if (snapshot.data['masterPdfUri'] != null) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PdfViewer(doc)
-                                      )
-                              );
-                            }
-                          },
-                           */
                         ),
                       ),
                       SizedBox(
@@ -372,18 +398,7 @@ class QuizCard extends StatelessWidget {
                           child: Text("Upload PDF file"),
                           color: kAccentColor,
                           onPressed: () async {
-                            final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
-                            final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-                            File file = await FilePicker.getFile(
-                              type: FileType.custom,
-                              allowedExtensions: ['pdf'],
-                            );
-                            final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
-                                docId: snapshot.documentID);
-                            print("PDFURL is $pdfUrl");
-                            snapshot.data['masterPdfUri'] = pdfUrl;
-                            await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
-                            await file.delete();
+                            uploadPDF(context);
                           },
                         ),
                       ),
