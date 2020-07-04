@@ -71,12 +71,12 @@ class Highlights:
                             
                             page.renderToImage(resolution, resolution, bdy.left(), bdy.top(), bdy.width(), bdy.height()).save("page{}_image{}.png".format(i, count))
                             print("page{}_image{}.png".format(i, count))
-                            if annotation.contents(): 
-                                print(annotation.contents())
+                        #    if annotation.contents(): 
+                        #         print(annotation.contents())
                             
-                        if isinstance(annotation, popplerqt5.Poppler.TextAnnotation):
-                            if annotation.contents(): 
-                                print(annotation.contents())
+                        # if isinstance(annotation, popplerqt5.Poppler.TextAnnotation):
+                        #     if annotation.contents(): 
+                        #         print(annotation.contents())
 
         if total_annotations > 0:
             return linelist

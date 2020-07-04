@@ -45,10 +45,10 @@ class Statistics:
     def compute(self, basefile, infile):
         position_list = PDFpos(basefile)
         position_list = position_list.parsepdf()
-        #print(len(position_list))
+        print('position list len is {}'.format(len(position_list)))
         student_upload = Highlights()
         student_upload = student_upload.main(infile)
-        #print(len(student_upload))
+        print(len(student_upload))
         new_stats = self.gatherStatistics(student_upload, position_list)
         for word in new_stats:
             continue

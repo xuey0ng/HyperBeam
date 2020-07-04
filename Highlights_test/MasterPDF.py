@@ -61,7 +61,7 @@ class GenerateMaster:
         pdfInput = PdfFileReader(open(filename, "rb"))
         pdfOutput = PdfFileWriter()
         
-        os.remove(filename)
+        # os.remove(filename)
         
         for page in pdfInput.pages:
             pdfOutput.addPage(page)
@@ -78,7 +78,7 @@ class GenerateMaster:
                 
                 self.addHighlightToPage(highlight, pdfOutput.getPage(text.getPage()-1), pdfOutput)
 
-        print("writing file to {}". format(filename))
-        outputStream = open(filename, "wb")
+        print("writing file to {}". format('/tmp'))
+        outputStream = open('tmp/test.pdf', "wb")
         pdfOutput.write(outputStream)
 

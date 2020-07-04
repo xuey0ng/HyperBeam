@@ -7,7 +7,7 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfdevice import PDFDevice
 from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
-# from pdfminer.high_level import extract_pages
+from pdfminer.high_level import extract_pages
 import hashlib
 import pdfminer
 from TextStore import Token
@@ -32,11 +32,10 @@ class PDFpos:
                 self.parse_line(obj, pageno)
 
             # if it's a textbox, also recurse
-            if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
+            if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal) or isinstance(obj, pdfminer.layout.LTTextBox):
                 if pageno == 1 or pageno == '1':
                     hash_obj = hashlib.md5(str(obj.get_text()).encode())
                     self.hashed = str(hash_obj.hexdigest())
-                    print(self.hashed)
                 self.parse_page(obj._objs, pageno)
 
             # if it's a container, recurse
@@ -51,11 +50,12 @@ class PDFpos:
         y2 = -1
         #print(str(lt_line.bbox[0]) + " | "+ str(lt_line.bbox[2]) + " | "+str(lt_line.bbox[1]) + " | "+str(lt_line.bbox[3]))
         for obj in lt_line:
-            if isinstance(obj, pdfminer.layout.LTText) and not isinstance(obj, pdfminer.layout.LTAnno):
+            if isinstance(obj, pdfminer.layout.LTText) or isinstance(obj, pdfminer.layout.LTChar) and not isinstance(obj, pdfminer.layout.LTAnno):
                 # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
                 thisword = obj.get_text()
                 if thisword == '\n' or thisword == ' ':
                     temp = Token(pageno, x1, x2, y1, y2, current, self.filename, self.hashed)
+                    print(temp.getContent())
                     self.word_array.append(temp)
                     current = ""
                     x1 = -1
@@ -76,6 +76,33 @@ class PDFpos:
             # elif isinstance(obj, pdfminer.layout.LTChar):
                 # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
 
+    def parse_char(self, obj, pageno):
+        current = ""
+        x1 = -1
+        x2 = -1
+        y1 = -1
+        y2 = -1
+        thisword = obj.get_text()
+        if thisword == '\n' or thisword == ' ':
+            temp = Token(pageno, x1, x2, y1, y2, current, self.filename, self.hashed)
+            self.word_array.append(temp)
+            current = ""
+            x1 = -1
+            x2 = -1
+            y1 = -1
+            y2 = -1
+        elif x1 == -1:
+            x1 = obj.bbox[0]
+            x2 = obj.bbox[2]
+            y1 = obj.bbox[1]
+            y2 = obj.bbox[3]
+            # current_x = (obj.bbox[0] + obj.bbox[2])/2
+            # current_y = (obj.bbox[1])
+            current += thisword
+        else:
+            current += thisword
+            x2 = obj.bbox[2]
+
     def parsepdf(self):
         # Open a PDF file.
         fp = open(self.filename, 'rb')
@@ -86,9 +113,10 @@ class PDFpos:
         # Create a PDF document object that stores the document structure.
         # Password for initialization as 2nd parameter
         document = PDFDocument(parser)
-
+        print("{}".format(self.filename))
         # Check if the document allows text extraction. If not, abort.
         if not document.is_extractable:
+            print('extraction not allowed')
             raise PDFTextExtractionNotAllowed
 
         # Create a PDF resource manager object that stores shared resources.
@@ -113,13 +141,14 @@ class PDFpos:
         for page in PDFPage.create_pages(document):
             #print(page.mediabox)
             i+=1
+            print('page looped at {}'.format(i))
             # read the page into a layout object
             interpreter.process_page(page)
             layout = device.get_result()
 
             # extract text from this object
             self.parse_page(layout._objs, i)
-            return self.word_array
+        return self.word_array
     
 
 #test = PDFpos("FinancialAccounting1.pdf")
