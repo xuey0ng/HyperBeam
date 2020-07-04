@@ -20,7 +20,6 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
         if (userSnapshot.connectionState == ConnectionState.active) {
             return userSnapshot.hasData ?
-
             MaterialApp(
               routes: {
                 ModuleDetailsRoute: (context) => ModuleDetails(),

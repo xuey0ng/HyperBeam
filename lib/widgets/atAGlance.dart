@@ -51,7 +51,7 @@ class _AtAGlanceState extends State<AtAGlance> {
         Opacity(
           opacity: 0.6,
           child: Container(
-              margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
+              margin: EdgeInsets.only(left: widget.screenWidth*0.1, top: 16),
               padding: EdgeInsets.only(left: 10,top: 10),
               height: widget.screenHeight * 0.20,
               width: widget.screenWidth * 0.8,
@@ -63,7 +63,7 @@ class _AtAGlanceState extends State<AtAGlance> {
           ),
         ),
         Container(
-            margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
+            margin: EdgeInsets.only(left: widget.screenWidth*0.1, top: 16),
             padding: EdgeInsets.only(left: 10,top: 10),
             height: widget.screenHeight * 0.20,
             width: widget.screenWidth * 0.8,

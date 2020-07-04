@@ -231,8 +231,6 @@ class _ProgressChartState extends State<ProgressChart>{
         }
     );
   }
-
-
 }
 
 class AlertDialogWidget extends StatefulWidget {
