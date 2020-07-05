@@ -1,4 +1,4 @@
-from pdf_highlights import PDFHighlights
+from pdf_highlights import PDFHighlights, message
 import base64
 import json
 import logging
@@ -60,7 +60,7 @@ def pubsub_push():
         return 'Invalid request', 400
     
     # Collect the metadata from the pubsub to determine message type
-    logging.info('Document is created on cloud storage')
+    # logging.info('Document is created on cloud storage')
     envelope = json.loads(request.data.decode('utf-8'))
     payload = base64.b64decode(envelope['message']['data'])
     attributes = envelope['message']['attributes']
@@ -71,12 +71,15 @@ def pubsub_push():
     overwrote_generation = attributes.get('overwroteGeneration')
     overwritten_by_generation = attributes.get('overwrittenByGeneration')
 
+    MESSAGES.append(attributes)
+
     # To check if the upload is a new upload as well by checking if it overwrote something
     if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master' and blob[-4:] == '.pdf':
-        logging.warning("{} : {} : was downloaded".format(bucket, blob))
+        # logging.info("{} : {} : was downloaded".format(bucket, blob))
         current = PDFHighlights.PDFhighlights()
-        current.process(bucket, blob)
-    MESSAGES.append(attributes)
+        link = current.process(bucket, blob)
+        noti = message.PushNoti()
+        noti.send_to_user(blob.split('/')[1], blob.split('/')[-1], link)
     
     # Returning any 2xx status indicates successful receipt of the message.
     return 'OK', 200

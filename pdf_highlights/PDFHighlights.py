@@ -130,6 +130,7 @@ class PDFhighlights:
         blob_link = bucket.blob(new_url)
         blob_link.upload_from_string(str(master_url))
         os.remove(temp) 
+        return str(master_url)
 
 
 

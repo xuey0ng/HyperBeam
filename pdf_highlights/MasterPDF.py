@@ -75,6 +75,8 @@ class GenerateMaster:
         # Based on the information regarding the highlighted pdfs obtained from firebase, highlight with a new shade
         for text in text_array:
             if (text.getCount() >0):
+
+                # Shade is calculated based on RGB, and has to be scaled to support 0 to 1 instead of 0 to 255
                 shade = 1 - ((text.getCount() / maxcount)* 220 + 30) / 255
                 highlight = self.createHighlight(text.getX1(), text.getY1(), text.getX2(), text.getY2(), {
                     "author": "Hyper-Beam",
