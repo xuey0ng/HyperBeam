@@ -1,6 +1,7 @@
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_metadata_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_pushNotification_service.dart';
 import 'package:HyperBeam/services/firebase_quizAttempt_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/services/firebase_storage_service.dart';
@@ -44,6 +45,7 @@ class AuthWidgetBuilder extends StatelessWidget {
                   ),
                   Provider<FirebaseModuleService>.value(value: FirebaseModuleService(id: user ==null ? "" : user.id)),
                   Provider<FirebaseQuizAttemptService>.value(value: FirebaseQuizAttemptService(id: user ==null ? "" : user.id)),
+                  //Provider<PushNotificationService>.value()
                 ],
                 child: builder(context, snapshot),
               );

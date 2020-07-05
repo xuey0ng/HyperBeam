@@ -11,6 +11,7 @@ import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/fileHandler.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
+import 'package:HyperBeam/services/firebase_pushNotification_service.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,7 +33,6 @@ class _HomePageState extends State<HomePage> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   ModulesList nusModules;
 
-  StreamSubscription iosSubscription;
 
   PageController _controller = PageController(
     initialPage: 0,
@@ -52,22 +52,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     final user = Provider.of<User>(context, listen: false);
-    saveDeviceToken() async {
-      String uid = user.id;
-      print("UID IS $uid");
-      String fcmToken = await _fcm.getToken();
-      if (fcmToken != null) {
-        var tokens = _db
-            .collection('users')
-            .document(uid);
-
-        await tokens.setData({
-          'token': fcmToken,
-          'createdAt': FieldValue.serverTimestamp(), // optional
-          'platform': Platform.operatingSystem // optional
-        }, merge: true);
-      }
-    }
+    PushNotificationService(user: user, context: context).initialise();
 
     Future<String> _loadModulesAsset() async {
       return await rootBundle.loadString('assets/NUS/moduleInfo.json');
@@ -81,44 +66,6 @@ class _HomePageState extends State<HomePage> {
       print("Loading modules");
       loadModule();
     }
-
-    if (Platform.isIOS) {
-      iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
-        saveDeviceToken();
-      });
-      _fcm.requestNotificationPermissions(IosNotificationSettings());
-    } else {
-      saveDeviceToken();
-    }
-    FirebaseMessaging().getToken().then((value) => print("CURR TOKEN IS $value"));
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: ListTile(
-              title: Text(message['notification']['title']),
-              subtitle: Text(message['notification']['body']),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Ok'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          ),
-        );
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // TODO optional
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // TODO optional
-      },
-    );
   }
 
   @override
