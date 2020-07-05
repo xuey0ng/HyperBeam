@@ -10,10 +10,21 @@ class Statistics:
     # Function for sorting the positions of the highlight lines from the top to the bottom
     def sort_line(self, line):
         return line.getY1()
+    
+    def sort_word_page(self, words):
+        return words.getPage()
+    
+    def sort_word_coords(self, words):
+        return words.getY2()
 
     # Function for updating existing statistics
     def gatherStatistics(self, linelist, wordlist):
-        linelist = sorted(linelist, key = self.sort_line, reverse = True)
+        # linelist = sorted(linelist, key = self.sort_line, reverse = True)
+        # Sorting of highlight lines moved to GetHighlights
+
+        # First sorts the list of word positions by y-coordinates, before sorting by page
+        wordlist = sorted(wordlist, key = self.sort_word_coords, reverse = True)
+        wordlist = sorted(wordlist, key = self.sort_word_page)
         max = len(linelist) -1
         i = 0
         j = 0
@@ -22,16 +33,19 @@ class Statistics:
             maxword = len(wordlist)
             while j < maxword: 
                 word = wordlist[j]
-                #print("word: " + str(word.getYCoord()) + " | " + str(word.getXCoord()) + " | " + word.getContent())
-                #print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
-                # " | " +  current.getContent())
                 if word.getY2() <= current.getY1() and word.getY2() >= current.getY2():
                     word_x = (word.getX1() + word.getX2())/2
                     if word_x <= current.getX2() and word_x >= current.getX1():
                         word.incrCount()
                     j += 1
+                elif word.getPage() > current.getPage():
+                    if (i < max):
+                        i+=1
+                        current = linelist[i]   
+                    else:
+                        j+=1
                 elif word.getY2() < current.getY2():
-                    if i < max:
+                    if (i < max and word.getPage() == current.getPage()):
                         i+=1
                         current = linelist[i]
                     else: 
@@ -45,27 +59,9 @@ class Statistics:
     def compute(self, basefile, infile):
         position_list = PDFpos(basefile)
         position_list = position_list.parsepdf()
-        #print(len(position_list))
         student_upload = Highlights()
         student_upload = student_upload.main(infile)
-        #print(len(student_upload))
         new_stats = self.gatherStatistics(student_upload, position_list)
-        for word in new_stats:
-            continue
-            print(str(word.getCount()) + " | " + word.getContent())
         return new_stats
     
-    
-    # class StatisticsEncoder(JSONEncoder):
-    #     def default(self, o):
-    #         return o.__dict__
 
-
-# class StatisticsEncoder(JSONEncoder):
-#         def default(self, o):
-#             return o.__dict__
-
-# current = Statistics()
-# current.compute('./pdf_highlights/FinancialAccounting1.pdf', './pdf_highlights/FinancialAccounting1.pdf')
-#print(StatisticsEncoder.encode(current))
-        
