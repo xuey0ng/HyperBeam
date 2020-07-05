@@ -8,6 +8,12 @@ from pdf_highlights.TextStore import LineStore
 class Highlights:
     resolution = 150
 
+    # Sorts the highlight annotations by their position. If the annotation is not a highlight annotation, place at the top.
+    def sort_anno(self, anno):
+        if isinstance(anno, popplerqt5.Poppler.HighlightAnnotation):
+            return anno.highlightQuads()[0].points[0].y()
+        return 800
+
     def main(self, infile):
 
         doc = popplerqt5.Poppler.Document.load(infile)
@@ -25,6 +31,7 @@ class Highlights:
 
             if len(annotations) > 0:
                 ##print(annotations)
+                annotations = sorted(annotations, key = self.sort_anno)
                 for annotation in annotations:
 
                     if isinstance(annotation, popplerqt5.Poppler.Annotation):
@@ -43,10 +50,10 @@ class Highlights:
                                 bdy = PyQt5.QtCore.QRectF()
                                 bdy.setCoords(*rect)
                                 txt = str(page.text(bdy)) + ' ' ## add each seperately
-                                temp = LineStore(i, float(quad.points[0].x() * pwidth), float(pheight - quad.points[0].y()*pheight + 3), 
+                                temp = LineStore(i+1, float(quad.points[0].x() * pwidth), float(pheight - quad.points[0].y()*pheight + 3), 
                                 float(quad.points[2].x() * pwidth), float(pheight - quad.points[2].y()*pheight - 1), txt)
                                 linelist.append(temp)
-
+                                # print(txt)
                             # print("========= ANNOTATION =========")
                             #print(txt)
                             # if annotation.contents():
@@ -71,14 +78,15 @@ class Highlights:
                             
                             page.renderToImage(resolution, resolution, bdy.left(), bdy.top(), bdy.width(), bdy.height()).save("page{}_image{}.png".format(i, count))
                             print("page{}_image{}.png".format(i, count))
-                            if annotation.contents(): 
-                                print(annotation.contents())
+                        #    if annotation.contents(): 
+                        #         print(annotation.contents())
                             
-                        if isinstance(annotation, popplerqt5.Poppler.TextAnnotation):
-                            if annotation.contents(): 
-                                print(annotation.contents())
+                        # if isinstance(annotation, popplerqt5.Poppler.TextAnnotation):
+                        #     if annotation.contents(): 
+                        #         print(annotation.contents())
 
         if total_annotations > 0:
+            print("line list is {}".format(len(linelist)))
             return linelist
         else:
             print ("no annotations found")
