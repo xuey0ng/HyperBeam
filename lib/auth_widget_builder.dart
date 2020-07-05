@@ -1,9 +1,11 @@
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_metadata_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_pushNotification_service.dart';
 import 'package:HyperBeam/services/firebase_quizAttempt_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/services/firebase_storage_service.dart';
+import 'package:HyperBeam/services/firebase_user_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +36,11 @@ class AuthWidgetBuilder extends StatelessWidget {
               return MultiProvider(
                 providers: [
                   Provider<User>.value(value: user),
+                  Provider<FirebaseUserService>.value(value: FirebaseUserService(id: user ==null ? "" : user.id,
+                      lastName: snapshot2.data== null ? "" : snapshot2.data.data["lastName"],
+                      firstName: snapshot2.data== null ? "" : snapshot2.data.data["firsttName"],
+                      email: snapshot2.data== null ? "" : snapshot2.data.data["email"],
+                  )),
                   Provider<FirebaseMetadataService>.value(value: FirebaseMetadataService(id: user ==null ? "" : user.id),
                   ),
                   Provider<FirebaseQuizService>.value(value: FirebaseQuizService(id: user ==null ? "" : user.id),
@@ -44,6 +51,7 @@ class AuthWidgetBuilder extends StatelessWidget {
                   ),
                   Provider<FirebaseModuleService>.value(value: FirebaseModuleService(id: user ==null ? "" : user.id)),
                   Provider<FirebaseQuizAttemptService>.value(value: FirebaseQuizAttemptService(id: user ==null ? "" : user.id)),
+                  //Provider<PushNotificationService>.value()
                 ],
                 child: builder(context, snapshot),
               );

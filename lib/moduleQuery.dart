@@ -1,29 +1,90 @@
 import 'package:HyperBeam/objectClasses.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
+import 'package:HyperBeam/services/firebase_user_service.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
+import 'package:provider/provider.dart';
+
 
 class ModuleQuery extends StatelessWidget {
 
+  Widget activityChart(var size) {
+
+  }
+
+  Widget friendList(var size, FirebaseUserService user) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Friend list",
+                        style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)
+                    ),
+                  ]
+              )
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<String> _loadModulesAsset() async {
-      return await rootBundle.loadString('assets/NUS/moduleInfo.json');
-    }
-    Future loadStudent() async {
-      String jsonString = await _loadModulesAsset();
-      final jsonResponse = json.decode(jsonString);
-      ModulesList module = new ModulesList.fromJson(jsonResponse);
-      print(module);
-    }
-
-    loadStudent();
-
-    return Scaffold(
-      body: Text("SS"),
-    );
+    var size = MediaQuery.of(context).size;
+    final user = Provider.of<FirebaseUserService>(context, listen: false);
+    return Stack(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/bg2-2.jpg"),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(height: 32),
+                  //Icon(Icons.account_circle,),
+                  RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline5,
+                          children: [
+                            TextSpan(text: "${user.lastName}", style: TextStyle(fontWeight: FontWeight.bold))
+                          ]
+                      )
+                  ),
+                  RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline5,
+                          children: [
+                            TextSpan(text: "ID: ${user.id}", style: TextStyle(fontSize: kSmallText))
+                          ]
+                      )
+                  ),
+                  //activityChart(size),
+                  friendList(size, user),
+                ],
+              )
+            )
+          )
+        ],
+      );
   }
 
 }
