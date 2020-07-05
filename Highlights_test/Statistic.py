@@ -13,7 +13,7 @@ class Statistics:
 
     # Function for updating existing statistics
     def gatherStatistics(self, linelist, wordlist):
-        linelist = sorted(linelist, key = self.sort_line, reverse = True)
+        # linelist = sorted(linelist, key = self.sort_line, reverse = True)
         max = len(linelist) -1
         i = 0
         j = 0
@@ -22,8 +22,8 @@ class Statistics:
             maxword = len(wordlist)
             while j < maxword: 
                 word = wordlist[j]
-                #print("word: " + str(word.getYCoord()) + " | " + str(word.getXCoord()) + " | " + word.getContent())
-                #print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
+                print("word: " + str(word.getY1()) + " | " + str(word.getX1()) + " | " + word.getContent())
+                print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
                 # " | " +  current.getContent())
                 if word.getY2() <= current.getY1() and word.getY2() >= current.getY2():
                     word_x = (word.getX1() + word.getX2())/2

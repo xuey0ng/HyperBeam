@@ -31,4 +31,4 @@ class AnyHighlights:
         # os.remove(temp) 
 
 tester = AnyHighlights()
-tester.highlights_test("test.pdf")
+tester.highlights_test("test2.pdf")

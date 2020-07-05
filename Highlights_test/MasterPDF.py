@@ -61,7 +61,7 @@ class GenerateMaster:
         pdfInput = PdfFileReader(open(filename, "rb"))
         pdfOutput = PdfFileWriter()
         
-        # os.remove(filename)
+        os.remove('tmp/test.pdf')
         
         for page in pdfInput.pages:
             pdfOutput.addPage(page)

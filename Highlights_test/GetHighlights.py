@@ -8,6 +8,9 @@ from TextStore import LineStore
 class Highlights:
     resolution = 150
 
+    def sort_anno(self, anno):
+        return anno.highlightQuads()[0].points[0].y()
+
     def main(self, infile):
 
         doc = popplerqt5.Poppler.Document.load(infile)
@@ -25,6 +28,7 @@ class Highlights:
 
             if len(annotations) > 0:
                 ##print(annotations)
+                annotations = sorted(annotations, key = self.sort_anno)
                 for annotation in annotations:
 
                     if isinstance(annotation, popplerqt5.Poppler.Annotation):
@@ -46,7 +50,7 @@ class Highlights:
                                 temp = LineStore(i, float(quad.points[0].x() * pwidth), float(pheight - quad.points[0].y()*pheight + 3), 
                                 float(quad.points[2].x() * pwidth), float(pheight - quad.points[2].y()*pheight - 1), txt)
                                 linelist.append(temp)
-
+                                print(txt)
                             # print("========= ANNOTATION =========")
                             #print(txt)
                             # if annotation.contents():
@@ -79,6 +83,7 @@ class Highlights:
                         #         print(annotation.contents())
 
         if total_annotations > 0:
+            print("line list is {}".format(len(linelist)))
             return linelist
         else:
             print ("no annotations found")

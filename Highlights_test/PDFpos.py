@@ -23,6 +23,11 @@ class PDFpos:
         self.word_array = list()
         self.filename = filename
         self.hashed = ''
+        self.current = ""
+        self.x1 = -1
+        self.x2 = -1
+        self.y1 = -1
+        self.y2 = -1
 
     def parse_page(self, lt_page, pageno):
 
@@ -41,6 +46,9 @@ class PDFpos:
             # if it's a container, recurse
             elif isinstance(obj, pdfminer.layout.LTFigure):
                 self.parse_page(obj._objs, pageno)
+                
+            elif isinstance(obj, pdfminer.layout.LTChar):
+                self.parse_char(obj, pageno)
     
     def parse_line(self, lt_line, pageno):
         current = ""
@@ -50,58 +58,57 @@ class PDFpos:
         y2 = -1
         #print(str(lt_line.bbox[0]) + " | "+ str(lt_line.bbox[2]) + " | "+str(lt_line.bbox[1]) + " | "+str(lt_line.bbox[3]))
         for obj in lt_line:
-            if isinstance(obj, pdfminer.layout.LTText) or isinstance(obj, pdfminer.layout.LTChar) and not isinstance(obj, pdfminer.layout.LTAnno):
+                # print("Char: {} | {} | {} | {} | {}".format(obj.get_text(), obj.bbox[0], obj.bbox[2], obj.bbox[1], obj.bbox[3]))
+            if isinstance(obj, pdfminer.layout.LTChar)  and not isinstance(obj, pdfminer.layout.LTAnno):
                 # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
-                thisword = obj.get_text()
-                if thisword == '\n' or thisword == ' ':
-                    temp = Token(pageno, x1, x2, y1, y2, current, self.filename, self.hashed)
-                    print(temp.getContent())
-                    self.word_array.append(temp)
-                    current = ""
-                    x1 = -1
-                    x2 = -1
-                    y1 = -1
-                    y2 = -1
-                elif x1 == -1:
-                    x1 = obj.bbox[0]
-                    x2 = obj.bbox[2]
-                    y1 = obj.bbox[1]
-                    y2 = obj.bbox[3]
-                    # current_x = (obj.bbox[0] + obj.bbox[2])/2
-                    # current_y = (obj.bbox[1])
-                    current += thisword
-                else:
-                    current += thisword
-                    x2 = obj.bbox[2]
+                # print("Text: {} | {} | {} | {} | {}".format(obj.get_text(), obj.bbox[0], obj.bbox[2], obj.bbox[1], obj.bbox[3]))
+                # thisword = obj.get_text()
+                # if thisword == '\n' or thisword == ' ':
+                #     temp = Token(pageno, x1, x2, y1, y2, current, self.filename, self.hashed)
+                #     # print(temp.getContent())
+                #     self.word_array.append(temp)
+                #     current = ""
+                #     x1 = -1
+                #     x2 = -1
+                #     y1 = -1
+                #     y2 = -1
+                # elif x1 == -1:
+                #     x1 = obj.bbox[0]
+                #     x2 = obj.bbox[2]
+                #     y1 = obj.bbox[1]
+                #     y2 = obj.bbox[3]
+                #     # current_x = (obj.bbox[0] + obj.bbox[2])/2
+                #     # current_y = (obj.bbox[1])
+                #     current += thisword
+                # else:
+                #     current += thisword
+                #     x2 = obj.bbox[2]
+                self.parse_char(obj, pageno)
             # elif isinstance(obj, pdfminer.layout.LTChar):
                 # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
 
     def parse_char(self, obj, pageno):
-        current = ""
-        x1 = -1
-        x2 = -1
-        y1 = -1
-        y2 = -1
         thisword = obj.get_text()
-        if thisword == '\n' or thisword == ' ':
-            temp = Token(pageno, x1, x2, y1, y2, current, self.filename, self.hashed)
-            self.word_array.append(temp)
-            current = ""
-            x1 = -1
-            x2 = -1
-            y1 = -1
-            y2 = -1
-        elif x1 == -1:
-            x1 = obj.bbox[0]
-            x2 = obj.bbox[2]
-            y1 = obj.bbox[1]
-            y2 = obj.bbox[3]
+        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—':
+            if self.x1 != -1:
+                temp = Token(pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
+                self.word_array.append(temp)
+            self.current = ""
+            self.x1 = -1
+            self.x2 = -1
+            self.y1 = -1
+            self.y2 = -1
+        elif self.x1 == -1:
+            self.x1 = obj.bbox[0]
+            self.x2 = obj.bbox[2]
+            self.y1 = obj.bbox[1]
+            self.y2 = obj.bbox[3]
             # current_x = (obj.bbox[0] + obj.bbox[2])/2
             # current_y = (obj.bbox[1])
-            current += thisword
+            self.current += thisword
         else:
-            current += thisword
-            x2 = obj.bbox[2]
+            self.current += thisword
+            self.x2 = obj.bbox[2]
 
     def parsepdf(self):
         # Open a PDF file.
