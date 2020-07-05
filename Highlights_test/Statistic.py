@@ -22,18 +22,27 @@ class Statistics:
             maxword = len(wordlist)
             while j < maxword: 
                 word = wordlist[j]
-                print("word: " + str(word.getY1()) + " | " + str(word.getX1()) + " | " + word.getContent())
-                print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
+                # print("word: " + str(word.getY1()) + " | " + str(word.getX1()) + " | " + word.getContent())
+                # print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
                 # " | " +  current.getContent())
                 if word.getY2() <= current.getY1() and word.getY2() >= current.getY2():
                     word_x = (word.getX1() + word.getX2())/2
                     if word_x <= current.getX2() and word_x >= current.getX1():
                         word.incrCount()
                     j += 1
+                elif word.getPage() > current.getPage():
+                    if (i < max):
+                        i+=1
+                        current = linelist[i]   
+                    else:
+                        j+=1
                 elif word.getY2() < current.getY2():
-                    if i < max:
+                    if (i < max and word.getPage() == current.getPage()):
                         i+=1
                         current = linelist[i]
+                        # print('b')
+                        # print("word: " + str(word.getY2()) + " | " + str(word.getX2()) + " | " + word.getContent() + " | " + str(word.getPage()))
+                        # print("line: " +  str(current.getY2()) + " | " + str(current.getX2()) + ' | ' + current.getContent()+ " | " + str(current.getPage()))
                     else: 
                         j+=1
                 else:
@@ -51,8 +60,8 @@ class Statistics:
         print(len(student_upload))
         new_stats = self.gatherStatistics(student_upload, position_list)
         for word in new_stats:
-            continue
-            print(str(word.getCount()) + " | " + word.getContent())
+            # continue
+            print(str(word.getCount()) + " | " + word.getContent() + ' | ' + str(word.getY2()))
         return new_stats
     
     

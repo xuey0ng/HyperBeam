@@ -58,5 +58,6 @@ class PDFhighlights:
         blob.download_to_filename(temp)
 
 test = PDFhighlights()
-test.download("hyper-beam.appspot.com", "master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf")
+#test.download("hyper-beam.appspot.com", "master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf")
+test.download("hyper-beam.appspot.com",'pdf/tBqBjEWxZiRwGwMk2uzyEaYTNvl1/IqCt9Gxm33fbHxppSy9A/link.txt')
 # test.update_highlights()

@@ -103,3 +103,6 @@ class LineStore:
     def getContent(self):
         return self.content
     
+    def getPage(self):
+        return self.page
+    

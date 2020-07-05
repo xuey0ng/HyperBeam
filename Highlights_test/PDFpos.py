@@ -28,6 +28,7 @@ class PDFpos:
         self.x2 = -1
         self.y1 = -1
         self.y2 = -1
+        self.pageno = -1
 
     def parse_page(self, lt_page, pageno):
 
@@ -51,11 +52,11 @@ class PDFpos:
                 self.parse_char(obj, pageno)
     
     def parse_line(self, lt_line, pageno):
-        current = ""
-        x1 = -1
-        x2 = -1
-        y1 = -1
-        y2 = -1
+        # current = ""
+        # x1 = -1
+        # x2 = -1
+        # y1 = -1
+        # y2 = -1
         #print(str(lt_line.bbox[0]) + " | "+ str(lt_line.bbox[2]) + " | "+str(lt_line.bbox[1]) + " | "+str(lt_line.bbox[3]))
         for obj in lt_line:
                 # print("Char: {} | {} | {} | {} | {}".format(obj.get_text(), obj.bbox[0], obj.bbox[2], obj.bbox[1], obj.bbox[3]))
@@ -88,16 +89,27 @@ class PDFpos:
                 # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
 
     def parse_char(self, obj, pageno):
+        if pageno != self.pageno:
+            if self.x1 != -1:
+                temp = Token(self.pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
+                self.word_array.append(temp)
+                self.current = ""
+            self.x1 = -1
+            self.x2 = -1
+            self.y1 = -1
+            self.y2 = -1
+            self.pageno = -1
         thisword = obj.get_text()
         if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—':
             if self.x1 != -1:
-                temp = Token(pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
+                temp = Token(self.pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
                 self.word_array.append(temp)
             self.current = ""
             self.x1 = -1
             self.x2 = -1
             self.y1 = -1
             self.y2 = -1
+            self.pageno = -1
         elif self.x1 == -1:
             self.x1 = obj.bbox[0]
             self.x2 = obj.bbox[2]
@@ -106,9 +118,11 @@ class PDFpos:
             # current_x = (obj.bbox[0] + obj.bbox[2])/2
             # current_y = (obj.bbox[1])
             self.current += thisword
+            self.pageno = pageno
         else:
             self.current += thisword
             self.x2 = obj.bbox[2]
+            
 
     def parsepdf(self):
         # Open a PDF file.

@@ -30,7 +30,7 @@ class PDFhighlights:
             message = messaging.Message(
                 data={
                     'title': 'MasterPDF updated',
-                    'message': 'The PDF : {} you uploaded has been processed.',
+                    'message': 'The PDF : {} you uploaded has been processed.'.pdf_name,
                     'link' : pdf_link,
                 },
                 token=curr,
@@ -62,4 +62,9 @@ class PDFhighlights:
 
             # Send a message to the devices subscribed to the provided topic.
             response = messaging.send(message)
-            logging.info("Message is sent to all users suscribe to topic {}".format(topic)))
+            logging.info("Message is sent to all users suscribe to topic {}".format(topic))
+
+user1 = 'cU5BzH47Vn0:APA91bGL2XQpNVeH51FMgYQLsfC1mfOwa0d0Y0fqTo9_Nx8dXQ8fnJ_EwUHzaGKAg_tqBJtyBf3lsEngjwsEDGFBzrhXYTTMwyDf97SNQt2PzSpkVTwrmK1_jmmjOgmrhK2QZbKfUbpK'
+link1 = 'https://storage.googleapis.com/hyper-beam.appspot.com/master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf'
+tester = PDFhighlights()
+tester.send_to_user(user1,'e443ce30f16dc6bddaa6c839f8fcfc81', 'FinancialAccounting1.pdf', link1)

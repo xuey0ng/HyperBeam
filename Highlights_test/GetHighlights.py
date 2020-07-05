@@ -47,10 +47,9 @@ class Highlights:
                                 bdy = PyQt5.QtCore.QRectF()
                                 bdy.setCoords(*rect)
                                 txt = str(page.text(bdy)) + ' ' ## add each seperately
-                                temp = LineStore(i, float(quad.points[0].x() * pwidth), float(pheight - quad.points[0].y()*pheight + 3), 
+                                temp = LineStore(i+1, float(quad.points[0].x() * pwidth), float(pheight - quad.points[0].y()*pheight + 3), 
                                 float(quad.points[2].x() * pwidth), float(pheight - quad.points[2].y()*pheight - 1), txt)
                                 linelist.append(temp)
-                                print(txt)
                             # print("========= ANNOTATION =========")
                             #print(txt)
                             # if annotation.contents():
