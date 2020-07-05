@@ -71,10 +71,11 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body:
       Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: 18),
         height: 800,
         width: 500,
         child: Column(
@@ -92,58 +93,66 @@ class _ExplorePageState extends State<ExplorePage> {
                       )
                   )
               ),
-              Form(
-                key: searchKey,
-                autovalidate: true,
-                child: Container(
-                  width: 280,
-                  height: 48,
-                  child: Card(
+              Stack(
+                children: [
+                  Card(
                     elevation: 2,
-                    child: Row(
-                      children: [
-                        Flexible(
-                          child: TextFormField(
-                            onChanged: (text){
-                              setState(() {
-                                query = text;
-                              });
-                            },
-                              decoration: new InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  contentPadding:
-                                  EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-                                  hintText: "Search module"),
-                              validator: (val){
-                                print(val);
-                                if(!MODULE_CODES.contains(val) && val != "") {
-                                  return "Please input a valid module";
-                                } else{
-                                  return null;
-                                }
-                              },
-                              onSaved: (val){
-                                setState(() {
-                                  query = val;
-                                });
-                              },
-
-                          ),
-                        ),
-                        IconButton(
+                    child: Container(
+                      width: 280,
+                      height: 36,
+                      child: Row(
+                        children: <Widget>[
+                          Spacer(),
+                          IconButton(
                             icon: Icon(Icons.search),
                             onPressed: () {
                               validateAndSave();
                             },
-                        ),
-                      ]
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                  Form(
+                    key: searchKey,
+                    autovalidate: true,
+                    child: Container(
+                      width: 280,
+                      height: 56,
+                      child: Flexible(
+                        child: TextFormField(
+                          onChanged: (text){
+                            setState(() {
+                              query = text;
+                            });
+                          },
+                          decoration: new InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              //contentPadding: EdgeInsets.only(left: 8,bottom: 12),
+                              contentPadding:
+                              EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
+                              hintText: "Search module"),
+                          validator: (val){
+                            if(!NUS_MODULES.containsCode(val) && val != "") {
+                              return "Please input a valid module";
+                            } else{
+                              return null;
+                            }
+                          },
+                          onSaved: (val){
+                            setState(() {
+                              query = val;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ]
               ),
               buildGrid(context, query),
             ]
@@ -151,134 +160,6 @@ class _ExplorePageState extends State<ExplorePage> {
       ),
     );
   }
-  /*
-  @override
-  void initState() {
-    super.initState();
-    generate(context).then((value){
-      setState(() {
-        print("HIT");
-        argument = value;
-        print("DONE");
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-        body:
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              height: 800,
-              width: 500,
-              child: Column(
-                children: [
-                  Container(
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                            style: Theme.of(context).textTheme.headline2,
-                            children: [
-                              TextSpan(text: "Explore",
-                                  style: TextStyle(fontWeight: FontWeight.bold, )
-                              )
-                            ]
-                        )
-                    )
-                  ),
-                  Container(
-                    height: 600,
-                    width: 500,
-                    child: Column(
-                      children: argument,
-                    ),
-                  ),
-                ]
-              ),
-            ),
-    );
-  }
-  
-  Future<List<Widget>> generate(BuildContext context) async {
-    CollectionReference userRepo = Firestore.instance.collection('users');
-    Stream<QuerySnapshot> userStream = userRepo.snapshots();
-    Future<List<Widget>> output;
-    print("GENERATE");
-    await userRepo.getDocuments().then((value) {
-      print(value);
-      output = buildQuizListFromUser(value.documents[0]);
-      return 0;
-    });
-    print("GENERATE DONE");
-    return output;
-  }
-
-  Widget _generateData(BuildContext context) {
-    CollectionReference userRepo = Firestore.instance.collection('users');
-    Stream<QuerySnapshot> userStream = userRepo.snapshots();
-    final moduleRepo = Provider.of<FirebaseModuleService>(context).getRepo();
-//both moduleRepo and userRepo are collections
-    return StreamBuilder<QuerySnapshot> (
-      stream: userStream,
-      builder: (context, snapshot) { //snapshot.data.document is list of user docSnap
-        if (!snapshot.hasData) return LinearProgressIndicator();
-        //Module mod = Module.fromSnapshot(snapshot.data.documents[0]);
-        return CustomScrollView(
-          primary: false,
-          slivers: <Widget>[
-            SliverPadding(
-              padding: const EdgeInsets.all(20),
-              sliver: SliverGrid.count(
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                children: [Text("GG"), Text("GGGG")],
-              ),
-            ),
-          ],
-        );
-      });
-  }
-
-  Widget buildQuizItem(DocumentReference docRef) { //convert docRef to docSnap in widget
-    return StreamBuilder<DocumentSnapshot> (
-        stream: docRef.snapshots(),
-        builder: (context, snapshot) {
-          if(!snapshot.hasData) return LinearProgressIndicator();
-          return Text(snapshot.data['name']);
-        }
-    );
-  }
-
-
-  List<Widget> buildQuizList(Module mod) {
-    print(mod.quizList);
-    return mod
-            .quizList
-            .map((e) => buildQuizItem(e))
-            .toList();
-  }
-
-  Future<List<Widget>> buildQuizListFromUser(DocumentSnapshot userSnap) async{
-    print("buildQuizListFromUser");
-     final moduleRepo = Firestore.instance
-         .collection('users')
-         .document(userSnap.documentID)
-         .collection('Modules');
-     List<Widget> output;
-     await moduleRepo.getDocuments().then((value){
-       List<DocumentSnapshot> moduleLst = value.documents;
-       Module mod = Module.fromSnapshot(moduleLst[0]);
-       output = buildQuizList(mod);
-     });
-     return output;
-  }
-*/
-
 
   Widget _buildQuizCard(Quiz quiz) {
     return StreamBuilder<DocumentSnapshot>(

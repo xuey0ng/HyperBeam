@@ -1,5 +1,6 @@
 import 'package:HyperBeam/loginPage.dart';
 import 'package:HyperBeam/moduleDetails.dart';
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/services/firebase_metadata_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';

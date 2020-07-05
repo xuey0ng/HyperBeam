@@ -15,6 +15,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
+
+import 'objectClasses.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,6 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final Firestore _db = Firestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging();
+  ModulesList nusModules;
 
   StreamSubscription iosSubscription;
 
@@ -43,6 +49,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
     final user = Provider.of<User>(context, listen: false);
     saveDeviceToken() async {
       String uid = user.id;
@@ -60,7 +67,20 @@ class _HomePageState extends State<HomePage> {
         }, merge: true);
       }
     }
-    super.initState();
+
+    Future<String> _loadModulesAsset() async {
+      return await rootBundle.loadString('assets/NUS/moduleInfo.json');
+    }
+    Future loadModule() async {
+      String jsonString = await _loadModulesAsset();
+      final jsonResponse = json.decode(jsonString);
+      NUS_MODULES = new ModulesList.fromJson(jsonResponse);
+    }
+    if(NUS_MODULES == null)  {
+      print("Loading modules");
+      loadModule();
+    }
+
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
         saveDeviceToken();

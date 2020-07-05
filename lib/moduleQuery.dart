@@ -21,8 +21,6 @@ class ModuleQuery extends StatelessWidget {
 
     loadStudent();
 
-
-
     return Scaffold(
       body: Text("SS"),
     );

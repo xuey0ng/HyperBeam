@@ -41,7 +41,7 @@ class _QuizFormState extends State<QuizForm> {
       answers: _answers,
       quizDate: Timestamp.fromDate(quizDate),
       fullScore: index,
-      moduleName: widget.module.name,
+      moduleName: widget.module.moduleCode,
       uid: user.id,
     );
     var newList = widget.module.quizList.toList(growable: true);

@@ -46,7 +46,8 @@ class _ProgressChartState extends State<ProgressChart>{
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot, Size size) {
     Module module = Module.fromSnapshot(snapshot);
     return ProgressCard(
-        title: module.name,
+        moduleCode: module.moduleCode,
+        title: module.title,
         size: size,
         pressCreateQuiz: () {
           _createQuiz(module);
