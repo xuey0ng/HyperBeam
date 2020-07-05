@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
@@ -9,11 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:HyperBeam/moduleDetails.dart';
 import '../objectClasses.dart';
 import '../routing_constants.dart';
 
 class ProgressCard extends StatelessWidget {
+  final String moduleCode;
   final String title;
   final int score;
   final int fullScore;
@@ -26,6 +26,7 @@ class ProgressCard extends StatelessWidget {
 
   const ProgressCard({
     Key key,
+    this.moduleCode,
     this.title,
     this.score,
     this.fullScore,
@@ -121,7 +122,7 @@ class ProgressCard extends StatelessWidget {
                           style: TextStyle(color: Colors.black),
                           children: [
                             TextSpan(
-                              text: "$title\n",
+                              text: "$moduleCode\n",
                               style: TextStyle(
                                 fontSize: kBigText,
                                 fontWeight: FontWeight.bold,
@@ -130,6 +131,22 @@ class ProgressCard extends StatelessWidget {
                           ]
                         )
                       )
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 24,),
+                        child: RichText(
+                            text: TextSpan(
+                                style: TextStyle(color: Colors.black),
+                                children: [
+                                  TextSpan(
+                                    text: "$title\n",
+                                    style: TextStyle(
+                                      fontSize: kMediumText,
+                                    ),
+                                  ),
+                                ]
+                            )
+                        )
                     ),
                     Spacer(),
                     Row(
@@ -262,10 +279,9 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
 
   @override
   Widget build(BuildContext context) {
-    //const List<String> mods = jsonDecode(DefaultAssetBundle.of(context).loadString("assets/NUS/moduleList.json"));
-
     return GestureDetector(
       onTap: () {
+
         return showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -296,11 +312,13 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             TextFormField(
-                              validator: (val) => !MODULE_CODES.contains(val) ? "Module not found" : null,
+                              validator: (val) {
+                                return !NUS_MODULES.containsCode(val)? "Module not found": null;
+                              },
                               autofocus: true,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: "Enter a module name",
+                                hintText: "Enter a module code",
                               ),
                               onSaved: (text) {
                                 setState(() {
@@ -324,7 +342,8 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                   onPressed: () {
                                     if(validateAndSave()){
                                       final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                      Module newModule = Module(moduleName, taskList: List(), quizList: List());
+                                      //Module newModule = Module(moduleCode: moduleName, taskList: List(), quizList: List());
+                                      Module newModule = NUS_MODULES.getModule(moduleName);
                                       Navigator.of(context).pop();
                                       moduleRepository.addDoc(newModule);
                                     }

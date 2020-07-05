@@ -5,6 +5,7 @@ class FirebaseQuizService {
   final String id;
   FirebaseQuizService({@required this.id}) : assert(id != null);
 
+
   DataRepo getRepo() {
     return DataRepo.fromRepo("Quizzes");
   }

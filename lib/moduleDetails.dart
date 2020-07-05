@@ -6,6 +6,7 @@ import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
+import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,7 +20,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:provider/provider.dart';
-import 'package:HyperBeam/quizHandler.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
@@ -28,7 +28,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:intl/intl.dart';
 class ModuleDetails extends StatefulWidget {
   @override
   _ModuleDetailsState createState() => _ModuleDetailsState();
@@ -36,7 +36,7 @@ class ModuleDetails extends StatefulWidget {
 
 class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
-  var args;
+  Module args; //Module
 
   Widget buildQuizItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
@@ -104,6 +104,75 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     );
   }
 
+  Widget examInfo(List<SemesterDatum> sems, var size){
+    List<Widget> lst = List();
+    for (SemesterDatum sem in sems) {
+      if (sem.semester != null) {
+        print("HIT");
+        lst.add(Text("Semester ${sem.semester} Exam"));
+      }
+      if (sem.examDate != null){
+        lst.add(Text("${DateFormat('yyyy-MM-dd – HH:mm').format(sem.examDate.add(Duration(hours: 8)))}"));
+      }
+      lst.add(Text("${sem.examDuration == null ? "TBC" : "${sem.examDuration} mins"}"));
+    }
+    return Container(
+      width: size.width*0.45,
+      child: Column(
+        children: lst,
+      )
+    );
+  }
+
+  Widget workloadInfo(List<num> loads, var size) {
+    int totalWorkload = 0;
+    for(int load in loads){
+      totalWorkload += load;
+    }
+    return Container(
+      width: size.width*0.45,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Workload - $totalWorkload hrs"),
+          Text("Lec:  ${loads[0]} hrs"),
+          Text("Tut:  ${loads[1]} hrs"),
+          Text("Lab:  ${loads[2]} hrs"),
+          Text("Proj: ${loads[3]} hrs"),
+          Text("Prep: ${loads[4]} hrs"),
+        ],
+      )
+    );
+  }
+
+  Widget preclusionInfo(String preclusion, var size) {
+    return Container(
+        width: size.width*0.45,
+        child: Text(
+          "Preclusion: $preclusion",
+          maxLines: 10,
+        )
+    );
+  }
+
+  Widget suInfo(Attributes attri, var size) {
+    Widget child() {
+      if(attri == null) {
+        return Text("No infomation on S/U");
+      } else if (attri.su) {
+        return Text("SU: allowed");
+      } else {
+        return Text("SU: not allowed");
+      }
+    }
+
+    return Container(
+      width: size.width*0.45,
+      child: child(),
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -144,9 +213,66 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
-                              text: " ${args.name}",
+                              text: " ${args.moduleCode}",
                             ),
                           ),
+                        ),
+                        Column(
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(text: "${args.title ?? "\n"}", style: TextStyle(fontSize: kBigText,fontWeight: FontWeight.bold, color: Colors.black)),
+                            ),
+                            ExpandChild(
+                              expandArrowStyle: ExpandArrowStyle.icon,
+                              child: Column(
+                                children: <Widget>[
+                                  RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                          style: Theme.of(context).textTheme.headline5,
+                                          children: [
+                                            TextSpan(text: "${args.department ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
+                                            TextSpan(text: "${args.faculty ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
+                                            TextSpan(text: "${args.moduleCredit ?? ""} MCs", style: TextStyle(fontSize: kMediumText))
+                                          ]
+                                      )
+                                  ),
+                                  Container(
+                                    padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                    child: Text(
+                                      args.description,
+                                      maxLines: 118,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: new TextStyle(
+                                        fontSize: 14.0,
+                                        color: new Color(0xFFA0A0A0),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                    child: Row(
+                                      children: <Widget>[
+                                        workloadInfo(args.workload, size),
+                                        examInfo(args.semesterData, size)
+                                      ],
+                                    )
+                                  ),
+                                  Container(
+                                      padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                      child: Row(
+                                        children: <Widget>[
+                                          preclusionInfo(args.preclusion, size),
+                                          suInfo(args.attributes, size),
+                                        ],
+                                      )
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ]
                         ),
                         SizedBox(height: 10),
                         Padding(
@@ -288,7 +414,6 @@ class TaskCard extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
 class QuizCard extends StatelessWidget {
