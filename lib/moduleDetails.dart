@@ -158,7 +158,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   Widget suInfo(Attributes attri, var size) {
     Widget child() {
       if(attri == null) {
-        return Text("No infomation on S/U");
+        return Text("No information on S/U");
       } else if (attri.su) {
         return Text("SU: allowed");
       } else {

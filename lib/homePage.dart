@@ -5,6 +5,7 @@ import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/widgets/atAGlance.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/fileHandler.dart';
@@ -89,10 +90,25 @@ class _HomePageState extends State<HomePage> {
     } else {
       saveDeviceToken();
     }
+    FirebaseMessaging().getToken().then((value) => print("CURR TOKEN IS $value"));
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        // TODO optional
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
