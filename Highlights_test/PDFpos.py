@@ -100,7 +100,7 @@ class PDFpos:
             self.y2 = -1
             self.pageno = -1
         thisword = obj.get_text()
-        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—':
+        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—' or thisword == '-':
             if self.x1 != -1:
                 temp = Token(self.pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
                 self.word_array.append(temp)
@@ -162,7 +162,7 @@ class PDFpos:
         for page in PDFPage.create_pages(document):
             #print(page.mediabox)
             i+=1
-            print('page looped at {}'.format(i))
+            # print('page looped at {}'.format(i))
             # read the page into a layout object
             interpreter.process_page(page)
             layout = device.get_result()

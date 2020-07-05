@@ -9,7 +9,9 @@ class Highlights:
     resolution = 150
 
     def sort_anno(self, anno):
-        return anno.highlightQuads()[0].points[0].y()
+        if isinstance(anno, popplerqt5.Poppler.HighlightAnnotation):
+            return anno.highlightQuads()[0].points[0].y()
+        return 800
 
     def main(self, infile):
 
@@ -50,6 +52,7 @@ class Highlights:
                                 temp = LineStore(i+1, float(quad.points[0].x() * pwidth), float(pheight - quad.points[0].y()*pheight + 3), 
                                 float(quad.points[2].x() * pwidth), float(pheight - quad.points[2].y()*pheight - 1), txt)
                                 linelist.append(temp)
+                                # print(txt)
                             # print("========= ANNOTATION =========")
                             #print(txt)
                             # if annotation.contents():

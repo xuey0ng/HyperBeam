@@ -17,7 +17,7 @@ class AnyHighlights:
         current_list = current.compute(infile, infile)
 
         print("Highlights processed")
-        print(len(current_list))
+        # print(len(current_list))
         if len(current_list) > 0:
             filename = str(current_list[0].getHashed())
         else:
@@ -29,6 +29,6 @@ class AnyHighlights:
 
         print("master file has been processed")
         # os.remove(temp) 
-
+ 
 tester = AnyHighlights()
-tester.highlights_test("test2.pdf")
+tester.highlights_test("test.pdf")
