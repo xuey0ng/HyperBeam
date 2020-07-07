@@ -18,9 +18,11 @@ class _ExplorePageState extends State<ExplorePage> {
   DataRepo quizRepository;
   String query;
   final searchKey = new GlobalKey<FormState>();
+
   //List<Widget> argument = [Text("loading")];
 
   Widget buildGrid(BuildContext context, String query) {
+    var size = MediaQuery.of(context).size;
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     return StreamBuilder<QuerySnapshot>(
         stream: quizRepository.getStream(), //stream<QuerySnapshot>
@@ -41,7 +43,7 @@ class _ExplorePageState extends State<ExplorePage> {
           }
           print("begin building list of length ${lst.length}");
           return Container(
-            height: 580,
+            height: size.height*0.78,
             width: 500,
             child: CustomScrollView(
               primary: false,
@@ -70,13 +72,14 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body:
       Container(
         margin: EdgeInsets.only(top: 18),
-        height: 800,
+        height: size.height,
         width: 500,
         child: Column(
             children: [

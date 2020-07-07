@@ -8,6 +8,7 @@ import 'dart:convert';
 class FirebaseModuleService {
   String id;
   ModulesList nusModules;
+
   FirebaseModuleService({@required id}) {
     assert(id != null);
     this.id = id;

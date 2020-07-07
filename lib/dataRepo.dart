@@ -8,8 +8,16 @@ class DataRepo {
     this.db = Firestore.instance.collection(name);
   }
 
+  DataRepo.fromInstance(CollectionReference db) {
+    this.db = db;
+  }
+
   DataRepo(String id, String name) {
     this.db = Firestore.instance.collection('users').document(id).collection(name);
+  }
+
+  test() {
+
   }
 
   CollectionReference getCollectionRef() {
@@ -32,32 +40,24 @@ class DataRepo {
     return await db.add(obj.toJson());
   }
 
+  Future<DocumentReference> addDocByID(String id, iDatabaseable obj) async {
+    await db.document(id).setData(obj.toJson(), merge: true);
+    return db.document(id);
+  }
+
   Future<void> setDoc(iDatabaseable obj) async {
-    return await db.document(obj.reference.documentID).setData(obj.toJson(), merge: true);
+    return await db.document(obj.reference.documentID)
+        .setData(obj.toJson(), merge: true);
+  }
+  Future<void> setDocByID(String id, Map<String, dynamic> map) async {
+    print("Curr map is ${map.toString()}");
+    return await db.document(id)
+        .setData(map, merge: true);
   }
 
-  void updateTime(DateTime date) {
-    Map<String, dynamic> updates = new Map();
-    updates['quizDate'] = Timestamp.fromDate(date);
-    db.document("time").updateData(updates);
-  }
+  incrementList(){}
 
-  void addUncompletedQuizCount() async {
-    Map<String, dynamic> updates = new Map();
-    DocumentSnapshot snap = await db.document("main").get();
-    updates['count'] = snap.data['count'] + 1;
-    db.document("main").updateData(updates);
-  }
-
-  Future<List<DocumentReference>> getRefList() async {
-    List<DocumentReference> listRef;
-    await db.getDocuments().then((val)=> val.documents.map((x)=> listRef.add(x.reference)));
-    return listRef;
-  }
-
-  Future<int> documentCount() async{
-    return await db.getDocuments().then((val) => val.documents.length);
-  }
+  decrementList(){}
 
   Future<void> delete(DocumentSnapshot doc) async{
     return await db.document(doc.documentID).delete();
@@ -67,4 +67,7 @@ class DataRepo {
     await db.document(task.reference.documentID).updateData(task.toJson());
   }
 
+  Future<int> documentCount() async{
+    return await db.getDocuments().then((val) => val.documents.length);
+  }
 }

@@ -5,34 +5,37 @@ import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PushNotificationService {
-  final Firestore _db = Firestore.instance;
+  User user;
   final FirebaseMessaging _fcm = FirebaseMessaging();
   StreamSubscription iosSubscription;
-  User user;
   BuildContext context;
   PushNotificationService({this.user, this.context});
 
   saveDeviceToken() async {
-    String uid = user.id;
-    print("UID IS $uid");
+    user = Provider.of<User>(context);
+
     String fcmToken = await _fcm.getToken();
+
     if (fcmToken != null) {
-      var tokens = _db
-          .collection('users')
-          .document(uid);
-      await tokens.setData({
-        'token': fcmToken,
-        'createdAt': FieldValue.serverTimestamp(), // optional
-        'platform': Platform.operatingSystem // optional
-      }, merge: true);
+      User newUser = User(
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        ref: user.ref,
+        createdAt: FieldValue.serverTimestamp(),
+        platform: Platform.operatingSystem,
+        token: fcmToken,
+      );
+      await user.getRepo().setDocByID(user.id, newUser.toJson());
     }
   }
 
-
   initialise() {
+    user = Provider.of<User>(context);
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
         saveDeviceToken();
@@ -140,7 +143,6 @@ class PushNotificationService {
     var view = notificationData['view'];
     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
     if(notificationData != null) {
-      print("HITTT");
       final dynamic data = message['data'];
       obtainPDFfromLink(data['link']);
     }

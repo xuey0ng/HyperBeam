@@ -2,7 +2,6 @@ import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/explorePage.dart';
 import 'package:HyperBeam/moduleQuery.dart';
 import 'package:HyperBeam/quizHandler.dart';
-import 'package:HyperBeam/services/firebase_user_service.dart';
 import 'package:HyperBeam/widgets/atAGlance.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,9 +15,7 @@ import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_pushNotification_service.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
-import 'dart:io';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
@@ -31,15 +28,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Firestore _db = Firestore.instance;
-  final FirebaseMessaging _fcm = FirebaseMessaging();
-  ModulesList nusModules;
-
-
   PageController _controller = PageController(
     initialPage: 0,
   );
-
 
   void _signOut(BuildContext context) async {
     try {
@@ -55,27 +46,14 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     final user = Provider.of<User>(context, listen: false);
     PushNotificationService(user: user, context: context).initialise();
-
-    Future<String> _loadModulesAsset() async {
-      return await rootBundle.loadString('assets/NUS/moduleInfo.json');
-    }
-    Future loadModule() async {
-      String jsonString = await _loadModulesAsset();
-      final jsonResponse = json.decode(jsonString);
-      NUS_MODULES = new ModulesList.fromJson(jsonResponse);
-    }
-    if(NUS_MODULES == null)  {
-      print("Loading modules");
-      loadModule();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);//hides the app bar above
     var size = MediaQuery.of(context).size;
-    final user = Provider.of<FirebaseUserService>(context, listen: false);
-    print(user.lastName);
+    final user = Provider.of<User>(context, listen: false);
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Stack(
@@ -107,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Icon(Icons.account_circle),
                                     FlatButton(
-                                        child: new Text('${user.lastName}'),
+                                        child: new Text('${user.name}'),
                                         onPressed: (){
                                           Navigator.push(context, MaterialPageRoute(
                                               builder: (context) => ModuleQuery()
