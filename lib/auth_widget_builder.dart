@@ -3,6 +3,7 @@ import 'package:HyperBeam/services/firebase_metadata_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quizAttempt_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/services/firebase_storage_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -21,22 +22,19 @@ class AuthWidgetBuilder extends StatelessWidget {
       builder: (context, snapshot) {
         final User user = snapshot.data;
         print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id} and ${user}');
-        if(!snapshot.hasData) return MaterialApp(home: LinearProgressIndicator());
+        if(!snapshot.hasData) return builder(context, snapshot);
         return StreamBuilder<DocumentSnapshot> (
           stream: Firestore.instance.collection('users').document(user.id).snapshots(),
           builder: (context, snapshot2){
-            if(snapshot2.data!= null){
-              print("hit ${snapshot2.data== null}");
-              //if (user != null) {
+            //if(snapshot2.data!= null){
+              print("hittt ${snapshot2.data== null ? "IT IS NULL" : snapshot2.data.data["name"]}");
+              if (user != null) {
                 return MultiProvider(
                   providers: [
-                    /*
                     Provider<User>.value(value: User(id: user == null ?  "" : user.id,
                       name: snapshot2.data== null ? "" : snapshot2.data.data["name"],
                       email: snapshot2.data== null ? "" : snapshot2.data.data["email"],
-                    )),*/
-
-                    Provider<User>.value(value: user),
+                    )),
                     Provider<FirebaseMetadataService>.value(value: FirebaseMetadataService(id: user == null ? "" : user.id),
                     ),
                     Provider<FirebaseQuizService>.value(value: FirebaseQuizService(id: user ==null ? "" : user.id),
@@ -47,12 +45,13 @@ class AuthWidgetBuilder extends StatelessWidget {
                     ),
                     Provider<FirebaseModuleService>.value(value: FirebaseModuleService(id: user ==null ? "" : user.id)),
                     Provider<FirebaseQuizAttemptService>.value(value: FirebaseQuizAttemptService(id: user ==null ? "" : user.id)),
+                    Provider<FirebaseReminderService>.value(value: FirebaseReminderService(id: user ==null ? "" : user.id)),
                   ],
                   child: builder(context, snapshot),
                 );
               }
             //}
-            return MaterialApp(home: LinearProgressIndicator());
+            return builder(context, snapshot);
           },
         );
       },

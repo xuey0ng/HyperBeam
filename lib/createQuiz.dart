@@ -1,8 +1,9 @@
+import 'package:HyperBeam/dataRepo.dart';
+import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/objectClasses.dart';
-import 'package:HyperBeam/progressChart.dart';
-import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _QuizFormState extends State<QuizForm> {
   List<String> _questions = new List(10);
   List<String> _answers = new List(10); //var = string , var = annotation in pdf???
   Quiz newQuiz;
-  DateTime quizDate;
+  DateTime reminderDate;
   int index = 1;
 
   FocusNode f1;
@@ -34,12 +35,13 @@ class _QuizFormState extends State<QuizForm> {
     final user = Provider.of<User>(context, listen: false);
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    final reminderRepository = Provider.of<FirebaseReminderService>(context).getRepo();
     quizFormKey.currentState.save();
     newQuiz = Quiz(
       widget.quizName,
       questions: _questions,
       answers: _answers,
-      quizDate: Timestamp.fromDate(quizDate),
+      dateCreated: Timestamp.now(),
       fullScore: index,
       moduleName: widget.module.moduleCode,
       uid: user.id,
@@ -50,8 +52,16 @@ class _QuizFormState extends State<QuizForm> {
     newList.add(docRef);
     widget.module.quizList = newList;
     moduleRepository.updateDoc(widget.module);
+    String documentID = reminderDate.toString() + user.id;
+    Reminder rem = Reminder(
+      uid: user.id,
+      quizName: newQuiz.name,
+      moduleName: newQuiz.moduleName,
+      quizDocRef: docRef,
+      date: reminderDate
+    );
+    reminderRepository.addDocByID(documentID, rem);
   }
-
 
   @override
   void initState() {
@@ -95,7 +105,7 @@ class _QuizFormState extends State<QuizForm> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                    title: const Text("Schedule quiz"),
+                    title: const Text("Schedule a reminder"),
                     content: Form(
                         key: quizFormKey,
                         autovalidate: true,
@@ -108,9 +118,9 @@ class _QuizFormState extends State<QuizForm> {
                               decoration: textInputDecoration.copyWith(
                                   hintText: 'Enter a Date',
                                   labelText: "Pick a date"),
-                              onSaved: (text) {
+                              onSaved: (text) async {
                                 setState(() {
-                                  quizDate = text;
+                                  reminderDate = text;
                                 });
                               },
                             ),
@@ -119,7 +129,9 @@ class _QuizFormState extends State<QuizForm> {
                               child: Text("Set Quiz"),
                               onPressed: () {
                                 validateAndSetQuiz(context);
-                                Navigator.pushNamed(context, HomeRoute);
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => HomePage()
+                                ));
                               },
                             )
                           ],

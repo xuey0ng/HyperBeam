@@ -2,6 +2,7 @@ import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/explorePage.dart';
 import 'package:HyperBeam/moduleQuery.dart';
 import 'package:HyperBeam/quizHandler.dart';
+import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/atAGlance.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,6 +47,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     final user = Provider.of<User>(context, listen: false);
     PushNotificationService(user: user, context: context).initialise();
+
+    Future<String> _loadModulesAsset() async {
+      return await rootBundle.loadString('assets/NUS/moduleInfo.json');
+    }
+    Future loadModule() async {
+      String jsonString = await _loadModulesAsset();
+      final jsonResponse = json.decode(jsonString);
+      NUS_MODULES = new ModulesList.fromJson(jsonResponse);
+    }
+    if(NUS_MODULES == null)  {
+      print("Loading modules");
+      loadModule();
+    }
   }
 
   @override
@@ -53,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);//hides the app bar above
     var size = MediaQuery.of(context).size;
     final user = Provider.of<User>(context, listen: false);
+    final mod = Provider.of<FirebaseModuleService>(context).getRepo();
 
     return WillPopScope(
       onWillPop: () async => false,

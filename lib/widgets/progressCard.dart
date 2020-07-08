@@ -200,35 +200,6 @@ class ProgressCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    /*
-                    Spacer(),
-                    Row(
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(left: 24),
-                            child: RichText(
-                                text: TextSpan(
-                                    style: TextStyle(color: Colors.black),
-                                    children: [
-                                      TextSpan(
-                                        text: "Completed quiz:",
-                                        style: TextStyle(
-                                          fontSize: kSmallText,
-                                        ),
-                                      ),
-                                    ]
-                                )
-                            )
-                        ),
-                        Spacer(),
-                        Padding(
-                            padding: EdgeInsets.only(right: 24),
-                            child: Text("$quizCount"),
-                        ),
-                      ]
-                    ),
-                     */
-                    Spacer(),
                     Spacer(),
                     Row(
                       children: <Widget>[
@@ -276,12 +247,10 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
         return showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -342,10 +311,9 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                   onPressed: () {
                                     if(validateAndSave()){
                                       final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                      //Module newModule = Module(moduleCode: moduleName, taskList: List(), quizList: List());
                                       Module newModule = NUS_MODULES.getModule(moduleName);
                                       Navigator.of(context).pop();
-                                      moduleRepository.addDoc(newModule);
+                                      moduleRepository.addDocByID(newModule.moduleCode, newModule);
                                     }
                                   },
                                 )

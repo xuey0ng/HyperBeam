@@ -1,15 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
-import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:expand_widget/expand_widget.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/objectClasses.dart';
@@ -20,13 +15,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 class ModuleDetails extends StatefulWidget {
@@ -108,7 +98,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     List<Widget> lst = List();
     for (SemesterDatum sem in sems) {
       if (sem.semester != null) {
-        print("HIT");
         lst.add(Text("Semester ${sem.semester} Exam"));
       }
       if (sem.examDate != null){

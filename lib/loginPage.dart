@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
   }
   void validateAndSubmit(BuildContext context, bool googleSignIn) async {
     final auth = Provider.of<FirebaseAuthService>(context);
-
     if (googleSignIn) {
       try {
         await auth.signInWithGoogle();

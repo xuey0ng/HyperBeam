@@ -1,4 +1,3 @@
-import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +63,7 @@ class Module extends iDatabaseable{
   String preclusion;
   Attributes attributes;
   List<SemesterDatum> semesterData;
+  List<String> pdfFiles;
   DocumentReference reference;
 
   factory Module.fromJson(Map<String, dynamic> json) => Module(
@@ -84,6 +84,7 @@ class Module extends iDatabaseable{
   );
 
   factory Module.fromSnapshot(DocumentSnapshot snapshot) {
+    if(snapshot == null) return null;
     Module newModule = Module.fromJson(snapshot.data);
     newModule.reference = snapshot.reference;
     return newModule;
@@ -146,7 +147,7 @@ class SemesterDatum {
   };
 }
 
-
+//todo class Task is incomplete
 class Task implements iDatabaseable {
   final String name;
   bool completed;
@@ -179,12 +180,58 @@ class Task implements iDatabaseable {
   }
 }
 
+class Reminder implements iDatabaseable {
+  String uid;
+  String quizName;
+  String moduleName;
+  DocumentReference quizDocRef;
+  DateTime date;
+  @override
+  DocumentReference reference;
+
+  Reminder({
+    this.uid,
+    this.quizName,
+    this.moduleName,
+    this.quizDocRef,
+    this.date,
+    this.reference,
+  });
+
+  //factory constructor
+  factory Reminder.fromJson(Map<String, dynamic> json) {
+    return Reminder(
+      uid: json['uid'] as String,
+      quizName: json['quizName'] as String,
+      moduleName: json['moduleName'] as String,
+      quizDocRef: json['quizDocRef'] as DocumentReference,
+      date: json['date'] as DateTime,
+    );
+  }
+  //factory constructor
+  factory Reminder.fromSnapshot(DocumentSnapshot snapshot) {
+    Reminder newReminder = Reminder.fromJson(snapshot.data);
+    newReminder.reference = snapshot.reference;
+    return newReminder;
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic> {
+      'uid' : uid,
+      'quizName': quizName,
+      'moduleName': moduleName,
+      'quizDocRef': quizDocRef,
+      'date' : date,
+    };
+  }
+}
+
 class Quiz implements iDatabaseable {
   String name;
   List<dynamic> questions;
   List<dynamic> answers;
   List<dynamic> attempts;
-  Timestamp quizDate;
+  Timestamp dateCreated;
   String masterPdfUri;
   int score;
   int fullScore;
@@ -197,7 +244,7 @@ class Quiz implements iDatabaseable {
   Quiz(this.name, {this.questions,
     this.answers,
     this.attempts,
-    this.quizDate,
+    this.dateCreated,
     this.score,
     this.masterPdfUri,
     this.fullScore,
@@ -211,7 +258,7 @@ class Quiz implements iDatabaseable {
       questions: json['question'] as List<dynamic>,
       answers: json['answer'] as List<dynamic>,
       attempts: json['attempts'] as List<dynamic>,
-      quizDate: json['quizDate'] as Timestamp,
+      dateCreated: json['quizDate'] as Timestamp,
       score: json['score'] ?? 0,
       fullScore: json['fullScore'] ?? 0,
       masterPdfUri: json['masterPdfUri'] ??  "",
@@ -232,7 +279,7 @@ class Quiz implements iDatabaseable {
       'question': this.questions,
       'answer' : this.answers,
       'attempts' : this.attempts,
-      'quizDate' : this.quizDate,
+      'quizDate' : this.dateCreated,
       'score' : this.score,
       'masterPdfUri' : this.masterPdfUri,
       'fullScore' : this.fullScore,

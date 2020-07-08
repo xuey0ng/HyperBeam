@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PushNotificationService {
+  final Firestore _db = Firestore.instance;
   User user;
   final FirebaseMessaging _fcm = FirebaseMessaging();
   StreamSubscription iosSubscription;
@@ -16,26 +17,21 @@ class PushNotificationService {
   PushNotificationService({this.user, this.context});
 
   saveDeviceToken() async {
-    user = Provider.of<User>(context);
-
     String fcmToken = await _fcm.getToken();
-
     if (fcmToken != null) {
-      User newUser = User(
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        ref: user.ref,
-        createdAt: FieldValue.serverTimestamp(),
-        platform: Platform.operatingSystem,
-        token: fcmToken,
-      );
-      await user.getRepo().setDocByID(user.id, newUser.toJson());
+      var tokens = _db
+          .collection('users')
+          .document(user.id);
+      await tokens.setData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(), // optional
+        'platform': Platform.operatingSystem // optional
+      }, merge: true);
     }
   }
 
   initialise() {
-    user = Provider.of<User>(context);
+    print("initialising push notif");
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
         saveDeviceToken();
@@ -60,7 +56,6 @@ class PushNotificationService {
                 child: Text('Ok'),
                 onPressed: () {
                   if(message.containsKey('data')){
-                    print("DATA FOUND");
                     final dynamic data = message['data'];
                     print(data['link']);
                     obtainPDFfromLink(data['link']);
@@ -146,14 +141,5 @@ class PushNotificationService {
       final dynamic data = message['data'];
       obtainPDFfromLink(data['link']);
     }
-    /*
-    if (view != null) {
-      // Navigate to the create post view
-      if (view == 'create_post') {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-      }
-      // If there's no view it'll just open the app on the first view
-    }
-     */
   }
 }

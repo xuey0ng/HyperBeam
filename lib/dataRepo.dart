@@ -45,6 +45,13 @@ class DataRepo {
     return db.document(id);
   }
 
+  Future<bool> documentExists(String documentID) async {
+    return await db.document(documentID).get().then((value){
+      if(value.exists) return true;
+      return false;
+    });
+  }
+
   Future<void> setDoc(iDatabaseable obj) async {
     return await db.document(obj.reference.documentID)
         .setData(obj.toJson(), merge: true);
@@ -55,7 +62,9 @@ class DataRepo {
         .setData(map, merge: true);
   }
 
-  incrementList(){}
+  incrementList(String field, dynamic newItem) async {
+    var newList = db;
+  }
 
   decrementList(){}
 

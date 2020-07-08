@@ -12,22 +12,29 @@ class User extends iDatabaseable{
   String token;
   dynamic createdAt;
   String platform;
+  List<String> friendList;
   DocumentReference ref;
 
-  User({@required this.id,
+  User({
+    @required this.id,
     this.name,
     this.email,
     this.token,
     this.createdAt,
     this.platform,
+    this.friendList,
     this.ref,
   });
 
   factory User.fromJson(Map<String, dynamic> json, String ID) {
     return User(
-        id: ID,
-        name: json['name'] as String,
-        email: json['email'] as String,
+      id: ID,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      token: json['token'] as String,
+      createdAt: json['createdAt'] as dynamic,
+      platform: json['platform'] as String,
+      friendList: json['friendList'] as List<String>,
     );
   }
   factory User.fromSnapshot(DocumentSnapshot snapshot) {
@@ -42,6 +49,7 @@ class User extends iDatabaseable{
     "token": token,
     "createdAt" : createdAt,
     "platform" : platform,
+    "friendList" : friendList,
     "ref" : ref,
   };
 
