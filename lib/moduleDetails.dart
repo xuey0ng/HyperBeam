@@ -20,6 +20,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 class ModuleDetails extends StatefulWidget {
+  String moduleCode;
+
+  ModuleDetails(this.moduleCode);
+
   @override
   _ModuleDetailsState createState() => _ModuleDetailsState();
 }
@@ -27,6 +31,7 @@ class ModuleDetails extends StatefulWidget {
 class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
   Module args; //Module
+
 
   Widget buildQuizItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
@@ -165,149 +170,158 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    args = ModalRoute.of(context).settings.arguments; //Module
+    final modRepo = Provider.of<FirebaseModuleService>(context, listen: false).getRepo();
     return WillPopScope(
       onWillPop: () async {
+        print("MODULEDETAILS BACK BUTTON PRESSED");
         Navigator.pushNamed(context, HomeRoute);
         return true;
       },
-      child: Scaffold(
-          body: Stack(
-              children: <Widget> [
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/bg1.jpg"),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          padding: EdgeInsets.only(top: size.height * .03),
-                          height: size.height * .1,
-                          decoration: BoxDecoration(
-                            color: kSecondaryColor,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(50),
-                              bottomRight: Radius.circular(50),
-                            ),
-                          ),
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
-                              text: " ${args.moduleCode}",
-                            ),
-                          ),
+      child: FutureBuilder<DocumentSnapshot>(
+        future: modRepo.getCollectionRef().document(widget.moduleCode).get(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return LinearProgressIndicator();
+          if (snapshot.data.data == null) return LinearProgressIndicator();
+          args = Module.fromSnapshot(snapshot.data);
+          return Scaffold(
+              body: Stack(
+                  children: <Widget> [
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/bg1.jpg"),
+                          fit: BoxFit.fill,
                         ),
-                        Column(
-                          children: [
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(text: "${args.title ?? "\n"}", style: TextStyle(fontSize: kBigText,fontWeight: FontWeight.bold, color: Colors.black)),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.topCenter,
+                              padding: EdgeInsets.only(top: size.height * .03),
+                              height: size.height * .1,
+                              decoration: BoxDecoration(
+                                color: kSecondaryColor,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
+                              ),
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                  text: " ${args.moduleCode}",
+                                ),
+                              ),
                             ),
-                            ExpandChild(
-                              expandArrowStyle: ExpandArrowStyle.icon,
-                              child: Column(
-                                children: <Widget>[
+                            Column(
+                                children: [
                                   RichText(
-                                      textAlign: TextAlign.center,
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(text: "${args.title ?? "\n"}", style: TextStyle(fontSize: kBigText,fontWeight: FontWeight.bold, color: Colors.black)),
+                                  ),
+                                  ExpandChild(
+                                    expandArrowStyle: ExpandArrowStyle.icon,
+                                    child: Column(
+                                      children: <Widget>[
+                                        RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                                style: Theme.of(context).textTheme.headline5,
+                                                children: [
+                                                  TextSpan(text: "${args.department ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
+                                                  TextSpan(text: "${args.faculty ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
+                                                  TextSpan(text: "${args.moduleCredit ?? ""} MCs", style: TextStyle(fontSize: kMediumText))
+                                                ]
+                                            )
+                                        ),
+                                        Container(
+                                          padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                          child: Text(
+                                            args.description,
+                                            maxLines: 118,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: new TextStyle(
+                                              fontSize: 14.0,
+                                              color: new Color(0xFFA0A0A0),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                            child: Row(
+                                              children: <Widget>[
+                                                workloadInfo(args.workload, size),
+                                                examInfo(args.semesterData, size)
+                                              ],
+                                            )
+                                        ),
+                                        Container(
+                                            padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                            child: Row(
+                                              children: <Widget>[
+                                                preclusionInfo(args.preclusion, size),
+                                                suInfo(args.attributes, size),
+                                              ],
+                                            )
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: EdgeInsets.only(left: size.width*0.01),
+                              child: Container(
+                                  width: size.width*0.98,
+                                  decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                                  ),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
                                       text: TextSpan(
                                           style: Theme.of(context).textTheme.headline5,
                                           children: [
-                                            TextSpan(text: "${args.department ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
-                                            TextSpan(text: "${args.faculty ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
-                                            TextSpan(text: "${args.moduleCredit ?? ""} MCs", style: TextStyle(fontSize: kMediumText))
+                                            TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
                                           ]
                                       )
-                                  ),
-                                  Container(
-                                    padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                    child: Text(
-                                      args.description,
-                                      maxLines: 118,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: new TextStyle(
-                                        fontSize: 14.0,
-                                        color: new Color(0xFFA0A0A0),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                    child: Row(
-                                      children: <Widget>[
-                                        workloadInfo(args.workload, size),
-                                        examInfo(args.semesterData, size)
-                                      ],
-                                    )
-                                  ),
-                                  Container(
-                                      padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                      child: Row(
-                                        children: <Widget>[
-                                          preclusionInfo(args.preclusion, size),
-                                          suInfo(args.attributes, size),
-                                        ],
-                                      )
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          ]
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.width*0.01),
-                          child: Container(
-                            width: size.width*0.98,
-                            decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
-                            ),
-                            child: RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                    style: Theme.of(context).textTheme.headline5,
-                                    children: [
-                                      TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
-                                    ]
-                                )
-                            )
-                          ),
-                        ),
-                        _taskList(args),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.width*0.01, top: 8),
-                          child: Container(
-                              width: size.width*0.98,
-                              decoration: BoxDecoration(
-                                border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
-                              ),
-                              child: RichText(
-                                  textAlign: TextAlign.left,
-                                  text: TextSpan(
-                                      style: Theme.of(context).textTheme.headline5,
-                                      children: [
-                                        TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
-                                      ]
                                   )
-                              )
-                          ),
-                        ),
-                        _quizList(args),
-                        SizedBox(height: 30),
-                      ],
-                    )
-                ),
-              ]
-          )
+                              ),
+                            ),
+                            _taskList(args),
+                            Padding(
+                              padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                              child: Container(
+                                  width: size.width*0.98,
+                                  decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                                  ),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
+                                      text: TextSpan(
+                                          style: Theme.of(context).textTheme.headline5,
+                                          children: [
+                                            TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                          ]
+                                      )
+                                  )
+                              ),
+                            ),
+                            _quizList(args),
+                            SizedBox(height: 30),
+                          ],
+                        )
+                    ),
+                  ]
+              )
+          );
+        }
       ),
     );
   }

@@ -29,6 +29,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
   PageController _controller = PageController(
     initialPage: 0,
   );
@@ -68,92 +70,98 @@ class _HomePageState extends State<HomePage> {
     var size = MediaQuery.of(context).size;
     final user = Provider.of<User>(context, listen: false);
     final mod = Provider.of<FirebaseModuleService>(context).getRepo();
-
+    print("BUILDING HOMEPAGE");
     return WillPopScope(
-      onWillPop: () async => false,
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/bg2-2.jpg"),
-                fit: BoxFit.fill,
+      onWillPop: () async {
+        print("BACK PRESSED");
+        //navigatorKey.currentState.maybePop();
+        return false;
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/bg2-2.jpg"),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          PageView(
-              scrollDirection: Axis.vertical,
-              controller: _controller,
-              children: [
-                Scaffold(
-                    backgroundColor: Colors.transparent,
-                    body: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Spacer(),
-                                Row(
-                                  children: [
-                                    Icon(Icons.account_circle),
-                                    FlatButton(
-                                        child: new Text('${user.name}'),
-                                        onPressed: (){
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) => ModuleQuery()
-                                          ));
-                                        }
-                                    ),
-                                  ]
-                                ),
-                                FlatButton(
-                                  child: new Text('Logout'),
-                                  onPressed: () => _signOut(context),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24),
-                                child: RichText(
-                                    textAlign: TextAlign.left,
-                                    text: TextSpan(
-                                        style: Theme.of(context).textTheme.headline5,
-                                        children: [
-                                          TextSpan(text: "What are you \ndoing "),
-                                          TextSpan(text: "today?", style: TextStyle(fontWeight: FontWeight.bold))
-                                        ]
-                                    )
-                                )
-                            ),
-                            SizedBox(height: size.height * .02),
-                            ProgressChart(),
-                            SizedBox(height: size.height * .01),
-                            Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24),
-                                child: RichText(
-                                    textAlign: TextAlign.left,
-                                    text: TextSpan(
-                                        style: Theme.of(context).textTheme.headline5,
-                                        children: [
-                                          TextSpan(text: "At a "),
-                                          TextSpan(text: "glance...", style: TextStyle(fontWeight: FontWeight.bold))
-                                        ]
-                                    )
-                                )
-                            ),
-                            AtAGlance(screenHeight: size.height, screenWidth: size.width),
-                            SizedBox(height: size.height * .02),
-                          ],
-                        )
-                    )
-                ),
-                ExplorePage(),
-              ]
-          ),
-        ]
+            PageView(
+                scrollDirection: Axis.vertical,
+                controller: _controller,
+                children: [
+                  Scaffold(
+                      backgroundColor: Colors.transparent,
+                      body: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Spacer(),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.account_circle),
+                                      FlatButton(
+                                          child: new Text('${user.name}'),
+                                          onPressed: (){
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context) => ModuleQuery()
+                                            ));
+                                          }
+                                      ),
+                                    ]
+                                  ),
+                                  FlatButton(
+                                    child: new Text('Logout'),
+                                    onPressed: () => _signOut(context),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
+                                      text: TextSpan(
+                                          style: Theme.of(context).textTheme.headline5,
+                                          children: [
+                                            TextSpan(text: "What are you \ndoing "),
+                                            TextSpan(text: "today?", style: TextStyle(fontWeight: FontWeight.bold))
+                                          ]
+                                      )
+                                  )
+                              ),
+                              SizedBox(height: size.height * .02),
+                              ProgressChart(),
+                              SizedBox(height: size.height * .01),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
+                                      text: TextSpan(
+                                          style: Theme.of(context).textTheme.headline5,
+                                          children: [
+                                            TextSpan(text: "At a "),
+                                            TextSpan(text: "glance...", style: TextStyle(fontWeight: FontWeight.bold))
+                                          ]
+                                      )
+                                  )
+                              ),
+                              AtAGlance(screenHeight: size.height, screenWidth: size.width),
+                              SizedBox(height: size.height * .02),
+                            ],
+                          )
+                      )
+                  ),
+                  ExplorePage(),
+                ]
+            ),
+          ]
+        ),
       ),
     );
   }

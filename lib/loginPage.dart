@@ -26,10 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   final loginFormKey = new GlobalKey<FormState>();
   final dynamic style1 = TextStyle(fontSize: 20.0);
-
-
   FormType _formType = FormType.login;
-
 
   bool validateAndSave() {
     final form = loginFormKey.currentState;

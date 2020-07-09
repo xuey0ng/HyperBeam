@@ -1,3 +1,4 @@
+import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/loginPage.dart';
 import 'package:HyperBeam/moduleDetails.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,10 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
         if (userSnapshot.connectionState == ConnectionState.active) {
             return userSnapshot.hasData ?
             MaterialApp(
-              routes: {
-                ModuleDetailsRoute: (context) => ModuleDetails(),
-              },
               title: 'Hyper Beam',
               onGenerateRoute: router.generateRoute,
               initialRoute: HomeRoute,

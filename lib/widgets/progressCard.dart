@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:HyperBeam/moduleDetails.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
@@ -45,10 +46,13 @@ class ProgressCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        Navigator.pushNamed(
-            context,
-            ModuleDetailsRoute,
-            arguments: Module.fromSnapshot(snapshot),
+        print("MODUEL CODE HERE IS ${moduleCode}");
+        //Navigator.pushNamed(context, ModuleDetailsRoute, arguments: moduleCode);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return ModuleDetails(moduleCode);
+          })
         );
       },
       child: Container(

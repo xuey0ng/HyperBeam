@@ -80,68 +80,79 @@ class _QuizFormState extends State<QuizForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/bg1.jpg"),
-                  fit: BoxFit.fill,
+    return WillPopScope(
+      onWillPop: () async {
+        print("BACK2 PRESSED");
+        return false;
+      },
+      child: Scaffold(
+        body: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/bg1.jpg"),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            Column(
-              children: <Widget>[
-                _buildRow(index),
-              ],
-            ),
-          ]
-      ),
-      floatingActionButton:FloatingActionButton(
-        onPressed: ()=>{
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                    title: const Text("Schedule a reminder"),
-                    content: Form(
-                        key: quizFormKey,
-                        autovalidate: true,
-                        child: Column(
-                          children: <Widget>[
-                            FormBuilderDateTimePicker(
-                              initialValue: DateTime.now(),
-                              attribute: "date",
-                              inputType: InputType.both,
-                              decoration: textInputDecoration.copyWith(
-                                  hintText: 'Enter a Date',
-                                  labelText: "Pick a date"),
-                              onSaved: (text) async {
-                                setState(() {
-                                  reminderDate = text;
-                                });
-                              },
-                            ),
-                            RaisedButton(
-                              color: kAccentColor,
-                              child: Text("Set Quiz"),
-                              onPressed: () {
-                                validateAndSetQuiz(context);
-                                Navigator.push(context, new MaterialPageRoute(
-                                    builder: (context) => HomePage()
-                                ));
-                              },
-                            )
-                          ],
-                        )
-                    )
-                );
-              }
-          )
-        },
-        child: const Icon(Icons.assignment_turned_in),
+              Column(
+                children: <Widget>[
+                  _buildRow(index),
+                ],
+              ),
+            ]
+        ),
+        floatingActionButton:FloatingActionButton(
+          onPressed: ()=>{
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: const Text("Schedule a reminder"),
+                      content: Form(
+                          key: quizFormKey,
+                          autovalidate: true,
+                          child: Column(
+                            children: <Widget>[
+                              FormBuilderDateTimePicker(
+                                initialValue: DateTime.now(),
+                                attribute: "date",
+                                inputType: InputType.both,
+                                decoration: textInputDecoration.copyWith(
+                                    hintText: 'Enter a Date',
+                                    labelText: "Pick a date"),
+                                onSaved: (text) async {
+                                  setState(() {
+                                    reminderDate = text;
+                                  });
+                                },
+                              ),
+                              RaisedButton(
+                                color: kAccentColor,
+                                child: Text("Set Quiz"),
+                                onPressed: () {
+                                  validateAndSetQuiz(context);
+                                  //Navigator.pushNamed(context, HomeRoute);
+
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context){
+                                    return HomePage();
+                                  }),
+                                  );
+
+                                },
+                              )
+                            ],
+                          )
+                      )
+                  );
+                }
+            )
+          },
+          child: const Icon(Icons.assignment_turned_in),
+        ),
       ),
     );
   }
@@ -208,9 +219,6 @@ class _QuizFormState extends State<QuizForm> {
             )
         );
   }
-
-
-
 }
 
 class CreateQuiz extends StatefulWidget {

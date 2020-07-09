@@ -1,5 +1,6 @@
 const String HomeRoute = "/";
-const String AuthWidgetRoute = "/AuthWidget";
+const String AuthWidgetRoute = "AuthWidget";
 const String CreateQuizRoute = "";
 const String ModuleDetailsRoute = "/ModuleDetails";
 const String PastResultsRoute = "PastResultsPage";
+const String TestRoute = "Test";
