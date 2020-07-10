@@ -29,7 +29,7 @@ class PushNoti:
         doc_ref = self.db.collection(u'users').document(uid)
         curr = doc_ref.get().to_dict()
         curr = curr[u'token']
-        token_dict[uid] = curr
+        # token_dict[uid] = curr
 
         message = messaging.Message(
             data={

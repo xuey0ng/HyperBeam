@@ -77,10 +77,10 @@ def pubsub_push():
     if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master' and blob[-4:] == '.pdf':
         # logging.info("{} : {} : was downloaded".format(bucket, blob))
         current = PDFHighlights.PDFhighlights()
-        link = current.process(bucket, blob)
+        link, filename = current.process(bucket, blob)
         noti = message.PushNoti()
         noti.send_to_user(blob.split('/')[1], blob.split('/')[-1], link)
-    
+        noti.send_to_topic(filename.split('.')[0], blob.split('/')[-1], link)
     # Returning any 2xx status indicates successful receipt of the message.
     return 'OK', 200
 # [END gae_flex_pubsub_push]

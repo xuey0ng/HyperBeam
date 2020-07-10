@@ -1,7 +1,7 @@
 import firebase_admin
 import os
 import logging
-from firebase_admin import credentials
+from firebase_admin import credentials, messaging
 from google.cloud import firestore, storage
 from flask import escape
 from pdf_highlights.Statistic import Statistics
@@ -116,6 +116,10 @@ class PDFhighlights:
 
         # Update the MasterPDFMods collection in firestore
         self.update_db(blob_name.split('/')[2], filename, blob_name.split('/')[1], str(current_list[0].getFileName()))
+        doc_ref = self.db.collection(u'users').document(blob_name.split('/')[1])
+        curr = doc_ref.get().to_dict()
+        curr = list(curr[u'token'])
+        messaging.subscribe_to_topic(curr, filename)
 
         # Check if the document exists
         doc_ref = self.db.collection('pdfs').document(filename).collection(u'words').document(u'total')
@@ -150,7 +154,7 @@ class PDFhighlights:
         blob_link = bucket.blob(new_url)
         blob_link.upload_from_string(str(master_url))
         os.remove(temp) 
-        return str(master_url)
+        return str(master_url) , filename
 
 
 
