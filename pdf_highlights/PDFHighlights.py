@@ -64,6 +64,23 @@ class PDFhighlights:
             else:
                 count = current_doc[u'total']
         return text_list, count
+
+    def update_db(self, module, id, user, pdf_name):
+        master = self.db.collection('MasterPDFMods').document(module).collection('PDFs').document(id)
+        master_col = master.get()
+        if master_col.exists:
+            # change datetime
+            master.update({'lastUpdated' : firestore.SERVER_TIMESTAMP})
+        else:
+            master.set({'lastUpdated' : firestore.SERVER_TIMESTAMP,
+            'PDFName' : pdf_name})
+        
+        # add users
+        users = master.collection('Users').document(user)
+        users_col = users.get()
+        if not users_col.exists:
+            users.set({'subscribed' : True,
+            'userFileName' : pdf_name})
         
 
     # Function to process the newly uploaded file from cloud storage
@@ -96,6 +113,9 @@ class PDFhighlights:
             filename = str(current_list[0].getHashed())
         else:
             return
+
+        # Update the MasterPDFMods collection in firestore
+        self.update_db(blob_name.split('/')[2], filename, blob_name.split('/')[1], str(current_list[0].getFileName()))
 
         # Check if the document exists
         doc_ref = self.db.collection('pdfs').document(filename).collection(u'words').document(u'total')
