@@ -14,9 +14,6 @@ from TextStore import Token
 
 ## Program returns the an array containing all of the coords of the pdf to be preprocessed
 
-
-#consider comparing base on creationg date of the pdf
-
 class PDFpos:
     
     def __init__(self, filename):

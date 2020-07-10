@@ -56,8 +56,27 @@ class PDFhighlights:
             os.mkdir(check)
         logging.info('Download {}'.format(temp))
         blob.download_to_filename(temp)
+    
+    def update_time(self, module, id, user, pdf_name):
+        master = self.db.collection('MasterPDFMods').document(module).collection('PDFs').document(id)
+        master_col = master.get()
+        if master_col.exists:
+            # change datetime
+            master.update({'lastUpdated' : firestore.SERVER_TIMESTAMP})
+        else:
+            master.set({'lastUpdated' : firestore.SERVER_TIMESTAMP,
+            'PDFName' : pdf_name})
+        
+        # add users
+        users = master.collection('Users').document(user)
+        users_col = users.get()
+        if not users_col.exists:
+            users.set({'subscribed' : True,
+            'userFileName' : pdf_name})
+
 
 test = PDFhighlights()
-#test.download("hyper-beam.appspot.com", "master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf")
-test.download("hyper-beam.appspot.com",'pdf/tBqBjEWxZiRwGwMk2uzyEaYTNvl1/IqCt9Gxm33fbHxppSy9A/link.txt')
+# test.download("hyper-beam.appspot.com", "master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf")
+# test.download("hyper-beam.appspot.com",'pdf/tBqBjEWxZiRwGwMk2uzyEaYTNvl1/IqCt9Gxm33fbHxppSy9A/link.txt')
 # test.update_highlights()
+test.update_time('CS2040S', 'thisispdfid', 'newtestuid', 'test.pdf')
