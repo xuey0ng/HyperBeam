@@ -1,3 +1,4 @@
+import 'package:HyperBeam/moduleDetails.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
@@ -132,11 +133,12 @@ class QuizResultPage extends StatelessWidget{
                         color: kAccentColor,
                         child: Text('Return'),
                         onPressed: () => {
-                          Navigator.pushNamed(
+                        Navigator.push(
                           context,
-                          ModuleDetailsRoute,
-                          arguments: module,
-                          ),
+                          MaterialPageRoute(builder: (context) {
+                          return ModuleDetails(module.moduleCode);
+                          })
+                        )
                         },
                       ),
                     ),

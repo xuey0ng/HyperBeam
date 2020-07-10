@@ -19,6 +19,8 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
+import 'package:HyperBeam/masterPDFFiles.dart';
+
 class ModuleDetails extends StatefulWidget {
   String moduleCode;
 
@@ -32,18 +34,15 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
   Module args; //Module
 
-
   Widget buildQuizItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) return LinearProgressIndicator();
-          print("NOW IT IS ${snapshot.data.documentID} , ${args}");
           return QuizCard(snapshot.data, args);
         }
     );
   }
-
 
   Widget buildQuizList(DocumentSnapshot modSnapshot) {
     print(modSnapshot.documentID);
@@ -66,6 +65,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         }
     );
   }
+
   Widget buildTaskItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
@@ -75,7 +75,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         }
     );
   }
-
 
   Widget buildTaskList(DocumentSnapshot modSnapshot) {
     print(modSnapshot.documentID);
@@ -159,12 +158,48 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         return Text("SU: not allowed");
       }
     }
-
     return Container(
       width: size.width*0.45,
       child: child(),
     );
+  }
 
+  void uploadPDF(BuildContext context) async {
+    //-------------------Upload PDF ----------------------
+    final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    File file = await FilePicker.getFile(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    String getFileName(String path) {
+      int lastSlash = 0;
+      int lastDot = 0;
+      for(int i = 0; i < path.length; i++) {
+        if(path.codeUnitAt(i) == 47) lastSlash = i;
+        if(path.codeUnitAt(i) == 46) lastDot = i;
+      }
+      return path.substring(lastSlash+1, lastDot);
+    }// / is 47 , . is 46
+    final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
+        modId: args.moduleCode, docId: getFileName(file.path));
+    print("PDFURL is $pdfUri");
+    /*
+    snapshot.data['masterPdfUri'] = pdfUrl;
+    await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
+
+     */
+    await file.delete();
+    //---------------Async update URI in quiz with hashcode from backend-------------
+/*
+    final user = Provider.of<User>(context, listen: false);
+    String Url = snapshot.data['masterPdfUri'].toString();
+    print("Obtaining $Url}");
+    final storageReference = FirebaseStorage.instance.ref()
+        .child("/pdf/${user.id}/link.txt");
+
+    Uint8List data =  await storageReference.getData(128).
+ */
   }
 
   @override
@@ -274,6 +309,24 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                     ),
                                   ),
                                 ]
+                            ),
+                            SizedBox(height: 10),
+                            RaisedButton(
+                              child: Text("Upload master PDF"),
+                              onPressed: () async {
+                                await uploadPDF(context);
+                              },
+                            ),
+                            SizedBox(height: 10),
+                            RaisedButton(
+                              child: Text("View Master PDF"),
+                              onPressed: () async {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return MasterPDFFiles(module: args);
+                                    })
+                                );
+                              },
                             ),
                             SizedBox(height: 10),
                             Padding(
@@ -426,7 +479,6 @@ class QuizCard extends StatelessWidget {
 
   void obtainPDF(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
-
     String Url = snapshot.data['masterPdfUri'].toString();
     print("Obtaining $Url}");
     final storageReference = FirebaseStorage.instance.ref()
@@ -460,9 +512,9 @@ class QuizCard extends StatelessWidget {
         throw 'Could not launch $uri';
       }
     }
-
   }
 
+  /*
   void uploadPDF(BuildContext context) async {
     final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
@@ -470,17 +522,20 @@ class QuizCard extends StatelessWidget {
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
-    final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+    final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
         docId: snapshot.documentID); //docID is quit id
-    print("PDFURL is $pdfUrl");
-    snapshot.data['masterPdfUri'] = pdfUrl;
+    print("PDFURL is $pdfUri");
+    snapshot.data['masterPdfUri'] = pdfUri;
     await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
     await file.delete();
   }
 
+   */
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    if(snapshot.data == null) return Container();
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -526,7 +581,7 @@ class QuizCard extends StatelessWidget {
                           child: Text("Upload PDF file"),
                           color: kAccentColor,
                           onPressed: () async {
-                            uploadPDF(context);
+                            //uploadPDF(context);
                           },
                         ),
                       ),
@@ -536,15 +591,13 @@ class QuizCard extends StatelessWidget {
                           child: Text("Delete quiz"),
                           color: kAccentColor,
                           onPressed: () async {
+                            final user = Provider.of<User>(context);
                             final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                            quizRepository.delete(snapshot);
-                            print(module);
-                            Module mod = module;
-                            var newList = new List<DocumentReference>.from(mod.quizList);
-                            newList.remove(snapshot.reference);
-                            mod.quizList = newList;
-                            moduleRepository.updateDoc(mod);
+                            if(snapshot.data["uid"] == user.id) {
+                              quizRepository.delete(snapshot);
+                            }
+                            moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
                             Navigator.pop(dialogContext);
                           },
                         ),

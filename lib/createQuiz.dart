@@ -1,4 +1,3 @@
-import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
-import 'package:HyperBeam/routing_constants.dart';
 
 class QuizForm extends StatefulWidget {
   String quizName;
@@ -46,12 +44,10 @@ class _QuizFormState extends State<QuizForm> {
       moduleName: widget.module.moduleCode,
       uid: user.id,
     );
-    var newList = widget.module.quizList.toList(growable: true);
+    print("At create quiz now ${widget.module.reference.documentID}");
     DocumentReference docRef;
-    await quizRepository.addDoc(newQuiz).then((value) => docRef = value);
-    newList.add(docRef);
-    widget.module.quizList = newList;
-    moduleRepository.updateDoc(widget.module);
+    await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
+    await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
     String documentID = reminderDate.toString() + user.id;
     Reminder rem = Reminder(
       uid: user.id,
@@ -66,7 +62,6 @@ class _QuizFormState extends State<QuizForm> {
   @override
   void initState() {
     super.initState();
-
     f1 = FocusNode();
     f2 = FocusNode();
   }
@@ -134,14 +129,11 @@ class _QuizFormState extends State<QuizForm> {
                                 child: Text("Set Quiz"),
                                 onPressed: () {
                                   validateAndSetQuiz(context);
-                                  //Navigator.pushNamed(context, HomeRoute);
-
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context){
                                     return HomePage();
                                   }),
                                   );
-
                                 },
                               )
                             ],

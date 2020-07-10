@@ -211,18 +211,13 @@ class _ExplorePageState extends State<ExplorePage> {
                                       onPressed: () async {
                                         final userRepo = Provider.of<User>(context);
                                         final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-
-                                         DocumentSnapshot quizLst = await moduleRepository
-                                            .getCollectionRef()
-                                             .where('name',isEqualTo: quiz.moduleName)
-                                             .getDocuments()
-                                             .then((value) => value.documents[0]);
-                                         Module mod = Module.fromSnapshot(quizLst);
-                                        var newList = mod.quizList.toList(growable: true);
-                                        newList.add(quiz.reference);
-                                        mod.quizList = newList;
-                                        moduleRepository.updateDoc(mod);
-                                                  //reference.updateData({data})
+                                        print("at explore page ${quiz.reference}");
+                                        int result = await moduleRepository.incrementList(
+                                            quiz.moduleName, "quizzes", quiz.reference
+                                        );
+                                        if(result == 1) {
+                                          Navigator.pop(dialogContext);
+                                        }
                                       },
                                     ),
                                   ],
@@ -290,7 +285,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                          text: "Made by: ${snapshot.data['lastName'] ?? "Anon"}",
+                          text: "Made by: ${snapshot.data['name'] ?? "Anon"}",
                         )
                     ),
                   ),

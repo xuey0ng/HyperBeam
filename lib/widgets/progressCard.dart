@@ -46,8 +46,6 @@ class ProgressCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        print("MODUEL CODE HERE IS ${moduleCode}");
-        //Navigator.pushNamed(context, ModuleDetailsRoute, arguments: moduleCode);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
