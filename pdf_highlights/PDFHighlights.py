@@ -66,6 +66,12 @@ class PDFhighlights:
         return text_list, count
 
     def update_db(self, module, id, user, pdf_name):
+        # First access the quiz ref
+        quiz = self.db.collection('users').document(user).collection('Modules').document(module)
+        quiz_col = quiz.get()
+        quiz_dict = quiz_col.to_dict()
+        quizzes = quiz_dict['quizzes']
+
         master = self.db.collection('MasterPDFMods').document(module).collection('PDFs').document(id)
         master_col = master.get()
         if master_col.exists:
@@ -81,6 +87,7 @@ class PDFhighlights:
         if not users_col.exists:
             users.set({'subscribed' : True,
             'userFileName' : pdf_name})
+        users.set({'quizzes' : quizzes})
         
 
     # Function to process the newly uploaded file from cloud storage
