@@ -165,6 +165,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     );
   }
 
+
   void uploadPDF(BuildContext context) async {
     //-------------------Upload PDF ----------------------
     final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
@@ -184,15 +185,56 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       return path.substring(lastSlash+1, lastDot);
     }// / is 47 , . is 46
     String fileName = getFileName(file.path);
+    List<Quiz> quizList = await quizRepository.getQuery()
+        .then((value) => value.documents.map((e) => Quiz.fromSnapshot(e)).toList());
     showDialog(
         context: context,
         builder: (BuildContext context) {
+          List<Widget> widgetList = List();
+          bool firstTime = true;
+
+          List<DocumentReference> output = List();
           return AlertDialog(
             title: Text(fileName),
-            content: Column(
-              children: <Widget>[
-                Checkbox()
-              ],
+            content: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                Widget _buildQuizItem(int i, Quiz quiz, bool checked) {
+                  return Row(
+                    children: <Widget>[
+                      Text(quiz.name),
+                      Checkbox(
+                        value: checked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            widgetList[i] = _buildQuizItem(i, quiz, !checked);
+                            if(!checked) {
+                              output.add(quiz.reference);
+                            } else {
+                              output.remove(quiz.reference);
+                            }
+                          });
+                        },
+                      )
+                    ],
+                  );
+                }
+                if(firstTime) {
+                  for(int i = 0; i < quizList.length; i++){
+                    widgetList.add(_buildQuizItem(i, quizList[i], false));
+                  }
+                  firstTime = false;
+                }
+
+                return Column(
+                  children: [
+                    Text("Select quizzes pertinent to this PDF"),
+                    Column(
+                      children: widgetList,
+                    ),
+                  ]
+
+                );
+              }
             ),
             actions: <Widget>[
               FlatButton(
@@ -204,6 +246,8 @@ class _ModuleDetailsState extends State<ModuleDetails> {
               FlatButton(
                 child: Text("Upload"),
                 onPressed: () async {
+
+
                   final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
                       modId: args.moduleCode, docId: fileName);
                   print("PDFURL is $pdfUri");
@@ -214,9 +258,11 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                   MyPDFUpload pdfFile = MyPDFUpload(
                       name: fileName,
                       uri: pdfUri,
-                      lastUpdated: Timestamp.fromDate(DateTime.now())
+                      lastUpdated: Timestamp.fromDate(DateTime.now()),
+                      quizRef: output,
                   );
                   myFilesRepo.addDocByID(fileName, pdfFile);
+
                   await file.delete();
                   Navigator.of(context).pop();
                 }
@@ -225,23 +271,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
           );
         }
     );
-    /*
-    final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
-        modId: args.moduleCode, docId: fileName);
-    print("PDFURL is $pdfUri");
-    DataRepo myFilesRepo = DataRepo.fromInstance(
-        moduleRepository.getCollectionRef()
-            .document(args.moduleCode).collection("myPDFs")
-    );
-    MyPDFUpload pdfFile = MyPDFUpload(
-        name: fileName,
-        uri: pdfUri,
-        lastUpdated: Timestamp.fromDate(DateTime.now())
-    );
-    myFilesRepo.addDocByID(fileName, pdfFile);
-    await file.delete();
-
-     */
   }
 
   Widget _buildItem(MyPDFUpload pdf) {

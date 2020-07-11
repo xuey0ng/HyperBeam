@@ -382,18 +382,21 @@ class MyPDFUpload extends iDatabaseable{
   String name;
   String uri;
   Timestamp lastUpdated;
+  List<DocumentReference> quizRef;
   DocumentReference reference;
 
   MyPDFUpload({
     this.name,
     this.uri,
     this.lastUpdated,
+    this.quizRef,
 });
 
   factory MyPDFUpload.fromJson(Map<String, dynamic> json) => MyPDFUpload(
     name: json['name'],
     uri: json['uri'],
     lastUpdated: json['lastUpdated'],
+    quizRef: json['quizRef'],
   );
 
   factory MyPDFUpload.fromSnapshot(DocumentSnapshot snapshot) {
@@ -406,5 +409,6 @@ class MyPDFUpload extends iDatabaseable{
     "name": name,
     "uri": uri,
     "lastUpdated": lastUpdated,
+    "quizRef": quizRef,
   };
 }
