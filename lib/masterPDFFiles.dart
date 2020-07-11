@@ -29,7 +29,7 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
   List<Widget> asyncWidget = [Text("Loading")];
 
   Widget _buildItem(int i, String PDFHash, String PDFName, Timestamp lastUpdated,
-      String uri, String userPDFName, bool subscribed) {
+      String uri, String userPDFName, bool subscribed, bool allowSubscription) {
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () async{
@@ -70,16 +70,21 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                   ),
                   Spacer(),
                   Text("Subscribe: "),
+                  allowSubscription ?
                   CustomSwitch(
                     activeColor: Colors.pinkAccent,
                     value: subscribed,
                     onChanged: (bool value) {
                       setState(() {
                         value ? FirebaseMessaging().unsubscribeFromTopic(PDFHash) : FirebaseMessaging().subscribeToTopic(PDFHash);
-                        asyncWidget[i] = _buildItem(i, PDFHash, PDFName, lastUpdated, uri, userPDFName, !subscribed);
+                        asyncWidget[i] = _buildItem(i, PDFHash, PDFName, lastUpdated, uri, userPDFName, !subscribed, true);
                       });
                     },
-                  )
+                  ) :
+                    CustomSwitch(
+                      value: false,
+                      onChanged: null,
+                    )
                 ],
               ),
               Row(
@@ -119,10 +124,10 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
       bool subscriptionStatus = userInfo.data["subscribed"];
       if (userInfo == null || userInfo.data == null) {
         //todo on subscription status
-        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, null, false));
+        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, null, false, false));
       } else {
         String userFileName = userInfo.data["userFileName"];
-        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, userFileName, subscriptionStatus));
+        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, userFileName, subscriptionStatus, true));
       }
     }
     setState(() {
