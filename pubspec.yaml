@@ -53,6 +53,7 @@ dependencies:
   google_sign_in: ^4.5.1
   expand_widget: ^1.0.0
   custom_switch: ^0.0.1
+  flutter_rating_bar: ^3.0.1
 
 dev_dependencies:
   flutter_test:

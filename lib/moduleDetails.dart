@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
+import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
@@ -15,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -192,7 +194,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         builder: (BuildContext context) {
           List<Widget> widgetList = List();
           bool firstTime = true;
-
           List<DocumentReference> output = List();
           return AlertDialog(
             title: Text(fileName),
@@ -227,12 +228,23 @@ class _ModuleDetailsState extends State<ModuleDetails> {
 
                 return Column(
                   children: [
+                    RaisedButton(
+                      child: Text("Preview file"),
+                      onPressed: () async {
+                        PDFDocument pdfDoc = await PDFDocument.fromFile(file);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PdfViewer(pdfDoc)
+                            )
+                        );
+                      },
+                    ),
                     Text("Select quizzes pertinent to this PDF"),
                     Column(
                       children: widgetList,
                     ),
                   ]
-
                 );
               }
             ),
