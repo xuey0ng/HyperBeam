@@ -52,7 +52,7 @@ class DataRepo {
   
   Future<DocumentReference> addDocByID(String id, iDatabaseable obj) async {
     await db.document(id).setData(obj.toJson(), merge: true);
-       }
+  }
 
   Future<bool> documentExists(String documentID) async {
     return await db.document(documentID).get().then((value){

@@ -90,7 +90,6 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                   ]
               ),
             ]
-,
           ),
         )
       )
@@ -98,6 +97,7 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
   }
 
   void loadingWidget() async {
+
     List<DocumentSnapshot> pdfList = await repo.getQuery().then((value) => value.documents);
     List<Widget> widgetList = List();
     for(int i = 0; i < pdfList.length; i++) {

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
@@ -168,6 +169,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     //-------------------Upload PDF ----------------------
     final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     File file = await FilePicker.getFile(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -181,25 +183,72 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       }
       return path.substring(lastSlash+1, lastDot);
     }// / is 47 , . is 46
+    String fileName = getFileName(file.path);
     final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
-        modId: args.moduleCode, docId: getFileName(file.path));
+        modId: args.moduleCode, docId: fileName);
     print("PDFURL is $pdfUri");
-    /*
-    snapshot.data['masterPdfUri'] = pdfUrl;
-    await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
-
-     */
+    DataRepo myFilesRepo = DataRepo.fromInstance(
+        moduleRepository.getCollectionRef()
+            .document(args.moduleCode).collection("myPDFs")
+    );
+    MyPDFUpload pdfFile = MyPDFUpload(
+        name: fileName,
+        uri: pdfUri,
+        lastUpdated: Timestamp.fromDate(DateTime.now())
+    );
+    myFilesRepo.addDocByID(fileName, pdfFile);
     await file.delete();
-    //---------------Async update URI in quiz with hashcode from backend-------------
-/*
-    final user = Provider.of<User>(context, listen: false);
-    String Url = snapshot.data['masterPdfUri'].toString();
-    print("Obtaining $Url}");
-    final storageReference = FirebaseStorage.instance.ref()
-        .child("/pdf/${user.id}/link.txt");
+  }
 
-    Uint8List data =  await storageReference.getData(128).
- */
+  Widget _buildItem(MyPDFUpload pdf) {
+    return GestureDetector(
+      onTap: () async {
+        if (await canLaunch(pdf.uri)) {
+          await launch(pdf.uri);
+        } else {
+          throw 'Could not launch ${pdf.uri}';
+        }
+      },
+      child: Container(
+          padding: EdgeInsets.only(top: 0, bottom: 0, left: 10),
+          margin: EdgeInsets.all(8),
+          width: size.width,
+          //height: size.height*0.16,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                blurRadius: 8,
+                color: Color(0xFFD3D3D3).withOpacity(.88),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+                children: [
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
+                      text: " ${pdf.name}",
+                    ),
+                  ),
+                  //Spacer(),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                      text: "Last updated: \n ${DateFormat('dd-MM-yyyy  kk:mm').format(pdf.lastUpdated.toDate())}",
+                    ),
+                  ),
+                ]
+            ),
+          )
+      ),
+    );
   }
 
   @override
@@ -325,6 +374,54 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                     MaterialPageRoute(builder: (context) {
                                       return MasterPDFFiles(module: args);
                                     })
+                                );
+                              },
+                            ),
+                            SizedBox(height: 10),
+                            RaisedButton(
+                              child: Text("My PDFs"),
+                              onPressed: () async {
+                                //Loading phase
+                                final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                final pdfRepo = moduleRepository.getCollectionRef()
+                                    .document(args.moduleCode).collection("myPDFs");
+                                List<MyPDFUpload> files = await pdfRepo.getDocuments()
+                                    .then((value) => value.documents.map((e) => MyPDFUpload.fromSnapshot(e)).toList());
+                                List<Widget> widgetList = List();
+                                for(MyPDFUpload pdf in files) {
+                                  widgetList.add(_buildItem(pdf));
+                                }
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      final dialogContext = context;
+                                      return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:  BorderRadius.circular(20.0)
+                                          ),
+                                          backgroundColor: kSecondaryColor,
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: 8),
+                                                RichText(
+                                                  textAlign: TextAlign.center,
+                                                  text: TextSpan(
+                                                    style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                    text: "My PDFs",
+                                                  ),
+                                                ),
+                                                SizedBox(height: 8),
+                                                SingleChildScrollView(
+                                                  child: Column(
+                                                    children: widgetList,
+                                                  ),
+                                                ),
+                                              ]
+                                            ),
+                                          )
+                                      );
+                                    }
                                 );
                               },
                             ),

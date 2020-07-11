@@ -377,3 +377,34 @@ class SemesterDatum {
     "examDuration": examDuration,
   };
 }
+
+class MyPDFUpload extends iDatabaseable{
+  String name;
+  String uri;
+  Timestamp lastUpdated;
+  DocumentReference reference;
+
+  MyPDFUpload({
+    this.name,
+    this.uri,
+    this.lastUpdated,
+});
+
+  factory MyPDFUpload.fromJson(Map<String, dynamic> json) => MyPDFUpload(
+    name: json['name'],
+    uri: json['uri'],
+    lastUpdated: json['lastUpdated'],
+  );
+
+  factory MyPDFUpload.fromSnapshot(DocumentSnapshot snapshot) {
+    MyPDFUpload newAttempt = MyPDFUpload.fromJson(snapshot.data);
+    newAttempt.reference = snapshot.reference;
+    return newAttempt;
+  }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "uri": uri,
+    "lastUpdated": lastUpdated,
+  };
+}
