@@ -102,7 +102,6 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
   }
 
   void loadingWidget() async {
-
     List<DocumentSnapshot> pdfList = await repo.getQuery().then((value) => value.documents);
     List<Widget> widgetList = List();
     for(int i = 0; i < pdfList.length; i++) {
@@ -123,7 +122,6 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
       String uri = pdfInfo.data["uri"];
       bool subscriptionStatus = userInfo.data["subscribed"];
       if (userInfo == null || userInfo.data == null) {
-        //todo on subscription status
         widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, null, false, false));
       } else {
         String userFileName = userInfo.data["userFileName"];

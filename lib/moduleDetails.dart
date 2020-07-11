@@ -33,7 +33,7 @@ class ModuleDetails extends StatefulWidget {
 
 class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
-  Module args; //Module
+  Module args; //Module>
 
   Widget buildQuizItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
@@ -184,6 +184,48 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       return path.substring(lastSlash+1, lastDot);
     }// / is 47 , . is 46
     String fileName = getFileName(file.path);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(fileName),
+            content: Column(
+              children: <Widget>[
+                Checkbox()
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }
+              ),
+              FlatButton(
+                child: Text("Upload"),
+                onPressed: () async {
+                  final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
+                      modId: args.moduleCode, docId: fileName);
+                  print("PDFURL is $pdfUri");
+                  DataRepo myFilesRepo = DataRepo.fromInstance(
+                      moduleRepository.getCollectionRef()
+                          .document(args.moduleCode).collection("myPDFs")
+                  );
+                  MyPDFUpload pdfFile = MyPDFUpload(
+                      name: fileName,
+                      uri: pdfUri,
+                      lastUpdated: Timestamp.fromDate(DateTime.now())
+                  );
+                  myFilesRepo.addDocByID(fileName, pdfFile);
+                  await file.delete();
+                  Navigator.of(context).pop();
+                }
+              )
+            ],
+          );
+        }
+    );
+    /*
     final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
         modId: args.moduleCode, docId: fileName);
     print("PDFURL is $pdfUri");
@@ -198,6 +240,8 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     );
     myFilesRepo.addDocByID(fileName, pdfFile);
     await file.delete();
+
+     */
   }
 
   Widget _buildItem(MyPDFUpload pdf) {
