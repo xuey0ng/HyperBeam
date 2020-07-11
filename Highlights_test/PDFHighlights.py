@@ -59,6 +59,23 @@ class PDFhighlights:
                 count = current_doc[u'total']
         print("new list generated, total count is {}".format(count))
         return text_list, count
+
+    def update_db(self, module, id, user, pdf_name):
+        master = self.db.collection('MasterPDFMods').document(module).collection('PDFs').document(id)
+        master_col = master.get()
+        if master_col.exists:
+            # change datetime
+            master.update({'lastUpdated' : firestore.SERVER_TIMESTAMP})
+        else:
+            master.set({'lastUpdated' : firestore.SERVER_TIMESTAMP,
+            'PDFName' : pdf_name})
+        
+        # add users
+        users = master.collection('Users').document(user)
+        users_col = users.get()
+        if not users_col.exists:
+            users.set({'subscribed' : True,
+            'userFileName' : pdf_name})
         
 
     # Function to process the newly uploaded file from cloud storage

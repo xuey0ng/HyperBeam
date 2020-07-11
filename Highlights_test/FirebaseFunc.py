@@ -58,6 +58,12 @@ class PDFhighlights:
         blob.download_to_filename(temp)
     
     def update_time(self, module, id, user, pdf_name):
+        # First access the quiz ref
+        quiz = self.db.collection('users').document(user).collection('Modules').document(module)
+        quiz_col = quiz.get()
+        quiz_dict = quiz_col.to_dict()
+        quizzes = quiz_dict['quizzes']
+
         master = self.db.collection('MasterPDFMods').document(module).collection('PDFs').document(id)
         master_col = master.get()
         if master_col.exists:
@@ -73,10 +79,12 @@ class PDFhighlights:
         if not users_col.exists:
             users.set({'subscribed' : True,
             'userFileName' : pdf_name})
+        users.set({'quizzes' : quizzes})
+
 
 
 test = PDFhighlights()
 # test.download("hyper-beam.appspot.com", "master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf")
 # test.download("hyper-beam.appspot.com",'pdf/tBqBjEWxZiRwGwMk2uzyEaYTNvl1/IqCt9Gxm33fbHxppSy9A/link.txt')
 # test.update_highlights()
-test.update_time('CS2040S', 'thisispdfid', 'newtestuid', 'test.pdf')
+test.update_time('CS2030', 'thisispdfid', 's7CbPVYl55dxVgG9mSIyKfxw1Vr1', 'test.pdf')
