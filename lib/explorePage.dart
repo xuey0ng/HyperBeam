@@ -43,22 +43,24 @@ class _ExplorePageState extends State<ExplorePage> {
                 .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
           }
           print("begin building list of length ${lst.length}");
-          return Container(
-            height: size.height*0.78,
-            width: 500,
-            child: CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-                  padding: const EdgeInsets.all(20),
-                  sliver: SliverGrid.count(
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 2,
-                    children: lst,
+          return Flexible(
+            child: Container(
+              height: size.height*0.8 - 36,
+              width: 500,
+              child: CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(20),
+                    sliver: SliverGrid.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      children: lst,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });
@@ -123,36 +125,33 @@ class _ExplorePageState extends State<ExplorePage> {
                     child: Container(
                       width: 280,
                       height: 56,
-                      child: Flexible(
-                        child: TextFormField(
-                          onChanged: (text){
-                            setState(() {
-                              query = text;
-                            });
-                          },
-                          decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              //contentPadding: EdgeInsets.only(left: 8,bottom: 12),
-                              contentPadding:
-                              EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
-                              hintText: "Search module"),
-                          validator: (val){
-                            if(!NUS_MODULES.containsCode(val) && val != "") {
-                              return "Please input a valid module";
-                            } else{
-                              return null;
-                            }
-                          },
-                          onSaved: (val){
-                            setState(() {
-                              query = val;
-                            });
-                          },
-                        ),
+                      child: TextFormField(
+                        onChanged: (text){
+                          setState(() {
+                            query = text;
+                          });
+                        },
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding:
+                            EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
+                            hintText: "Search module"),
+                        validator: (val){
+                          if(!NUS_MODULES.containsCode(val) && val != "") {
+                            return "Please input a valid module";
+                          } else{
+                            return null;
+                          }
+                        },
+                        onSaved: (val){
+                          setState(() {
+                            query = val;
+                          });
+                        },
                       ),
                     ),
                   ),
