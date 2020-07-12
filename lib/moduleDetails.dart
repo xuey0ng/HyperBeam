@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
+import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:HyperBeam/attemptQuiz.dart';
@@ -16,6 +18,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -364,7 +367,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     final modRepo = Provider.of<FirebaseModuleService>(context, listen: false).getRepo();
     return WillPopScope(
       onWillPop: () async {
-        print("MODULEDETAILS BACK BUTTON PRESSED");
         Navigator.pushNamed(context, HomeRoute);
         return true;
       },
@@ -796,26 +798,12 @@ class QuizCard extends StatelessWidget {
     }
   }
 
-  /*
-  void uploadPDF(BuildContext context) async {
-    final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
-    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-    File file = await FilePicker.getFile(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
-        docId: snapshot.documentID); //docID is quit id
-    print("PDFURL is $pdfUri");
-    snapshot.data['masterPdfUri'] = pdfUri;
-    await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
-    await file.delete();
-  }
-
-   */
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context, listen: false);
+    final quizFormKey = new GlobalKey<FormState>();
+    final quiz = Quiz.fromSnapshot(snapshot);
+    final reminderRepository = Provider.of<FirebaseReminderService>(context).getRepo();
     var size = MediaQuery.of(context).size;
     if(snapshot.data == null) return Container();
     return GestureDetector(
@@ -838,11 +826,75 @@ class QuizCard extends StatelessWidget {
                       SizedBox(
                         width: 180,
                         child: RaisedButton(
-                          child: Text("Obtain Master PDF"),
+                          child: Text("Set reminder"),
                           color:  kAccentColor,
-                          onPressed: () async {
-                            obtainPDF(context);
-                          }
+                          onPressed: () async  {
+                            DateTime reminderDate;
+                            showDialog(
+                                context: context,
+                              builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, StateSetter setState) {
+                                      return AlertDialog(
+                                          title: const Text("Schedule a reminder"),
+                                          content: Form(
+                                              key: quizFormKey,
+                                              autovalidate: true,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  FormBuilderDateTimePicker(
+                                                    initialValue: DateTime.now(),
+                                                    attribute: "date",
+                                                    inputType: InputType.both,
+                                                    decoration: textInputDecoration.copyWith(
+                                                        hintText: 'Enter a Date',
+                                                        labelText: "Pick a date"),
+                                                    onSaved: (text) async {
+                                                      setState(() {
+                                                        reminderDate = text;
+                                                      });
+                                                    },
+                                                  ),
+                                                  RaisedButton(
+                                                    color: kAccentColor,
+                                                    child: Text("Set reminder"),
+                                                    onPressed: () {
+                                                      quizFormKey.currentState.save();
+                                                      String documentID = reminderDate.toString() + user.id;
+                                                      Reminder rem = Reminder(
+                                                          uid: user.id,
+                                                          quizName: quiz.name,
+                                                          moduleName: quiz.moduleName,
+                                                          quizDocRef: quiz.reference,
+                                                          date: reminderDate
+                                                      );
+                                                      reminderRepository.addDocByID(documentID, rem);
+                                                      Navigator.pop(context);
+                                                    },
+                                                  )
+                                                ],
+                                              )
+                                          )
+                                      );
+                                    }
+                                  );
+                              }
+                            );
+
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: RaisedButton(
+                          child: Text("View reminders set"),
+                          color:  kAccentColor,
+                          onPressed: () async  {
+                            Navigator.push(context, new MaterialPageRoute(builder: (context) {
+
+                            }
+                            ));
+                          },
                         ),
                       ),
                       SizedBox(
@@ -854,16 +906,6 @@ class QuizCard extends StatelessWidget {
                             Navigator.push(context, new MaterialPageRoute(builder: (context) =>
                               new PastResultsPage(quizSnapshot: snapshot),
                             ));
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 180,
-                        child: RaisedButton(
-                          child: Text("Upload PDF file"),
-                          color: kAccentColor,
-                          onPressed: () async {
-                            //uploadPDF(context);
                           },
                         ),
                       ),
