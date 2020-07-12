@@ -382,7 +382,7 @@ class MyPDFUpload extends iDatabaseable{
   String name;
   String uri;
   Timestamp lastUpdated;
-  List<DocumentReference> quizRef;
+  List<dynamic> quizRef;
   DocumentReference reference;
 
   MyPDFUpload({

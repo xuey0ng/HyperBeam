@@ -74,8 +74,13 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                     ),
                   ),
                   Spacer(),
-                  Text("Subscribe: "),
-
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: kMediumText,),
+                      text: "Subscribe: ",
+                    ),
+                  ),
                   allowSubscription ?
                   CustomSwitch(
                     activeColor: Colors.pinkAccent,
@@ -93,6 +98,7 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                     )
                 ],
               ),
+              SizedBox(height: 4),
               Row(
                   children: [
                     Text("Last updated on: \n ${lastUpdated == null ? "No info" : DateFormat('dd-MM-yyyy kk:mm').format(lastUpdated.toDate())}"),
@@ -100,8 +106,10 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                     Text("Your PDF is named:  \n  ${userPDFName ?? "No similar PDF uploaded"}"),
                   ]
               ),
+              Divider(height: 4),
               quizNames != null ?
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("It is linked to :"),
                   Column(
@@ -109,6 +117,7 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                   )
                 ])
               : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("It is not linked to any quizzes"),
                 ],

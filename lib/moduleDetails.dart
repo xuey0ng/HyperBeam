@@ -108,15 +108,20 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         lst.add(Text("Semester ${sem.semester} Exam"));
       }
       if (sem.examDate != null){
-        lst.add(Text("${DateFormat('yyyy-MM-dd – HH:mm').format(sem.examDate.add(Duration(hours: 8)))}"));
+        lst.add(Text("${DateFormat('yyyy-MM-dd – HH:mm')
+            .format(sem.examDate
+            .add(Duration(hours: 8)))}"));
       }
       lst.add(Text("${sem.examDuration == null ? "TBC" : "${sem.examDuration} mins"}"));
     }
-    return Container(
-      width: size.width*0.45,
-      child: Column(
-        children: lst,
-      )
+    return Card(
+      elevation: 1,
+      child: Container(
+        width: size.width*0.45,
+        child: Column(
+          children: lst,
+        )
+      ),
     );
   }
 
@@ -125,29 +130,35 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     for(int load in loads){
       totalWorkload += load;
     }
-    return Container(
-      width: size.width*0.45,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text("Workload - $totalWorkload hrs"),
-          Text("Lec:  ${loads[0]} hrs"),
-          Text("Tut:  ${loads[1]} hrs"),
-          Text("Lab:  ${loads[2]} hrs"),
-          Text("Proj: ${loads[3]} hrs"),
-          Text("Prep: ${loads[4]} hrs"),
-        ],
-      )
+    return Card(
+      elevation: 1,
+      child: Container(
+        width: size.width*0.45,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("Workload - $totalWorkload hrs"),
+            Text("Lec:  ${loads[0]} hrs"),
+            Text("Tut:  ${loads[1]} hrs"),
+            Text("Lab:  ${loads[2]} hrs"),
+            Text("Proj: ${loads[3]} hrs"),
+            Text("Prep: ${loads[4]} hrs"),
+          ],
+        )
+      ),
     );
   }
 
   Widget preclusionInfo(String preclusion, var size) {
-    return Container(
-        width: size.width*0.45,
-        child: Text(
-          "Preclusion: $preclusion",
-          maxLines: 10,
-        )
+    return Card(
+      elevation: 1,
+      child: Container(
+          width: size.width*0.45,
+          child: Text(
+            "Preclusion: $preclusion",
+            maxLines: 10,
+          )
+      ),
     );
   }
 
@@ -161,9 +172,12 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         return Text("SU: not allowed");
       }
     }
-    return Container(
-      width: size.width*0.45,
-      child: child(),
+    return Card(
+      elevation: 1,
+      child: Container(
+        width: size.width*0.45,
+        child: child(),
+      ),
     );
   }
 
@@ -173,6 +187,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+    final user = Provider.of<User>(context);
     File file = await FilePicker.getFile(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -187,7 +202,10 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       return path.substring(lastSlash+1, lastDot);
     }// / is 47 , . is 46
     String fileName = getFileName(file.path);
-    List<Quiz> quizList = await quizRepository.getQuery()
+    List<Quiz> quizList = await quizRepository.getCollectionRef()
+        .where("uid", isEqualTo: user.id)
+        .where("moduleName", isEqualTo: args.moduleCode)
+        .getDocuments()
         .then((value) => value.documents.map((e) => Quiz.fromSnapshot(e)).toList());
     showDialog(
         context: context,
@@ -203,6 +221,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                   return Row(
                     children: <Widget>[
                       Text(quiz.name),
+                      Spacer(),
                       Checkbox(
                         value: checked,
                         onChanged: (bool value) {
@@ -240,9 +259,12 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                         );
                       },
                     ),
+                    SizedBox(height: 8,),
                     Text("Select quizzes pertinent to this PDF"),
-                    Column(
-                      children: widgetList,
+                    SingleChildScrollView(
+                      child: Column(
+                        children: widgetList,
+                      ),
                     ),
                   ]
                 );
@@ -445,70 +467,148 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                 ]
                             ),
                             SizedBox(height: 10),
-                            RaisedButton(
-                              child: Text("Upload master PDF"),
-                              onPressed: () async {
-                                await uploadPDF(context);
-                              },
-                            ),
-                            SizedBox(height: 10),
-                            RaisedButton(
-                              child: Text("View Master PDF"),
-                              onPressed: () async {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return MasterPDFFiles(module: args);
-                                    })
-                                );
-                              },
-                            ),
-                            SizedBox(height: 10),
-                            RaisedButton(
-                              child: Text("My PDFs"),
-                              onPressed: () async {
-                                //Loading phase
-                                final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                final pdfRepo = moduleRepository.getCollectionRef()
-                                    .document(args.moduleCode).collection("myPDFs");
-                                List<MyPDFUpload> files = await pdfRepo.getDocuments()
-                                    .then((value) => value.documents.map((e) => MyPDFUpload.fromSnapshot(e)).toList());
-                                List<Widget> widgetList = List();
-                                for(MyPDFUpload pdf in files) {
-                                  widgetList.add(_buildItem(pdf));
-                                }
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      final dialogContext = context;
-                                      return Dialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:  BorderRadius.circular(20.0)
+                            Container(
+                              margin: EdgeInsets.only(left: size.width*0.1),
+                              width: size.width * 0.8,
+                              child: OutlineButton(
+                                splashColor: Colors.grey,
+                                onPressed: () async {
+                                  await uploadPDF(context);
+                                },
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                highlightElevation: 0,
+                                borderSide: BorderSide(color: Colors.grey),
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          'Upload PDF',
+                                          style: TextStyle(
+                                            fontSize: kMediumText,
+                                            color: Colors.black,
                                           ),
-                                          backgroundColor: kSecondaryColor,
-                                          child: Container(
-                                            child: Column(
-                                              children: [
-                                                SizedBox(height: 8),
-                                                RichText(
-                                                  textAlign: TextAlign.center,
-                                                  text: TextSpan(
-                                                    style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
-                                                    text: "My PDFs",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 8),
-                                                SingleChildScrollView(
-                                                  child: Column(
-                                                    children: widgetList,
-                                                  ),
-                                                ),
-                                              ]
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              margin: EdgeInsets.only(left: size.width*0.1),
+                              width: size.width * 0.8,
+                              child: OutlineButton(
+                                splashColor: Colors.grey,
+                                onPressed: () async {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return MasterPDFFiles(module: args);
+                                      })
+                                  );
+                                },
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                highlightElevation: 0,
+                                borderSide: BorderSide(color: Colors.grey),
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          'View master PDFs',
+                                          style: TextStyle(
+                                            fontSize: kMediumText,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              margin: EdgeInsets.only(left: size.width*0.1),
+                              width: size.width * 0.8,
+                              child: OutlineButton(
+                                splashColor: Colors.grey,
+                                onPressed: () async {
+                                  //Loading phase
+                                  final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                  final pdfRepo = moduleRepository.getCollectionRef()
+                                      .document(args.moduleCode).collection("myPDFs");
+                                  List<MyPDFUpload> files = await pdfRepo.getDocuments()
+                                      .then((value) => value.documents.map((e) => MyPDFUpload.fromSnapshot(e)).toList());
+                                  List<Widget> widgetList = List();
+                                  for(MyPDFUpload pdf in files) {
+                                    widgetList.add(_buildItem(pdf));
+                                  }
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        final dialogContext = context;
+                                        return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:  BorderRadius.circular(20.0)
                                             ),
-                                          )
-                                      );
-                                    }
-                                );
-                              },
+                                            backgroundColor: kSecondaryColor,
+                                            child: Container(
+                                              child: Column(
+                                                  children: [
+                                                    SizedBox(height: 8),
+                                                    RichText(
+                                                      textAlign: TextAlign.center,
+                                                      text: TextSpan(
+                                                        style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                        text: "My PDFs",
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 8),
+                                                    SingleChildScrollView(
+                                                      child: Column(
+                                                        children: widgetList,
+                                                      ),
+                                                    ),
+                                                  ]
+                                              ),
+                                            )
+                                        );
+                                      }
+                                  );
+                                },
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                highlightElevation: 0,
+                                borderSide: BorderSide(color: Colors.grey),
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          'My PDFs',
+                                          style: TextStyle(
+                                            fontSize: kMediumText,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(height: 10),
                             Padding(
