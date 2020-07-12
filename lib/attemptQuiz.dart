@@ -1,5 +1,6 @@
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizResultPage.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quizAttempt_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class AttemptQuiz extends StatefulWidget {

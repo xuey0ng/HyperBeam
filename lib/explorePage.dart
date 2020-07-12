@@ -164,90 +164,7 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 
-  Widget _buildRating(Quiz quiz, BuildContext context) {
-    final user = Provider.of<User>(context);
-    final quizRepo = Provider.of<FirebaseQuizService>(context).getRepo();
-    num quizRating;
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
-        children: <Widget>[
-          RatingBar(
-            initialRating: 3,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            onRatingUpdate: (rating) {
-              print(rating);
-              quizRating = rating;
-            },
-          ),
-          RaisedButton(
-            child: Text("Submit review"),
-            onPressed: () async {
-              if(quiz.reviewers == null){
-                Map<String,dynamic> map ={
-                  "reviewers" : [
-                    user.id,
-                    quizRating == null ? "3.0" : quizRating.toString(),
-                  ]
-                };
-                quizRepo.getCollectionRef()
-                    .document(quiz.reference.documentID.toString()).setData(map, merge: true);
-                Navigator.of(context).pop();
-              } else {
-                if (quiz.reviewers.contains(user.id)) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:  BorderRadius.circular(20.0)
-                            ),
-                            backgroundColor: kSecondaryColor,
-                            child: Container(
-                                height: 120,
-                                child: Column(
-                                  children: <Widget>[
-                                    SizedBox(height: 8),
-                                    RichText(
-                                        textAlign: TextAlign.center,
-                                        text: TextSpan(
-                                          style: TextStyle(color: Colors.black, fontSize: kBigText),
-                                          text: "You can only give review once",
-                                        )
-                                    ),
-                                    RaisedButton(
-                                      child: Text("Ok"),
-                                      color: kAccentColor,
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                )
-                            )
-                        );
-                      }
-                  );
-                } else {
-                  quizRepo.incrementList(quiz.reference.toString(), "reviewer", user.id);
-                  quizRepo.incrementList(quiz.reference.toString(), "reviewer", quizRating.toString());
-                  Navigator.of(context).pop();
-                }
-              }
-            },
-          )
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildQuizCard(Quiz quiz) {
     return StreamBuilder<DocumentSnapshot>(
@@ -279,8 +196,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                 height: 189,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 8),
-                                    _buildRating(quiz, dialogContext),
                                     SizedBox(height: 24,),
                                     Row(
                                       children: <Widget>[
