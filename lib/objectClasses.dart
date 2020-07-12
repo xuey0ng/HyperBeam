@@ -147,7 +147,7 @@ class Quiz implements iDatabaseable {
     return Quiz(json['name'] as String,
       questions: json['question'] as List<dynamic>,
       answers: json['answer'] as List<dynamic>,
-      reviewers: json['reviwers'] as List<dynamic>,
+      reviewers: json['reviewers'] as List<dynamic>,
       users: json['users']  as List<dynamic>,
       attempts: json['attempts'] as List<dynamic>,
       dateCreated: json['quizDate'] as Timestamp,
