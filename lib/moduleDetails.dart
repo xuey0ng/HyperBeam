@@ -1,15 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:HyperBeam/homePage.dart';
+import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:expand_widget/expand_widget.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/objectClasses.dart';
@@ -19,36 +16,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
+import 'package:HyperBeam/masterPDFFiles.dart';
+
 class ModuleDetails extends StatefulWidget {
+  String moduleCode;
+
+  ModuleDetails(this.moduleCode);
+
   @override
   _ModuleDetailsState createState() => _ModuleDetailsState();
 }
 
 class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
-  Module args; //Module
+  Module args; //Module>
 
   Widget buildQuizItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) return LinearProgressIndicator();
-          print("NOW IT IS ${snapshot.data.documentID} , ${args}");
           return QuizCard(snapshot.data, args);
         }
     );
   }
-
 
   Widget buildQuizList(DocumentSnapshot modSnapshot) {
     print(modSnapshot.documentID);
@@ -71,6 +68,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         }
     );
   }
+
   Widget buildTaskItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
@@ -80,7 +78,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         }
     );
   }
-
 
   Widget buildTaskList(DocumentSnapshot modSnapshot) {
     print(modSnapshot.documentID);
@@ -108,7 +105,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     List<Widget> lst = List();
     for (SemesterDatum sem in sems) {
       if (sem.semester != null) {
-        print("HIT");
         lst.add(Text("Semester ${sem.semester} Exam"));
       }
       if (sem.examDate != null){
@@ -165,160 +161,402 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         return Text("SU: not allowed");
       }
     }
-
     return Container(
       width: size.width*0.45,
       child: child(),
     );
+  }
 
+
+  void uploadPDF(BuildContext context) async {
+    //-------------------Upload PDF ----------------------
+    final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+    File file = await FilePicker.getFile(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    String getFileName(String path) {
+      int lastSlash = 0;
+      int lastDot = 0;
+      for(int i = 0; i < path.length; i++) {
+        if(path.codeUnitAt(i) == 47) lastSlash = i;
+        if(path.codeUnitAt(i) == 46) lastDot = i;
+      }
+      return path.substring(lastSlash+1, lastDot);
+    }// / is 47 , . is 46
+    String fileName = getFileName(file.path);
+    List<Quiz> quizList = await quizRepository.getQuery()
+        .then((value) => value.documents.map((e) => Quiz.fromSnapshot(e)).toList());
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          List<Widget> widgetList = List();
+          bool firstTime = true;
+          List<DocumentReference> output = List();
+          return AlertDialog(
+            title: Text(fileName),
+            content: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                Widget _buildQuizItem(int i, Quiz quiz, bool checked) {
+                  return Row(
+                    children: <Widget>[
+                      Text(quiz.name),
+                      Checkbox(
+                        value: checked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            widgetList[i] = _buildQuizItem(i, quiz, !checked);
+                            if(!checked) {
+                              output.add(quiz.reference);
+                            } else {
+                              output.remove(quiz.reference);
+                            }
+                          });
+                        },
+                      )
+                    ],
+                  );
+                }
+                if(firstTime) {
+                  for(int i = 0; i < quizList.length; i++){
+                    widgetList.add(_buildQuizItem(i, quizList[i], false));
+                  }
+                  firstTime = false;
+                }
+
+                return Column(
+                  children: [
+                    RaisedButton(
+                      child: Text("Preview file"),
+                      onPressed: () async {
+                        PDFDocument pdfDoc = await PDFDocument.fromFile(file);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PdfViewer(pdfDoc)
+                            )
+                        );
+                      },
+                    ),
+                    Text("Select quizzes pertinent to this PDF"),
+                    Column(
+                      children: widgetList,
+                    ),
+                  ]
+                );
+              }
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }
+              ),
+              FlatButton(
+                child: Text("Upload"),
+                onPressed: () async {
+
+
+                  final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
+                      modId: args.moduleCode, docId: fileName);
+                  print("PDFURL is $pdfUri");
+                  DataRepo myFilesRepo = DataRepo.fromInstance(
+                      moduleRepository.getCollectionRef()
+                          .document(args.moduleCode).collection("myPDFs")
+                  );
+                  MyPDFUpload pdfFile = MyPDFUpload(
+                      name: fileName,
+                      uri: pdfUri,
+                      lastUpdated: Timestamp.fromDate(DateTime.now()),
+                      quizRef: output,
+                  );
+                  myFilesRepo.addDocByID(fileName, pdfFile);
+
+                  await file.delete();
+                  Navigator.of(context).pop();
+                }
+              )
+            ],
+          );
+        }
+    );
+  }
+
+  Widget _buildItem(MyPDFUpload pdf) {
+    return GestureDetector(
+      onTap: () async {
+        if (await canLaunch(pdf.uri)) {
+          await launch(pdf.uri);
+        } else {
+          throw 'Could not launch ${pdf.uri}';
+        }
+      },
+      child: Container(
+          padding: EdgeInsets.only(top: 0, bottom: 0, left: 10),
+          margin: EdgeInsets.all(8),
+          width: size.width,
+          //height: size.height*0.16,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                blurRadius: 8,
+                color: Color(0xFFD3D3D3).withOpacity(.88),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+                children: [
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
+                      text: " ${pdf.name}",
+                    ),
+                  ),
+                  //Spacer(),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                      text: "Last updated: \n ${DateFormat('dd-MM-yyyy  kk:mm').format(pdf.lastUpdated.toDate())}",
+                    ),
+                  ),
+                ]
+            ),
+          )
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    args = ModalRoute.of(context).settings.arguments; //Module
+    final modRepo = Provider.of<FirebaseModuleService>(context, listen: false).getRepo();
     return WillPopScope(
       onWillPop: () async {
+        print("MODULEDETAILS BACK BUTTON PRESSED");
         Navigator.pushNamed(context, HomeRoute);
         return true;
       },
-      child: Scaffold(
-          body: Stack(
-              children: <Widget> [
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/bg1.jpg"),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          padding: EdgeInsets.only(top: size.height * .03),
-                          height: size.height * .1,
-                          decoration: BoxDecoration(
-                            color: kSecondaryColor,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(50),
-                              bottomRight: Radius.circular(50),
-                            ),
-                          ),
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
-                              text: " ${args.moduleCode}",
-                            ),
-                          ),
+      child: FutureBuilder<DocumentSnapshot>(
+        future: modRepo.getCollectionRef().document(widget.moduleCode).get(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return LinearProgressIndicator();
+          if (snapshot.data.data == null) return LinearProgressIndicator();
+          args = Module.fromSnapshot(snapshot.data);
+          return Scaffold(
+              body: Stack(
+                  children: <Widget> [
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/bg1.jpg"),
+                          fit: BoxFit.fill,
                         ),
-                        Column(
-                          children: [
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(text: "${args.title ?? "\n"}", style: TextStyle(fontSize: kBigText,fontWeight: FontWeight.bold, color: Colors.black)),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.topCenter,
+                              padding: EdgeInsets.only(top: size.height * .03),
+                              height: size.height * .1,
+                              decoration: BoxDecoration(
+                                color: kSecondaryColor,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
+                              ),
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                  text: " ${args.moduleCode}",
+                                ),
+                              ),
                             ),
-                            ExpandChild(
-                              expandArrowStyle: ExpandArrowStyle.icon,
-                              child: Column(
-                                children: <Widget>[
+                            Column(
+                                children: [
                                   RichText(
-                                      textAlign: TextAlign.center,
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(text: "${args.title ?? "\n"}", style: TextStyle(fontSize: kBigText,fontWeight: FontWeight.bold, color: Colors.black)),
+                                  ),
+                                  ExpandChild(
+                                    expandArrowStyle: ExpandArrowStyle.icon,
+                                    child: Column(
+                                      children: <Widget>[
+                                        RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                                style: Theme.of(context).textTheme.headline5,
+                                                children: [
+                                                  TextSpan(text: "${args.department ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
+                                                  TextSpan(text: "${args.faculty ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
+                                                  TextSpan(text: "${args.moduleCredit ?? ""} MCs", style: TextStyle(fontSize: kMediumText))
+                                                ]
+                                            )
+                                        ),
+                                        Container(
+                                          padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                          child: Text(
+                                            args.description,
+                                            maxLines: 118,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: new TextStyle(
+                                              fontSize: 14.0,
+                                              color: new Color(0xFFA0A0A0),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                            child: Row(
+                                              children: <Widget>[
+                                                workloadInfo(args.workload, size),
+                                                examInfo(args.semesterData, size)
+                                              ],
+                                            )
+                                        ),
+                                        Container(
+                                            padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                            child: Row(
+                                              children: <Widget>[
+                                                preclusionInfo(args.preclusion, size),
+                                                suInfo(args.attributes, size),
+                                              ],
+                                            )
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            SizedBox(height: 10),
+                            RaisedButton(
+                              child: Text("Upload master PDF"),
+                              onPressed: () async {
+                                await uploadPDF(context);
+                              },
+                            ),
+                            SizedBox(height: 10),
+                            RaisedButton(
+                              child: Text("View Master PDF"),
+                              onPressed: () async {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return MasterPDFFiles(module: args);
+                                    })
+                                );
+                              },
+                            ),
+                            SizedBox(height: 10),
+                            RaisedButton(
+                              child: Text("My PDFs"),
+                              onPressed: () async {
+                                //Loading phase
+                                final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                final pdfRepo = moduleRepository.getCollectionRef()
+                                    .document(args.moduleCode).collection("myPDFs");
+                                List<MyPDFUpload> files = await pdfRepo.getDocuments()
+                                    .then((value) => value.documents.map((e) => MyPDFUpload.fromSnapshot(e)).toList());
+                                List<Widget> widgetList = List();
+                                for(MyPDFUpload pdf in files) {
+                                  widgetList.add(_buildItem(pdf));
+                                }
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      final dialogContext = context;
+                                      return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:  BorderRadius.circular(20.0)
+                                          ),
+                                          backgroundColor: kSecondaryColor,
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: 8),
+                                                RichText(
+                                                  textAlign: TextAlign.center,
+                                                  text: TextSpan(
+                                                    style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                    text: "My PDFs",
+                                                  ),
+                                                ),
+                                                SizedBox(height: 8),
+                                                SingleChildScrollView(
+                                                  child: Column(
+                                                    children: widgetList,
+                                                  ),
+                                                ),
+                                              ]
+                                            ),
+                                          )
+                                      );
+                                    }
+                                );
+                              },
+                            ),
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: EdgeInsets.only(left: size.width*0.01),
+                              child: Container(
+                                  width: size.width*0.98,
+                                  decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                                  ),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
                                       text: TextSpan(
                                           style: Theme.of(context).textTheme.headline5,
                                           children: [
-                                            TextSpan(text: "${args.department ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
-                                            TextSpan(text: "${args.faculty ?? ""}\u00B7", style: TextStyle(fontSize: kMediumText)),
-                                            TextSpan(text: "${args.moduleCredit ?? ""} MCs", style: TextStyle(fontSize: kMediumText))
+                                            TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
                                           ]
                                       )
-                                  ),
-                                  Container(
-                                    padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                    child: Text(
-                                      args.description,
-                                      maxLines: 118,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: new TextStyle(
-                                        fontSize: 14.0,
-                                        color: new Color(0xFFA0A0A0),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                    child: Row(
-                                      children: <Widget>[
-                                        workloadInfo(args.workload, size),
-                                        examInfo(args.semesterData, size)
-                                      ],
-                                    )
-                                  ),
-                                  Container(
-                                      padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                      child: Row(
-                                        children: <Widget>[
-                                          preclusionInfo(args.preclusion, size),
-                                          suInfo(args.attributes, size),
-                                        ],
-                                      )
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          ]
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.width*0.01),
-                          child: Container(
-                            width: size.width*0.98,
-                            decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
-                            ),
-                            child: RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                    style: Theme.of(context).textTheme.headline5,
-                                    children: [
-                                      TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
-                                    ]
-                                )
-                            )
-                          ),
-                        ),
-                        _taskList(args),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.width*0.01, top: 8),
-                          child: Container(
-                              width: size.width*0.98,
-                              decoration: BoxDecoration(
-                                border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
-                              ),
-                              child: RichText(
-                                  textAlign: TextAlign.left,
-                                  text: TextSpan(
-                                      style: Theme.of(context).textTheme.headline5,
-                                      children: [
-                                        TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
-                                      ]
                                   )
-                              )
-                          ),
-                        ),
-                        _quizList(args),
-                        SizedBox(height: 30),
-                      ],
-                    )
-                ),
-              ]
-          )
+                              ),
+                            ),
+                            _taskList(args),
+                            Padding(
+                              padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                              child: Container(
+                                  width: size.width*0.98,
+                                  decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                                  ),
+                                  child: RichText(
+                                      textAlign: TextAlign.left,
+                                      text: TextSpan(
+                                          style: Theme.of(context).textTheme.headline5,
+                                          children: [
+                                            TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                          ]
+                                      )
+                                  )
+                              ),
+                            ),
+                            _quizList(args),
+                            SizedBox(height: 30),
+                          ],
+                        )
+                    ),
+                  ]
+              )
+          );
+        }
       ),
     );
   }
@@ -423,7 +661,6 @@ class QuizCard extends StatelessWidget {
 
   void obtainPDF(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
-
     String Url = snapshot.data['masterPdfUri'].toString();
     print("Obtaining $Url}");
     final storageReference = FirebaseStorage.instance.ref()
@@ -457,9 +694,9 @@ class QuizCard extends StatelessWidget {
         throw 'Could not launch $uri';
       }
     }
-
   }
 
+  /*
   void uploadPDF(BuildContext context) async {
     final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
@@ -467,17 +704,20 @@ class QuizCard extends StatelessWidget {
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
-    final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+    final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
         docId: snapshot.documentID); //docID is quit id
-    print("PDFURL is $pdfUrl");
-    snapshot.data['masterPdfUri'] = pdfUrl;
+    print("PDFURL is $pdfUri");
+    snapshot.data['masterPdfUri'] = pdfUri;
     await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
     await file.delete();
   }
 
+   */
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    if(snapshot.data == null) return Container();
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -523,7 +763,7 @@ class QuizCard extends StatelessWidget {
                           child: Text("Upload PDF file"),
                           color: kAccentColor,
                           onPressed: () async {
-                            uploadPDF(context);
+                            //uploadPDF(context);
                           },
                         ),
                       ),
@@ -533,15 +773,13 @@ class QuizCard extends StatelessWidget {
                           child: Text("Delete quiz"),
                           color: kAccentColor,
                           onPressed: () async {
+                            final user = Provider.of<User>(context);
                             final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                            quizRepository.delete(snapshot);
-                            print(module);
-                            Module mod = module;
-                            var newList = new List<DocumentReference>.from(mod.quizList);
-                            newList.remove(snapshot.reference);
-                            mod.quizList = newList;
-                            moduleRepository.updateDoc(mod);
+                            if(snapshot.data["uid"] == user.id) {
+                              quizRepository.delete(snapshot);
+                            }
+                            moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
                             Navigator.pop(dialogContext);
                           },
                         ),

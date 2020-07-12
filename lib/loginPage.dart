@@ -21,16 +21,12 @@ enum FormType {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _firstName;
-  String _lastName;
+  String _name;
   String _email;
   String _password;
   final loginFormKey = new GlobalKey<FormState>();
   final dynamic style1 = TextStyle(fontSize: 20.0);
-
-
   FormType _formType = FormType.login;
-
 
   bool validateAndSave() {
     final form = loginFormKey.currentState;
@@ -43,17 +39,9 @@ class _LoginPageState extends State<LoginPage> {
   }
   void validateAndSubmit(BuildContext context, bool googleSignIn) async {
     final auth = Provider.of<FirebaseAuthService>(context);
-
     if (googleSignIn) {
       try {
-        User user0 =await auth.signInWithGoogle();
-        // for print purpose only, can delete...
-        User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
-          return User(firstName: value.data['firstName'], lastName: value.data['lastName'],
-              email: value.data['email'], id: user0.id);
-        });
-        print("Signed in: $user");
-        //...to here
+        await auth.signInWithGoogle();
       } catch (err) {
         print("Error: $err");
       }
@@ -63,18 +51,16 @@ class _LoginPageState extends State<LoginPage> {
           if (_formType == FormType.login) {
             User user0 = await auth.signInWithEmailAndPassword(_email, _password);
             User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
-              return User(firstName: value.data['firstName'], lastName: value.data['lastName'],
+              return User(name: value.data['name'],
                   email: value.data['email'], id: user0.id);
             });
             print("Signed in: $user");
           } else {
             User user = await auth.createWithEmailAndPassword(_email, _password);
-            user.firstName = _firstName;
-            user.lastName = _lastName;
+            user.name = _name;
             user.email = _email;
             Firestore.instance.collection("users").document(user.id).setData({
-              'firstName' : user.firstName,
-              'lastName' : user.lastName,
+              'name' : user.name,
               'email' : user.email,
             });
             print("Created user: ${user.id}");
@@ -84,7 +70,6 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     }
-
   }
 
   void goToRegister() {
@@ -154,14 +139,9 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       return [
         TextFormField(
-          decoration: InputDecoration(labelText: 'First name'),
+          decoration: InputDecoration(labelText: 'Name'),
           validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
-          onSaved: (val) => _firstName = val,
-        ),
-        TextFormField(
-          decoration: InputDecoration(labelText: 'Last name'),
-          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
-          onSaved: (val) => _lastName = val,
+          onSaved: (val) => _name = val,
         ),
         TextFormField(
           decoration: InputDecoration(labelText: 'Email'),

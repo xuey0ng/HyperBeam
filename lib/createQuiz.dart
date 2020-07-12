@@ -1,15 +1,14 @@
+import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/objectClasses.dart';
-import 'package:HyperBeam/progressChart.dart';
-import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
-import 'package:HyperBeam/routing_constants.dart';
 
 class QuizForm extends StatefulWidget {
   String quizName;
@@ -25,7 +24,7 @@ class _QuizFormState extends State<QuizForm> {
   List<String> _questions = new List(10);
   List<String> _answers = new List(10); //var = string , var = annotation in pdf???
   Quiz newQuiz;
-  DateTime quizDate;
+  DateTime reminderDate;
   int index = 1;
 
   FocusNode f1;
@@ -34,29 +33,35 @@ class _QuizFormState extends State<QuizForm> {
     final user = Provider.of<User>(context, listen: false);
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    final reminderRepository = Provider.of<FirebaseReminderService>(context).getRepo();
     quizFormKey.currentState.save();
     newQuiz = Quiz(
       widget.quizName,
       questions: _questions,
       answers: _answers,
-      quizDate: Timestamp.fromDate(quizDate),
+      dateCreated: Timestamp.now(),
       fullScore: index,
       moduleName: widget.module.moduleCode,
       uid: user.id,
     );
-    var newList = widget.module.quizList.toList(growable: true);
+    print("At create quiz now ${widget.module.reference.documentID}");
     DocumentReference docRef;
-    await quizRepository.addDoc(newQuiz).then((value) => docRef = value);
-    newList.add(docRef);
-    widget.module.quizList = newList;
-    moduleRepository.updateDoc(widget.module);
+    await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
+    await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
+    String documentID = reminderDate.toString() + user.id;
+    Reminder rem = Reminder(
+      uid: user.id,
+      quizName: newQuiz.name,
+      moduleName: newQuiz.moduleName,
+      quizDocRef: docRef,
+      date: reminderDate
+    );
+    reminderRepository.addDocByID(documentID, rem);
   }
-
 
   @override
   void initState() {
     super.initState();
-
     f1 = FocusNode();
     f2 = FocusNode();
   }
@@ -70,66 +75,76 @@ class _QuizFormState extends State<QuizForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/bg1.jpg"),
-                  fit: BoxFit.fill,
+    return WillPopScope(
+      onWillPop: () async {
+        print("BACK2 PRESSED");
+        return false;
+      },
+      child: Scaffold(
+        body: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/bg1.jpg"),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            Column(
-              children: <Widget>[
-                _buildRow(index),
-              ],
-            ),
-          ]
-      ),
-      floatingActionButton:FloatingActionButton(
-        onPressed: ()=>{
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                    title: const Text("Schedule quiz"),
-                    content: Form(
-                        key: quizFormKey,
-                        autovalidate: true,
-                        child: Column(
-                          children: <Widget>[
-                            FormBuilderDateTimePicker(
-                              initialValue: DateTime.now(),
-                              attribute: "date",
-                              inputType: InputType.both,
-                              decoration: textInputDecoration.copyWith(
-                                  hintText: 'Enter a Date',
-                                  labelText: "Pick a date"),
-                              onSaved: (text) {
-                                setState(() {
-                                  quizDate = text;
-                                });
-                              },
-                            ),
-                            RaisedButton(
-                              color: kAccentColor,
-                              child: Text("Set Quiz"),
-                              onPressed: () {
-                                validateAndSetQuiz(context);
-                                Navigator.pushNamed(context, HomeRoute);
-                              },
-                            )
-                          ],
-                        )
-                    )
-                );
-              }
-          )
-        },
-        child: const Icon(Icons.assignment_turned_in),
+              Column(
+                children: <Widget>[
+                  _buildRow(index),
+                ],
+              ),
+            ]
+        ),
+        floatingActionButton:FloatingActionButton(
+          onPressed: ()=>{
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: const Text("Schedule a reminder"),
+                      content: Form(
+                          key: quizFormKey,
+                          autovalidate: true,
+                          child: Column(
+                            children: <Widget>[
+                              FormBuilderDateTimePicker(
+                                initialValue: DateTime.now(),
+                                attribute: "date",
+                                inputType: InputType.both,
+                                decoration: textInputDecoration.copyWith(
+                                    hintText: 'Enter a Date',
+                                    labelText: "Pick a date"),
+                                onSaved: (text) async {
+                                  setState(() {
+                                    reminderDate = text;
+                                  });
+                                },
+                              ),
+                              RaisedButton(
+                                color: kAccentColor,
+                                child: Text("Set Quiz"),
+                                onPressed: () {
+                                  validateAndSetQuiz(context);
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context){
+                                    return HomePage();
+                                  }),
+                                  );
+                                },
+                              )
+                            ],
+                          )
+                      )
+                  );
+                }
+            )
+          },
+          child: const Icon(Icons.assignment_turned_in),
+        ),
       ),
     );
   }
@@ -196,9 +211,6 @@ class _QuizFormState extends State<QuizForm> {
             )
         );
   }
-
-
-
 }
 
 class CreateQuiz extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
-import 'package:HyperBeam/services/firebase_user_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async' show Future;
@@ -16,7 +15,7 @@ class ModuleQuery extends StatelessWidget {
 
   }
 
-  Widget friendList(var size, FirebaseUserService user) {
+  Widget friendList(var size, User user) {
     return Container(
       child: Column(
         children: <Widget>[
@@ -39,7 +38,7 @@ class ModuleQuery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final user = Provider.of<FirebaseUserService>(context, listen: false);
+    final user = Provider.of<User>(context, listen: false);
     return Stack(
         children: <Widget>[
           Container(
@@ -64,7 +63,7 @@ class ModuleQuery extends StatelessWidget {
                       text: TextSpan(
                           style: Theme.of(context).textTheme.headline5,
                           children: [
-                            TextSpan(text: "${user.lastName}", style: TextStyle(fontWeight: FontWeight.bold))
+                            TextSpan(text: "${user.name}", style: TextStyle(fontWeight: FontWeight.bold))
                           ]
                       )
                   ),

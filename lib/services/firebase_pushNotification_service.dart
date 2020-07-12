@@ -9,20 +9,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 class PushNotificationService {
   final Firestore _db = Firestore.instance;
+  User user;
   final FirebaseMessaging _fcm = FirebaseMessaging();
   StreamSubscription iosSubscription;
-  User user;
   BuildContext context;
   PushNotificationService({this.user, this.context});
 
   saveDeviceToken() async {
-    String uid = user.id;
-    print("UID IS $uid");
     String fcmToken = await _fcm.getToken();
     if (fcmToken != null) {
       var tokens = _db
           .collection('users')
-          .document(uid);
+          .document(user.id);
       await tokens.setData({
         'token': fcmToken,
         'createdAt': FieldValue.serverTimestamp(), // optional
@@ -31,8 +29,8 @@ class PushNotificationService {
     }
   }
 
-
   initialise() {
+    print("initialising push notif");
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
         saveDeviceToken();
@@ -57,7 +55,6 @@ class PushNotificationService {
                 child: Text('Ok'),
                 onPressed: () {
                   if(message.containsKey('data')){
-                    print("DATA FOUND");
                     final dynamic data = message['data'];
                     print(data['link']);
                     obtainPDFfromLink(data['link']);
@@ -140,18 +137,8 @@ class PushNotificationService {
     var view = notificationData['view'];
     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
     if(notificationData != null) {
-      print("HITTT");
       final dynamic data = message['data'];
       obtainPDFfromLink(data['link']);
     }
-    /*
-    if (view != null) {
-      // Navigate to the create post view
-      if (view == 'create_post') {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-      }
-      // If there's no view it'll just open the app on the first view
-    }
-     */
   }
 }

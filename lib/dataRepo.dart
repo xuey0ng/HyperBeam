@@ -8,9 +8,20 @@ class DataRepo {
     this.db = Firestore.instance.collection(name);
   }
 
+  DataRepo.fromChildRepo(String parentColName, String parentDocName,
+      String childColName) {
+    this.db = Firestore.instance.collection(parentColName).document(childColName)
+        .collection(childColName);
+  }
+
+  DataRepo.fromInstance(CollectionReference db) {
+    this.db = db;
+  }
+
   DataRepo(String id, String name) {
     this.db = Firestore.instance.collection('users').document(id).collection(name);
   }
+
 
   CollectionReference getCollectionRef() {
     return db;
@@ -32,31 +43,55 @@ class DataRepo {
     return await db.add(obj.toJson());
   }
 
+  Future<DocumentReference> addDocAndID(iDatabaseable obj) async {
+    DocumentReference docRef =  await db.add(obj.toJson());
+    Map<String, dynamic> map = {"reference":docRef};
+    docRef.setData(map, merge: true);
+    return docRef;
+  }
+  
+  Future<DocumentReference> addDocByID(String id, iDatabaseable obj) async {
+    await db.document(id).setData(obj.toJson(), merge: true);
+  }
+
+  Future<bool> documentExists(String documentID) async {
+    return await db.document(documentID).get().then((value){
+      if(value.exists) return true;
+      return false;
+    });
+  }
+
   Future<void> setDoc(iDatabaseable obj) async {
-    return await db.document(obj.reference.documentID).setData(obj.toJson(), merge: true);
+    return await db.document(obj.reference.documentID)
+        .setData(obj.toJson(), merge: true);
+  }
+  Future<void> setDocByID(String id, Map<String, dynamic> map) async {
+    print("Curr map is ${map.toString()}");
+    return await db.document(id)
+        .setData(map, merge: true);
   }
 
-  void updateTime(DateTime date) {
-    Map<String, dynamic> updates = new Map();
-    updates['quizDate'] = Timestamp.fromDate(date);
-    db.document("time").updateData(updates);
+  incrementList(String documentID, String field, dynamic newItem) async {
+    DocumentSnapshot value = await db.document(documentID).get();
+    if (!value.exists) return 0;
+    var newList = value.data[field].toList(growable: true);
+    newList.add(newItem);
+    Map<String, dynamic> map = value.data;
+    map[field] = newList;
+    db.document(documentID).updateData(map);
+    return 1;
   }
 
-  void addUncompletedQuizCount() async {
-    Map<String, dynamic> updates = new Map();
-    DocumentSnapshot snap = await db.document("main").get();
-    updates['count'] = snap.data['count'] + 1;
-    db.document("main").updateData(updates);
-  }
-
-  Future<List<DocumentReference>> getRefList() async {
-    List<DocumentReference> listRef;
-    await db.getDocuments().then((val)=> val.documents.map((x)=> listRef.add(x.reference)));
-    return listRef;
-  }
-
-  Future<int> documentCount() async{
-    return await db.getDocuments().then((val) => val.documents.length);
+  decrementList(String documentID, String field, dynamic deletedItem) async {
+    DocumentSnapshot value = await db.document(documentID).get();
+    if (!value.exists) return 0;
+    List<dynamic> newList = value.data[field].toList(growable: true);
+    if(newList.length == 0) return 0;
+    if(!newList.remove(deletedItem)) return 0;
+    Map<String, dynamic> map = value.data;
+    map[field] = newList;
+    db.document(documentID).updateData(map);
+    return 1;
   }
 
   Future<void> delete(DocumentSnapshot doc) async{
@@ -67,4 +102,7 @@ class DataRepo {
     await db.document(task.reference.documentID).updateData(task.toJson());
   }
 
+  Future<int> documentCount() async{
+    return await db.getDocuments().then((val) => val.documents.length);
+  }
 }

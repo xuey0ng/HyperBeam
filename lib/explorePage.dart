@@ -7,6 +7,7 @@ import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class ExplorePage extends StatefulWidget{
@@ -18,9 +19,11 @@ class _ExplorePageState extends State<ExplorePage> {
   DataRepo quizRepository;
   String query;
   final searchKey = new GlobalKey<FormState>();
+
   //List<Widget> argument = [Text("loading")];
 
   Widget buildGrid(BuildContext context, String query) {
+    var size = MediaQuery.of(context).size;
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     return StreamBuilder<QuerySnapshot>(
         stream: quizRepository.getStream(), //stream<QuerySnapshot>
@@ -41,7 +44,7 @@ class _ExplorePageState extends State<ExplorePage> {
           }
           print("begin building list of length ${lst.length}");
           return Container(
-            height: 580,
+            height: size.height*0.78,
             width: 500,
             child: CustomScrollView(
               primary: false,
@@ -70,13 +73,14 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body:
       Container(
         margin: EdgeInsets.only(top: 18),
-        height: 800,
+        height: size.height,
         width: 500,
         child: Column(
             children: [
@@ -87,7 +91,7 @@ class _ExplorePageState extends State<ExplorePage> {
                           style: Theme.of(context).textTheme.headline2,
                           children: [
                             TextSpan(text: "Explore",
-                                style: TextStyle(fontWeight: FontWeight.bold, )
+                                style: TextStyle(fontWeight: FontWeight.bold,)
                             ),
                           ]
                       )
@@ -161,11 +165,104 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 
+  Widget _buildRating(Quiz quiz, BuildContext context) {
+    final user = Provider.of<User>(context);
+    final quizRepo = Provider.of<FirebaseQuizService>(context).getRepo();
+    num quizRating;
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        children: <Widget>[
+          RatingBar(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+              quizRating = rating;
+            },
+          ),
+          RaisedButton(
+            child: Text("Submit review"),
+            onPressed: () async {
+              if(quiz.reviewers == null){
+                Map<String,dynamic> map ={
+                  "reviewers" : [
+                    user.id,
+                    quizRating == null ? "3.0" : quizRating.toString(),
+                  ]
+                };
+                quizRepo.getCollectionRef()
+                    .document(quiz.reference.documentID.toString()).setData(map, merge: true);
+                Navigator.of(context).pop();
+              } else {
+                if (quiz.reviewers.contains(user.id)) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:  BorderRadius.circular(20.0)
+                            ),
+                            backgroundColor: kSecondaryColor,
+                            child: Container(
+                                height: 120,
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(height: 8),
+                                    RichText(
+                                        textAlign: TextAlign.center,
+                                        text: TextSpan(
+                                          style: TextStyle(color: Colors.black, fontSize: kBigText),
+                                          text: "You can only give review once",
+                                        )
+                                    ),
+                                    RaisedButton(
+                                      child: Text("Ok"),
+                                      color: kAccentColor,
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                )
+                            )
+                        );
+                      }
+                  );
+                } else {
+                  quizRepo.incrementList(quiz.reference.toString(), "reviewer", user.id);
+                  quizRepo.incrementList(quiz.reference.toString(), "reviewer", quizRating.toString());
+                  Navigator.of(context).pop();
+                }
+              }
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _buildQuizCard(Quiz quiz) {
     return StreamBuilder<DocumentSnapshot>(
       stream: Firestore.instance.collection("users").document(quiz.uid).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
+        num quizRating = 0 ;
+        if(quiz.reviewers != null){
+          for(int i = 1; i < quiz.reviewers.length; i = i + 2) {
+            print(quiz.reviewers[i]);
+            quizRating += num.parse(quiz.reviewers[i]);
+          }
+          quizRating = quizRating*2 / quiz.reviewers.length;
+        }
         return Stack(
             children: [
               GestureDetector(
@@ -180,48 +277,48 @@ class _ExplorePageState extends State<ExplorePage> {
                             ),
                             backgroundColor: kSecondaryColor,
                             child: Container(
-                                height: 160,
+                                height: 189,
                                 child: Column(
                                   children: [
+                                    SizedBox(height: 8),
+                                    _buildRating(quiz, dialogContext),
                                     SizedBox(height: 24,),
-                                    RaisedButton(
-                                      color: kPrimaryColor,
-                                      child: Text('View Quiz'),
-                                      onPressed: (){
-                                        Navigator.push(context,
-                                          MaterialPageRoute(builder: (context){
-                                            return Scaffold(
-                                              body: Column(
-                                                children: <Widget>[
-                                                  Text("test"),
-                                                ],
-                                              )
+                                    Row(
+                                      children: <Widget>[
+                                        RaisedButton(
+                                          color: kPrimaryColor,
+                                          child: Text('View Quiz'),
+                                          onPressed: (){
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (context){
+                                                  return Scaffold(
+                                                      body: Column(
+                                                        children: <Widget>[
+                                                          Text("test"),
+                                                        ],
+                                                      )
+                                                  );
+                                                })
                                             );
-                                          })
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 12,),
-                                    RaisedButton(
-                                      color: kAccentColor,
-                                      child: Text('Add Quiz'),
-                                      onPressed: () async {
-                                        final userRepo = Provider.of<User>(context);
-                                        final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-
-                                         DocumentSnapshot quizLst = await moduleRepository
-                                            .getCollectionRef()
-                                             .where('name',isEqualTo: quiz.moduleName)
-                                             .getDocuments()
-                                             .then((value) => value.documents[0]);
-                                         Module mod = Module.fromSnapshot(quizLst);
-                                        var newList = mod.quizList.toList(growable: true);
-                                        newList.add(quiz.reference);
-                                        mod.quizList = newList;
-                                        moduleRepository.updateDoc(mod);
-                                                  //reference.updateData({data})
-                                      },
-                                    ),
+                                          },
+                                        ),
+                                        RaisedButton(
+                                          color: kAccentColor,
+                                          child: Text('Add Quiz'),
+                                          onPressed: () async {
+                                            final userRepo = Provider.of<User>(context);
+                                            final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                            print("at explore page ${quiz.reference}");
+                                            int result = await moduleRepository.incrementList(
+                                                quiz.moduleName, "quizzes", quiz.reference
+                                            );
+                                            if(result == 1) {
+                                              Navigator.pop(dialogContext);
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 )
                             )
@@ -277,7 +374,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                          text: "Ratings: NA",
+                          text: "Rating: $quizRating",
                         )
                     ),
                   ),
@@ -287,7 +384,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                          text: "Made by: ${snapshot.data['lastName'] ?? "Anon"}",
+                          text: "Made by: ${snapshot.data['name'] ?? "Anon"}",
                         )
                     ),
                   ),
