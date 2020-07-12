@@ -43,22 +43,24 @@ class _ExplorePageState extends State<ExplorePage> {
                 .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
           }
           print("begin building list of length ${lst.length}");
-          return Container(
-            height: size.height*0.78,
-            width: 500,
-            child: CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-                  padding: const EdgeInsets.all(20),
-                  sliver: SliverGrid.count(
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 2,
-                    children: lst,
+          return Flexible(
+            child: Container(
+              height: size.height*0.8 - 36,
+              width: 500,
+              child: CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(20),
+                    sliver: SliverGrid.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      children: lst,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });
@@ -123,36 +125,33 @@ class _ExplorePageState extends State<ExplorePage> {
                     child: Container(
                       width: 280,
                       height: 56,
-                      child: Flexible(
-                        child: TextFormField(
-                          onChanged: (text){
-                            setState(() {
-                              query = text;
-                            });
-                          },
-                          decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              //contentPadding: EdgeInsets.only(left: 8,bottom: 12),
-                              contentPadding:
-                              EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
-                              hintText: "Search module"),
-                          validator: (val){
-                            if(!NUS_MODULES.containsCode(val) && val != "") {
-                              return "Please input a valid module";
-                            } else{
-                              return null;
-                            }
-                          },
-                          onSaved: (val){
-                            setState(() {
-                              query = val;
-                            });
-                          },
-                        ),
+                      child: TextFormField(
+                        onChanged: (text){
+                          setState(() {
+                            query = text;
+                          });
+                        },
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding:
+                            EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
+                            hintText: "Search module"),
+                        validator: (val){
+                          if(!NUS_MODULES.containsCode(val) && val != "") {
+                            return "Please input a valid module";
+                          } else{
+                            return null;
+                          }
+                        },
+                        onSaved: (val){
+                          setState(() {
+                            query = val;
+                          });
+                        },
                       ),
                     ),
                   ),
@@ -165,90 +164,7 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 
-  Widget _buildRating(Quiz quiz, BuildContext context) {
-    final user = Provider.of<User>(context);
-    final quizRepo = Provider.of<FirebaseQuizService>(context).getRepo();
-    num quizRating;
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
-        children: <Widget>[
-          RatingBar(
-            initialRating: 3,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            onRatingUpdate: (rating) {
-              print(rating);
-              quizRating = rating;
-            },
-          ),
-          RaisedButton(
-            child: Text("Submit review"),
-            onPressed: () async {
-              if(quiz.reviewers == null){
-                Map<String,dynamic> map ={
-                  "reviewers" : [
-                    user.id,
-                    quizRating == null ? "3.0" : quizRating.toString(),
-                  ]
-                };
-                quizRepo.getCollectionRef()
-                    .document(quiz.reference.documentID.toString()).setData(map, merge: true);
-                Navigator.of(context).pop();
-              } else {
-                if (quiz.reviewers.contains(user.id)) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:  BorderRadius.circular(20.0)
-                            ),
-                            backgroundColor: kSecondaryColor,
-                            child: Container(
-                                height: 120,
-                                child: Column(
-                                  children: <Widget>[
-                                    SizedBox(height: 8),
-                                    RichText(
-                                        textAlign: TextAlign.center,
-                                        text: TextSpan(
-                                          style: TextStyle(color: Colors.black, fontSize: kBigText),
-                                          text: "You can only give review once",
-                                        )
-                                    ),
-                                    RaisedButton(
-                                      child: Text("Ok"),
-                                      color: kAccentColor,
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                )
-                            )
-                        );
-                      }
-                  );
-                } else {
-                  quizRepo.incrementList(quiz.reference.toString(), "reviewer", user.id);
-                  quizRepo.incrementList(quiz.reference.toString(), "reviewer", quizRating.toString());
-                  Navigator.of(context).pop();
-                }
-              }
-            },
-          )
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildQuizCard(Quiz quiz) {
     return StreamBuilder<DocumentSnapshot>(
@@ -280,8 +196,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                 height: 189,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 8),
-                                    _buildRating(quiz, dialogContext),
                                     SizedBox(height: 24,),
                                     Row(
                                       children: <Widget>[
