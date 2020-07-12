@@ -29,8 +29,13 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
   List<Widget> asyncWidget = [Text("Loading")];
 
   Widget _buildItem(int i, String PDFHash, String PDFName, Timestamp lastUpdated,
-      String uri, String userPDFName, bool subscribed, bool allowSubscription) {
+      String uri, String userPDFName, bool subscribed,
+      bool allowSubscription, List<String> quizNames) {
     var size = MediaQuery.of(context).size;
+    List<Widget> quizNameWidgets = List();
+    if( quizNames != null) {
+      quizNameWidgets = quizNames.map((e) => Text(e)).toList();
+    }
     return GestureDetector(
       onTap: () async{
         if (await canLaunch(uri)) {
@@ -70,14 +75,15 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                   ),
                   Spacer(),
                   Text("Subscribe: "),
+
                   allowSubscription ?
                   CustomSwitch(
                     activeColor: Colors.pinkAccent,
-                    value: subscribed,
+                    value: subscribed ?? false,
                     onChanged: (bool value) {
                       setState(() {
                         value ? FirebaseMessaging().unsubscribeFromTopic(PDFHash) : FirebaseMessaging().subscribeToTopic(PDFHash);
-                        asyncWidget[i] = _buildItem(i, PDFHash, PDFName, lastUpdated, uri, userPDFName, !subscribed, true);
+                        asyncWidget[i] = _buildItem(i, PDFHash, PDFName, lastUpdated, uri, userPDFName, !subscribed, true, quizNames);
                       });
                     },
                   ) :
@@ -94,6 +100,19 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                     Text("Your PDF is named:  \n  ${userPDFName ?? "No similar PDF uploaded"}"),
                   ]
               ),
+              quizNames != null ?
+              Row(
+                children: <Widget>[
+                  Text("It is linked to :"),
+                  Column(
+                    children: quizNameWidgets,
+                  )
+                ])
+              : Row(
+                children: <Widget>[
+                  Text("It is not linked to any quizzes"),
+                ],
+              )
             ]
           ),
         )
@@ -121,12 +140,29 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
       Timestamp lastUpdated = pdfInfo.data["lastUpdated"];
       String uri = pdfInfo.data["uri"];
       bool subscriptionStatus = userInfo.data["subscribed"];
-      if (userInfo == null || userInfo.data == null) {
-        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, null, false, false));
+      List<String> linkedQuizzes = List();
+      if(userInfo.data["quizRef"] != null) {
+        for(DocumentReference ref in userInfo.data["quizRef"]){
+          DocumentSnapshot snap = await ref.get();
+          linkedQuizzes = snap.data["name"];
+        }
+      }
+
+      if (userInfo.data == null) {
+        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, null, false, false, null));
       } else {
         String userFileName = userInfo.data["userFileName"];
-        widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, userFileName, subscriptionStatus, true));
+        if(linkedQuizzes.length > 0){
+          widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, userFileName, subscriptionStatus, true, linkedQuizzes));
+        } else {
+          widgetList.add(_buildItem(i,PDFHash, PDFName, lastUpdated, uri, userFileName, subscriptionStatus, true, null));
+        }
       }
+    }
+
+    if(widgetList.length == 0) {
+      loaded = true;
+      asyncWidget = [Text("No PDFs found")];
     }
     setState(() {
       loaded = true;
