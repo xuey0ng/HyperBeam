@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   String _name;
   String _email;
   String _password;
+  var size;
   final loginFormKey = new GlobalKey<FormState>();
   final dynamic style1 = TextStyle(fontSize: 20.0);
   FormType _formType = FormType.login;
@@ -94,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginBody(BuildContext context){
+    size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
@@ -150,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         TextFormField(
           decoration: InputDecoration(labelText: 'Password'),
-          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          validator: (val) => val.toString().length < 6 ? 'Password has to be at least 6 characters' : null,
           onSaved: (val) => _password = val,
           obscureText: true,
         ),
@@ -161,64 +163,167 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildButtons() {
     if(_formType == FormType.login) {
       return [
-        RaisedButton(
-          child: Text('Login', style: style1),
-          color: kAccentColor,
-          onPressed: () => validateAndSubmit(context, false),
+        Container(
+          width: size.width * 0.8,
+          child: OutlineButton(
+            splashColor: Colors.grey,
+            onPressed: () {
+              validateAndSubmit(context, false);
+            },
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            highlightElevation: 0,
+            borderSide: BorderSide(color: Colors.grey),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
         Spacer(flex: 1),
-        FlatButton(
-          child: Text('Create an account', style: style1),
-          color: kAccentColor,
-          onPressed: goToRegister,
+        Container(
+          width: size.width * 0.8,
+          child: OutlineButton(
+            splashColor: Colors.grey,
+            onPressed: goToRegister,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            highlightElevation: 0,
+            borderSide: BorderSide(color: Colors.grey),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Create an account',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
+        Spacer(flex: 1),
         _signInButton(),
       ];
     } else {
       return [
-        RaisedButton(
-          child: Text('Create an account', style: style1),
-          color: kAccentColor,
-          onPressed: () {
-            validateAndSubmit(context, false);
-          }
+        Container(
+          width: size.width * 0.8,
+          child: OutlineButton(
+            splashColor: Colors.grey,
+            onPressed: () {
+              validateAndSubmit(context, false);
+            },
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            highlightElevation: 0,
+            borderSide: BorderSide(color: Colors.grey),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Create an account',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
         Spacer(flex: 1),
-        FlatButton(
-          child: Text('Already have an account? Login', style: style1),
-          onPressed: goToLogin,
+        Container(
+          width: size.width * 0.8,
+          child: OutlineButton(
+            splashColor: Colors.grey,
+            onPressed: goToLogin,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            highlightElevation: 0,
+            borderSide: BorderSide(color: Colors.grey),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Already have an account?\nLogin',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
       ];
     }
   }
 
   Widget _signInButton() {
-    return OutlineButton(
-      splashColor: Colors.grey,
-      onPressed: () {
-        validateAndSubmit(context, true);
-      },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(image: AssetImage("assets/images/google_logo.png"), height: 35.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                'Sign in with Google',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
+    return Container(
+      width: size.width * 0.8,
+      child: OutlineButton(
+        splashColor: Colors.grey,
+        onPressed: () {
+          validateAndSubmit(context, true);
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        highlightElevation: 0,
+        borderSide: BorderSide(color: Colors.grey),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image(image: AssetImage("assets/images/google_logo.png"), height: 35.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'Sign in with Google',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

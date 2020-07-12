@@ -308,7 +308,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                           onPressed: () async {
                                             final userRepo = Provider.of<User>(context);
                                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                            print("at explore page ${quiz.reference}");
                                             int result = await moduleRepository.incrementList(
                                                 quiz.moduleName, "quizzes", quiz.reference
                                             );
