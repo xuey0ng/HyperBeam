@@ -25,7 +25,7 @@ class AuthPage extends StatelessWidget {
               routes: {
                 ModuleDetailsRoute: (context) => ModuleDetails(),
               },
-              title: 'Name routing',
+              title: 'Hyper Beam',
               onGenerateRoute: router.generateRoute,
               initialRoute: HomeRoute,
             )

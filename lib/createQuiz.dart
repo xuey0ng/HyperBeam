@@ -1,6 +1,7 @@
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,11 +31,19 @@ class _QuizFormState extends State<QuizForm> {
   FocusNode f1;
   FocusNode f2;
   void validateAndSetQuiz(BuildContext context) async {
+    final user = Provider.of<User>(context, listen: false);
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     quizFormKey.currentState.save();
-    newQuiz = Quiz(widget.quizName, questions: _questions,
-      answers: _answers, quizDate: Timestamp.fromDate(quizDate), fullScore: index);
+    newQuiz = Quiz(
+      widget.quizName,
+      questions: _questions,
+      answers: _answers,
+      quizDate: Timestamp.fromDate(quizDate),
+      fullScore: index,
+      moduleName: widget.module.name,
+      uid: user.id,
+    );
     var newList = widget.module.quizList.toList(growable: true);
     DocumentReference docRef;
     await quizRepository.addDoc(newQuiz).then((value) => docRef = value);
@@ -230,7 +239,6 @@ class _CreateQuizState extends State<CreateQuiz> {
             ]
           ),
     );
-    //return _buildSuggestions();
   }
 }
 

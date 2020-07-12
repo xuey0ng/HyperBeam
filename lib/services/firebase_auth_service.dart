@@ -3,7 +3,20 @@ import 'package:flutter/foundation.dart';
 
 class User {
   final String id;
-  User({@required this.id});
+  String firstName;
+  String lastName;
+  String email;
+
+  User({@required this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+  });
+
+  @override
+  String toString() {
+    return "$id  account of $firstName   $lastName  email: $email";
+  }
 }
 
 class FirebaseAuthService {

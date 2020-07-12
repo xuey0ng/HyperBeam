@@ -4,12 +4,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DataRepo {
   CollectionReference db;
 
+  DataRepo.fromRepo(String name){
+    this.db = Firestore.instance.collection(name);
+  }
+
   DataRepo(String id, String name) {
     this.db = Firestore.instance.collection('users').document(id).collection(name);
   }
 
   CollectionReference getCollectionRef() {
     return db;
+  }
+
+  Query whereEqual(String field,  String val) {
+    return db.where(field, isEqualTo: val);
   }
 
   Stream<QuerySnapshot> getStream() {
