@@ -880,7 +880,6 @@ class QuizCard extends StatelessWidget {
                                   );
                               }
                             );
-
                           },
                         ),
                       ),
@@ -890,10 +889,86 @@ class QuizCard extends StatelessWidget {
                           child: Text("View reminders set"),
                           color:  kAccentColor,
                           onPressed: () async  {
-                            Navigator.push(context, new MaterialPageRoute(builder: (context) {
+                            print("quiz ref is ${quiz.reference.documentID}");
+                            final reminders = await Firestore.instance.collection("Reminders")
+                                .where("uid", isEqualTo: user.id)
+                                .where("quizDocRef", isEqualTo: quiz.reference)
+                                .getDocuments().then((value) => value.documents);
+                            List<Widget> colItems = reminders.map((e){
+                              var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
+                              return Container(
+                                  padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
+                                  margin: EdgeInsets.all(8),
+                                  width: size.width,
+                                  //height: size.height*0.16,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 4),
+                                        blurRadius: 8,
+                                        color: Color(0xFFD3D3D3).withOpacity(.88),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Row(
+                                        children: [
+                                          RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
+                                              text: " ${timeDisplayed}",
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          IconButton(
+                                            icon: Icon(Icons.close),
+                                            onPressed: () {
+                                              //todo remove quiz
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ]
+                                    ),
+                                  )
+                              );
+                            }).toList();
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  final dialogContext = context;
+                                  return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:  BorderRadius.circular(20.0)
+                                      ),
+                                      backgroundColor: kSecondaryColor,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: 12),
+                                          RichText(
+                                            overflow: TextOverflow.fade,
+                                            text: TextSpan(
+                                              text: "Reminders set",
+                                              style: TextStyle(
+                                                fontSize: kBigText,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Column(
+                                              children: colItems,
+                                            ),
+                                          ),
+                                        ]
 
-                            }
-                            ));
+                                      )
+                                  );
+                                }
+                            );
                           },
                         ),
                       ),
