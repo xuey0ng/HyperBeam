@@ -125,7 +125,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                       //Navigator.pushNamed(context, HomeRoute);
                                       Navigator.push(context,
                                         MaterialPageRoute(builder: (context){
-                                          return QuizForm(quizName, module: module,);
+                                          return QuizForm(quizName: quizName, module: module,);
                                         }),
                                       );
                                     },

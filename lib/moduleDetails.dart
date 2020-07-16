@@ -40,7 +40,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
   Module args; //Module>
 
-  Widget buildQuizItem(DocumentReference docRef) {
+  Widget buildQuizItem(DocumentReference docRef) { //docRef of a quiz
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
@@ -51,7 +51,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   }
 
   Widget buildQuizList(DocumentSnapshot modSnapshot) {
-    print(modSnapshot.documentID);
     return SingleChildScrollView(
       child: Column(
           children: Module.fromSnapshot(modSnapshot)
@@ -360,7 +359,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       ),
     );
   }
-
+//page builder
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -757,10 +756,9 @@ class TaskCard extends StatelessWidget {
   }
 }
 class QuizCard extends StatelessWidget {
-  DocumentSnapshot snapshot;
+  DocumentSnapshot snapshot; //json of quiz
   Module module;
   QuizCard(this.snapshot, this.module);
-
   void obtainPDF(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
     String Url = snapshot.data['masterPdfUri'].toString();
@@ -1035,7 +1033,7 @@ class QuizCard extends StatelessWidget {
                 child: RichText(
                   overflow: TextOverflow.fade,
                   text: TextSpan(
-                    text: " ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
+                    text: " ${snapshot.data == null ? "NOTHING" : snapshot.data['name']} \n",
                     style: TextStyle(
                       fontSize: kMediumText,
                       color: Colors.black,
@@ -1051,7 +1049,8 @@ class QuizCard extends StatelessWidget {
               child: RichText(
                 overflow: TextOverflow.fade,
                 text: TextSpan(
-                  text: "Score: \n${snapshot.data['score'] == null ? "Not attempted" : "${snapshot.data['score']} out of ${snapshot.data['fullScore']}"} \n",
+                  text: "Score: \n${snapshot.data['score'] == null ? "Not attempted" :
+                  "${snapshot.data['score']} out of ${snapshot.data['fullScore']}"} \n",
                   style: TextStyle(
                     fontSize: kSmallText,
                     color: Colors.black,
@@ -1064,7 +1063,7 @@ class QuizCard extends StatelessWidget {
                 Icons.arrow_forward_ios,
                 size: 18,
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context){
@@ -1078,7 +1077,6 @@ class QuizCard extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class PdfViewPage extends StatefulWidget {
@@ -1097,7 +1095,6 @@ class _PdfViewPageState extends State<PdfViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("THIS PATH IS ${widget.path}");
     return Scaffold(
       appBar: AppBar(
         title: Text("My Document"),

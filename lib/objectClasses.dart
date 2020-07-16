@@ -112,11 +112,52 @@ class Reminder implements iDatabaseable {
   }
 }
 
+class ProblemSet {
+  int number;
+  bool MCQ;
+  List<dynamic> options;
+  String question;
+  String answer;
+
+  ProblemSet({
+    this.number,
+    this.MCQ,
+    this.options,
+    this.question,
+    this.answer,
+  });
+
+  factory ProblemSet.fromJson(Map<String, dynamic> json) => ProblemSet(
+    number: json["number"],
+    MCQ: json["MCQ"],
+    question: json["question"],
+    answer: json["answer"],
+    options: json["options"],
+  );
+
+  factory ProblemSet.fromSnapshot(DocumentSnapshot snapshot) {
+    ProblemSet newSet = ProblemSet.fromJson(snapshot.data);
+    return newSet;
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic> {
+      'number' : number,
+      'MCQ' : MCQ,
+      'options': options,
+      'question': question,
+      'answer' : answer,
+    };
+  }
+  String toString() {
+    return "number: $number  MCQ:$MCQ  options:${options.toString()}  question: $question  answer: $answer";
+  }
+}
+
 class Quiz implements iDatabaseable {
   String name;
   List<dynamic> users;
-  List<dynamic> questions;
-  List<dynamic> answers;
+  List<ProblemSet> sets;
   List<dynamic> attempts;
   List<dynamic> reviewers;
   Timestamp dateCreated;
@@ -129,9 +170,9 @@ class Quiz implements iDatabaseable {
   @override
   DocumentReference reference;
 
-  Quiz(this.name, {this.questions,
-    this.answers,
+  Quiz(this.name, {
     this.users,
+    this.sets,
     this.reviewers,
     this.attempts,
     this.dateCreated,
@@ -145,10 +186,11 @@ class Quiz implements iDatabaseable {
   //factory constructor
   factory Quiz.fromJson(Map<String, dynamic> json) {
     return Quiz(json['name'] as String,
-      questions: json['question'] as List<dynamic>,
-      answers: json['answer'] as List<dynamic>,
       reviewers: json['reviewers'] as List<dynamic>,
       users: json['users']  as List<dynamic>,
+      sets: json['sets'] == null ? List() :
+        List<ProblemSet>.from(json["sets"]
+        .map((x)=>ProblemSet.fromJson(Map<String,dynamic>.from(x)))),
       attempts: json['attempts'] as List<dynamic>,
       dateCreated: json['quizDate'] as Timestamp,
       score: json['score'] ?? 0,
@@ -168,8 +210,6 @@ class Quiz implements iDatabaseable {
   Map<String, dynamic> toJson() {
     return <String, dynamic> {
       'name' : this.name,
-      'question': this.questions,
-      'answer' : this.answers,
       'users' : this.users,
       'attempts' : this.attempts,
       'quizDate' : this.dateCreated,
@@ -177,7 +217,8 @@ class Quiz implements iDatabaseable {
       'masterPdfUri' : this.masterPdfUri,
       'fullScore' : this.fullScore,
       'moduleName' : this.moduleName,
-      'uid' : this.uid
+      'uid' : this.uid,
+      'sets' : sets == null ? null : List<dynamic>.from(sets.map((x) => x.toJson())),
     };
   }
 }
@@ -333,7 +374,8 @@ class Module extends iDatabaseable{
     "preclusion": preclusion,
     "attributes": attributes == null ? null : attributes.toJson(),
     "pdfFile" : pdfFiles,
-    "semesterData": workload == null ? null : List<dynamic>.from(semesterData.map((x) => x.toJson())),
+    "semesterData": workload == null ? null : List<dynamic>
+        .from(semesterData.map((x) => x.toJson())),
   };
 
   toString() {

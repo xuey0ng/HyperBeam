@@ -177,6 +177,7 @@ class QuizResultPage extends StatelessWidget{
   
   @override
   Widget build(BuildContext context) {
+    /*
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
     List<Widget> columnItems = new List(fullScore);
     for(int i = 0; i < fullScore; i++) {
@@ -253,6 +254,6 @@ class QuizResultPage extends StatelessWidget{
           ]
         ),
       ),
-    );
+    );*/
   }
 }
