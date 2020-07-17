@@ -56,8 +56,10 @@ class PushNotificationService {
                 onPressed: () {
                   if(message.containsKey('data')){
                     final dynamic data = message['data'];
-                    print(data['link']);
-                    obtainPDFfromLink(data['link']);
+                    if(data['link']!= null){
+                      print(data['link']);
+                      obtainPDFfromLink(data['link']);
+                    }
                   }
                   Navigator.of(context).pop();
                 }
