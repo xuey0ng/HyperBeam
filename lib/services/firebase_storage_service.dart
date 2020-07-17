@@ -7,14 +7,26 @@ class FirebaseStorageService {
   FirebaseStorageService({@required this.id}) : assert(id != null);
   final String id;
 
-  Future<String> uploadPdf({
+  Future<String> uploadText({
     @required File file,
+    @required String modId,
     @required String docId
   }) async =>
       await upload(
         file: file,
-        path: FirestorePath.pdf(id,docId) + '/avatar.pdf',
-        contentType: 'image/png',
+        path: FirestorePath.pdf(id,modId) + '${docId}.txt',
+        contentType: 'text/plain',
+      );
+
+  Future<String> uploadPdf({
+    @required File file,
+    @required String modId,
+    @required String docId
+  }) async =>
+      await upload(
+        file: file,
+        path: FirestorePath.pdf(id,modId) + '${docId}.pdf',
+        contentType: 'application/pdf',
       );
 
   /// Generic file upload for any [path] and [contentType]

@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.0"
+  asn1lib:
+    dependency: transitive
+    description:
+      name: asn1lib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
   async:
     dependency: transitive
     description:
@@ -29,7 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.4"
-
   boolean_selector:
     dependency: transitive
     description:
@@ -86,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+  custom_switch:
+    dependency: "direct main"
+    description:
+      name: custom_switch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   date_range_picker:
     dependency: transitive
     description:
@@ -100,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  expand_widget:
+    dependency: "direct main"
+    description:
+      name: expand_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+1"
   file:
     dependency: transitive
     description:
@@ -134,7 +154,7 @@ packages:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.15"
+    version: "5.0.16"
   firebase_analytics_platform_interface:
     dependency: transitive
     description:
@@ -142,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  firebase_analytics_web:
+    dependency: transitive
+    description:
+      name: firebase_analytics_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -237,7 +264,7 @@ packages:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "3.2.1"
   flutter_pdfview:
     dependency: "direct main"
     description:
@@ -259,6 +286,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.7"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1+1"
   flutter_svg:
     dependency: transitive
     description:
@@ -284,7 +318,7 @@ packages:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.3"
+    version: "1.8.5"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -297,6 +331,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  google_sign_in:
+    dependency: "direct main"
+    description:
+      name: google_sign_in
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.5.1"
+  google_sign_in_platform_interface:
+    dependency: transitive
+    description:
+      name: google_sign_in_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
+  google_sign_in_web:
+    dependency: transitive
+    description:
+      name: google_sign_in_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.1+1"
   group_radio_button:
     dependency: transitive
     description:
@@ -331,7 +386,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7+2"
+    version: "0.6.7+3"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -429,7 +484,7 @@ packages:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+1"
+    version: "0.0.1+2"
   path_provider_macos:
     dependency: transitive
     description:
@@ -672,14 +727,14 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1+6"
+    version: "0.1.2"
   uuid:
     dependency: transitive
     description:
       name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   validators:
     dependency: transitive
     description:
