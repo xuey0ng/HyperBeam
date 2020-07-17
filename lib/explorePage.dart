@@ -193,11 +193,12 @@ class _ExplorePageState extends State<ExplorePage> {
                             ),
                             backgroundColor: kSecondaryColor,
                             child: Container(
-                                height: 189,
+                                height: 180,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 24,),
+                                    Spacer(),
                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
                                         RaisedButton(
                                           color: kPrimaryColor,
@@ -228,14 +229,14 @@ class _ExplorePageState extends State<ExplorePage> {
                                             int result = await moduleRepository.incrementList(
                                                 quiz.moduleName, "quizzes", quiz.reference
                                             ); // add to user's repo
-
                                             if(result == 1) {
                                               Navigator.pop(dialogContext);
                                             }
                                           },
                                         ),
                                       ],
-                                    )
+                                    ),
+                                    Spacer(),
                                   ],
                                 )
                             )

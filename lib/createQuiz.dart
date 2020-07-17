@@ -295,11 +295,9 @@ class _QuizFormState extends State<QuizForm> {
       sets: problemSets,
       users: List(),
     );
-    print("At create quiz now ${widget.module.reference.documentID}");
     DocumentReference docRef;
     await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
     await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
-    print("createquiz2");
     String documentID = reminderDate.toString() + user.id;
     Reminder rem = Reminder(
         uid: user.id,

@@ -995,6 +995,20 @@ class QuizCard extends StatelessWidget {
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                             if(snapshot.data["uid"] == user.id) {
                               quizRepository.delete(snapshot);
+                            } else {
+                              print("HITTTT");
+                              DocumentSnapshot snap0 = await moduleRepository.getCollectionRef().document(module.moduleCode).get();
+                              List<dynamic> quizList = List.from(snap0.data["quizzes"]);
+                              print(quiz.reference.path);
+                              quizList.remove(quiz.reference.path);
+                              Map<String, dynamic> map0 = {"quizzes": quizList};
+                              await quizRepository.getCollectionRef().document(snapshot.documentID).setData(map0, merge: true);
+                              print("HITT");
+                              DocumentSnapshot snap = await quizRepository.getCollectionRef().document(snapshot.documentID).get();
+                              List<dynamic> userList = List.from(snap.data["users"]);
+                              userList.remove(user.id);
+                              Map<String, dynamic> map = {"users": userList};
+                              await quizRepository.getCollectionRef().document(snapshot.documentID).setData(map, merge: true);
                             }
                             moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
                             Navigator.pop(dialogContext);
