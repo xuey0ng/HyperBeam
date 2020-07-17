@@ -2,13 +2,14 @@ import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
+import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
-import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QuizForm extends StatefulWidget{
   String quizName;
@@ -60,7 +61,6 @@ class _QuizFormState extends State<QuizForm> {
 
   Widget Page(int num) {
     newSet.number = num;
-    newSet.MCQ = checked;
     return Form(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -86,27 +86,26 @@ class _QuizFormState extends State<QuizForm> {
                 ),
                 SizedBox(height: 40),
                 Row(
-                    children: [
-                      Text("MCQ"),
-                      SizedBox(width: 8),
-                      Checkbox(
-                          value: checked,
-                          onChanged: (bool value) {
-                            setState(() {
-                              if(!value) {
-                                type = FormType.openEnded;
-                                checked = false;
-                                newSet.MCQ = false;
-                              } else {
-                                type = FormType.MCQ;
-                                checked = true;
-                                newSet.MCQ = true;
-                              }
-                            });
-                          }
-                      ),
-                      Spacer(),
-                    ]
+                  children: [
+                    Text("MCQ"),
+                    SizedBox(width: 8),
+                    Checkbox(
+                        value: checked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            if(!value) {
+                              type = FormType.openEnded;
+                              checked = false;
+                            } else {
+                              type = FormType.MCQ;
+                              checked = true;
+                            }
+                          });
+                        }
+                    ),
+                    Spacer(),
+                  ]
+
                 ),
                 TextFormField(
                   autofocus: true,
@@ -122,128 +121,128 @@ class _QuizFormState extends State<QuizForm> {
                 ),
                 SizedBox(height: 40),
                 if (type == FormType.openEnded) TextFormField(
-                  focusNode: f2,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: num.toString() + '   Enter your answer here'
-                  ),
-                  onChanged: (val) => newSet.answer = val,
-                  controller: controller2,
-                ) else Column(
-                  children: <Widget>[
-                    Row(
-                        children: [
-                          Text("1)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f2,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
+                    focusNode: f2,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: num.toString() + '   Enter your answer here'
+                    ),
+                    onChanged: (val) => newSet.answer = val,
+                    controller: controller2,
+                  ) else Column(
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Text("1)"),
+                            SizedBox(width: 12),
+                            Expanded(
+                              child: TextFormField(
+                                focusNode: f2,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Enter your answer here'
+                                ),
+                                onChanged: (val){
+                                  newSet.options[0] = val;
+                                } ,
+                                controller: controller2,
                               ),
-                              onChanged: (val){
-                                newSet.options[0] = val;
-                              } ,
-                              controller: controller2,
                             ),
-                          ),
 
-                          Radio(
-                            value: 0,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                    Row(
-                        children: [
-                          Text("2)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f3,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
+                            Radio(
+                              value: 0,
+                              groupValue: _radioValue1,
+                              onChanged: (value){
+                                setState(() {
+                                  _radioValue1 = value;
+                                  newSet.answer = newSet.options[value];
+                                });
+                              },
+                            )
+                          ]
+                        ),
+                        Row(
+                          children: [
+                            Text("2)"),
+                            SizedBox(width: 12),
+                            Expanded(
+                              child: TextFormField(
+                                focusNode: f3,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Enter your answer here'
+                                ),
+                                onChanged: (val) => newSet.options[1] = val,
+                                controller: controller3,
                               ),
-                              onChanged: (val) => newSet.options[1] = val,
-                              controller: controller3,
                             ),
-                          ),
-                          Radio(
-                            value: 1,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                    Row(
-                        children: [
-                          Text("3)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f4,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
+                            Radio(
+                              value: 1,
+                              groupValue: _radioValue1,
+                              onChanged: (value){
+                                setState(() {
+                                  _radioValue1 = value;
+                                  newSet.answer = newSet.options[value];
+                                });
+                              },
+                            )
+                          ]
+                        ),
+                        Row(
+                            children: [
+                              Text("3)"),
+                              SizedBox(width: 12),
+                              Expanded(
+                                child: TextFormField(
+                                  focusNode: f4,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Enter your answer here'
+                                  ),
+                                  onChanged: (val) => newSet.options[2] = val,
+                                  controller: controller4,
+                                ),
                               ),
-                              onChanged: (val) => newSet.options[2] = val,
-                              controller: controller4,
-                            ),
-                          ),
-                          Radio(
-                            value: 2,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                    Row(
-                        children: [
-                          Text("4)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f5,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
+                              Radio(
+                                value: 2,
+                                groupValue: _radioValue1,
+                                onChanged: (value){
+                                  setState(() {
+                                    _radioValue1 = value;
+                                    newSet.answer = newSet.options[value];
+                                  });
+                                },
+                              )
+                            ]
+                        ),
+                        Row(
+                            children: [
+                              Text("4)"),
+                              SizedBox(width: 12),
+                              Expanded(
+                                child: TextFormField(
+                                  focusNode: f5,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Enter your answer here'
+                                  ),
+                                  onChanged: (val) => newSet.options[3] = val,
+                                  controller: controller5,
+                                ),
                               ),
-                              onChanged: (val) => newSet.options[3] = val,
-                              controller: controller5,
-                            ),
-                          ),
-                          Radio(
-                            value: 3,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                  ],
-                )
+                              Radio(
+                                value: 3,
+                                groupValue: _radioValue1,
+                                onChanged: (value){
+                                  setState(() {
+                                    _radioValue1 = value;
+                                    newSet.answer = newSet.options[value];
+                                  });
+                                },
+                              )
+                            ]
+                        ),
+                      ],
+                    )
                 ,
                 SizedBox(height: 40),
                 RaisedButton(
@@ -276,7 +275,7 @@ class _QuizFormState extends State<QuizForm> {
     );
   }
 
-  Future<void> validateAndSetQuiz(BuildContext context) async {
+  void validateAndSetQuiz(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
@@ -293,8 +292,8 @@ class _QuizFormState extends State<QuizForm> {
       moduleName: widget.module.moduleCode,
       uid: user.id,
       sets: problemSets,
-      users: List(),
     );
+    print("At create quiz now ${widget.module.reference.documentID}");
     DocumentReference docRef;
     await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
     await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
@@ -334,6 +333,8 @@ class _QuizFormState extends State<QuizForm> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: ()=> {
+
+
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -360,8 +361,8 @@ class _QuizFormState extends State<QuizForm> {
                             RaisedButton(
                               color: kAccentColor,
                               child: Text("Set Quiz"),
-                              onPressed: () async {
-                                await validateAndSetQuiz(context);
+                              onPressed: () {
+                                validateAndSetQuiz(context);
                                 Navigator.push(context,
                                   MaterialPageRoute(builder: (context){
                                     return HomePage();
@@ -381,49 +382,6 @@ class _QuizFormState extends State<QuizForm> {
     );
   }
 }
-
-class CreateQuiz extends StatefulWidget {
-  DocumentSnapshot snapshot;
-  CreateQuiz({this.snapshot});
-
-  @override
-  State<StatefulWidget> createState() => _CreateQuizState();
-}
-
-class _CreateQuizState extends State<CreateQuiz> {
-  @override
-  Widget build(BuildContext context) {
-    QuizDialogWidget dialogWidget = QuizDialogWidget();
-    return Scaffold(
-      appBar:  AppBar(title: Text("Create Quiz")),
-      body:
-        AlertDialog(
-            title: const Text("Create quiz"),
-            content: dialogWidget,
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Cancel"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }
-              ),
-              FlatButton(
-                child: Text("Add"),
-                onPressed: () {
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context){
-                    return QuizForm(quizName: dialogWidget.quizName);
-                  }),
-                );
-                }
-              )
-            ]
-          ),
-    );
-  }
-}
-
-
 const textInputDecoration = InputDecoration(
   fillColor: Colors.white,
   filled: true,
@@ -435,30 +393,3 @@ const textInputDecoration = InputDecoration(
     borderSide: BorderSide(color: Colors.pink, width: 2.0),
   ),
 );
-
-class QuizDialogWidget extends StatefulWidget {
-  String quizName;
-
-  @override
-  _QuizDialogWidgetState createState() => _QuizDialogWidgetState();
-}
-
-class _QuizDialogWidgetState extends State<QuizDialogWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            TextField(
-              autofocus: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter a quiz name",
-              ),
-              onChanged: (val) => widget.quizName = val,
-            ),
-          ],
-        )
-    );
-  }
-}

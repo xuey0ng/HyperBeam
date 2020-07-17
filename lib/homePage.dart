@@ -1,21 +1,13 @@
-import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/explorePage.dart';
 import 'package:HyperBeam/moduleQuery.dart';
-import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/atAGlance.dart';
-import 'package:HyperBeam/widgets/designConstants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/progressChart.dart';
-import 'package:HyperBeam/fileHandler.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_pushNotification_service.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:async';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
@@ -103,6 +95,11 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Spacer(),
+                                  GestureDetector(
+                                    child: Text("test"),
+                                    onTap: () {
+                                    },
+                                  ),
                                   Row(
                                     children: [
                                       Icon(Icons.account_circle),

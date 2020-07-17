@@ -44,7 +44,9 @@ class DataRepo {
   }
 
   Future<DocumentReference> addDocAndID(iDatabaseable obj) async {
+    print("HIT1");
     DocumentReference docRef =  await db.add(obj.toJson());
+    print("HIT2");
     Map<String, dynamic> map = {"reference":docRef};
     docRef.setData(map, merge: true);
     return docRef;
@@ -84,8 +86,14 @@ class DataRepo {
 
   decrementList(String documentID, String field, dynamic deletedItem) async {
     DocumentSnapshot value = await db.document(documentID).get();
+    print("IT ISSSS ${value.data[field][0].path}");
+    print("THE ITEM TO BE DELETED IS ${deletedItem}");
+    print(" THE LENGTH IS ${value.data[field].length}");
+
     if (!value.exists) return 0;
     List<dynamic> newList = value.data[field].toList(growable: true);
+    print(newList);
+    print(" IT CONTAINS ${newList.contains(deletedItem)}");
     if(newList.length == 0) return 0;
     if(!newList.remove(deletedItem)) return 0;
     Map<String, dynamic> map = value.data;

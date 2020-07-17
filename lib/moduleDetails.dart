@@ -40,7 +40,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
   Module args; //Module>
 
-  Widget buildQuizItem(DocumentReference docRef) {
+  Widget buildQuizItem(DocumentReference docRef) { //docRef of a quiz
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
@@ -51,7 +51,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
   }
 
   Widget buildQuizList(DocumentSnapshot modSnapshot) {
-    print(modSnapshot.documentID);
     return SingleChildScrollView(
       child: Column(
           children: Module.fromSnapshot(modSnapshot)
@@ -360,7 +359,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       ),
     );
   }
-
+//page builder
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -757,10 +756,9 @@ class TaskCard extends StatelessWidget {
   }
 }
 class QuizCard extends StatelessWidget {
-  DocumentSnapshot snapshot;
+  DocumentSnapshot snapshot; //json of quiz
   Module module;
   QuizCard(this.snapshot, this.module);
-
   void obtainPDF(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
     String Url = snapshot.data['masterPdfUri'].toString();
@@ -889,86 +887,88 @@ class QuizCard extends StatelessWidget {
                           child: Text("View reminders set"),
                           color:  kAccentColor,
                           onPressed: () async  {
-                            print("quiz ref is ${quiz.reference.documentID}");
-                            final reminders = await Firestore.instance.collection("Reminders")
-                                .where("uid", isEqualTo: user.id)
-                                .where("quizDocRef", isEqualTo: quiz.reference)
-                                .getDocuments().then((value) => value.documents);
-                            List<Widget> colItems = reminders.map((e){
-                              var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
-                              return Container(
-                                  padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
-                                  margin: EdgeInsets.all(8),
-                                  width: size.width,
-                                  //height: size.height*0.16,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: Offset(0, 4),
-                                        blurRadius: 8,
-                                        color: Color(0xFFD3D3D3).withOpacity(.88),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Row(
-                                        children: [
-                                          RichText(
-                                            textAlign: TextAlign.center,
-                                            text: TextSpan(
-                                              style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
-                                              text: " ${timeDisplayed}",
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          IconButton(
-                                            icon: Icon(Icons.close),
-                                            onPressed: () {
-                                              //todo remove quiz
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ]
-                                    ),
-                                  )
-                              );
-                            }).toList();
                             showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  final dialogContext = context;
-                                  return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:  BorderRadius.circular(20.0)
-                                      ),
-                                      backgroundColor: kSecondaryColor,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 12),
-                                          RichText(
-                                            overflow: TextOverflow.fade,
-                                            text: TextSpan(
-                                              text: "Reminders set",
-                                              style: TextStyle(
-                                                fontSize: kBigText,
-                                                color: Colors.black,
+                              context: context,
+                              builder: (BuildContext context) {
+                                final dialogContext = context;
+                                return StreamBuilder<QuerySnapshot> (
+                                    stream: Firestore.instance.collection("Reminders")
+                                        .where("uid", isEqualTo: user.id)
+                                        .where("quizDocRef", isEqualTo: quiz.reference)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) return LinearProgressIndicator();
+                                      List<Widget> colItems = snapshot.data.documents.map((e){
+                                        var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
+                                        return Container(
+                                            padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
+                                            margin: EdgeInsets.all(8),
+                                            width: size.width,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(12),
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: Offset(0, 4),
+                                                  blurRadius: 8,
+                                                  color: Color(0xFFD3D3D3).withOpacity(.88),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Row(
+                                                  children: [
+                                                    RichText(
+                                                      textAlign: TextAlign.center,
+                                                      text: TextSpan(
+                                                        style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
+                                                        text: " ${timeDisplayed}",
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    IconButton(
+                                                      icon: Icon(Icons.close),
+                                                      onPressed: () async {
+                                                        await Firestore.instance.collection("Reminders").document(e.documentID).delete();
+                                                      },
+                                                    ),
+                                                  ]
                                               ),
-                                            ),
+                                            )
+                                        );
+                                      }).toList();
+                                      return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:  BorderRadius.circular(20.0)
                                           ),
-                                          Container(
-                                            child: Column(
-                                              children: colItems,
-                                            ),
-                                          ),
-                                        ]
-
-                                      )
-                                  );
-                                }
+                                          backgroundColor: kSecondaryColor,
+                                          child: Column(
+                                              children: [
+                                                SizedBox(height: 12),
+                                                RichText(
+                                                  overflow: TextOverflow.fade,
+                                                  text: TextSpan(
+                                                    text: "Reminders set",
+                                                    style: TextStyle(
+                                                      fontSize: kBigText,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Column(
+                                                    children: colItems,
+                                                  ),
+                                                ),
+                                              ]
+                                          )
+                                      );
+                                    }
+                                );
+                              }
                             );
+
                           },
                         ),
                       ),
@@ -994,9 +994,19 @@ class QuizCard extends StatelessWidget {
                             final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                             if(snapshot.data["uid"] == user.id) {
-                              quizRepository.delete(snapshot);
+                              DocumentSnapshot snap = await quizRepository.getCollectionRef().document(snapshot.documentID).get();
+                              List<dynamic> userList = List.from(snap.data["users"]);
+                              for(var user in userList){
+                                DataRepo repo = DataRepo.fromInstance(Firestore.instance.collection('users').document(user)
+                                    .collection("Modules"));
+                                await repo.decrementList(module.moduleCode, "quizzes", quiz.reference);
+                              }
+                              await moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
+                              await quizRepository.delete(snapshot);
+                            } else {
+                              await moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
+                              await quizRepository.decrementList(snapshot.documentID, "users", user.id);
                             }
-                            moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
                             Navigator.pop(dialogContext);
                           },
                         ),
@@ -1033,7 +1043,7 @@ class QuizCard extends StatelessWidget {
                 child: RichText(
                   overflow: TextOverflow.fade,
                   text: TextSpan(
-                    text: " ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
+                    text: " ${snapshot.data == null ? "NOTHING" : snapshot.data['name']} \n",
                     style: TextStyle(
                       fontSize: kMediumText,
                       color: Colors.black,
@@ -1049,7 +1059,8 @@ class QuizCard extends StatelessWidget {
               child: RichText(
                 overflow: TextOverflow.fade,
                 text: TextSpan(
-                  text: "Score: \n${snapshot.data['score'] == null ? "Not attempted" : "${snapshot.data['score']} out of ${snapshot.data['fullScore']}"} \n",
+                  text: "Score: \n${snapshot.data['score'] == null ? "Not attempted" :
+                  "${snapshot.data['score']} out of ${snapshot.data['fullScore']}"} \n",
                   style: TextStyle(
                     fontSize: kSmallText,
                     color: Colors.black,
@@ -1062,7 +1073,7 @@ class QuizCard extends StatelessWidget {
                 Icons.arrow_forward_ios,
                 size: 18,
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context){
@@ -1076,7 +1087,6 @@ class QuizCard extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class PdfViewPage extends StatefulWidget {
@@ -1095,7 +1105,6 @@ class _PdfViewPageState extends State<PdfViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("THIS PATH IS ${widget.path}");
     return Scaffold(
       appBar: AppBar(
         title: Text("My Document"),
