@@ -115,7 +115,7 @@ class Reminder implements iDatabaseable {
 class ProblemSet {
   int number;
   bool MCQ;
-  List<dynamic> options;
+  List<dynamic> options; //changed from string to dynamic
   String question;
   String answer;
 
@@ -149,7 +149,7 @@ class ProblemSet {
       'answer' : answer,
     };
   }
-  String toString() {
+  String toString(){
     return "number: $number  MCQ:$MCQ  options:${options.toString()}  question: $question  answer: $answer";
   }
 }

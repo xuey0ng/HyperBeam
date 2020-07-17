@@ -12,19 +12,25 @@ class AttemptQuiz extends StatefulWidget {
   DocumentSnapshot snapshot;
   Module module;
   AttemptQuiz({this.snapshot, this.module});
-
   @override
   State<StatefulWidget> createState() => _AttemptQuizState(quiz: Quiz.fromSnapshot(snapshot));
 }
 
 class _AttemptQuizState extends State<AttemptQuiz> {
   Quiz quiz;
-  List<String> _givenAnswers = List();
+  List<String> _givenAnswers;
   int index = 0;
+  int radioValue;
   _AttemptQuizState({this.quiz});
 
+  @override
+  void initState(){
+    super.initState();
+    _givenAnswers = List(quiz.fullScore);
+  }
+
   Widget _buildRow(int ind) {
-    if(quiz.sets[ind] == null) {
+    if(ind >= quiz.sets.length) {
       return new Form(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -52,6 +58,8 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                     int quizScore = 0;
                     quiz.score = quizScore;
                     for(int i = 0; i < quiz.sets.length; i++) {
+                      print(" GIVEN ANS IS");
+                      print(_givenAnswers[i]);
                       if(quiz.sets[i].answer == _givenAnswers[i]){
                         quizScore++;
                       }
@@ -95,15 +103,17 @@ class _AttemptQuizState extends State<AttemptQuiz> {
   Widget quizForm(ProblemSet questionSet, int ind) {
     var controller = TextEditingController();
     if (questionSet.MCQ) {
-      int radioValue;
-      List<Widget> optionList;
+      List<Widget> optionList = List();
       for(int i = 0; i < questionSet.options.length; i++) {
         if (questionSet.options[i] != null){
           String optionField = questionSet.options[i];
           Widget newCard = GestureDetector(
             onTap: () {
-              radioValue = i;
-              _givenAnswers.add(optionField);
+              print("radioValue is $radioValue");
+              setState(() {
+                radioValue = i;
+              });
+              _givenAnswers[index] = optionField;
             },
             child: Card(
               elevation: 1,
@@ -214,9 +224,8 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                       border: InputBorder.none,
                       hintText: (questionSet.number).toString() + '   Enter your answer here'
                   ),
-                  onChanged: (val) => _givenAnswers.add(val),
+                  onChanged: (val) => _givenAnswers[index] = val),
                 ),
-              ),
               SizedBox(height: 48),
               RaisedButton(
                 color: kAccentColor,
@@ -236,12 +245,13 @@ class _AttemptQuizState extends State<AttemptQuiz> {
 
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(
           context,
           ModuleDetailsRoute,
-          arguments: widget.module,
+          arguments: widget.module.moduleCode,
         );
         return true;
       },
@@ -259,7 +269,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
             ),
             Column(
               children: <Widget>[
-               // _buildRow(index),
+               _buildRow(index),
               ],
             ),
           ]

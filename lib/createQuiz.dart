@@ -276,7 +276,7 @@ class _QuizFormState extends State<QuizForm> {
     );
   }
 
-  void validateAndSetQuiz(BuildContext context) async {
+  Future<void> validateAndSetQuiz(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
@@ -298,6 +298,7 @@ class _QuizFormState extends State<QuizForm> {
     DocumentReference docRef;
     await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
     await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
+    print("createquiz2");
     String documentID = reminderDate.toString() + user.id;
     Reminder rem = Reminder(
         uid: user.id,
@@ -360,8 +361,8 @@ class _QuizFormState extends State<QuizForm> {
                             RaisedButton(
                               color: kAccentColor,
                               child: Text("Set Quiz"),
-                              onPressed: () {
-                                validateAndSetQuiz(context);
+                              onPressed: () async {
+                                await validateAndSetQuiz(context);
                                 Navigator.push(context,
                                   MaterialPageRoute(builder: (context){
                                     return HomePage();
