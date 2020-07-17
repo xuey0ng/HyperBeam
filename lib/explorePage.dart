@@ -1,5 +1,6 @@
 import 'package:HyperBeam/dataRepo.dart';
 import 'package:HyperBeam/objectClasses.dart';
+import 'package:HyperBeam/quizOverview.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
@@ -179,136 +180,130 @@ class _ExplorePageState extends State<ExplorePage> {
           }
           quizRating = quizRating*2 / quiz.reviewers.length;
         }
-        return Stack(
-            children: [
-              GestureDetector(
-                onTap: () async {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        final dialogContext = context;
-                        return Dialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:  BorderRadius.circular(20.0)
-                            ),
-                            backgroundColor: kSecondaryColor,
-                            child: Container(
-                                height: 180,
-                                child: Column(
-                                  children: [
-                                    Spacer(),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        RaisedButton(
-                                          color: kPrimaryColor,
-                                          child: Text('View Quiz'),
-                                          onPressed: (){
-                                            Navigator.push(context,
-                                                MaterialPageRoute(builder: (context){
-                                                  return Scaffold(
-                                                      body: Column(
-                                                        children: <Widget>[
-                                                          Text("test"),
-                                                        ],
-                                                      )
-                                                  );
-                                                })
-                                            );
-                                          },
-                                        ),
-                                        RaisedButton(
-                                          color: kAccentColor,
-                                          child: Text('Add Quiz'),
-                                          onPressed: () async {
-                                            final userRepo = Provider.of<User>(context);
-                                            final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                            User user = Provider.of<User>(context);
-                                            final quizRepo  = Provider.of<FirebaseQuizService>(context).getRepo();
-                                            quizRepo.incrementList(quiz.reference.documentID, "users", user.id);
-                                            int result = await moduleRepository.incrementList(
-                                                quiz.moduleName, "quizzes", quiz.reference
-                                            ); // add to user's repo
-                                            if(result == 1) {
-                                              Navigator.pop(dialogContext);
-                                            }
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    Spacer(),
-                                  ],
-                                )
-                            )
-                        );
-                      }
+        return GestureDetector(
+          onTap: () async {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  final dialogContext = context;
+                  return Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:  BorderRadius.circular(20.0)
+                      ),
+                      backgroundColor: kSecondaryColor,
+                      child: Container(
+                          height: 180,
+                          child: Column(
+                            children: [
+                              Spacer(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  RaisedButton(
+                                    color: kPrimaryColor,
+                                    child: Text('View Quiz'),
+                                    onPressed: (){
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context){
+                                            return QuizOverview(quiz: quiz, fullScore: quiz.fullScore);
+                                          })
+                                      );
+                                    },
+                                  ),
+                                  RaisedButton(
+                                    color: kAccentColor,
+                                    child: Text('Add Quiz'),
+                                    onPressed: () async {
+                                      final userRepo = Provider.of<User>(context);
+                                      final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                      User user = Provider.of<User>(context);
+                                      final quizRepo  = Provider.of<FirebaseQuizService>(context).getRepo();
+                                      quizRepo.incrementList(quiz.reference.documentID, "users", user.id);
+                                      int result = await moduleRepository.incrementList(
+                                          quiz.moduleName, "quizzes", quiz.reference
+                                      ); // add to user's repo
+                                      if(result == 1) {
+                                        Navigator.pop(dialogContext);
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                            ],
+                          )
+                      )
                   );
-                },
-                child: Opacity(
-                  opacity: 0.6,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                }
+            );
+          },
+          child: Stack(
+              children: [
+                Opacity(
+                    opacity: 0.6,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: kBigText),
-                          text: "${quiz.moduleName ?? "???"}",
-                        )
-                    ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kBigText),
+                              text: "${quiz.moduleName ?? "???"}",
+                            )
+                        ),
+                      ),
+                      Container(
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kMediumText),
+                              text: "${quiz.name}",
+                            )
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Container(
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                              text: "No. of questions: ${quiz.fullScore}",
+                            )
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Container(
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                              text: "Rating: $quizRating",
+                            )
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(0),
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                              text: "Made by: ${snapshot.data['name'] ?? "Anon"}",
+                            )
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                          text: "${quiz.name}",
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Container(
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                          text: "No. of questions: ${quiz.fullScore}",
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                          text: "Rating: $quizRating",
-                        )
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(0),
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                          text: "Made by: ${snapshot.data['name'] ?? "Anon"}",
-                        )
-                    ),
-                  ),
-                ],
-              )
-            ]
+              ]
+          ),
         );
       }
     );

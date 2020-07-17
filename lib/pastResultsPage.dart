@@ -198,7 +198,6 @@ class PastResultsPage extends StatelessWidget{
             ),
           ),
         ]
-
       )
     );
   }
