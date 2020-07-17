@@ -5,10 +5,49 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:intl/intl.dart';
+import 'package:async/async.dart' show StreamGroup;
 class PastResultsPage extends StatelessWidget{
   DocumentSnapshot quizSnapshot;
 
   PastResultsPage({this.quizSnapshot});
+
+  Future<List<Widget>> leaderBoard() async {
+    List<DocumentSnapshot> userDocList = await Firestore.instance.collection("users")
+        .getDocuments().then((value) => value.documents);
+    List<DocumentSnapshot> list = List();
+    for(DocumentSnapshot snap in userDocList) {
+      List<DocumentSnapshot> sublist = await snap.reference.collection("QuizAttempts")
+          .where("quiz", isEqualTo: quizSnapshot.reference).getDocuments()
+          .then((value) => value.documents);
+      list.addAll(sublist);
+    }
+    list.sort((a,b){
+      if( a.data["date"] < b.data["date"]) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+    List<Widget> finalList = List();
+    for (DocumentSnapshot doc in list){
+      String name = await doc.reference.parent().parent().get()
+          .then((value) => value.data["name"]);
+      Widget wid =  Card(
+        child: Row(
+          children: <Widget>[
+            Text("${name}"),
+            Spacer(),
+            Text("${DateFormat('dd-MM-yyyy\n  kk:mm').format(doc.data['date'].toDate())}"),
+            SizedBox(width:40),
+            Text("${doc.data["score"]}"),
+            SizedBox(width: 16,)
+          ],
+        ),
+      );
+      finalList.add(wid);
+    }
+    return finalList;
+  }
 
   Widget AttemptItem(DocumentSnapshot snap, int index, bool isLast) {
     return TimelineTile(
@@ -168,6 +207,7 @@ class PastResultsPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -194,6 +234,55 @@ class PastResultsPage extends StatelessWidget{
                   SizedBox(height: 20),
                   _resultList(),
                   SizedBox(height: 20,),
+                  FutureBuilder(
+                    future: leaderBoard(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return LinearProgressIndicator();
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: size.width*0.01),
+                            child: Container(
+                                width: size.width*0.98,
+                                decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+                                ),
+                                child: RichText(
+                                    textAlign: TextAlign.left,
+                                    text: TextSpan(
+                                        style: Theme.of(context).textTheme.headline5,
+                                        children: [
+                                          TextSpan(text: "Leaderboard", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                        ]
+                                    )
+                                )
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: size.width*0.01),
+                            child: Container(
+                                width: size.width*0.98,
+                                decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(width: 1.0, color: Colors.black)),
+                                ),
+                                child: Row(
+                                  children: <Widget>[
+                                    Text("Name"),
+                                    Spacer(),
+                                    Text("Attempted on"),
+                                    SizedBox(width: 24),
+                                    Text("Score"),
+                                  ],
+                                )
+                            ),
+                          ),
+                          Column(
+                            children: snapshot.data,
+                          )
+                        ],
+                      );
+                    },
+                  )
                 ]
             ),
           ),
