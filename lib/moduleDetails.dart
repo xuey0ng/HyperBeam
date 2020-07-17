@@ -994,23 +994,19 @@ class QuizCard extends StatelessWidget {
                             final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                             if(snapshot.data["uid"] == user.id) {
-                              quizRepository.delete(snapshot);
-                            } else {
-                              print("HITTTT");
-                              DocumentSnapshot snap0 = await moduleRepository.getCollectionRef().document(module.moduleCode).get();
-                              List<dynamic> quizList = List.from(snap0.data["quizzes"]);
-                              print(quiz.reference.path);
-                              quizList.remove(quiz.reference.path);
-                              Map<String, dynamic> map0 = {"quizzes": quizList};
-                              await quizRepository.getCollectionRef().document(snapshot.documentID).setData(map0, merge: true);
-                              print("HITT");
                               DocumentSnapshot snap = await quizRepository.getCollectionRef().document(snapshot.documentID).get();
                               List<dynamic> userList = List.from(snap.data["users"]);
-                              userList.remove(user.id);
-                              Map<String, dynamic> map = {"users": userList};
-                              await quizRepository.getCollectionRef().document(snapshot.documentID).setData(map, merge: true);
+                              for(var user in userList){
+                                DataRepo repo = DataRepo.fromInstance(Firestore.instance.collection('users').document(user)
+                                    .collection("Modules"));
+                                await repo.decrementList(module.moduleCode, "quizzes", quiz.reference);
+                              }
+                              await moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
+                              await quizRepository.delete(snapshot);
+                            } else {
+                              await moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
+                              await quizRepository.decrementList(snapshot.documentID, "users", user.id);
                             }
-                            moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
                             Navigator.pop(dialogContext);
                           },
                         ),
