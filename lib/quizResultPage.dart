@@ -28,9 +28,15 @@ class QuizResultPage extends StatelessWidget{
       List<Widget> widgetList = List();
       for(int i = 0; i < options.length; i++) {
         if(options[i] != null) {
-
+          Widget opt = givenAnswer != options[i] ?
+          Text("${i+1}) ${options[i]}") : Card(
+            color: options[i] == answer ? Color(0xFF00FF00) : Color(0xFFF70D1A),
+            child: Text("${i+1}) ${options[i]}"),
+          );
+          widgetList.add(opt);
         }
       }
+      print("widgetList length is ${widgetList.length}");
       return Container(
           alignment: Alignment.topLeft,
           padding: EdgeInsets.only(top: 20, left: 16, right:16),
@@ -49,21 +55,28 @@ class QuizResultPage extends StatelessWidget{
                 Positioned(
                   left:8,
                   top:8,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                            textAlign: TextAlign.left,
-                            text: TextSpan(
-                              style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                              text: "Question ${index+1}: \n $question",
-                            )
-                        ),
-                        SizedBox(height:8),
-
-                        SizedBox(height: 4),
-
-                      ]
+                  child: SingleChildScrollView(
+                    child: Container(
+                      width: size.width * 0.80,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                  style: TextStyle(color: Colors.black, fontSize: kMediumText),
+                                  text: "Question ${index+1}: \n $question",
+                                )
+                            ),
+                            SizedBox(height:8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: widgetList,
+                            ),
+                            SizedBox(height: 4),
+                          ]
+                      ),
+                    ),
                   ),
                 ),
               ]

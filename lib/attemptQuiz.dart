@@ -58,8 +58,6 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                     int quizScore = 0;
                     quiz.score = quizScore;
                     for(int i = 0; i < quiz.sets.length; i++) {
-                      print(" GIVEN ANS IS");
-                      print(_givenAnswers[i]);
                       if(quiz.sets[i].answer == _givenAnswers[i]){
                         quizScore++;
                       }
@@ -75,7 +73,6 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                     var quizAttempts = quiz.attempts == null ? null:List.from(quiz.attempts);
                     quizAttempts == null ?
                     quizAttempts = List.from([currAttemptRef]) : quizAttempts.add(currAttemptRef);
-                    print("ATTEMPT IS $currAttemptRef");
                     quiz.attempts = quizAttempts;
                     quizRepository.updateDoc(quiz);
                     Navigator.push(context,
@@ -109,7 +106,6 @@ class _AttemptQuizState extends State<AttemptQuiz> {
           String optionField = questionSet.options[i];
           Widget newCard = GestureDetector(
             onTap: () {
-              print("radioValue is $radioValue");
               setState(() {
                 radioValue = i;
               });
@@ -119,8 +115,8 @@ class _AttemptQuizState extends State<AttemptQuiz> {
               elevation: 1,
               child: Row(
                 children: <Widget>[
-                  Text(optionField),
-                  Spacer(),
+                  Expanded(
+                      child: Text(optionField)),
                   Radio(
                     value: i,
                     groupValue: radioValue,
@@ -245,7 +241,6 @@ class _AttemptQuizState extends State<AttemptQuiz> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(
