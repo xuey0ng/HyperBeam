@@ -36,7 +36,6 @@ class QuizResultPage extends StatelessWidget{
           widgetList.add(opt);
         }
       }
-      print("widgetList length is ${widgetList.length}");
       return Container(
           alignment: Alignment.topLeft,
           padding: EdgeInsets.only(top: 20, left: 16, right:16),

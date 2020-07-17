@@ -222,9 +222,13 @@ class _ExplorePageState extends State<ExplorePage> {
                                           onPressed: () async {
                                             final userRepo = Provider.of<User>(context);
                                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                            User user = Provider.of<User>(context);
+                                            final quizRepo  = Provider.of<FirebaseQuizService>(context).getRepo();
+                                            quizRepo.incrementList(quiz.reference.documentID, "users", user.id);
                                             int result = await moduleRepository.incrementList(
                                                 quiz.moduleName, "quizzes", quiz.reference
-                                            );
+                                            ); // add to user's repo
+
                                             if(result == 1) {
                                               Navigator.pop(dialogContext);
                                             }

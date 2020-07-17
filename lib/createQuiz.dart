@@ -293,6 +293,7 @@ class _QuizFormState extends State<QuizForm> {
       moduleName: widget.module.moduleCode,
       uid: user.id,
       sets: problemSets,
+      users: List(),
     );
     print("At create quiz now ${widget.module.reference.documentID}");
     DocumentReference docRef;
