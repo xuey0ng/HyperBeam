@@ -116,14 +116,11 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       }
       lst.add(Text("${sem.examDuration == null ? "TBC" : "${sem.examDuration} mins"}"));
     }
-    return Card(
-      elevation: 1,
-      child: Container(
-        width: size.width*0.45,
-        child: Column(
-          children: lst,
-        )
-      ),
+    return Container(
+      width: size.width*0.45,
+      child: Column(
+        children: lst,
+      )
     );
   }
 
@@ -132,55 +129,37 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     for(int load in loads){
       totalWorkload += load;
     }
-    return Card(
-      elevation: 1,
-      child: Container(
-        width: size.width*0.45,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Workload - $totalWorkload hrs"),
-            Text("Lec:  ${loads[0]} hrs"),
-            Text("Tut:  ${loads[1]} hrs"),
-            Text("Lab:  ${loads[2]} hrs"),
-            Text("Proj: ${loads[3]} hrs"),
-            Text("Prep: ${loads[4]} hrs"),
-          ],
-        )
-      ),
+    return Container(
+      width: size.width*0.45,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Workload - $totalWorkload hrs"),
+          Text("Lec:  ${loads[0]} hrs"),
+          Text("Tut:  ${loads[1]} hrs"),
+          Text("Lab:  ${loads[2]} hrs"),
+          Text("Proj: ${loads[3]} hrs"),
+          Text("Prep: ${loads[4]} hrs"),
+        ],
+      )
     );
   }
 
   Widget preclusionInfo(String preclusion, var size) {
-    return Card(
-      elevation: 1,
-      child: Container(
-          width: size.width*0.45,
-          child: Text(
-            "Preclusion: $preclusion",
-            maxLines: 10,
-          )
-      ),
+    return Text(
+      "Preclusion: $preclusion",
+      maxLines: 10,
     );
   }
 
   Widget suInfo(Attributes attri, var size) {
-    Widget child() {
-      if(attri == null) {
-        return Text("No information on S/U");
-      } else if (attri.su) {
-        return Text("SU: allowed");
-      } else {
-        return Text("SU: not allowed");
-      }
+    if(attri == null) {
+      return Text("No information on S/U");
+    } else if (attri.su) {
+      return Text("SU: allowed");
+    } else {
+      return Text("SU: not allowed");
     }
-    return Card(
-      elevation: 1,
-      child: Container(
-        width: size.width*0.45,
-        child: child(),
-      ),
-    );
   }
 
 
@@ -439,27 +418,66 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                             overflow: TextOverflow.ellipsis,
                                             style: new TextStyle(
                                               fontSize: 14.0,
-                                              color: new Color(0xFFA0A0A0),
+                                              color: new Color(0xFF060606),
                                             ),
                                           ),
                                         ),
+                                        SizedBox(height: 8,),
                                         Container(
-                                            padding: new EdgeInsets.only(right: 12.0, left: 8),
+                                          height: size.height*0.18,
+                                            padding: new EdgeInsets.only(right: 8.0, left: 8),
                                             child: Row(
                                               children: <Widget>[
-                                                workloadInfo(args.workload, size),
-                                                examInfo(args.semesterData, size)
+                                                Container(
+                                                  padding: EdgeInsets.all(16),
+                                                  decoration: BoxDecoration(
+                                                    color: kSecondaryColor,
+                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                  ),
+                                                  height: size.height*0.18,
+                                                  width: size.width*0.5-8,
+                                                  child: SingleChildScrollView(child: workloadInfo(args.workload, size)),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.all(16),
+                                                  decoration: BoxDecoration(
+                                                    color: kPrimaryColor,
+                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                  ),
+                                                  height: size.height*0.18,
+                                                  width: size.width*0.5-8,
+                                                  child: SingleChildScrollView(child: examInfo(args.semesterData, size)),
+                                                )
                                               ],
-                                            )
+                                            ),
                                         ),
                                         Container(
-                                            padding: new EdgeInsets.only(right: 12.0, left: 8),
-                                            child: Row(
-                                              children: <Widget>[
-                                                preclusionInfo(args.preclusion, size),
-                                                suInfo(args.attributes, size),
-                                              ],
-                                            )
+                                          height: size.height*0.12,
+                                          padding: new EdgeInsets.only(right: 8.0, left: 8),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.all(16),
+                                                  decoration: BoxDecoration(
+                                                    color: kPrimaryColor,
+                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                  ),
+                                                  height: size.height*0.12,
+                                                width: size.width*0.5-8,
+                                                child: SingleChildScrollView(child: preclusionInfo(args.preclusion, size))
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(16),
+                                                decoration: BoxDecoration(
+                                                  color: kSecondaryColor,
+                                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                ),
+                                                height: size.height*0.12,
+                                                width: size.width*0.5-8,
+                                                child: SingleChildScrollView(child: suInfo(args.attributes, size)),
+                                              )
+                                            ],
+                                          )
                                         ),
 
                                       ],
