@@ -95,22 +95,10 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Spacer(),
-                                  GestureDetector(
-                                    child: Text("test"),
-                                    onTap: () {
-                                    },
-                                  ),
                                   Row(
                                     children: [
                                       Icon(Icons.account_circle),
-                                      FlatButton(
-                                          child: new Text('${user.name}'),
-                                          onPressed: (){
-                                            Navigator.push(context, MaterialPageRoute(
-                                                builder: (context) => ModuleQuery()
-                                            ));
-                                          }
-                                      ),
+                                      new Text('${user.name}'),
                                     ]
                                   ),
                                   FlatButton(

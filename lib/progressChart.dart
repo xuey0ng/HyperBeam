@@ -2,8 +2,10 @@ import 'dart:core';
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/routing_constants.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:HyperBeam/widgets/progressCard.dart';
@@ -20,6 +22,8 @@ class ProgressChart extends StatefulWidget {
 }
 
 class _ProgressChartState extends State<ProgressChart>{
+  DateTime reminderDate;
+
   @override
   Widget build(BuildContext context) {
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
@@ -167,7 +171,7 @@ class _ProgressChartState extends State<ProgressChart>{
                         autovalidate: true,
                         child: Container(
                           height: 300,
-                          width: 200,
+                          width: 220,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
@@ -192,7 +196,21 @@ class _ProgressChartState extends State<ProgressChart>{
                                   });
                                 },
                               ),
-                              SizedBox(height: 80),
+                              SizedBox(height: 24),
+                              FormBuilderDateTimePicker(
+                                initialValue: DateTime.now(),
+                                attribute: "date",
+                                inputType: InputType.both,
+                                decoration: textInputDecoration.copyWith(
+                                    hintText: 'Enter a Date',
+                                    labelText: "Pick a date"),
+                                onSaved: (text) async {
+                                  setState(() {
+                                    reminderDate = text;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 32),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -210,6 +228,13 @@ class _ProgressChartState extends State<ProgressChart>{
                                       taskFormKey.currentState.save();
                                       final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                                       final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
+                                      User user = Provider.of<User>(context);
+                                      Map<String, dynamic> map = new Map();
+                                      map["date"] = reminderDate;
+                                      map["taskName"] = taskName;
+                                      map['uid'] = user.id;
+                                      map['moduleCode'] = module.moduleCode;
+                                      Firestore.instance.collection("TaskReminders").document(user.id+taskName).setData(map);
                                       Task newTask = Task(taskName);
                                       var newList = module.taskList.toList(growable: true);
                                       DocumentReference docRef;

@@ -34,10 +34,18 @@ class _ExplorePageState extends State<ExplorePage> {
           List<Widget> lst;
           if(query == null || query == "") {
             lst = snapshot.data.documents.toList()
+                .where((element){
+                  return element.data['private'] == false || element.data['private'] == null;
+                })
+                .toList()
                 .where((element) => element.data['uid'] != user.id)
                 .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
           } else {
             lst = snapshot.data.documents.toList()
+                .where((element){
+                  return element.data['private'] == false;
+                })
+                .toList()
                 .where((element) => element.data['moduleName'] == query)
                 .toList()
                 .where((element) => element.data['uid'] != user.id)

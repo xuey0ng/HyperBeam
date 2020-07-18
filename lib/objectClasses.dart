@@ -155,6 +155,7 @@ class ProblemSet {
 }
 
 class Quiz implements iDatabaseable {
+  bool private;
   String name;
   List<dynamic> users;
   List<ProblemSet> sets;
@@ -171,6 +172,7 @@ class Quiz implements iDatabaseable {
   DocumentReference reference;
 
   Quiz(this.name, {
+    this.private,
     this.users,
     this.sets,
     this.reviewers,
@@ -198,6 +200,7 @@ class Quiz implements iDatabaseable {
       masterPdfUri: json['masterPdfUri'] ??  "",
       moduleName: json['moduleName'] as String,
       uid: json['uid'] as String,
+      private: json['private'],
     );
   }
   //factory constructor
@@ -219,6 +222,7 @@ class Quiz implements iDatabaseable {
       'moduleName' : this.moduleName,
       'uid' : this.uid,
       'sets' : sets == null ? null : List<dynamic>.from(sets.map((x) => x.toJson())),
+      'private' : this.private,
     };
   }
 }
