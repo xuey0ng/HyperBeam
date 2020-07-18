@@ -188,6 +188,7 @@ class _ProgressChartState extends State<ProgressChart>{
                               Spacer(),
                               TextFormField(
                                 autofocus: true,
+                                autovalidate: true,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: "Enter a task name",
@@ -229,7 +230,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                     onPressed: () async {
                                       taskFormKey.currentState.validate();
                                       taskFormKey.currentState.save();
-                                      if(reminderDate.second - DateTime.now().add(Duration(hours: 8)).second < 3520 || taskFormKey.currentState.validate()) {
+                                      if(reminderDate.difference(DateTime.now()).inSeconds < 3520 || !taskFormKey.currentState.validate()) {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {

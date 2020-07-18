@@ -717,7 +717,7 @@ class TaskCard extends StatelessWidget {
                               textAlign: TextAlign.left,
                               text: TextSpan(
                                 style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                                text: "Next reminder on: \n${"${DateFormat('dd-MM-yyyy  kk:mm').format(currReminder.toDate())}"}",
+                                text: "Next reminder on: \n${"${DateFormat('dd-MM-yyyy  kk:mm').format(currReminder.toDate().add(Duration(hours: 8)))}"}",
                               )
                           ),
                           SizedBox(
@@ -757,14 +757,14 @@ class TaskCard extends StatelessWidget {
                                                           ),
                                                           Spacer(),
                                                           FormBuilderDateTimePicker(
-                                                            initialValue: DateTime.now(),
+                                                            initialValue: DateTime.now().add(Duration(hours: 8)),
                                                             attribute: "date",
                                                             inputType: InputType.both,
                                                             decoration: textInputDecoration.copyWith(
                                                                 hintText: 'Enter a Date',
                                                                 labelText: "Pick a date"),
                                                             onSaved: (text) async {
-                                                              newDate = text;
+                                                              newDate = text.subtract(Duration(hours: 8));
                                                             },
                                                           ),
                                                           Spacer(),
@@ -783,13 +783,52 @@ class TaskCard extends StatelessWidget {
                                                                 color: kAccentColor,
                                                                 onPressed: () async {
                                                                   taskFormKey.currentState.save();
-                                                                  Map<String,dynamic> map = new Map();
-                                                                  map['date'] = newDate;
-                                                                  Firestore.instance.collection("TaskReminders")
-                                                                      .document(user.id + snapshot.data['name'])
-                                                                      .setData(map, merge: true);
-                                                                  Navigator.pop(context);
-                                                                  Navigator.pop(context);
+                                                                  if(newDate.difference(DateTime.now()).inSeconds < 3520) {
+                                                                    showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) {
+                                                                          final dialogContext = context;
+                                                                          return Dialog(
+                                                                              shape: RoundedRectangleBorder(
+                                                                                  borderRadius:  BorderRadius.circular(20.0)
+                                                                              ),
+                                                                              backgroundColor: kSecondaryColor,
+                                                                              child: Container(
+                                                                                height: 320,
+                                                                                child: Column(
+                                                                                    children: [
+                                                                                      Spacer(),
+                                                                                      RichText(
+                                                                                        textAlign: TextAlign.center,
+                                                                                        text: TextSpan(
+                                                                                          style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                                                          text: "Please set reminder to be at least 1 hour later",
+                                                                                        ),
+                                                                                      ),
+                                                                                      Spacer(),
+                                                                                      RaisedButton(
+                                                                                        child: Text("Ok"),
+                                                                                        color: kAccentColor,
+                                                                                        onPressed: () {
+                                                                                          Navigator.pop(dialogContext);
+                                                                                        },
+                                                                                      ),
+                                                                                      Spacer(),
+                                                                                    ]
+                                                                                ),
+                                                                              )
+                                                                          );
+                                                                        }
+                                                                    );
+                                                                  } else {
+                                                                    Map<String,dynamic> map = new Map();
+                                                                    map['date'] = newDate;
+                                                                    Firestore.instance.collection("TaskReminders")
+                                                                        .document(user.id + snapshot.data['name'])
+                                                                        .setData(map, merge: true);
+                                                                    Navigator.pop(context);
+                                                                    Navigator.pop(context);
+                                                                  }
                                                                 },
                                                               )
                                                             ],
@@ -968,7 +1007,7 @@ class QuizCard extends StatelessWidget {
                                               child: Column(
                                                 children: <Widget>[
                                                   FormBuilderDateTimePicker(
-                                                      initialValue: DateTime.now(),
+                                                      initialValue: DateTime.now().add(Duration(hours: 8)),
                                                     attribute: "date",
                                                     inputType: InputType.both,
                                                     decoration: textInputDecoration.copyWith(
@@ -976,7 +1015,7 @@ class QuizCard extends StatelessWidget {
                                                         labelText: "Pick a date"),
                                                     onSaved: (text) async {
                                                       setState(() {
-                                                        reminderDate = text;
+                                                        reminderDate = text.subtract(Duration(hours: 8));
                                                       });
                                                     },
                                                   ),
@@ -985,16 +1024,55 @@ class QuizCard extends StatelessWidget {
                                                     child: Text("Set reminder"),
                                                     onPressed: () {
                                                       quizFormKey.currentState.save();
-                                                      String documentID = reminderDate.toString() + user.id;
-                                                      Reminder rem = Reminder(
-                                                          uid: user.id,
-                                                          quizName: quiz.name,
-                                                          moduleName: quiz.moduleName,
-                                                          quizDocRef: quiz.reference,
-                                                          date: reminderDate
-                                                      );
-                                                      reminderRepository.addDocByID(documentID, rem);
-                                                      Navigator.pop(context);
+                                                      if(reminderDate.difference(DateTime.now()).inSeconds < 3520) {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context) {
+                                                              final dialogContext = context;
+                                                              return Dialog(
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:  BorderRadius.circular(20.0)
+                                                                  ),
+                                                                  backgroundColor: kSecondaryColor,
+                                                                  child: Container(
+                                                                    height: 320,
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Spacer(),
+                                                                          RichText(
+                                                                            textAlign: TextAlign.center,
+                                                                            text: TextSpan(
+                                                                              style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                                              text: "Please set reminder to be at least 1 hour later",
+                                                                            ),
+                                                                          ),
+                                                                          Spacer(),
+                                                                          RaisedButton(
+                                                                            child: Text("Ok"),
+                                                                            color: kAccentColor,
+                                                                            onPressed: () {
+                                                                              Navigator.pop(dialogContext);
+                                                                            },
+                                                                          ),
+                                                                          Spacer(),
+                                                                        ]
+                                                                    ),
+                                                                  )
+                                                              );
+                                                            }
+                                                        );
+                                                      } else {
+                                                        String documentID = reminderDate.toString() + user.id;
+                                                        Reminder rem = Reminder(
+                                                            uid: user.id,
+                                                            quizName: quiz.name,
+                                                            moduleName: quiz.moduleName,
+                                                            quizDocRef: quiz.reference,
+                                                            date: reminderDate
+                                                        );
+                                                        reminderRepository.addDocByID(documentID, rem);
+                                                        Navigator.pop(context);
+                                                      }
                                                     },
                                                   )
                                                 ],
@@ -1026,7 +1104,7 @@ class QuizCard extends StatelessWidget {
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData) return LinearProgressIndicator();
                                       List<Widget> colItems = snapshot.data.documents.map((e){
-                                        var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
+                                        var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate().add(Duration(hours: 8)));
                                         return Container(
                                             padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
                                             margin: EdgeInsets.all(8),

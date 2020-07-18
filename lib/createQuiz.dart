@@ -349,7 +349,7 @@ class _QuizFormState extends State<QuizForm> {
                             child: Column(
                               children: <Widget>[
                                 FormBuilderDateTimePicker(
-                                  initialValue: DateTime.now(),
+                                  initialValue: DateTime.now().add(Duration(hours: 8)),
                                   attribute: "date",
                                   inputType: InputType.both,
                                   decoration: textInputDecoration.copyWith(
@@ -357,7 +357,7 @@ class _QuizFormState extends State<QuizForm> {
                                       labelText: "Pick a date"),
                                   onSaved: (text) async {
                                     setState(() {
-                                      reminderDate = text;
+                                      reminderDate = text.subtract(Duration(hours: 8));
                                     });
                                   },
                                 ),
@@ -380,12 +380,52 @@ class _QuizFormState extends State<QuizForm> {
                                   color: kAccentColor,
                                   child: Text("Set Quiz"),
                                   onPressed: () async {
-                                    await validateAndSetQuiz(context, checked2);
-                                    Navigator.push(context,
-                                      MaterialPageRoute(builder: (context){
-                                        return HomePage();
-                                      }),
-                                    );
+                                    quizFormKey.currentState.save();
+                                    if(reminderDate.difference(DateTime.now()).inSeconds < 3520) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            final dialogContext = context;
+                                            return Dialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:  BorderRadius.circular(20.0)
+                                                ),
+                                                backgroundColor: kSecondaryColor,
+                                                child: Container(
+                                                  height: 320,
+                                                  child: Column(
+                                                      children: [
+                                                        Spacer(),
+                                                        RichText(
+                                                          textAlign: TextAlign.center,
+                                                          text: TextSpan(
+                                                            style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                            text: "Please set reminder to be at least 1 hour later",
+                                                          ),
+                                                        ),
+                                                        Spacer(),
+                                                        RaisedButton(
+                                                          child: Text("Ok"),
+                                                          color: kAccentColor,
+                                                          onPressed: () {
+                                                            Navigator.pop(dialogContext);
+                                                          },
+                                                        ),
+                                                        Spacer(),
+                                                      ]
+                                                  ),
+                                                )
+                                            );
+                                          }
+                                      );
+                                    } else {
+                                      await validateAndSetQuiz(context, checked2);
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context){
+                                          return HomePage();
+                                        }),
+                                      );
+                                    }
                                   },
                                 )
                               ],
