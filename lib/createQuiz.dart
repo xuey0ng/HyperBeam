@@ -276,7 +276,7 @@ class _QuizFormState extends State<QuizForm> {
     );
   }
 
-  Future<void> validateAndSetQuiz(BuildContext context) async {
+  Future<void> validateAndSetQuiz(BuildContext context, bool private) async {
     final user = Provider.of<User>(context, listen: false);
     final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
@@ -288,6 +288,7 @@ class _QuizFormState extends State<QuizForm> {
     }
     newQuiz = Quiz(
       widget.quizName,
+      private: private,
       dateCreated: Timestamp.now(),
       fullScore: questionNumber-1,
       moduleName: widget.module.moduleCode,
@@ -337,40 +338,60 @@ class _QuizFormState extends State<QuizForm> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
+                bool checked2 = false;
                 return AlertDialog(
                     title: const Text("Schedule a reminder"),
-                    content: Form(
-                        key: quizFormKey,
-                        autovalidate: true,
-                        child: Column(
-                          children: <Widget>[
-                            FormBuilderDateTimePicker(
-                              initialValue: DateTime.now(),
-                              attribute: "date",
-                              inputType: InputType.both,
-                              decoration: textInputDecoration.copyWith(
-                                  hintText: 'Enter a Date',
-                                  labelText: "Pick a date"),
-                              onSaved: (text) async {
-                                setState(() {
-                                  reminderDate = text;
-                                });
-                              },
-                            ),
-                            RaisedButton(
-                              color: kAccentColor,
-                              child: Text("Set Quiz"),
-                              onPressed: () async {
-                                await validateAndSetQuiz(context);
-                                Navigator.push(context,
-                                  MaterialPageRoute(builder: (context){
-                                    return HomePage();
-                                  }),
-                                );
-                              },
+                    content: StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState){
+                        return Form(
+                            key: quizFormKey,
+                            autovalidate: true,
+                            child: Column(
+                              children: <Widget>[
+                                FormBuilderDateTimePicker(
+                                  initialValue: DateTime.now(),
+                                  attribute: "date",
+                                  inputType: InputType.both,
+                                  decoration: textInputDecoration.copyWith(
+                                      hintText: 'Enter a Date',
+                                      labelText: "Pick a date"),
+                                  onSaved: (text) async {
+                                    setState(() {
+                                      reminderDate = text;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 24),
+                                Row(
+                                  children: [
+                                    Text('Private quiz: '),
+                                    Checkbox(
+                                      value: checked2,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          checked2 = !checked2;
+                                        });
+                                      },
+                                    ),
+                                  ]
+                                ),
+                                SizedBox(height: 24),
+                                RaisedButton(
+                                  color: kAccentColor,
+                                  child: Text("Set Quiz"),
+                                  onPressed: () async {
+                                    await validateAndSetQuiz(context, checked2);
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (context){
+                                        return HomePage();
+                                      }),
+                                    );
+                                  },
+                                )
+                              ],
                             )
-                          ],
-                        )
+                        );
+                      }
                     )
                 );
               }
