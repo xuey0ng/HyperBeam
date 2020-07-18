@@ -297,7 +297,7 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                 });
                               },
                             ),
-                            SizedBox(height: 80),
+                            SizedBox(height: 64),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

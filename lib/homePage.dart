@@ -62,10 +62,8 @@ class _HomePageState extends State<HomePage> {
     var size = MediaQuery.of(context).size;
     final user = Provider.of<User>(context, listen: false);
     final mod = Provider.of<FirebaseModuleService>(context).getRepo();
-    print("BUILDING HOMEPAGE");
     return WillPopScope(
       onWillPop: () async {
-        print("BACK PRESSED");
         //navigatorKey.currentState.maybePop();
         return false;
       },
