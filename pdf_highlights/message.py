@@ -15,12 +15,10 @@ class PushNoti:
     
     # Initialise the firestore and storage instance
     def __init__(self):
-        cred = credentials.Certificate("hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json")
-        firebase_admin.initialize_app(cred)
         self.db = firestore.Client()
-        log_client = google.cloud.logging.Client()
-        log_client.get_default_handler()
-        log_client.setup_logging()
+        # log_client = google.cloud.logging.Client()
+        # log_client.get_default_handler()
+        # log_client.setup_logging()
 
     def send_to_user(self, uid, pdf_name, pdf_link = ''):
         # curr = token_dict.get(uid)
@@ -55,18 +53,48 @@ class PushNoti:
         # messaging.subscribe_to_topic(tokens), where tokens is a non-empty list of tokens that wish to suscribe to a certain topic
         # benefit is that it allows me to check if a topic has any suscriptions before attempting to send the topic
         # Send to topic allows users to receive updates regarding a certain topic when a newer iteration is uploaded.
-        def send_to_topic(self, topic, pdf_name, pdf_link):
-            # See documentation on defining a message payload.
-            message = messaging.Message(
-                data={
-                    'title': 'MasterPDF updated',
-                    'body   ': 'The PDF : {} you have subscribed to has a newer version. Click to view.',
-                    'link' : pdf_link,
-                },
-                topic=topic,
-            )
+    def send_to_topic(self, top, pdf_name, pdf_link):
+        # See documentation on defining a message payload.
+        message = messaging.Message(
+            data={
+                'link' : pdf_link,
+            },
+            notification=messaging.Notification(
+                title='MasterPDF updated',
+                body='The PDF : {} you uploaded has been processed.'.format(pdf_name),
+            ),
+            topic=top,
+        )
 
-            # Send a message to the devices subscribed to the provided topic.
-            response = messaging.send(message)
-            # logging.info("Message is sent to all users suscribe to topic {}".format(topic))
+        # Send a message to the devices subscribed to the provided topic.
+        response = messaging.send(message)
+        # logging.info("Message is sent to all users suscribe to topic {}".format(topic))
+    
+    def quiz_reminder(self, uid, module, quiz, quiz_ref=None):
+        doc_ref = self.db.collection(u'users').document(uid)
+        curr = doc_ref.get().to_dict()
+        curr = curr[u'token']
+        if quiz_ref == None:
+            message = messaging.Message(
+                    notification=messaging.Notification(
+                        title='Remider to do task: {}'.format(quiz),
+                        body='Here is a reminder to perform your task!',
+                    ),
+                    token=curr,
+                )
+        else:
+            message = messaging.Message(
+                    data={
+                        'quiz' : quiz_ref,
+                    },
+                    notification=messaging.Notification(
+                        title='Remider to do quiz: {}'.format(quiz),
+                        body='Time for you to refresh your memory with this quiz!',
+                    ),
+                    token=curr,
+                )
+
+            # Send a message to the device corresponding to the provided
+            # registration token.
+        response = messaging.send(message)
 

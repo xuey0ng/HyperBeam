@@ -75,20 +75,38 @@ def pubsub_push():
 
     # To check if the upload is a new upload as well by checking if it overwrote something
     if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master' and blob[-4:] == '.pdf':
-        # logging.info("{} : {} : was downloaded".format(bucket, blob))
+        logging.info("{} : {} : was downloaded".format(bucket, blob))
         current = PDFHighlights.PDFhighlights()
         link, filename = current.process(bucket, blob)
         noti = message.PushNoti()
-        noti.send_to_user(blob.split('/')[1], blob.split('/')[-1], link)
+        # noti.send_to_user(blob.split('/')[1], blob.split('/')[-1], link)
         noti.send_to_topic(filename.split('.')[0], blob.split('/')[-1], link)
     # Returning any 2xx status indicates successful receipt of the message.
     return 'OK', 200
 # [END gae_flex_pubsub_push]
 
+@app.route('/task_handler', methods=['POST'])
+def task_handler():
+    """Log the request payload."""
+    payload = request.get_data(as_text=True) or '(empty payload)'
+    print('Received task with payload: {}'.format(payload))
+    noti = message.PushNoti()
+    payload = payload.split(',')
+    uid = payload[0]
+    module = payload[1]
+    quiz = payload[2]
+    if len(payload) > 3:
+        quiz_ref = payload[3]
+        noti.quiz_reminder(uid, module, quiz, quiz_ref)
+    else:
+        noti.quiz_reminder(uid, module, quiz)
+    return 'Printed task payload: {}'.format(payload), 200
+    # [END cloud_tasks_appengine_quickstart]
+
 
 @app.errorhandler(500)
 def server_error(e):
-    logging.exception('An error occurred during a request.')
+    # logging.exception('An error occurred during a request.')
     return """
     An internal error occurred: <pre>{}</pre>
     See logs for full stacktrace.

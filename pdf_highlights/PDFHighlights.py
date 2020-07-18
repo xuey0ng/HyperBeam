@@ -108,7 +108,7 @@ class PDFhighlights:
         if not os.path.isdir(check):
             logging.info('Directory %s is created.', check)
             os.mkdir(check)
-        logging.info('Download {}'.format(temp))
+        # logging.info('Download {}'.format(temp))
         blob.download_to_filename(temp)
         
         # Process the file and check if pdf exists
@@ -122,24 +122,25 @@ class PDFhighlights:
             return
 
         # Update the MasterPDFMods collection in firestore
-        self.update_db(blob_name.split('/')[2], filename, blob_name.split('/')[1], str(current_list[0].getFileName()))
+        self.update_db(blob_name.split('/')[2], filename, blob_name.split('/')[1], str(current_list[0].getFilename()))
         doc_ref = self.db.collection(u'users').document(blob_name.split('/')[1])
         curr = doc_ref.get().to_dict()
-        curr = list(curr[u'token'])
-        messaging.subscribe_to_topic(curr, filename)
+        subscribtion_list = list()
+        subscribtion_list.append(curr[u'token'])
+        messaging.subscribe_to_topic(subscribtion_list, filename)
 
         # Check if the document exists
         doc_ref = self.db.collection('pdfs').document(filename).collection(u'words').document(u'total')
         doc = doc_ref.get()
         if doc.exists:
-            logging.info('filename: %s exists', filename)
+            # logging.info('filename: %s exists', filename)
 
             # Update the file on the cloud database before generating the master pdf
             text_list, maxcount = self.update_highlights(current_list, filename)
             master_pdf = GenerateMaster()
             master_pdf.main(temp, text_list, maxcount)
         else:   
-            logging.info('filename: %s does not exists, creating new entry', filename)
+            # logging.info('filename: %s does not exists, creating new entry', filename)
             # Initialise a new collection for the new pdf upload and generate the corresponding master pdf
             self.new_pdf(current_list, filename)
             master_pdf = GenerateMaster()
