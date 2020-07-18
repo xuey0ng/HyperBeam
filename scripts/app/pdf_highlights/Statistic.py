@@ -25,12 +25,11 @@ class Statistics:
                 #print("word: " + str(word.getYCoord()) + " | " + str(word.getXCoord()) + " | " + word.getContent())
                 #print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
                 # " | " +  current.getContent())
-                if word.getY2() <= current.getY1() and word.getY2() >= current.getY2():
-                    word_x = (word.getX1() + word.getX2())/2
-                    if word_x <= current.getX2() and word_x >= current.getX1():
+                if word.getYCoord() <= current.getY1() and word.getYCoord() >= current.getY2():
+                    if word.getXCoord() <= current.getX2() and word.getXCoord() >= current.getX1():
                         word.incrCount()
                     j += 1
-                elif word.getY2() < current.getY2():
+                elif word.getYCoord() < current.getY2():
                     if i < max:
                         i+=1
                         current = linelist[i]

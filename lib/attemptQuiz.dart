@@ -1,36 +1,33 @@
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizResultPage.dart';
+import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/services/firebase_quizAttempt_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class AttemptQuiz extends StatefulWidget {
   DocumentSnapshot snapshot;
   Module module;
   AttemptQuiz({this.snapshot, this.module});
+
   @override
   State<StatefulWidget> createState() => _AttemptQuizState(quiz: Quiz.fromSnapshot(snapshot));
 }
 
 class _AttemptQuizState extends State<AttemptQuiz> {
   Quiz quiz;
-  List<String> _givenAnswers;
+  List<String> _givenAnswers = new List(10);
   int index = 0;
-  int radioValue;
   _AttemptQuizState({this.quiz});
 
-  @override
-  void initState(){
-    super.initState();
-    _givenAnswers = List(quiz.fullScore);
-  }
-
   Widget _buildRow(int ind) {
-    if(ind >= quiz.sets.length) {
+    if(quiz.questions[ind] == null) {
       return new Form(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -55,13 +52,17 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                   onPressed: () async {
                     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
                     final quizAttemptRepository = Provider.of<FirebaseQuizAttemptService>(context).getRepo();
+                    int fullScore = 0;
                     int quizScore = 0;
-                    quiz.score = quizScore;
-                    for(int i = 0; i < quiz.sets.length; i++) {
-                      if(quiz.sets[i].answer == _givenAnswers[i]){
-                        quizScore++;
+                    for(int i = 0; i < 10; i++) {
+                      if(quiz.questions[i] != null) {
+                        fullScore++;
+                        if(quiz.answers[i] == _givenAnswers[i]){
+                          quizScore++;
+                        }
                       }
                     }
+                    quiz.score = quizScore;
                     QuizAttempt currAttempt = QuizAttempt(
                       date: DateTime.now(),
                       givenAnswers: _givenAnswers,
@@ -73,6 +74,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                     var quizAttempts = quiz.attempts == null ? null:List.from(quiz.attempts);
                     quizAttempts == null ?
                     quizAttempts = List.from([currAttemptRef]) : quizAttempts.add(currAttemptRef);
+                    print("ATTEMPT IS $currAttemptRef");
                     quiz.attempts = quizAttempts;
                     quizRepository.updateDoc(quiz);
                     Navigator.push(context,
@@ -80,7 +82,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                         return QuizResultPage(
                           quiz: quiz,
                           givenAnswers: _givenAnswers,
-                          fullScore: quiz.sets.length,
+                          fullScore: fullScore,
                           quizScore: quizScore,
                           module: widget.module,
                         );
@@ -93,59 +95,25 @@ class _AttemptQuizState extends State<AttemptQuiz> {
         ),
       );
     } else {
-      return quizForm(quiz.sets[index] , index);
-    }
-  }
-
-  Widget quizForm(ProblemSet questionSet, int ind) {
-    var controller = TextEditingController();
-    if (questionSet.MCQ) {
-      List<Widget> optionList = List();
-      for(int i = 0; i < questionSet.options.length; i++) {
-        if (questionSet.options[i] != null){
-          String optionField = questionSet.options[i];
-          Widget newCard = GestureDetector(
-            onTap: () {
-              setState(() {
-                radioValue = i;
-              });
-              _givenAnswers[index] = optionField;
-            },
-            child: Card(
-              elevation: 1,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Text(optionField)),
-                  Radio(
-                    value: i,
-                    groupValue: radioValue,
-                  )
-                ],
-              ),
-            )
-          );
-          optionList.add(newCard);
-        }
-      }
-      return Form(
-        child: Column(
+      var controller1 = TextEditingController();
+      return new Form(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top:24, left: 16),
-                child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.headline4,
-                        children: [
-                          TextSpan(text: "Question "),
-                          TextSpan(text: "${index+1}\n", style: TextStyle(fontWeight: FontWeight.bold)),
-                        ]
-                    )
-                ),
+                  padding: EdgeInsets.only(top:24, left: 16),
+                  child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline4,
+                          children: [
+                            TextSpan(text: "Question "),
+                            TextSpan(text: "${index+1}\n", style: TextStyle(fontWeight: FontWeight.bold)),
+                          ]
+                      )
+                  ),
               ),
               Padding(
                 padding: EdgeInsets.only(top:24, left: 16),
@@ -154,58 +122,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                     text: TextSpan(
                         style: Theme.of(context).textTheme.headline5,
                         children: [
-                          TextSpan(text: questionSet.question),
-                        ]
-                    )
-                ),
-              ),
-              SizedBox(height: 30,),
-              Column(
-                children: optionList,
-              ),
-              SizedBox(height: 48),
-              RaisedButton(
-                color: kAccentColor,
-                child: Text("Next Question"),
-                onPressed: () {
-                  setState(() {
-                    index++;
-                    controller.clear();
-                    radioValue = null;
-                  });
-                },
-              ),
-            ]
-        ),
-      );
-    } else {
-      return Form(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top:24, left: 16),
-                child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.headline4,
-                        children: [
-                          TextSpan(text: "Question "),
-                          TextSpan(text: "${index+1}\n", style: TextStyle(fontWeight: FontWeight.bold)),
-                        ]
-                    )
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top:24, left: 16),
-                child: RichText(
-                    textAlign: TextAlign.left,
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.headline5,
-                        children: [
-                          TextSpan(text: questionSet.question),
+                          TextSpan(text: quiz.questions[ind]),
                         ]
                     )
                 ),
@@ -215,13 +132,14 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                 padding: EdgeInsets.only(top:24, left: 64),
                 child: TextFormField(
                   autofocus: true,
-                  controller: controller,
+                  controller: controller1,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: (questionSet.number).toString() + '   Enter your answer here'
+                      hintText: (ind+1).toString() + '   Enter your answer here'
                   ),
-                  onChanged: (val) => _givenAnswers[index] = val),
+                  onChanged: (val) => _givenAnswers[ind] = val,
                 ),
+              ),
               SizedBox(height: 48),
               RaisedButton(
                 color: kAccentColor,
@@ -229,12 +147,12 @@ class _AttemptQuizState extends State<AttemptQuiz> {
                 onPressed: () {
                   setState(() {
                     index++;
-                    controller.clear();
+                    controller1.clear();
                   });
                 },
               ),
             ]
-        ),
+          ),
       );
     }
   }
@@ -246,7 +164,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
         Navigator.pushNamed(
           context,
           ModuleDetailsRoute,
-          arguments: widget.module.moduleCode,
+          arguments: widget.module,
         );
         return true;
       },
@@ -264,7 +182,7 @@ class _AttemptQuizState extends State<AttemptQuiz> {
             ),
             Column(
               children: <Widget>[
-               _buildRow(index),
+                _buildRow(index),
               ],
             ),
           ]

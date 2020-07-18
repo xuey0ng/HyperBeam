@@ -1,5 +1,6 @@
 import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/objectClasses.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +59,8 @@ class ViewQuizzes extends StatelessWidget{
                       builder: (BuildContext context) {
                         return AlertDialog(
                             title: Text("${quiz.name}\n"
-                                "score: ${quiz.score?? "Not attempted"}\n"),
+                                "score: ${quiz.score?? "Not attempted"}\n"
+                                "To be taken by : ${quiz.quizDate.toDate()}"),
                             actions: <Widget>[
                               FlatButton(
                                   child: Text("Delete"),

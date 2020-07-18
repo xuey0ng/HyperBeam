@@ -1,7 +1,6 @@
 import 'dart:core';
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/objectClasses.dart';
-import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:getflutter/getflutter.dart';
@@ -47,8 +46,7 @@ class _ProgressChartState extends State<ProgressChart>{
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot, Size size) {
     Module module = Module.fromSnapshot(snapshot);
     return ProgressCard(
-        moduleCode: module.moduleCode,
-        title: module.title,
+        title: module.name,
         size: size,
         pressCreateQuiz: () {
           _createQuiz(module);
@@ -121,11 +119,9 @@ class _ProgressChartState extends State<ProgressChart>{
                                     color: kAccentColor,
                                     onPressed: () async {
                                       quizFormKey.currentState.save();
-                                      //Navigator.pushNamed(context, TestRoute);
-                                      //Navigator.pushNamed(context, HomeRoute);
                                       Navigator.push(context,
                                         MaterialPageRoute(builder: (context){
-                                          return QuizForm(quizName: quizName, module: module,);
+                                          return QuizForm(quizName, module: module,);
                                         }),
                                       );
                                     },
@@ -235,6 +231,8 @@ class _ProgressChartState extends State<ProgressChart>{
         }
     );
   }
+
+
 }
 
 class AlertDialogWidget extends StatefulWidget {

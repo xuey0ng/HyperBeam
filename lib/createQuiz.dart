@@ -1,320 +1,75 @@
-import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/objectClasses.dart';
+import 'package:HyperBeam/progressChart.dart';
+import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
-import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
+import 'package:HyperBeam/routing_constants.dart';
 
-class QuizForm extends StatefulWidget{
+class QuizForm extends StatefulWidget {
   String quizName;
   Module module;
-  QuizForm({this.quizName, this.module});
+  QuizForm(this.quizName, {this.module});
 
   @override
   State<StatefulWidget> createState() => _QuizFormState();
 }
 
-enum FormType{
-  MCQ,
-  openEnded,
-}
-
 class _QuizFormState extends State<QuizForm> {
   final quizFormKey = new GlobalKey<FormState>();
-  List<ProblemSet> problemSets = List();
-  int questionNumber;
+  List<String> _questions = new List(10);
+  List<String> _answers = new List(10); //var = string , var = annotation in pdf???
   Quiz newQuiz;
-  DateTime reminderDate;
-  bool checked = false;
-  FormType type = FormType.openEnded;
-  int _radioValue1;
+  DateTime quizDate;
+  int index = 1;
+
   FocusNode f1;
   FocusNode f2;
-  FocusNode f3;
-  FocusNode f4;
-  FocusNode f5;
-
-  ProblemSet newSet = ProblemSet(options: List(4));
-  var controller1 = TextEditingController();
-  var controller2 = TextEditingController();
-  var controller3 = TextEditingController();
-  var controller4 = TextEditingController();
-  var controller5 = TextEditingController();
+  void validateAndSetQuiz(BuildContext context) async {
+    final user = Provider.of<User>(context, listen: false);
+    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+    quizFormKey.currentState.save();
+    newQuiz = Quiz(
+      widget.quizName,
+      questions: _questions,
+      answers: _answers,
+      quizDate: Timestamp.fromDate(quizDate),
+      fullScore: index,
+      moduleName: widget.module.name,
+      uid: user.id,
+    );
+    var newList = widget.module.quizList.toList(growable: true);
+    DocumentReference docRef;
+    await quizRepository.addDoc(newQuiz).then((value) => docRef = value);
+    newList.add(docRef);
+    widget.module.quizList = newList;
+    moduleRepository.updateDoc(widget.module);
+  }
 
 
   @override
   void initState() {
     super.initState();
-    questionNumber = 1;
+
     f1 = FocusNode();
     f2 = FocusNode();
-    f3 = FocusNode();
-    f4 = FocusNode();
-    f5 = FocusNode();
   }
-
-  Widget Page(int num) {
-    newSet.number = num;
-    newSet.MCQ = checked;
-    return Form(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Container(
-            width:400,
-            height: 600,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.headline3,
-                        children: [
-                          TextSpan(text: "Question "),
-                          TextSpan(text: "$num",
-                              style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                        ]
-                    )
-                ),
-                SizedBox(height: 40),
-                Row(
-                    children: [
-                      Text("MCQ"),
-                      SizedBox(width: 8),
-                      Checkbox(
-                          value: checked,
-                          onChanged: (bool value) {
-                            setState(() {
-                              if(!value) {
-                                type = FormType.openEnded;
-                                checked = false;
-                                newSet.MCQ = false;
-                              } else {
-                                type = FormType.MCQ;
-                                checked = true;
-                                newSet.MCQ = true;
-                              }
-                            });
-                          }
-                      ),
-                      Spacer(),
-                    ]
-                ),
-                TextFormField(
-                  autofocus: true,
-                  focusNode: f1,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: num.toString() + '   Enter your question here'
-                  ),
-                  onChanged: (val){
-                    newSet.question = val;
-                  },
-                  controller: controller1,
-                ),
-                SizedBox(height: 40),
-                if (type == FormType.openEnded) TextFormField(
-                  focusNode: f2,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: num.toString() + '   Enter your answer here'
-                  ),
-                  onChanged: (val) => newSet.answer = val,
-                  controller: controller2,
-                ) else Column(
-                  children: <Widget>[
-                    Row(
-                        children: [
-                          Text("1)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f2,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
-                              ),
-                              onChanged: (val){
-                                newSet.options[0] = val;
-                              } ,
-                              controller: controller2,
-                            ),
-                          ),
-
-                          Radio(
-                            value: 0,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                    Row(
-                        children: [
-                          Text("2)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f3,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
-                              ),
-                              onChanged: (val) => newSet.options[1] = val,
-                              controller: controller3,
-                            ),
-                          ),
-                          Radio(
-                            value: 1,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                    Row(
-                        children: [
-                          Text("3)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f4,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
-                              ),
-                              onChanged: (val) => newSet.options[2] = val,
-                              controller: controller4,
-                            ),
-                          ),
-                          Radio(
-                            value: 2,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                    Row(
-                        children: [
-                          Text("4)"),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: f5,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter your answer here'
-                              ),
-                              onChanged: (val) => newSet.options[3] = val,
-                              controller: controller5,
-                            ),
-                          ),
-                          Radio(
-                            value: 3,
-                            groupValue: _radioValue1,
-                            onChanged: (value){
-                              setState(() {
-                                _radioValue1 = value;
-                                newSet.answer = newSet.options[value];
-                              });
-                            },
-                          )
-                        ]
-                    ),
-                  ],
-                )
-                ,
-                SizedBox(height: 40),
-                RaisedButton(
-                  color: kSecondaryColor,
-                  child: Text("Next Question"),
-                  onPressed: () {
-                    setState(() {
-                      newSet.MCQ = checked;
-                      problemSets.add(newSet);
-                      questionNumber++;
-                      newSet = ProblemSet(
-                        number: questionNumber,
-                        MCQ: checked,
-                        options: List(4),
-                      );
-                      _radioValue1 = null;
-                      controller1.clear();
-                      controller2.clear();
-                      controller3.clear();
-                      controller4.clear();
-                      controller5.clear();
-                      f1.requestFocus();
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-        )
-    );
-  }
-
-  Future<void> validateAndSetQuiz(BuildContext context) async {
-    final user = Provider.of<User>(context, listen: false);
-    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-    final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-    final reminderRepository = Provider.of<FirebaseReminderService>(context).getRepo();
-    quizFormKey.currentState.save();
-    if(newSet.question != null && newSet.question != "") {
-      problemSets.add(newSet);
-      questionNumber++;
-    }
-    newQuiz = Quiz(
-      widget.quizName,
-      dateCreated: Timestamp.now(),
-      fullScore: questionNumber-1,
-      moduleName: widget.module.moduleCode,
-      uid: user.id,
-      sets: problemSets,
-      users: List(),
-    );
-    DocumentReference docRef;
-    await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
-    await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
-    String documentID = reminderDate.toString() + user.id;
-    Reminder rem = Reminder(
-        uid: user.id,
-        quizName: newQuiz.name,
-        moduleName: newQuiz.moduleName,
-        quizDocRef: docRef,
-        date: reminderDate
-    );
-    reminderRepository.addDocByID(documentID, rem);
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    f1.dispose();
+    f2.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    for(int i = 0; i < problemSets.length; i++){
-      print("curr problemSet is ${problemSets[i]} and $questionNumber");
-    }
-
     return Scaffold(
       body: Stack(
           children: [
@@ -327,18 +82,20 @@ class _QuizFormState extends State<QuizForm> {
                 ),
               ),
             ),
-            SingleChildScrollView(
-                child: Page(questionNumber)
+            Column(
+              children: <Widget>[
+                _buildRow(index),
+              ],
             ),
           ]
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: ()=> {
+      floatingActionButton:FloatingActionButton(
+        onPressed: ()=>{
           showDialog(
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                    title: const Text("Schedule a reminder"),
+                    title: const Text("Schedule quiz"),
                     content: Form(
                         key: quizFormKey,
                         autovalidate: true,
@@ -351,22 +108,18 @@ class _QuizFormState extends State<QuizForm> {
                               decoration: textInputDecoration.copyWith(
                                   hintText: 'Enter a Date',
                                   labelText: "Pick a date"),
-                              onSaved: (text) async {
+                              onSaved: (text) {
                                 setState(() {
-                                  reminderDate = text;
+                                  quizDate = text;
                                 });
                               },
                             ),
                             RaisedButton(
                               color: kAccentColor,
                               child: Text("Set Quiz"),
-                              onPressed: () async {
-                                await validateAndSetQuiz(context);
-                                Navigator.push(context,
-                                  MaterialPageRoute(builder: (context){
-                                    return HomePage();
-                                  }),
-                                );
+                              onPressed: () {
+                                validateAndSetQuiz(context);
+                                Navigator.pushNamed(context, HomeRoute);
                               },
                             )
                           ],
@@ -374,12 +127,78 @@ class _QuizFormState extends State<QuizForm> {
                     )
                 );
               }
-          ),
+          )
         },
         child: const Icon(Icons.assignment_turned_in),
       ),
     );
   }
+
+  Widget _buildRow(int ind) {
+    var controller1 = TextEditingController();
+    var controller2 = TextEditingController();
+    //bug of having both fields focused if  focusNodes are initialised here
+    return Form(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        style: Theme.of(context).textTheme.headline3,
+                        children: [
+                          TextSpan(text: "Question "),
+                          TextSpan(text: "$ind", style: TextStyle(fontWeight: FontWeight.bold))
+                        ]
+                    )
+                  ),
+                 SizedBox(height: 40),
+                  TextFormField(
+                    autofocus: true,
+                    focusNode: f1,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ind.toString() + '   Enter your question here'
+                    ),
+                    onChanged: (val) => _questions[ind-1] = val,
+                    controller: controller1,
+                  ),
+                  SizedBox(height: 40),
+                  TextFormField(
+                    focusNode: f2,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ind.toString() + '   Enter your answer here'
+                    ),
+                    onChanged: (val) => _answers[ind-1] = val,
+                    controller: controller2,
+                  ),
+                  SizedBox(height: 40),
+                  RaisedButton(
+                    color: kSecondaryColor,
+                    child: Text("Next Question"),
+                    onPressed: () {
+                      setState(() {
+                        index++;
+                        controller1.clear();
+                        controller2.clear();
+                        f1.requestFocus();
+                      });
+                    },
+                  ),
+
+                ],
+              ),
+            )
+        );
+  }
+
+
+
 }
 
 class CreateQuiz extends StatefulWidget {
@@ -412,7 +231,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                 onPressed: () {
                   Navigator.push(context,
                   MaterialPageRoute(builder: (context){
-                    return QuizForm(quizName: dialogWidget.quizName);
+                    return QuizForm(dialogWidget.quizName);
                   }),
                 );
                 }

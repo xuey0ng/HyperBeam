@@ -12,4 +12,3 @@ const kSmallText = 14.0;
 const kMediumText = 18.0;
 const kBigText = 24.0;
 const kExtraBigText = 32.0;
-const kExtraExtraBigText = 40.0;
