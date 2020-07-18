@@ -668,11 +668,18 @@ class TaskCard extends StatelessWidget {
   Module module;
   TaskCard(this.snapshot, this.module);
 
+  final taskFormKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
+    DateTime newDate;
     var size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        Timestamp currReminder = await Firestore.instance.collection("TaskReminders")
+            .document(user.id + snapshot.data['name'])
+            .get().then((value) => value.data["date"]);
+
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -685,23 +692,125 @@ class TaskCard extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Container(
-                      height: 120,
+                      height: 152,
                       child: Column(
                         children: <Widget>[
-                          RaisedButton(
-                            child: Text("Delete"),
-                            color:  kPrimaryColor,
-                            onPressed: () async  {
-                              final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
-                              final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                              taskRepository.delete(snapshot);
-                              Module mod = module;
-                              var newList = new List<DocumentReference>.from(mod.taskList);
-                              newList.remove(snapshot.reference);
-                              mod.taskList = newList;
-                              moduleRepository.updateDoc(mod);
-                              Navigator.pop(dialogContext);
-                            },
+                          RichText(
+                              textAlign: TextAlign.left,
+                              text: TextSpan(
+                                style: TextStyle(color: Colors.black, fontSize: kMediumText),
+                                text: "Next reminder on: \n${"${DateFormat('dd-MM-yyyy  kk:mm').format(currReminder.toDate())}"}",
+                              )
+                          ),
+                          SizedBox(
+                            width: 180,
+                            child: RaisedButton(
+                              child: Text("Change schedule"),
+                              color:  kAccentColor,
+                              onPressed: () async  {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:  BorderRadius.circular(20.0)
+                                        ),
+                                        backgroundColor: kSecondaryColor,
+                                        child: Container(
+                                          height: 300,
+                                          child: Column(
+                                              children: [
+                                                Form(
+                                                    key: taskFormKey,
+                                                    autovalidate: true,
+                                                    child: Container(
+                                                      height:300,
+                                                      width: 200,
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: <Widget>[
+                                                          Spacer(),
+                                                          RichText(
+                                                              textAlign: TextAlign.center,
+                                                              text: TextSpan(
+                                                                style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                                                text: "Change reminder to",
+                                                              )
+                                                          ),
+                                                          Spacer(),
+                                                          FormBuilderDateTimePicker(
+                                                            initialValue: DateTime.now(),
+                                                            attribute: "date",
+                                                            inputType: InputType.both,
+                                                            decoration: textInputDecoration.copyWith(
+                                                                hintText: 'Enter a Date',
+                                                                labelText: "Pick a date"),
+                                                            onSaved: (text) async {
+                                                              newDate = text;
+                                                            },
+                                                          ),
+                                                          Spacer(),
+                                                          Spacer(),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              FlatButton(
+                                                                  child: Text("Cancel"),
+                                                                  onPressed: () {
+                                                                    Navigator.of(context).pop();
+                                                                  }
+                                                              ),
+                                                              RaisedButton(
+                                                                child: Text("Change"),
+                                                                color: kAccentColor,
+                                                                onPressed: () async {
+                                                                  taskFormKey.currentState.save();
+                                                                  Map<String,dynamic> map = new Map();
+                                                                  map['date'] = newDate;
+                                                                  Firestore.instance.collection("TaskReminders")
+                                                                      .document(user.id + snapshot.data['name'])
+                                                                      .setData(map, merge: true);
+                                                                  Navigator.pop(context);
+                                                                  Navigator.pop(context);
+                                                                },
+                                                              )
+                                                            ],
+                                                          ),
+                                                          SizedBox(height: 10),
+                                                        ],
+                                                      ),
+                                                    )
+                                                ),
+                                              ]
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 180,
+                            child: RaisedButton(
+                              child: Text("Delete"),
+                              color:  kAccentColor,
+                              onPressed: () async  {
+                                final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
+                                final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                User user = Provider.of<User>(context);
+                                taskRepository.delete(snapshot);
+                                Module mod = module;
+                                var newList = new List<DocumentReference>.from(mod.taskList);
+                                newList.remove(snapshot.reference);
+                                mod.taskList = newList;
+                                moduleRepository.updateDoc(mod);
+                                print("CURRENTLY IT IS ${user.id+snapshot.data['name']}");
+                                Firestore.instance.collection("TaskReminders")
+                                    .document(user.id+snapshot.data['name']).delete();
+                                Navigator.pop(dialogContext);
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -732,7 +841,7 @@ class TaskCard extends StatelessWidget {
               padding: EdgeInsets.only(top:20, left: 15),
               child: RichText(
                 text: TextSpan(
-                  text: " ${snapshot.data['name']}\n",
+                  text: " ${snapshot.data == null ? "": snapshot.data['name']}\n",
                   style: TextStyle(
                     fontSize: kMediumText,
                     color: Colors.black,
@@ -841,7 +950,7 @@ class QuizCard extends StatelessWidget {
                                               child: Column(
                                                 children: <Widget>[
                                                   FormBuilderDateTimePicker(
-                                                    initialValue: DateTime.now(),
+                                                      initialValue: DateTime.now(),
                                                     attribute: "date",
                                                     inputType: InputType.both,
                                                     decoration: textInputDecoration.copyWith(

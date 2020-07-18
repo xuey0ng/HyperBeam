@@ -44,9 +44,7 @@ class DataRepo {
   }
 
   Future<DocumentReference> addDocAndID(iDatabaseable obj) async {
-    print("HIT1");
     DocumentReference docRef =  await db.add(obj.toJson());
-    print("HIT2");
     Map<String, dynamic> map = {"reference":docRef};
     docRef.setData(map, merge: true);
     return docRef;
