@@ -2,6 +2,7 @@ import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -50,12 +51,53 @@ class _LoginPageState extends State<LoginPage> {
       if(validateAndSave()) {
         try{
           if (_formType == FormType.login) {
-            User user0 = await auth.signInWithEmailAndPassword(_email, _password);
-            User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
-              return User(name: value.data['name'],
-                  email: value.data['email'], id: user0.id);
-            });
-            print("Signed in: $user");
+            print("HITTT1");
+            try {
+              User user0 = await auth.signInWithEmailAndPassword(_email, _password);
+              User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
+                return User(name: value.data['name'],
+                    email: value.data['email'], id: user0.id);
+              });
+              print("Signed in: $user");
+            } on PlatformException {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    final dialogContext = context;
+                    return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:  BorderRadius.circular(20.0)
+                        ),
+                        backgroundColor: kSecondaryColor,
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          height: 200,
+                          child: Column(
+                              children: [
+                                Spacer(),
+                                RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                    text: "Incorrect email / password",
+                                  ),
+                                ),
+                                Spacer(),
+                                RaisedButton(
+                                  child: Text("Ok"),
+                                  color: kAccentColor,
+                                  onPressed: () {
+                                    Navigator.pop(dialogContext);
+                                  },
+                                ),
+                                Spacer(),
+                              ]
+                          ),
+                        )
+                    );
+                  }
+              );
+            }
           } else {
             User user = await auth.createWithEmailAndPassword(_email, _password);
             user.name = _name;
