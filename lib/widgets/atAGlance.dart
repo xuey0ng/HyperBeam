@@ -71,7 +71,7 @@ class _AtAGlanceState extends State<AtAGlance> {
                       ),
                       TextSpan(
                           text: "Reminder set at:  ${DateFormat('dd-MM-yyyy  kk:mm')
-                              .format(snap.data['date'].toDate())}",
+                              .format(snap.data['date'].toDate().add(Duration(hours: 8)))}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: kMediumText
@@ -124,7 +124,7 @@ class _AtAGlanceState extends State<AtAGlance> {
                       ),
                       TextSpan(
                           text: "Reminder set at:  ${DateFormat('dd-MM-yyyy  kk:mm')
-                              .format(snap2.data['date'].toDate())}",
+                              .format(snap2.data['date'].toDate().add(Duration(hours: 8)))}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: kMediumText
@@ -153,10 +153,10 @@ class _AtAGlanceState extends State<AtAGlance> {
             if (!snapshot2.hasData) return LinearProgressIndicator();
             List<DocumentSnapshot> list2 = snapshot2.data.documents;
             list2.sort((a,b){
-              if( a.data["date"] < b.data["date"]) {
-                return 1;
-              } else {
+              if( a.data["date"].toDate().isBefore(b.data["date"].toDate())) {
                 return -1;
+              } else {
+                return 1;
               }
             });
             initPage(list, list2);
@@ -211,6 +211,5 @@ class _AtAGlanceState extends State<AtAGlance> {
         );
       }
     );
-
   }
 }

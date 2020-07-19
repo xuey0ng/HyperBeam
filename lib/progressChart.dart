@@ -104,13 +104,15 @@ class _ProgressChartState extends State<ProgressChart>{
                                   border: OutlineInputBorder(),
                                   hintText: "Enter a quiz name",
                                 ),
+                                autovalidate: true,
+                                validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
                                 onSaved: (text) {
                                   setState(() {
                                     quizName = text;
                                   });
                                 },
                               ),
-                              SizedBox(height: 80),
+                              Spacer(),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -124,14 +126,14 @@ class _ProgressChartState extends State<ProgressChart>{
                                     child: Text("Add"),
                                     color: kAccentColor,
                                     onPressed: () async {
-                                      quizFormKey.currentState.save();
-                                      //Navigator.pushNamed(context, TestRoute);
-                                      //Navigator.pushNamed(context, HomeRoute);
-                                      Navigator.push(context,
-                                        MaterialPageRoute(builder: (context){
-                                          return QuizForm(quizName: quizName, module: module,);
-                                        }),
-                                      );
+                                      if(quizFormKey.currentState.validate()){
+                                        quizFormKey.currentState.save();
+                                        Navigator.push(context,
+                                          MaterialPageRoute(builder: (context){
+                                            return QuizForm(quizName: quizName, module: module,);
+                                          }),
+                                        );
+                                      }
                                     },
                                   )
                                 ],
@@ -163,14 +165,14 @@ class _ProgressChartState extends State<ProgressChart>{
             ),
             backgroundColor: kSecondaryColor,
             child: Container(
-              height: 300,
+              height: 320,
               child: Column(
                   children: [
                     Form(
                         key: taskFormKey,
                         autovalidate: true,
                         child: Container(
-                          height: 300,
+                          height: 320,
                           width: 220,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -186,10 +188,12 @@ class _ProgressChartState extends State<ProgressChart>{
                               Spacer(),
                               TextFormField(
                                 autofocus: true,
+                                autovalidate: true,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: "Enter a task name",
                                 ),
+                                validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
                                 onSaved: (text) {
                                   setState(() {
                                     taskName = text;
@@ -198,7 +202,7 @@ class _ProgressChartState extends State<ProgressChart>{
                               ),
                               SizedBox(height: 24),
                               FormBuilderDateTimePicker(
-                                initialValue: DateTime.now(),
+                                initialValue: DateTime.now().add(Duration(hours: 8)),
                                 attribute: "date",
                                 inputType: InputType.both,
                                 decoration: textInputDecoration.copyWith(
@@ -206,7 +210,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                     labelText: "Pick a date"),
                                 onSaved: (text) async {
                                   setState(() {
-                                    reminderDate = text;
+                                    reminderDate = text.subtract(Duration(hours: 8));
                                   });
                                 },
                               ),
@@ -224,26 +228,68 @@ class _ProgressChartState extends State<ProgressChart>{
                                     child: Text("Add"),
                                     color: kAccentColor,
                                     onPressed: () async {
-                                      Navigator.pop(dialogContext);
+                                      taskFormKey.currentState.validate();
                                       taskFormKey.currentState.save();
-                                      final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                      final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
-                                      User user = Provider.of<User>(context);
-                                      Map<String, dynamic> map = new Map();
-                                      map["date"] = reminderDate;
-                                      map["taskName"] = taskName;
-                                      map['uid'] = user.id;
-                                      map['moduleCode'] = module.moduleCode;
-                                      Firestore.instance.collection("TaskReminders").document(user.id+taskName).setData(map);
-                                      Task newTask = Task(taskName);
-                                      var newList = module.taskList.toList(growable: true);
-                                      DocumentReference docRef;
-                                      await taskRepository.addDoc(newTask).then((value) => {
-                                        docRef = value,
-                                      });
-                                      newList.add(docRef);
-                                      module.taskList = newList;
-                                      moduleRepository.updateDoc(module);
+                                      if(!taskFormKey.currentState.validate()){
+
+                                      } else if(reminderDate.difference(DateTime.now()).inSeconds < 3520) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              final dialogContext = context;
+                                              return Dialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:  BorderRadius.circular(20.0)
+                                                  ),
+                                                  backgroundColor: kSecondaryColor,
+                                                  child: Container(
+                                                    height: 320,
+                                                    child: Column(
+                                                        children: [
+                                                          Spacer(),
+                                                          RichText(
+                                                            textAlign: TextAlign.center,
+                                                            text: TextSpan(
+                                                              style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                              text: "Please set reminder to be at least 1 hour later",
+                                                            ),
+                                                          ),
+                                                          Spacer(),
+                                                          RaisedButton(
+                                                            child: Text("Ok"),
+                                                            color: kAccentColor,
+                                                            onPressed: () {
+                                                              Navigator.pop(dialogContext);
+                                                            },
+                                                          ),
+                                                          Spacer(),
+                                                        ]
+                                                    ),
+                                                  )
+                                              );
+                                            }
+                                        );
+                                      } else {
+                                        Navigator.pop(dialogContext);
+                                        final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                        final taskRepository = Provider.of<FirebaseTaskService>(context).getRepo();
+                                        User user = Provider.of<User>(context);
+                                        Map<String, dynamic> map = new Map();
+                                        map["date"] = reminderDate;
+                                        map["taskName"] = taskName;
+                                        map['uid'] = user.id;
+                                        map['moduleCode'] = module.moduleCode;
+                                        Firestore.instance.collection("TaskReminders").document(user.id+module.moduleCode+taskName).setData(map);
+                                        Task newTask = Task(taskName);
+                                        var newList = module.taskList.toList(growable: true);
+                                        DocumentReference docRef;
+                                        await taskRepository.addDoc(newTask).then((value) => {
+                                          docRef = value,
+                                        });
+                                        newList.add(docRef);
+                                        module.taskList = newList;
+                                        moduleRepository.updateDoc(module);
+                                      }
                                     },
                                   )
                                 ],
