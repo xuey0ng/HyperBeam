@@ -95,10 +95,22 @@ class ProgressCard extends StatelessWidget {
                             ),
                             FlatButton(
                                 child: Text("Delete"),
-                                onPressed: () {
+                                onPressed: () async{
                                   final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                                   moduleRepository.delete(snapshot);
                                   Navigator.of(context).pop();
+                                  CollectionReference reminderRepo = Firestore.instance.collection("Reminders");
+                                  CollectionReference taskReminderRepo = Firestore.instance.collection("TaskReminders");
+                                  List<DocumentSnapshot> lst = await reminderRepo.where("moduleName", isEqualTo: moduleCode)
+                                      .getDocuments().then((value) => value.documents);
+                                  for(DocumentSnapshot doc in lst) {
+                                    reminderRepo.document(doc.documentID).delete();
+                                  }
+                                  List<DocumentSnapshot> lst2 = await taskReminderRepo.where("moduleCode", isEqualTo: moduleCode)
+                                      .getDocuments().then((value) => value.documents);
+                                  for(DocumentSnapshot doc in lst2) {
+                                    taskReminderRepo.document(doc.documentID).delete();
+                                  }
                                 }
                             )
                           ],
@@ -297,7 +309,7 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                 });
                               },
                             ),
-                            SizedBox(height: 80),
+                            SizedBox(height: 64),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
