@@ -1,13 +1,16 @@
 import 'package:HyperBeam/objectClasses.dart';
+import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:intl/intl.dart';
 import 'package:async/async.dart' show StreamGroup;
 class PastResultsPage extends StatelessWidget{
   DocumentSnapshot quizSnapshot;
+  User user;
 
   PastResultsPage({this.quizSnapshot});
 
@@ -27,6 +30,9 @@ class PastResultsPage extends StatelessWidget{
       } else {
         return 1;
       }
+    });
+    list.sort((a,b){
+      return a.data["score"]>b.data["score"]? -1: 1;
     });
     List<Widget> finalList = List();
     for (DocumentSnapshot doc in list){
@@ -142,7 +148,7 @@ class PastResultsPage extends StatelessWidget{
                 text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "${DateFormat('dd-MM-yyyy\n     kk:mm').format(snap.data['date'].toDate())}",
+                        text: "${DateFormat('dd-MM-yyyy\n     kk:mm').format(snap.data['date'].toDate().add(Duration(hours: 8)))}",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: kSmallText, color: Colors.black),
                       )
                     ]
@@ -173,13 +179,28 @@ class PastResultsPage extends StatelessWidget{
       stream: quizSnapshot.reference.snapshots(),
       builder: (context, snapshot) {
         if(!snapshot.hasData) return LinearProgressIndicator();
-        List<dynamic> listOfAttempts = Quiz.fromSnapshot(snapshot.data)
-            .attempts;
+        bool filterOut(String attemptPath){
+          String getFileName(String path) {
+            int slash = 7;
+            for(int i = 7; i < path.length; i++) {
+              if(path.codeUnitAt(i) == 47) {
+                slash = i;
+                return path.substring(6, slash);
+              }
+            }
+            return null;
+          }
+          return user.id == getFileName( attemptPath);
+        }
+        List<dynamic> listOfAttempts = List.from(Quiz.fromSnapshot(snapshot.data)
+            .attempts,growable: true);
+        DocumentReference ref;
+        listOfAttempts.retainWhere((element) => filterOut(element.path));
         List<Widget> colChildren = List();
         if(listOfAttempts == null) {
           return Column(
             children: <Widget>[
-              Text("Not results found"),
+              Text("No results found"),
             ],
           );
         }
@@ -206,6 +227,7 @@ class PastResultsPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<User>(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
