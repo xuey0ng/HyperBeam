@@ -3,7 +3,6 @@ import os
 import logging
 from firebase_admin import credentials
 from google.cloud import firestore, storage
-import google.cloud.logging
 from flask import escape
 from pdf_highlights.Statistic import Statistics
 from pdf_highlights.TextStore import Token
@@ -17,9 +16,6 @@ class PDFhighlights:
     def __init__(self):
         self.db = firestore.Client()
         self.stor = storage.Client()
-        log_client = google.cloud.logging.Client()
-    log_client.get_default_handler()
-    log_client.setup_logging()
 
    
     # Function to create new collection on firebase when new pdf is uploaded
