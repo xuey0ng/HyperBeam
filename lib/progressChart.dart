@@ -230,7 +230,9 @@ class _ProgressChartState extends State<ProgressChart>{
                                     onPressed: () async {
                                       taskFormKey.currentState.validate();
                                       taskFormKey.currentState.save();
-                                      if(reminderDate.difference(DateTime.now()).inSeconds < 3520 || !taskFormKey.currentState.validate()) {
+                                      if(!taskFormKey.currentState.validate()){
+
+                                      } else if(reminderDate.difference(DateTime.now()).inSeconds < 3520) {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
