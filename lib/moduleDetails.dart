@@ -695,7 +695,7 @@ class TaskCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         Timestamp currReminder = await Firestore.instance.collection("TaskReminders")
-            .document(user.id + snapshot.data['name'])
+            .document(user.id + module.moduleCode + snapshot.data['name'])
             .get().then((value) => value.data["date"]);
 
         showDialog(
@@ -824,7 +824,7 @@ class TaskCard extends StatelessWidget {
                                                                     Map<String,dynamic> map = new Map();
                                                                     map['date'] = newDate;
                                                                     Firestore.instance.collection("TaskReminders")
-                                                                        .document(user.id + snapshot.data['name'])
+                                                                        .document(user.id + module.moduleCode + snapshot.data['name'])
                                                                         .setData(map, merge: true);
                                                                     Navigator.pop(context);
                                                                     Navigator.pop(context);
@@ -1062,7 +1062,7 @@ class QuizCard extends StatelessWidget {
                                                             }
                                                         );
                                                       } else {
-                                                        String documentID = reminderDate.toString() + user.id;
+                                                        String documentID = reminderDate.toString() + user.id + quiz.moduleName + quiz.name;
                                                         Reminder rem = Reminder(
                                                             uid: user.id,
                                                             quizName: quiz.name,
@@ -1103,7 +1103,7 @@ class QuizCard extends StatelessWidget {
                                         .snapshots(),
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData) return LinearProgressIndicator();
-                                      List<Widget> colItems = snapshot.data.documents.map((e){
+                                      List<Widget> colItems = snapshot.data.documents.map((e){ //todo
                                         var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate().add(Duration(hours: 8)));
                                         return Container(
                                             padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),

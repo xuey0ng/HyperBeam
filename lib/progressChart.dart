@@ -277,7 +277,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                         map["taskName"] = taskName;
                                         map['uid'] = user.id;
                                         map['moduleCode'] = module.moduleCode;
-                                        Firestore.instance.collection("TaskReminders").document(user.id+taskName).setData(map);
+                                        Firestore.instance.collection("TaskReminders").document(user.id+module.moduleCode+taskName).setData(map);
                                         Task newTask = Task(taskName);
                                         var newList = module.taskList.toList(growable: true);
                                         DocumentReference docRef;

@@ -299,7 +299,7 @@ class _QuizFormState extends State<QuizForm> {
     DocumentReference docRef;
     await quizRepository.addDocAndID(newQuiz).then((value) => docRef = value);
     await moduleRepository.incrementList(widget.module.reference.documentID, 'quizzes', docRef);
-    String documentID = reminderDate.toString() + user.id;
+    String documentID = reminderDate.toString() + user.id + newQuiz.moduleName + newQuiz.name;
     Reminder rem = Reminder(
         uid: user.id,
         quizName: newQuiz.name,
@@ -312,10 +312,6 @@ class _QuizFormState extends State<QuizForm> {
 
   @override
   Widget build(BuildContext context) {
-    for(int i = 0; i < problemSets.length; i++){
-      print("curr problemSet is ${problemSets[i]} and $questionNumber");
-    }
-
     return Scaffold(
       body: Stack(
           children: [
