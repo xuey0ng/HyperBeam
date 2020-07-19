@@ -1,4 +1,6 @@
 import 'package:HyperBeam/auth.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
@@ -18,6 +20,8 @@ enum FormType {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String _firstName;
+  String _lastName;
   String _email;
   String _password;
   final loginFormKey = new GlobalKey<FormState>();
@@ -41,10 +45,23 @@ class _LoginPageState extends State<LoginPage> {
     if(validateAndSave()) {
       try{
         if(_formType == FormType.login){
-          User user = await auth.signInWithEmailAndPassword(_email, _password);
-          print("Signed in: ${user.id}");
+          User user0 = await auth.signInWithEmailAndPassword(_email, _password);
+          User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
+            print("it is ${value.data.toString()}");
+            return User(firstName: value.data['firstName'], lastName: value.data['lastName'],
+            email: value.data['email'], id: user0.id);
+          });
+          print("Signed in: $user");
         } else {
           User user = await auth.createWithEmailAndPassword(_email, _password);
+          user.firstName = _firstName;
+          user.lastName = _lastName;
+          user.email = _email;
+          Firestore.instance.collection("users").document(user.id).setData({
+            'firstName' : user.firstName,
+            'lastName' : user.lastName,
+            'email' : user.email,
+          });
           print("Created user: ${user.id}");
         }
         //widget.onSignedIn(); //call back on handler
@@ -104,19 +121,45 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   List<Widget> buildInputs() {
-    return [
-      TextFormField(
-        decoration: InputDecoration(labelText: 'Email'),
-        validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
-        onSaved: (val) => _email = val,
-      ),
-      TextFormField(
-        decoration: InputDecoration(labelText: 'Password'),
-        validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
-        onSaved: (val) => _password = val,
-        obscureText: true,
-      ),
-    ];
+    if(_formType == FormType.login) {
+      return [
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Email'),
+          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          onSaved: (val) => _email = val,
+        ),
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Password'),
+          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          onSaved: (val) => _password = val,
+          obscureText: true,
+        ),
+      ];
+    } else {
+      return [
+        TextFormField(
+          decoration: InputDecoration(labelText: 'First name'),
+          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          onSaved: (val) => _firstName = val,
+        ),
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Last name'),
+          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          onSaved: (val) => _lastName = val,
+        ),
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Email'),
+          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          onSaved: (val) => _email = val,
+        ),
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Password'),
+          validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+          onSaved: (val) => _password = val,
+          obscureText: true,
+        ),
+      ];
+    }
   }
 
   List<Widget> buildButtons() {
@@ -124,11 +167,13 @@ class _LoginPageState extends State<LoginPage> {
       return [
         RaisedButton(
           child: Text('Login', style: style1),
+          color: kAccentColor,
           onPressed: () => validateAndSubmit(context),
         ),
         Spacer(flex: 1),
         FlatButton(
           child: Text('Create an account', style: style1),
+          color: kAccentColor,
           onPressed: goToRegister,
         ),
       ];
@@ -136,7 +181,11 @@ class _LoginPageState extends State<LoginPage> {
       return [
         RaisedButton(
           child: Text('Create an account', style: style1),
-          onPressed: () => validateAndSubmit(context),
+          color: kAccentColor,
+          onPressed: () {
+            validateAndSubmit(context);
+
+          }
         ),
         Spacer(flex: 1),
         FlatButton(
