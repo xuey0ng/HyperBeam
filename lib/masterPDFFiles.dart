@@ -66,18 +66,21 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
             children: [
               Row(
                 children: <Widget>[
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
-                      text: " ${PDFName}",
+                  Expanded(
+                    flex: 16,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                        text: " ${PDFName}",
+                      ),
                     ),
                   ),
                   Spacer(),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: kMediumText,),
+                      style: TextStyle(color: Colors.black, fontSize: kSmallText,),
                       text: "Subscribe: ",
                     ),
                   ),

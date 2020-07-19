@@ -567,7 +567,8 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                   final pdfRepo = moduleRepository.getCollectionRef()
                                       .document(args.moduleCode).collection("myPDFs");
                                   List<MyPDFUpload> files = await pdfRepo.getDocuments()
-                                      .then((value) => value.documents.map((e) => MyPDFUpload.fromSnapshot(e)).toList());
+                                      .then((value) => value.documents
+                                      .map((e) => MyPDFUpload.fromSnapshot(e)).toList());
                                   List<Widget> widgetList = List();
                                   for(MyPDFUpload pdf in files) {
                                     widgetList.add(_buildItem(pdf));
