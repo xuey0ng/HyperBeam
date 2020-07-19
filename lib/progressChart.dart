@@ -1,7 +1,6 @@
 import 'dart:core';
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/objectClasses.dart';
-import 'package:HyperBeam/routing_constants.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
@@ -15,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
 import 'package:HyperBeam/services/firebase_metadata_service.dart';
+import 'package:intl/intl.dart';
+
 
 class ProgressChart extends StatefulWidget {
   @override
@@ -202,6 +203,7 @@ class _ProgressChartState extends State<ProgressChart>{
                               ),
                               SizedBox(height: 24),
                               FormBuilderDateTimePicker(
+                                initialEntryMode: DatePickerEntryMode.calendar,
                                 initialValue: DateTime.now().add(Duration(hours: 8)),
                                 attribute: "date",
                                 inputType: InputType.both,

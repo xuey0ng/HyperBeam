@@ -757,6 +757,7 @@ class TaskCard extends StatelessWidget {
                                                           ),
                                                           Spacer(),
                                                           FormBuilderDateTimePicker(
+                                                            initialEntryMode: DatePickerEntryMode.calendar,
                                                             initialValue: DateTime.now().add(Duration(hours: 8)),
                                                             attribute: "date",
                                                             inputType: InputType.both,
@@ -1007,7 +1008,8 @@ class QuizCard extends StatelessWidget {
                                               child: Column(
                                                 children: <Widget>[
                                                   FormBuilderDateTimePicker(
-                                                      initialValue: DateTime.now().add(Duration(hours: 8)),
+                                                    initialEntryMode: DatePickerEntryMode.calendar,
+                                                    initialValue: DateTime.now().add(Duration(hours: 8)),
                                                     attribute: "date",
                                                     inputType: InputType.both,
                                                     decoration: textInputDecoration.copyWith(
