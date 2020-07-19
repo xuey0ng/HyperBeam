@@ -345,6 +345,7 @@ class _QuizFormState extends State<QuizForm> {
                             child: Column(
                               children: <Widget>[
                                 FormBuilderDateTimePicker(
+                                  initialEntryMode: DatePickerEntryMode.calendar,
                                   initialValue: DateTime.now().add(Duration(hours: 8)),
                                   attribute: "date",
                                   inputType: InputType.both,
