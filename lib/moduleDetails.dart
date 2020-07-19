@@ -696,7 +696,7 @@ class TaskCard extends StatelessWidget {
       onTap: () async {
         Timestamp currReminder = await Firestore.instance.collection("TaskReminders")
             .document(user.id + module.moduleCode + snapshot.data['name'])
-            .get().then((value) => value.data["date"]);
+            .get().then((value) => value == null ? Timestamp.now() : value.data["date"]);
 
         showDialog(
             context: context,
