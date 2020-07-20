@@ -43,7 +43,7 @@ class PastResultsPage extends StatelessWidget{
           children: <Widget>[
             Text("${name}"),
             Spacer(),
-            Text("${DateFormat('dd-MM-yyyy\n  kk:mm').format(doc.data['date'].toDate().add(Duration(hours: 8)))}"),
+            Text("${DateFormat('dd-MM-yyyy\n  kk:mm').format(doc.data['date'].toDate())}"),
             SizedBox(width:40),
             Text("${doc.data["score"]}"),
             SizedBox(width: 16,)
@@ -84,7 +84,7 @@ class PastResultsPage extends StatelessWidget{
                 text: TextSpan(
                     children: [
                       TextSpan(
-                          text: "${DateFormat('dd-MM-yyyy\n    kk:mm').format(snap.data['date'].toDate().add(Duration(hours: 8)))}",
+                          text: "${DateFormat('dd-MM-yyyy\n    kk:mm').format(snap.data['date'].toDate())}",
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: kSmallText, color: Colors.black),
                       )
                     ]
@@ -148,7 +148,7 @@ class PastResultsPage extends StatelessWidget{
                 text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "${DateFormat('dd-MM-yyyy\n     kk:mm').format(snap.data['date'].toDate().add(Duration(hours: 8)))}",
+                        text: "${DateFormat('dd-MM-yyyy\n     kk:mm').format(snap.data['date'].toDate())}",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: kSmallText, color: Colors.black),
                       )
                     ]

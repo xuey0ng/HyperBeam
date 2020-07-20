@@ -112,7 +112,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       if (sem.examDate != null){
         lst.add(Text("${DateFormat('yyyy-MM-dd – HH:mm')
             .format(sem.examDate
-            .add(Duration(hours: 8)))}"));
+            )}"));
       }
       lst.add(Text("${sem.examDuration == null ? "TBC" : "${sem.examDuration} mins"}"));
     }
@@ -718,7 +718,7 @@ class TaskCard extends StatelessWidget {
                               textAlign: TextAlign.left,
                               text: TextSpan(
                                 style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                                text: "Next reminder on: \n${"${DateFormat('dd-MM-yyyy  kk:mm').format(currReminder.toDate().add(Duration(hours: 8)))}"}",
+                                text: "Next reminder on: \n${"${DateFormat('dd-MM-yyyy  kk:mm').format(currReminder.toDate())}"}",
                               )
                           ),
                           SizedBox(
@@ -759,14 +759,14 @@ class TaskCard extends StatelessWidget {
                                                           Spacer(),
                                                           FormBuilderDateTimePicker(
                                                             initialEntryMode: DatePickerEntryMode.calendar,
-                                                            initialValue: DateTime.now().add(Duration(hours: 8)),
+                                                            initialValue: DateTime.now(),
                                                             attribute: "date",
                                                             inputType: InputType.both,
                                                             decoration: textInputDecoration.copyWith(
                                                                 hintText: 'Enter a Date',
                                                                 labelText: "Pick a date"),
                                                             onSaved: (text) async {
-                                                              newDate = text.subtract(Duration(hours: 8));
+                                                              newDate = text;
                                                             },
                                                           ),
                                                           Spacer(),
@@ -1010,7 +1010,7 @@ class QuizCard extends StatelessWidget {
                                                 children: <Widget>[
                                                   FormBuilderDateTimePicker(
                                                     initialEntryMode: DatePickerEntryMode.calendar,
-                                                    initialValue: DateTime.now().add(Duration(hours: 8)),
+                                                    initialValue: DateTime.now(),
                                                     attribute: "date",
                                                     inputType: InputType.both,
                                                     decoration: textInputDecoration.copyWith(
@@ -1018,7 +1018,7 @@ class QuizCard extends StatelessWidget {
                                                         labelText: "Pick a date"),
                                                     onSaved: (text) async {
                                                       setState(() {
-                                                        reminderDate = text.subtract(Duration(hours: 8));
+                                                        reminderDate = text;
                                                       });
                                                     },
                                                   ),
@@ -1107,7 +1107,7 @@ class QuizCard extends StatelessWidget {
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData) return LinearProgressIndicator();
                                       List<Widget> colItems = snapshot.data.documents.map((e){ //todo
-                                        var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate().add(Duration(hours: 8)));
+                                        var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
                                         return Container(
                                             padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
                                             margin: EdgeInsets.all(8),
