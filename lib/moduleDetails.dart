@@ -864,9 +864,8 @@ class TaskCard extends StatelessWidget {
                                 newList.remove(snapshot.reference);
                                 mod.taskList = newList;
                                 moduleRepository.updateDoc(mod);
-                                print("CURRENTLY IT IS ${user.id+snapshot.data['name']}");
                                 Firestore.instance.collection("TaskReminders")
-                                    .document(user.id+snapshot.data['name']).delete();
+                                    .document(user.id+module.moduleCode+snapshot.data['name']).delete();
                                 Navigator.pop(dialogContext);
                               },
                             ),
