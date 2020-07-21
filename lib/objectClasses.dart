@@ -340,7 +340,7 @@ class Module extends iDatabaseable{
   String pdfFiles;
   DocumentReference reference;
 
-  factory Module.fromJson(Map<String, dynamic> json) => Module(
+  factory Module.fromJson(Map<String, dynamic> json) => json == null ? null : Module(
     moduleCode: json["moduleCode"] ?? "Unknown",
     title: json["title"] ?? "Unknown",
     quizList: json["quizzes"] ?? List<dynamic>(),

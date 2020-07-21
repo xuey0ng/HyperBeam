@@ -45,6 +45,43 @@ class _LoginPageState extends State<LoginPage> {
       try {
         await auth.signInWithGoogle();
       } catch (err) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              final dialogContext = context;
+              return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:  BorderRadius.circular(20.0)
+                  ),
+                  backgroundColor: kSecondaryColor,
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    height: 200,
+                    child: Column(
+                        children: [
+                          Spacer(),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                              text: "Unable to log in with the chosen Gmail\n Please try login with HyperBeam account instead",
+                            ),
+                          ),
+                          Spacer(),
+                          RaisedButton(
+                            child: Text("Ok"),
+                            color: kAccentColor,
+                            onPressed: () {
+                              Navigator.pop(dialogContext);
+                            },
+                          ),
+                          Spacer(),
+                        ]
+                    ),
+                  )
+              );
+            }
+        );
         print("Error: $err");
       }
     } else {

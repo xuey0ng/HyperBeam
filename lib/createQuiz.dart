@@ -346,7 +346,7 @@ class _QuizFormState extends State<QuizForm> {
                               children: <Widget>[
                                 FormBuilderDateTimePicker(
                                   initialEntryMode: DatePickerEntryMode.calendar,
-                                  initialValue: DateTime.now().add(Duration(hours: 8)),
+                                  initialValue: DateTime.now(),
                                   attribute: "date",
                                   inputType: InputType.both,
                                   decoration: textInputDecoration.copyWith(
@@ -354,7 +354,7 @@ class _QuizFormState extends State<QuizForm> {
                                       labelText: "Pick a date"),
                                   onSaved: (text) async {
                                     setState(() {
-                                      reminderDate = text.subtract(Duration(hours: 8));
+                                      reminderDate = text;
                                     });
                                   },
                                 ),

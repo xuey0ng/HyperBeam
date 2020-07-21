@@ -71,7 +71,7 @@ class _AtAGlanceState extends State<AtAGlance> {
                       ),
                       TextSpan(
                           text: "Reminder set at:  ${DateFormat('dd-MM-yyyy  kk:mm')
-                              .format(snap.data['date'].toDate().add(Duration(hours: 8)))}",
+                              .format(snap.data['date'].toDate())}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: kMediumText
@@ -124,7 +124,7 @@ class _AtAGlanceState extends State<AtAGlance> {
                       ),
                       TextSpan(
                           text: "Reminder set at:  ${DateFormat('dd-MM-yyyy  kk:mm')
-                              .format(snap2.data['date'].toDate().add(Duration(hours: 8)))}",
+                              .format(snap2.data['date'].toDate())}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: kMediumText
@@ -142,16 +142,16 @@ class _AtAGlanceState extends State<AtAGlance> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context, listen:false);
     final reminderRepo = Provider.of<FirebaseReminderService>(context, listen:false).getRepo();
-    return FutureBuilder<QuerySnapshot>(
-      future: reminderRepo.getCollectionRef().where("uid", isEqualTo: user.id).getDocuments(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection("TaskReminders").where("uid", isEqualTo: user.id).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        List<DocumentSnapshot> list = snapshot.data.documents;
-        return FutureBuilder<QuerySnapshot>(
-          future: Firestore.instance.collection("TaskReminders").where("uid", isEqualTo: user.id).getDocuments(),
+        List<DocumentSnapshot> list2 = snapshot.data.documents;
+        return StreamBuilder<QuerySnapshot>(
+          stream: reminderRepo.getCollectionRef().where("uid", isEqualTo: user.id).snapshots(),
           builder: (context, snapshot2) {
             if (!snapshot2.hasData) return LinearProgressIndicator();
-            List<DocumentSnapshot> list2 = snapshot2.data.documents;
+            List<DocumentSnapshot> list = snapshot2.data.documents;
             list2.sort((a,b){
               if( a.data["date"].toDate().isBefore(b.data["date"].toDate())) {
                 return -1;
