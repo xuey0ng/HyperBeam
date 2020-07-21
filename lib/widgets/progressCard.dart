@@ -106,7 +106,8 @@ class ProgressCard extends StatelessWidget {
                                   for(DocumentSnapshot doc in lst) {
                                     reminderRepo.document(doc.documentID).delete();
                                   }
-                                  List<DocumentSnapshot> lst2 = await taskReminderRepo.where("moduleCode", isEqualTo: moduleCode)
+                                  List<DocumentSnapshot> lst2 = await taskReminderRepo
+                                      .where("moduleCode", isEqualTo: moduleCode)
                                       .getDocuments().then((value) => value.documents);
                                   for(DocumentSnapshot doc in lst2) {
                                     taskReminderRepo.document(doc.documentID).delete();
