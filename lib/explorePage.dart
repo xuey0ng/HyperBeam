@@ -232,6 +232,44 @@ class _ExplorePageState extends State<ExplorePage> {
                                       ); // add to user's repo
                                       if(result == 1) {
                                         Navigator.pop(dialogContext);
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              final dialogContext = context;
+                                              return Dialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:  BorderRadius.circular(20.0)
+                                                  ),
+                                                  backgroundColor: kSecondaryColor,
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(16),
+                                                    height: 320,
+                                                    child: Column(
+                                                        children: [
+                                                          Spacer(),
+                                                          RichText(
+                                                            textAlign: TextAlign.center,
+                                                            text: TextSpan(
+                                                              style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                                              text: "Please create the module at home page first",
+                                                            ),
+                                                          ),
+                                                          Spacer(),
+                                                          RaisedButton(
+                                                            child: Text("Ok"),
+                                                            color: kAccentColor,
+                                                            onPressed: () {
+                                                              Navigator.pop(dialogContext);
+                                                            },
+                                                          ),
+                                                          Spacer(),
+                                                        ]
+                                                    ),
+                                                  )
+                                              );
+                                            }
+                                        );
                                       }
                                     },
                                   ),
