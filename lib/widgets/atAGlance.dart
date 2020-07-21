@@ -143,15 +143,15 @@ class _AtAGlanceState extends State<AtAGlance> {
     User user = Provider.of<User>(context, listen:false);
     final reminderRepo = Provider.of<FirebaseReminderService>(context, listen:false).getRepo();
     return StreamBuilder<QuerySnapshot>(
-      stream: reminderRepo.getCollectionRef().where("uid", isEqualTo: user.id).snapshots(),
+      stream: Firestore.instance.collection("TaskReminders").where("uid", isEqualTo: user.id).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        List<DocumentSnapshot> list = snapshot.data.documents;
+        List<DocumentSnapshot> list2 = snapshot.data.documents;
         return StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection("TaskReminders").where("uid", isEqualTo: user.id).snapshots(),
+          stream: reminderRepo.getCollectionRef().where("uid", isEqualTo: user.id).snapshots(),
           builder: (context, snapshot2) {
             if (!snapshot2.hasData) return LinearProgressIndicator();
-            List<DocumentSnapshot> list2 = snapshot2.data.documents;
+            List<DocumentSnapshot> list = snapshot2.data.documents;
             list2.sort((a,b){
               if( a.data["date"].toDate().isBefore(b.data["date"].toDate())) {
                 return -1;

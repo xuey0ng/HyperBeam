@@ -859,11 +859,7 @@ class TaskCard extends StatelessWidget {
                                 final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                                 User user = Provider.of<User>(context);
                                 taskRepository.delete(snapshot);
-                                Module mod = module;
-                                var newList = new List<DocumentReference>.from(mod.taskList);
-                                newList.remove(snapshot.reference);
-                                mod.taskList = newList;
-                                moduleRepository.updateDoc(mod);
+                                await moduleRepository.decrementList(module.moduleCode ,"tasks",snapshot.reference);
                                 Firestore.instance.collection("TaskReminders")
                                     .document(user.id+module.moduleCode+snapshot.data['name']).delete();
                                 Navigator.pop(dialogContext);
@@ -1199,6 +1195,7 @@ class QuizCard extends StatelessWidget {
                           onPressed: () async {
                             final user = Provider.of<User>(context);
                             final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                            //DataRepo reminderRepo = DataRepo.fromInstance(Firestore.instance.collection("Reminders"));
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
                             if(snapshot.data["uid"] == user.id) {
                               DocumentSnapshot snap = await quizRepository.getCollectionRef().document(snapshot.documentID).get();
@@ -1215,6 +1212,12 @@ class QuizCard extends StatelessWidget {
                               await quizRepository.decrementList(snapshot.documentID, "users", user.id);
                             }
                             Navigator.pop(dialogContext);
+                            List<String> lst = await Firestore.instance.collection("Reminders")
+                                .where("quizDocRef", isEqualTo: quiz.reference)
+                                .getDocuments().then((value) => value.documents.map((e) => e.documentID).toList());
+                            for(String docId in lst) {
+                              Firestore.instance.collection("Reminders").document(docId).delete();
+                            }
                           },
                         ),
                       ),
