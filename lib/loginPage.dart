@@ -88,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
       if(validateAndSave()) {
         try{
           if (_formType == FormType.login) {
-            print("HITTT1");
             try {
               User user0 = await auth.signInWithEmailAndPassword(_email, _password);
               User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){

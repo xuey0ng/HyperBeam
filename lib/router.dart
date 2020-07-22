@@ -12,7 +12,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeRoute:
       return MaterialPageRoute(builder: (context) => WillPopScope(
         onWillPop: () async {
-          print("HOMEPAGE2 BACK BUTTON PRESSED");
           return false;
         },
           child: HomePage()));

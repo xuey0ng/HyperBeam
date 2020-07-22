@@ -86,7 +86,6 @@ class FirebaseAuthService {
     final FirebaseUser currentUser = await _firebaseAuth.currentUser();
     assert(user.uid == currentUser.uid);
     if (authResult.additionalUserInfo.isNewUser) {
-      print("SETTTINGG ${user.displayName}");
       await Firestore.instance.collection("users").document(user.uid)
           .setData({
       'name' : user.displayName,

@@ -266,7 +266,6 @@ class QuizResultPage extends StatelessWidget{
               color: Colors.amber,
             ),
             onRatingUpdate: (rating) {
-              print(rating);
               quizRating = rating;
             },
           ),

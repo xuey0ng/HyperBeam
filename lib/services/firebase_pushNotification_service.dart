@@ -30,7 +30,6 @@ class PushNotificationService {
   }
 
   initialise() {
-    print("initialising push notif");
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((event) {
         saveDeviceToken();
@@ -83,7 +82,6 @@ class PushNotificationService {
                   child: Text('Okdddd'),
                   onPressed: () {
                     if(message.containsKey('data')){
-                      print("DATA FOUND");
                       final dynamic data = message['data'];
                       print(data['link']);
                       obtainPDFfromLink(data['link']);
@@ -110,9 +108,7 @@ class PushNotificationService {
                   child: Text('Okresume'),
                   onPressed: () {
                     if(message.containsKey('data')){
-                      print("DATA FOUND");
                       final dynamic data = message['data'];
-                      print(data['link']);
                       obtainPDFfromLink(data['link']);
                     }
                     Navigator.of(context).pop();

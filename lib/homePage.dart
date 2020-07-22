@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
       NUS_MODULES = new ModulesList.fromJson(jsonResponse);
     }
     if(NUS_MODULES == null)  {
-      print("Loading modules");
       loadModule();
     }
   }

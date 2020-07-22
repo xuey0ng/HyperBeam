@@ -21,8 +21,6 @@ class _ExplorePageState extends State<ExplorePage> {
   String query;
   final searchKey = new GlobalKey<FormState>();
 
-  //List<Widget> argument = [Text("loading")];
-
   Widget buildGrid(BuildContext context, String query) {
     var size = MediaQuery.of(context).size;
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
@@ -51,7 +49,6 @@ class _ExplorePageState extends State<ExplorePage> {
                 .where((element) => element.data['uid'] != user.id)
                 .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
           }
-          print("begin building list of length ${lst.length}");
           return Flexible(
             child: Container(
               height: size.height*0.8 - 36,
@@ -183,7 +180,6 @@ class _ExplorePageState extends State<ExplorePage> {
         num quizRating = 0 ;
         if(quiz.reviewers != null){
           for(int i = 1; i < quiz.reviewers.length; i = i + 2) {
-            print(quiz.reviewers[i]);
             quizRating += num.parse(quiz.reviewers[i]);
           }
           quizRating = quizRating*2 / quiz.reviewers.length;
