@@ -180,6 +180,9 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         if(path.codeUnitAt(i) == 47) lastSlash = i;
         if(path.codeUnitAt(i) == 46) lastDot = i;
       }
+      if(lastDot < lastSlash){
+        return path.substring(lastSlash+1);
+      }
       return path.substring(lastSlash+1, lastDot);
     }// / is 47 , . is 46
     String fileName = getFileName(file.path);
@@ -261,8 +264,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
               FlatButton(
                 child: Text("Upload"),
                 onPressed: () async {
-
-
                   final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
                       modId: args.moduleCode, docId: fileName);
                   print("PDFURL is $pdfUri");
