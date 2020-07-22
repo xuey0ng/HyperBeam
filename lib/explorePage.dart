@@ -44,7 +44,7 @@ class _ExplorePageState extends State<ExplorePage> {
                   return element.data['private'] == false;
                 })
                 .toList()
-                .where((element) => element.data['moduleName'] == query)
+                .where((element) => element.data['moduleName'].contains(query, 0))
                 .toList()
                 .where((element) => element.data['uid'] != user.id)
                 .map((e) => _buildQuizCard(Quiz.fromSnapshot(e))).toList();
@@ -134,7 +134,7 @@ class _ExplorePageState extends State<ExplorePage> {
                       child: TextFormField(
                         onChanged: (text){
                           setState(() {
-                            query = text;
+                            query = text.toUpperCase();
                           });
                         },
                         decoration: new InputDecoration(
@@ -147,7 +147,7 @@ class _ExplorePageState extends State<ExplorePage> {
                             EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
                             hintText: "Search module"),
                         validator: (val){
-                          if(!NUS_MODULES.containsCode(val) && val != "") {
+                          if(!NUS_MODULES.containsCode(val.toUpperCase()) && val != "") {
                             return "Please input a valid module";
                           } else{
                             return null;
@@ -155,7 +155,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         },
                         onSaved: (val){
                           setState(() {
-                            query = val;
+                            query = val.toUpperCase();
                           });
                         },
                       ),
