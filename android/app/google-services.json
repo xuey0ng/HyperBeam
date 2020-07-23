@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "821555071494-ld8hlvbjib627glndr24v56h5ik54pai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nusorbital.hyperbeam",
+            "certificate_hash": "dae76e44ef083b0666d4675dffc56ee48ca54b7a"
+          }
+        },
+        {
           "client_id": "821555071494-gcqsmcuu6il7pkvmobsegdnvdmsn0psh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

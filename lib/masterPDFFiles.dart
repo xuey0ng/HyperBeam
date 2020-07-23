@@ -110,7 +110,8 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
               SizedBox(height: 4),
               Row(
                   children: [
-                    Expanded(child: Text("Last updated on: \n ${lastUpdated == null ? "No info" : DateFormat('dd-MM-yyyy kk:mm').format(lastUpdated.toDate())}")),
+                    Expanded(child: Text("Last updated on: \n ${lastUpdated == null ? "No info" : DateFormat('dd-MM-yyyy kk:mm')
+                        .format(lastUpdated.toDate())}")),
                     Expanded(
                         child: Text("  Your PDF is named:  \n${userPDFName ?? "No similar PDF uploaded"}")
                     ),
