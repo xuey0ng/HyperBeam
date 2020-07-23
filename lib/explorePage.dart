@@ -86,91 +86,91 @@ class _ExplorePageState extends State<ExplorePage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body:
-      Container(
-        margin: EdgeInsets.only(top: 18),
-        height: size.height,
-        width: 500,
-        child: Column(
-            children: [
-              Container(
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                          style: Theme.of(context).textTheme.headline2,
-                          children: [
-                            TextSpan(text: "Explore",
-                                style: TextStyle(fontWeight: FontWeight.bold,)
+      Center(
+        child: Container(
+          margin: EdgeInsets.only(top: 18),
+          height: size.height,
+          width: 500,
+          child: Column(
+              children: [
+                Container(
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                            style: Theme.of(context).textTheme.headline2,
+                            children: [
+                              TextSpan(text: "Explore",
+                                  style: TextStyle(fontWeight: FontWeight.bold,)
+                              ),
+                            ]
+                        )
+                    )
+                ),
+                Stack(
+                  children: [
+                    Card(
+                      elevation: 2,
+                      child: Container(
+                        width: 280,
+                        height: 36,
+                        child: Row(
+                          children: <Widget>[
+                            Spacer(),
+                            IconButton(
+                              icon: Icon(Icons.search),
+                              onPressed: () {
+                                validateAndSave();
+                              },
                             ),
-                          ]
-                      )
-                  )
-              ),
-              Stack(
-                children: [
-                  Card(
-                    elevation: 2,
-                    child: Container(
-                      width: 280,
-                      height: 36,
-                      child: Row(
-                        children: <Widget>[
-                          Spacer(),
-                          IconButton(
-                            icon: Icon(Icons.search),
-                            onPressed: () {
-                              validateAndSave();
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Form(
-                    key: searchKey,
-                    autovalidate: true,
-                    child: Container(
-                      width: 280,
-                      height: 56,
-                      child: TextFormField(
-                        onChanged: (text){
-                          setState(() {
-                            query = text.toUpperCase();
-                          });
-                        },
-                        decoration: new InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            contentPadding:
-                            EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
-                            hintText: "Search module"),
-                        validator: (val){
-                          if(!NUS_MODULES.containsCode(val.toUpperCase()) && val != "") {
-                            return "Please input a valid module";
-                          } else{
-                            return null;
-                          }
-                        },
-                        onSaved: (val){
-                          setState(() {
-                            query = val.toUpperCase();
-                          });
-                        },
+                    Form(
+                      key: searchKey,
+                      autovalidate: true,
+                      child: Container(
+                        width: 280,
+                        height: 56,
+                        child: TextFormField(
+                          onChanged: (text){
+                            setState(() {
+                              query = text.toUpperCase();
+                            });
+                          },
+                          decoration: new InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              contentPadding:
+                              EdgeInsets.only(left: 15, bottom: 8, top: 8, right: 15),
+                              hintText: "Search module"),
+                          validator: (val){
+                            if(!NUS_MODULES.containsCode(val.toUpperCase()) && val != "") {
+                              return "Please input a valid module";
+                            } else{
+                              return null;
+                            }
+                          },
+                          onSaved: (val){
+                            setState(() {
+                              query = val.toUpperCase();
+                            });
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ]
-              ),
-              buildGrid(context, query),
-            ]
+                  ]
+                ),
+                buildGrid(context, query),
+              ]
+          ),
         ),
       ),
     );
   }
-
-
 
   Widget _buildQuizCard(Quiz quiz) {
     return StreamBuilder<DocumentSnapshot>(
