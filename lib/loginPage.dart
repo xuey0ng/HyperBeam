@@ -135,14 +135,55 @@ class _LoginPageState extends State<LoginPage> {
               );
             }
           } else {
-            User user = await auth.createWithEmailAndPassword(_email, _password);
-            user.name = _name;
-            user.email = _email;
-            Firestore.instance.collection("users").document(user.id).setData({
-              'name' : user.name,
-              'email' : user.email,
-            });
-            print("Created user: ${user.id}");
+            try {
+              User user = await auth.createWithEmailAndPassword(_email, _password);
+              user.name = _name;
+              user.email = _email;
+              Firestore.instance.collection("users").document(user.id).setData({
+                'name' : user.name,
+                'email' : user.email,
+              });
+              print("Created user: ${user.id}");
+            } on PlatformException {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    final dialogContext = context;
+                    return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:  BorderRadius.circular(20.0)
+                        ),
+                        backgroundColor: kSecondaryColor,
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          height: 200,
+                          child: Column(
+                              children: [
+                                Spacer(),
+                                RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                    text: "Account already in use",
+                                  ),
+                                ),
+                                Spacer(),
+                                RaisedButton(
+                                  child: Text("Ok"),
+                                  color: kAccentColor,
+                                  onPressed: () {
+                                    Navigator.pop(dialogContext);
+                                  },
+                                ),
+                                Spacer(),
+                              ]
+                          ),
+                        )
+                    );
+                  }
+              );
+            }
+
           }
         } catch (err) {
           print("Error: $err");
