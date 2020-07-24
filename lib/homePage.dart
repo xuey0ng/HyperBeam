@@ -65,6 +65,122 @@ class _HomePageState extends State<HomePage> {
     var size = MediaQuery.of(context).size;
     final user = Provider.of<User>(context, listen: false);
     final mod = Provider.of<FirebaseModuleService>(context).getRepo();
+    Widget quizList() {
+      return StreamBuilder<QuerySnapshot> (
+          stream: Firestore.instance.collection("Reminders")
+              .where("uid", isEqualTo: user.id)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return LinearProgressIndicator();
+            List<Widget> colItems = snapshot.data.documents.map((e){
+              var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
+              return Container(
+                  padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
+                  margin: EdgeInsets.all(8),
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 4),
+                        blurRadius: 8,
+                        color: Color(0xFFD3D3D3).withOpacity(.88),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Row(
+                        children: [
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
+                              text: " ${timeDisplayed}",
+                            ),
+                          ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () async {
+                              await Firestore.instance.collection("Reminders").document(e.documentID).delete();
+                            },
+                          ),
+                        ]
+                    ),
+                  )
+              );
+            }).toList();
+            return Container(
+              height: size.height*0.4-22,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: colItems,
+                ),
+              ),
+            );
+          }
+      );
+    }
+    Widget taskList() {
+      return StreamBuilder<QuerySnapshot> (
+          stream: Firestore.instance.collection("TaskReminders")
+              .where("uid", isEqualTo: user.id)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return LinearProgressIndicator();
+            List<Widget> colItems = snapshot.data.documents.map((e){
+              var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
+              return Container(
+                  padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
+                  margin: EdgeInsets.all(8),
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 4),
+                        blurRadius: 8,
+                        color: Color(0xFFD3D3D3).withOpacity(.88),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Row(
+                        children: [
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
+                              text: " ${timeDisplayed}",
+                            ),
+                          ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () async {
+                              await Firestore.instance.collection("Reminders").document(e.documentID).delete();
+                            },
+                          ),
+                        ]
+                    ),
+                  )
+              );
+            }).toList();
+            return Container(
+              height: size.height*0.4-118,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: colItems,
+                ),
+              ),
+            );
+          }
+      );
+    }
     return WillPopScope(
       onWillPop: () async {
         //navigatorKey.currentState.maybePop();
@@ -143,88 +259,76 @@ class _HomePageState extends State<HomePage> {
                                   GestureDetector(
                                     onTap: () async {
                                       showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            final dialogContext = context;
-                                            return StreamBuilder<QuerySnapshot> (
-                                                stream: StreamGroup.merge([Firestore.instance.collection("Reminders")
-                                                    .where("uid", isEqualTo: user.id)
-                                                    .snapshots(), Firestore.instance.collection("TaskReminders")
-                                                    .where("uid", isEqualTo: user.id)
-                                                    .snapshots()]),
-                                                builder: (context, snapshot) {
-                                                  if (!snapshot.hasData) return LinearProgressIndicator();
-                                                  print("NUMBER OF colItems ${snapshot.data.documents.length}");
-                                                  List<Widget> colItems = snapshot.data.documents.map((e){
-                                                    var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
-                                                    return Container(
-                                                        padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
-                                                        margin: EdgeInsets.all(8),
-                                                        width: size.width,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(12),
-                                                          color: Colors.white,
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              offset: Offset(0, 4),
-                                                              blurRadius: 8,
-                                                              color: Color(0xFFD3D3D3).withOpacity(.88),
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          final dialogContext0 = context;
+                                          return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:  BorderRadius.circular(20.0)
+                                              ),
+                                              backgroundColor: kSecondaryColor,
+                                              child: Container(
+                                                padding: EdgeInsets.all(8),
+                                                height: size.height*0.8,
+                                                child: Column(
+                                                    children: [
+                                                      Spacer(),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                                                        child: Container(
+                                                            width: size.width*0.9,
+                                                            decoration: BoxDecoration(
+                                                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
                                                             ),
-                                                          ],
+                                                            child: RichText(
+                                                                textAlign: TextAlign.left,
+                                                                text: TextSpan(
+                                                                    style: Theme.of(context).textTheme.headline5,
+                                                                    children: [
+                                                                      TextSpan(text: "Task reminders", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                                                    ]
+                                                                )
+                                                            )
                                                         ),
-                                                        child: Padding(
-                                                          padding: EdgeInsets.all(8),
-                                                          child: Row(
-                                                              children: [
-                                                                RichText(
-                                                                  textAlign: TextAlign.center,
-                                                                  text: TextSpan(
-                                                                    style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
-                                                                    text: " ${timeDisplayed}",
-                                                                  ),
-                                                                ),
-                                                                Spacer(),
-                                                                IconButton(
-                                                                  icon: Icon(Icons.close),
-                                                                  onPressed: () async {
-                                                                    await Firestore.instance.collection("Reminders").document(e.documentID).delete();
-                                                                  },
-                                                                ),
-                                                              ]
-                                                          ),
-                                                        )
-                                                    );
-                                                  }).toList();
-                                                  return Dialog(
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:  BorderRadius.circular(20.0)
                                                       ),
-                                                      backgroundColor: kSecondaryColor,
-                                                      child: Column(
-                                                          children: [
-                                                            SizedBox(height: 12),
-                                                            RichText(
-                                                              overflow: TextOverflow.fade,
-                                                              text: TextSpan(
-                                                                text: "Reminders set",
-                                                                style: TextStyle(
-                                                                  fontSize: kBigText,
-                                                                  color: Colors.black,
-                                                                ),
-                                                              ),
+                                                      taskList(),
+                                                      Spacer(),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                                                        child: Container(
+                                                            width: size.width*0.9,
+                                                            decoration: BoxDecoration(
+                                                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
                                                             ),
-                                                            Container(
-                                                              child: Column(
-                                                                children: colItems,
-                                                              ),
-                                                            ),
-                                                          ]
-                                                      )
-                                                  );
-                                                }
-                                            );
-                                          }
+                                                            child: RichText(
+                                                                textAlign: TextAlign.left,
+                                                                text: TextSpan(
+                                                                    style: Theme.of(context).textTheme.headline5,
+                                                                    children: [
+                                                                      TextSpan(text: "Quiz reminders", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                                                    ]
+                                                                )
+                                                            )
+                                                        ),
+                                                      ),
+                                                      quizList(),
+                                                      Spacer(),
+                                                      RaisedButton(
+                                                        child: Text("Ok"),
+                                                        color: kAccentColor,
+                                                        onPressed: () {
+                                                          Navigator.pop(dialogContext0);
+                                                        },
+                                                      ),
+                                                      Spacer(),
+                                                    ]
+                                                ),
+                                              )
+                                          );
+                                        }
                                       );
+
+
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 24),
