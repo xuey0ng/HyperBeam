@@ -1,4 +1,3 @@
-import 'package:HyperBeam/auth.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +89,46 @@ class _LoginPageState extends State<LoginPage> {
           if (_formType == FormType.login) {
             try {
               User user0 = await auth.signInWithEmailAndPassword(_email, _password);
+              if(!user0.verified) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      final dialogContext = context;
+                      return Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:  BorderRadius.circular(20.0)
+                          ),
+                          backgroundColor: kSecondaryColor,
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            height: 200,
+                            child: Column(
+                                children: [
+                                  Spacer(),
+                                  RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                      text: "Please verify your email",
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  RaisedButton(
+                                    child: Text("Ok"),
+                                    color: kAccentColor,
+                                    onPressed: () {
+                                      Navigator.pop(dialogContext);
+                                      goToLogin();
+                                    },
+                                  ),
+                                  Spacer(),
+                                ]
+                            ),
+                          )
+                      );
+                    }
+                );
+              }
               User user = await Firestore.instance.collection("users").document(user0.id).get().then((value){
                 return User(name: value.data['name'],
                     email: value.data['email'], id: user0.id);
@@ -144,6 +183,44 @@ class _LoginPageState extends State<LoginPage> {
                 'email' : user.email,
               });
               print("Created user: ${user.id}");
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    final dialogContext = context;
+                    return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:  BorderRadius.circular(20.0)
+                        ),
+                        backgroundColor: kSecondaryColor,
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          height: 200,
+                          child: Column(
+                              children: [
+                                Spacer(),
+                                RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(color: Colors.black, fontSize: kBigText, fontWeight: FontWeight.bold),
+                                    text: "A verification email will be sent to the email",
+                                  ),
+                                ),
+                                Spacer(),
+                                RaisedButton(
+                                  child: Text("Ok"),
+                                  color: kAccentColor,
+                                  onPressed: () async {
+                                    Navigator.pop(dialogContext);
+                                    goToLogin();
+                                  },
+                                ),
+                                Spacer(),
+                              ]
+                          ),
+                        )
+                    );
+                  }
+              );
             } on PlatformException {
               showDialog(
                   context: context,
@@ -183,7 +260,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
               );
             }
-
           }
         } catch (err) {
           print("Error: $err");
@@ -346,6 +422,122 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Spacer(flex: 1),
         _signInButton(),
+        Spacer(flex: 1),
+        Container(
+          width: size.width * 0.8,
+          child: OutlineButton(
+            splashColor: Colors.grey,
+            onPressed: () async {
+              final emailFormKey = new GlobalKey<FormState>();
+              final auth = Provider.of<FirebaseAuthService>(context);
+              String email2;
+              BuildContext dialogContext;
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    dialogContext = context;
+                    return Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:  BorderRadius.circular(20.0)
+                      ),
+                      backgroundColor: kSecondaryColor,
+                      child: Container(
+                        height: 312,
+                        child: SingleChildScrollView(
+                          child: Column(
+                              children: [
+                                Form(
+                                    key: emailFormKey,
+                                    autovalidate: true,
+                                    child: Container(
+                                      height: 312,
+                                      width: 220,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          Spacer(),
+                                          RichText(
+                                              textAlign: TextAlign.center,
+                                              text: TextSpan(
+                                                style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                                                text: "Reset password",
+                                              )
+                                          ),
+                                          Spacer(),
+                                          TextFormField(
+                                            autofocus: true,
+                                            autovalidate: true,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: "Enter your email",
+                                            ),
+                                            validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
+                                            onSaved: (text) {
+                                              setState(() {
+                                                email2 = text;
+                                              });
+                                            },
+                                          ),
+                                          SizedBox(height: 16),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              FlatButton(
+                                                  child: Text("Cancel"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  }
+                                              ),
+                                              RaisedButton(
+                                                child: Text("Reset"),
+                                                color: kAccentColor,
+                                                onPressed: () async {
+                                                  final auth = Provider.of<FirebaseAuthService>(context);
+                                                  emailFormKey.currentState.save();
+                                                  if(emailFormKey.currentState.validate()){
+                                                    auth.resetPassword(email2);
+                                                  }
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 8),
+                                        ],
+                                      ),
+                                    )
+                                ),
+                              ]
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+              );
+            },
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            highlightElevation: 0,
+            borderSide: BorderSide(color: Colors.grey),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Reset password',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
       ];
     } else {
       return [
