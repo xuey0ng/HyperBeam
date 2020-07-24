@@ -1,7 +1,7 @@
 import firebase_admin
 import os
 import logging
-from firebase_admin import credentials
+from firebase_admin import credentials, messaging
 from google.cloud import firestore, storage
 from flask import escape
 from pdf_highlights.Statistic import Statistics
@@ -64,6 +64,29 @@ class PDFhighlights:
             else:
                 count = current_doc[u'total']
         return text_list, count
+
+    def update_db(self, module, id, user, pdf_name, url):
+        # First access the quiz ref
+        quiz = self.db.collection('users').document(user).collection('Modules').document(module)
+        quiz_col = quiz.get()
+        quiz_dict = quiz_col.to_dict()
+        quizzes = quiz_dict['quizzes']
+
+        master = self.db.collection('MasterPDFMods').document(module).collection('PDFs').document(id)
+        master_col = master.get()
+        if master_col.exists:
+            # change datetime
+            master.update({'lastUpdated' : firestore.SERVER_TIMESTAMP})
+        else:
+            master.set({'lastUpdated' : firestore.SERVER_TIMESTAMP,
+            'PDFName' : id,
+            'uri' : url})
+        
+        # add users
+        users = master.collection('Users').document(user)
+        users.set({'subscribed' : True,
+        'userFileName' : pdf_name,
+        'quizzes': quizzes})
         
 
     # Function to process the newly uploaded file from cloud storage
@@ -84,7 +107,7 @@ class PDFhighlights:
         if not os.path.isdir(check):
             logging.info('Directory %s is created.', check)
             os.mkdir(check)
-        logging.info('Download {}'.format(temp))
+        # logging.info('Download {}'.format(temp))
         blob.download_to_filename(temp)
         
         # Process the file and check if pdf exists
@@ -95,20 +118,22 @@ class PDFhighlights:
         if len(current_list) > 0:
             filename = str(current_list[0].getHashed())
         else:
+            logging.error('File hash failed')
             return
+
 
         # Check if the document exists
         doc_ref = self.db.collection('pdfs').document(filename).collection(u'words').document(u'total')
         doc = doc_ref.get()
         if doc.exists:
-            logging.info('filename: %s exists', filename)
+            # logging.info('filename: %s exists', filename)
 
             # Update the file on the cloud database before generating the master pdf
             text_list, maxcount = self.update_highlights(current_list, filename)
             master_pdf = GenerateMaster()
             master_pdf.main(temp, text_list, maxcount)
         else:   
-            logging.info('filename: %s does not exists, creating new entry', filename)
+            # logging.info('filename: %s does not exists, creating new entry', filename)
             # Initialise a new collection for the new pdf upload and generate the corresponding master pdf
             self.new_pdf(current_list, filename)
             master_pdf = GenerateMaster()
@@ -127,9 +152,25 @@ class PDFhighlights:
 
         # Obtain and upload the link to the master pdf to the directory 
         master_url = blob_up.public_url    
+        if master_url == None:
+            master_url = ''
         blob_link = bucket.blob(new_url)
         blob_link.upload_from_string(str(master_url))
         os.remove(temp) 
+
+        # Update the MasterPDFMods collection in firestore
+        display_name = str(current_list[0].getFilename())
+        display_name = display_name.split('/')[-1]
+        self.update_db(blob_name.split('/')[2], str(current_list[0].getHashed()), blob_name.split('/')[1], display_name, str(master_url))
+        doc_ref = self.db.collection(u'users').document(blob_name.split('/')[1])
+        curr = doc_ref.get().to_dict()
+        subscribtion_list = list()
+        try:
+            subscribtion_list.append(curr[u'token'])
+            messaging.subscribe_to_topic(subscribtion_list, filename.split('.')[0])
+        except:
+            logging.error("Token not found")
+        return str(master_url) , filename
 
 
 

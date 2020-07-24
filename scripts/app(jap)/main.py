@@ -1,4 +1,4 @@
-from pdf_highlights import PDFHighlights
+from pdf_highlights import PDFHighlights, message
 import base64
 import json
 import logging
@@ -37,7 +37,7 @@ log_client.setup_logging()
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        return render_template('index.html', messages=MESSAGES)
+        return render_template('index.html', messages=MESSAGES, counter=len(MESSAGES))
 
     data = request.form.get('payload', 'Example payload').encode('utf-8')
 
@@ -52,6 +52,12 @@ def index():
 # [END gae_flex_pubsub_index]
 
 
+@app.route('/terms', methods=['GET'])
+def terms():
+    return render_template('privacy.html')
+
+
+
 # [START gae_flex_pubsub_push]
 @app.route('/pubsub/push', methods=['POST'])
 def pubsub_push():
@@ -60,7 +66,7 @@ def pubsub_push():
         return 'Invalid request', 400
     
     # Collect the metadata from the pubsub to determine message type
-    logging.info('Document is created on cloud storage')
+    # logging.info('Document is created on cloud storage')
     envelope = json.loads(request.data.decode('utf-8'))
     payload = base64.b64decode(envelope['message']['data'])
     attributes = envelope['message']['attributes']
@@ -71,21 +77,46 @@ def pubsub_push():
     overwrote_generation = attributes.get('overwroteGeneration')
     overwritten_by_generation = attributes.get('overwrittenByGeneration')
 
+    MESSAGES.append(attributes)
+
     # To check if the upload is a new upload as well by checking if it overwrote something
     if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] != 'master' and blob[-4:] == '.pdf':
-        logging.warning("{} : {} : was downloaded".format(bucket, blob))
+        logging.info("{} : {} : was downloaded".format(bucket, blob))
         current = PDFHighlights.PDFhighlights()
-        current.process(bucket, blob)
-    MESSAGES.append(attributes)
-    
+        link, filename = current.process(bucket, blob)
+        noti = message.PushNoti()
+        # noti.send_to_user(blob.split('/')[1], blob.split('/')[-1], link)
+        try:
+            noti.send_to_topic(filename.split('.')[0], blob.split('/')[-1], link)
+            logging.info('Attempted to send notification sent to topic {}'.format(filename))
+        except:
+            logging.error('Notification failed')
     # Returning any 2xx status indicates successful receipt of the message.
     return 'OK', 200
 # [END gae_flex_pubsub_push]
 
+@app.route('/task_handler', methods=['POST'])
+def task_handler():
+    """Log the request payload."""
+    payload = request.get_data(as_text=True) or '(empty payload)'
+    print('Received task with payload: {}'.format(payload))
+    noti = message.PushNoti()
+    payload = payload.split(',')
+    uid = payload[0]
+    module = payload[1]
+    quiz = payload[2]
+    if len(payload) > 3:
+        quiz_ref = payload[3]
+        noti.quiz_reminder(uid, module, quiz, quiz_ref)
+    else:
+        noti.quiz_reminder(uid, module, quiz)
+    return 'Printed task payload: {}'.format(payload), 200
+    # [END cloud_tasks_appengine_quickstart]
+
 
 @app.errorhandler(500)
 def server_error(e):
-    logging.exception('An error occurred during a request.')
+    # logging.exception('An error occurred during a request.')
     return """
     An internal error occurred: <pre>{}</pre>
     See logs for full stacktrace.

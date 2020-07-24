@@ -35,8 +35,7 @@ class Token:
     def setCount(self, count):
         self.count = count
 
-    # Potentially, we can append question numbers to the highlights.
-    def addQns(self, question): 
+    def addQns(self, question): ##question should be a class that contain the relevant information about that question
         self.qns = self.qns.append(question)
 
     def getQns(self):
@@ -103,4 +102,7 @@ class LineStore:
     
     def getContent(self):
         return self.content
+    
+    def getPage(self):
+        return self.page
     

@@ -1,0 +1,5 @@
+*.json
+*.pyc
+!/*.json
+!/*.pyc
+pdf_highlights/*.pyc
