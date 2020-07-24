@@ -1102,7 +1102,7 @@ class QuizCard extends StatelessWidget {
                                         .snapshots(),
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData) return LinearProgressIndicator();
-                                      List<Widget> colItems = snapshot.data.documents.map((e){ //todo
+                                      List<Widget> colItems = snapshot.data.documents.map((e){
                                         var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
                                         return Container(
                                             padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
