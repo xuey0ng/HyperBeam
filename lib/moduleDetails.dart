@@ -185,108 +185,111 @@ class _ModuleDetailsState extends State<ModuleDetails> {
       }
       return path.substring(lastSlash+1, lastDot);
     }// / is 47 , . is 46
-    String fileName = getFileName(file.path);
-    List<Quiz> quizList = await quizRepository.getCollectionRef()
-        .where("uid", isEqualTo: user.id)
-        .where("moduleName", isEqualTo: args.moduleCode)
-        .getDocuments()
-        .then((value) => value.documents.map((e) => Quiz.fromSnapshot(e)).toList());
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          List<Widget> widgetList = List();
-          bool firstTime = true;
-          List<DocumentReference> output = List();
-          return AlertDialog(
-            title: Text(fileName),
-            content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-                Widget _buildQuizItem(int i, Quiz quiz, bool checked) {
-                  return Row(
-                    children: <Widget>[
-                      Text(quiz.name),
-                      Spacer(),
-                      Checkbox(
-                        value: checked,
-                        onChanged: (bool value) {
-                          setState(() {
-                            widgetList[i] = _buildQuizItem(i, quiz, !checked);
-                            if(!checked) {
-                              output.add(quiz.reference);
-                            } else {
-                              output.remove(quiz.reference);
-                            }
-                          });
-                        },
-                      )
-                    ],
-                  );
-                }
-                if(firstTime) {
-                  for(int i = 0; i < quizList.length; i++){
-                    widgetList.add(_buildQuizItem(i, quizList[i], false));
-                  }
-                  firstTime = false;
-                }
+    String fileName = "";
+    if(file!= null){
+      fileName = getFileName(file.path);
+      List<Quiz> quizList = await quizRepository.getCollectionRef()
+          .where("uid", isEqualTo: user.id)
+          .where("moduleName", isEqualTo: args.moduleCode)
+          .getDocuments()
+          .then((value) => value.documents.map((e) => Quiz.fromSnapshot(e)).toList());
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            List<Widget> widgetList = List();
+            bool firstTime = true;
+            List<DocumentReference> output = List();
+            return AlertDialog(
+              title: Text(fileName),
+              content: StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    Widget _buildQuizItem(int i, Quiz quiz, bool checked) {
+                      return Row(
+                        children: <Widget>[
+                          Text(quiz.name),
+                          Spacer(),
+                          Checkbox(
+                            value: checked,
+                            onChanged: (bool value) {
+                              setState(() {
+                                widgetList[i] = _buildQuizItem(i, quiz, !checked);
+                                if(!checked) {
+                                  output.add(quiz.reference);
+                                } else {
+                                  output.remove(quiz.reference);
+                                }
+                              });
+                            },
+                          )
+                        ],
+                      );
+                    }
+                    if(firstTime) {
+                      for(int i = 0; i < quizList.length; i++){
+                        widgetList.add(_buildQuizItem(i, quizList[i], false));
+                      }
+                      firstTime = false;
+                    }
 
-                return Column(
-                  children: [
-                    RaisedButton(
-                      child: Text("Preview file"),
-                      onPressed: () async {
-                        PDFDocument pdfDoc = await PDFDocument.fromFile(file);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PdfViewer(pdfDoc)
-                            )
-                        );
-                      },
-                    ),
-                    SizedBox(height: 8,),
-                    Text("Select quizzes pertinent to this PDF"),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: widgetList,
-                      ),
-                    ),
-                  ]
-                );
-              }
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text("Cancel"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
+                    return Column(
+                        children: [
+                          RaisedButton(
+                            child: Text("Preview file"),
+                            onPressed: () async {
+                              PDFDocument pdfDoc = await PDFDocument.fromFile(file);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PdfViewer(pdfDoc)
+                                  )
+                              );
+                            },
+                          ),
+                          SizedBox(height: 8,),
+                          Text("Select quizzes pertinent to this PDF"),
+                          SingleChildScrollView(
+                            child: Column(
+                              children: widgetList,
+                            ),
+                          ),
+                        ]
+                    );
                   }
               ),
-              FlatButton(
-                child: Text("Upload"),
-                onPressed: () async {
-                  final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
-                      modId: args.moduleCode, docId: fileName);
-                  print("PDFURL is $pdfUri");
-                  DataRepo myFilesRepo = DataRepo.fromInstance(
-                      moduleRepository.getCollectionRef()
-                          .document(args.moduleCode).collection("myPDFs")
-                  );
-                  MyPDFUpload pdfFile = MyPDFUpload(
-                      name: fileName,
-                      uri: pdfUri,
-                      lastUpdated: Timestamp.fromDate(DateTime.now()),
-                      quizRef: output,
-                  );
-                  myFilesRepo.addDocByID(fileName, pdfFile);
+              actions: <Widget>[
+                FlatButton(
+                    child: Text("Cancel"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
+                ),
+                FlatButton(
+                    child: Text("Upload"),
+                    onPressed: () async {
+                      final pdfUri = await firebaseStorageReference.uploadPdf(file: file,
+                          modId: args.moduleCode, docId: fileName);
+                      print("PDFURL is $pdfUri");
+                      DataRepo myFilesRepo = DataRepo.fromInstance(
+                          moduleRepository.getCollectionRef()
+                              .document(args.moduleCode).collection("myPDFs")
+                      );
+                      MyPDFUpload pdfFile = MyPDFUpload(
+                        name: fileName,
+                        uri: pdfUri,
+                        lastUpdated: Timestamp.fromDate(DateTime.now()),
+                        quizRef: output,
+                      );
+                      myFilesRepo.addDocByID(fileName, pdfFile);
 
-                  await file.delete();
-                  Navigator.of(context).pop();
-                }
-              )
-            ],
-          );
-        }
-    );
+                      await file.delete();
+                      Navigator.of(context).pop();
+                    }
+                )
+              ],
+            );
+          }
+      );
+    }
   }
 
   Widget _buildItem(MyPDFUpload pdf) {
