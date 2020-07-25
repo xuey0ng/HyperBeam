@@ -37,7 +37,15 @@ class Statistics:
                     word_x = (word.getX1() + word.getX2())/2
                     if word_x <= current.getX2() and word_x >= current.getX1():
                         word.incrCount()
-                    j += 1
+                        j += 1
+                    elif word_x > current.getX2():
+                        if (i<max):
+                            i += 1
+                            current = linelist[i]
+                        else:
+                            j += 1
+                    else:
+                        j += 1
                 elif word.getPage() > current.getPage():
                     if (i < max):
                         i+=1

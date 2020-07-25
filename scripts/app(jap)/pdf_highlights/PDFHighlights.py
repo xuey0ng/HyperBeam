@@ -59,8 +59,8 @@ class PDFhighlights:
         for doc in docs:
             current_doc = doc.to_dict()
             if len(current_doc) > 1:
-                text_list.append(Token.from_dict(doc.to_dict()))
-                text_list[-1].setCount(current_doc[u'count'])
+                text_list.append(Token.from_dict(current_doc))
+                # text_list[-1].setCount(current_doc[u'count'])
             else:
                 count = current_doc[u'total']
         return text_list, count
@@ -79,7 +79,7 @@ class PDFhighlights:
             master.update({'lastUpdated' : firestore.SERVER_TIMESTAMP})
         else:
             master.set({'lastUpdated' : firestore.SERVER_TIMESTAMP,
-            'PDFName' : id,
+            'PDFName' : pdf_name,
             'uri' : url})
         
         # add users
