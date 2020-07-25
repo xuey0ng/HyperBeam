@@ -499,6 +499,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   if(emailFormKey.currentState.validate()){
                                                     auth.resetPassword(email2);
                                                   }
+                                                  Navigator.pop(context);
                                                 },
                                               )
                                             ],

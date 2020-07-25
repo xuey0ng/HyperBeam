@@ -17,6 +17,7 @@ class AuthPage extends StatelessWidget {
             if(userSnapshot.hasData){
               if(userSnapshot.data.verified){
                 return MaterialApp(
+                  debugShowCheckedModeBanner: false,
                   title: 'Hyper Beam',
                   onGenerateRoute: router.generateRoute,
                   initialRoute: HomeRoute,

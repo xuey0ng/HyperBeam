@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       ],
       child: AuthWidgetBuilder(builder: (context, userSnapshot){
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Hyper Beam',
           theme: ThemeData(primarySwatch: Colors.blue),
           home: AuthPage(userSnapshot: userSnapshot),
