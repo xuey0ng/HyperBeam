@@ -14,13 +14,19 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         if (userSnapshot.connectionState == ConnectionState.active) {
-            return userSnapshot.hasData ? userSnapshot.data.verified ?
-            MaterialApp(
-              title: 'Hyper Beam',
-              onGenerateRoute: router.generateRoute,
-              initialRoute: HomeRoute,
-            ) : LoginPage()
-                : LoginPage();
+            if(userSnapshot.hasData){
+              if(userSnapshot.data.verified){
+                return MaterialApp(
+                  title: 'Hyper Beam',
+                  onGenerateRoute: router.generateRoute,
+                  initialRoute: HomeRoute,
+                );
+              } else {
+                return LoginPage();
+              }
+            } else {
+              return LoginPage();
+            }
         }
         return Scaffold(
           body: Center(

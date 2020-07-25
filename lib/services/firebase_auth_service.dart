@@ -99,7 +99,7 @@ class FirebaseAuthService {
       });
     }
     print("google sign in success ${user.uid}");
-    return _userFromFirebase(user, true);
+    return _userFromFirebase(user);
   }
 
   void signOutGoogle() async{
@@ -107,23 +107,28 @@ class FirebaseAuthService {
     print("User Sign Out");
   }
 
-  User _userFromFirebase(FirebaseUser user, bool isVerified) {
-    return user == null ? null : User(id: user.uid, email: user.email, verified: isVerified);
+  User _userFromFirebase(FirebaseUser user) {
+    return user == null ? null : User(id: user.uid, email: user.email, verified: user.isEmailVerified);
   }
 
   Stream<User> get onAuthStateChanged {
-    return _firebaseAuth.onAuthStateChanged.map((val)=>_userFromFirebase(val,val.isEmailVerified));
+    print("GETTING");
+    return _firebaseAuth.onAuthStateChanged.map(_userFromFirebase);
   }
 
   Future<User> signInWithEmailAndPassword(String email, String password) async {
-    AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-    if(!result.user.isEmailVerified) _firebaseAuth.signOut();
-    return _userFromFirebase(result.user, result.user.isEmailVerified);
+    AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    print("Signing in ");
+    if(!result.user.isEmailVerified) {
+      print("Signing out");
+      _firebaseAuth.signOut();
+    }
+    return _userFromFirebase(result.user);
   }
 
   Future<User> createWithEmailAndPassword(String email, String password) async {
     AuthResult result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-    User user1 = _userFromFirebase(result.user,result.user.isEmailVerified);
+    User user1 = _userFromFirebase(result.user);
     try {
       await result.user.sendEmailVerification();
     } catch (e) {

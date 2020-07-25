@@ -1,3 +1,4 @@
+import 'package:HyperBeam/main.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -182,7 +183,8 @@ class _LoginPageState extends State<LoginPage> {
                 'name' : user.name,
                 'email' : user.email,
               });
-              print("Created user: ${user.id}");
+              goToLogin();
+              FirebaseAuth.instance.signOut();
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -210,8 +212,8 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Text("Ok"),
                                   color: kAccentColor,
                                   onPressed: () async {
-                                    Navigator.pop(dialogContext);
-                                    goToLogin();
+                                        Navigator.pop(context);
+
                                   },
                                 ),
                                 Spacer(),
@@ -285,7 +287,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: Center(child: Text("Hyper Beam", style: TextStyle(fontSize: kExtraBigText),))),
       body: _buildLoginBody(context),
     );
   }
@@ -442,7 +444,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       backgroundColor: kSecondaryColor,
                       child: Container(
-                        height: 312,
+                        height: 264,
                         child: SingleChildScrollView(
                           child: Column(
                               children: [
@@ -450,8 +452,8 @@ class _LoginPageState extends State<LoginPage> {
                                     key: emailFormKey,
                                     autovalidate: true,
                                     child: Container(
-                                      height: 312,
-                                      width: 220,
+                                      height: 264,
+                                      width: 200,
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: <Widget>[
@@ -478,7 +480,7 @@ class _LoginPageState extends State<LoginPage> {
                                               });
                                             },
                                           ),
-                                          SizedBox(height: 16),
+                                          Spacer(),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
@@ -501,7 +503,7 @@ class _LoginPageState extends State<LoginPage> {
                                               )
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          Spacer(),
                                         ],
                                       ),
                                     )
