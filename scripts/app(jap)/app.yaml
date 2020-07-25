@@ -1,0 +1,36 @@
+runtime: custom
+env: flex
+entrypoint: gunicorn3 -b :$PORT main:app
+
+runtime_config:
+  python_version: 3
+
+
+env_variables:
+    PUBSUB_TOPIC: projects/hyperbeam1-7ec13/topics/hyperbeam1-7ec13.appspot.com
+    PUBSUB_VERIFICATION_TOKEN: abc
+    GOOGLE_CLOUD_PROJECT: hyperbeam1-7ec13 
+    CLOUD_STORAGE_BUCKET: hyperbeam1-7ec13.appspot.com
+    FIREBASE_PROJECT_ID: hyperbeam1-7ec13 
+    GOOGLE_APPLICATION_CREDENTIALS: "pdf_highlights/hyperbeam1-7ec13-firebase-adminsdk-6hitn-84f95b3bd1.json"
+
+  # handlers:
+  #   - url: .*
+  #     script: main.app
+    
+    
+
+# Change based on testing requirements
+resources:
+    cpu: 1
+    memory_gb: 2.0
+    disk_size_gb: 10
+
+automatic_scaling:
+    min_num_instances: 1
+    max_num_instances: 5
+    cool_down_period_sec: 120
+    cpu_utilization:
+      target_utilization: 0.7
+
+    

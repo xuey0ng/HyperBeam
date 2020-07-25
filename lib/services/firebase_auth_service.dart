@@ -14,6 +14,7 @@ class User extends iDatabaseable{
   String platform;
   List<String> friendList;
   DocumentReference ref;
+  bool verified;
 
   User({
     @required this.id,
@@ -24,6 +25,7 @@ class User extends iDatabaseable{
     this.platform,
     this.friendList,
     this.ref,
+    this.verified,
   });
 
   factory User.fromJson(Map<String, dynamic> json, String ID) {
@@ -67,6 +69,10 @@ class FirebaseAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  Future<void> resetPassword(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
   Future<User> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
@@ -86,7 +92,6 @@ class FirebaseAuthService {
     final FirebaseUser currentUser = await _firebaseAuth.currentUser();
     assert(user.uid == currentUser.uid);
     if (authResult.additionalUserInfo.isNewUser) {
-      print("SETTTINGG ${user.displayName}");
       await Firestore.instance.collection("users").document(user.uid)
           .setData({
       'name' : user.displayName,
@@ -103,21 +108,35 @@ class FirebaseAuthService {
   }
 
   User _userFromFirebase(FirebaseUser user) {
-    return user == null ? null : User(id: user.uid, email: user.email);
+    return user == null ? null : User(id: user.uid, email: user.email, verified: user.isEmailVerified);
   }
 
   Stream<User> get onAuthStateChanged {
+    print("GETTING");
     return _firebaseAuth.onAuthStateChanged.map(_userFromFirebase);
   }
 
   Future<User> signInWithEmailAndPassword(String email, String password) async {
-    AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    print("Signing in ");
+    if(!result.user.isEmailVerified) {
+      print("Signing out");
+      _firebaseAuth.signOut();
+    }
     return _userFromFirebase(result.user);
   }
 
   Future<User> createWithEmailAndPassword(String email, String password) async {
     AuthResult result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-    return _userFromFirebase(result.user);
+    User user1 = _userFromFirebase(result.user);
+    try {
+      await result.user.sendEmailVerification();
+    } catch (e) {
+      print("An error occured while trying to send email verification");
+      print(e.message);
+      return null;
+    }
+    return user1;
   }
 
   Future<void> signOut() async {

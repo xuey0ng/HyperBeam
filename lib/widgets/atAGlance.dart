@@ -2,6 +2,7 @@ import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -184,9 +185,10 @@ class _AtAGlanceState extends State<AtAGlance> {
                       child: Stack(
                         children: <Widget>[
                           PageView.builder(
-                            physics: new AlwaysScrollableScrollPhysics(),
+                            physics: new ClampingScrollPhysics(),
                             controller: controller,
                             itemBuilder: (BuildContext context, int index) {
+                              if(index > 1) return null;
                               return _pages[index % _pages.length];
                             },
                           ),

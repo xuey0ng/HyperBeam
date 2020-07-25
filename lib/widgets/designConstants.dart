@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xFFFFDAB9); //60%,
-const kSecondaryColor = Color(0xffFFFFE0);//30%, lightness yellow OR white
-const kAccentColor = Color(0xFF87CEFA);//10%, deep sky blue
+const kPrimaryColor = Color(0xFFA1DFD0); //60%,
+const kSecondaryColor = Color(0xffB4ECEA);//30%, lightness yellow OR white
+const kAccentColor = Color(0xFFFDD800);//10%, deep sky blue
 
 final kShadowColor = Color(0xFFD3D3D3).withOpacity(.84);
 const kLightBlackColor = Color(0xFF8F8F8F);

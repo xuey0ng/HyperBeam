@@ -23,11 +23,11 @@ class AuthWidgetBuilder extends StatelessWidget {
         final User user = snapshot.data;
         print('StreamBuilder: ${snapshot.connectionState} and ${user ==null? null : user.id} and ${user}');
         if(!snapshot.hasData) return builder(context, snapshot);
+        if(!snapshot.data.verified) return builder(context, snapshot);
         return StreamBuilder<DocumentSnapshot> (
           stream: Firestore.instance.collection('users').document(user.id).snapshots(),
           builder: (context, snapshot2){
             //if(snapshot2.data!= null){
-              print("hittt ${snapshot2.data== null ? "IT IS NULL" : snapshot2.data.data["name"]}");
               if (user != null) {
                 return MultiProvider(
                   providers: [

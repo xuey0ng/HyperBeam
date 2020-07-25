@@ -297,7 +297,7 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                           children: <Widget>[
                             TextFormField(
                               validator: (val) {
-                                return !NUS_MODULES.containsCode(val)? "Module not found": null;
+                                return !NUS_MODULES.containsCode(val.toUpperCase())? "Module not found": null;
                               },
                               autofocus: true,
                               decoration: InputDecoration(
@@ -306,7 +306,7 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                               ),
                               onSaved: (text) {
                                 setState(() {
-                                  moduleName = text;
+                                  moduleName = text.toUpperCase();
                                 });
                               },
                             ),

@@ -88,7 +88,13 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
                   CustomSwitch(
                     activeColor: Colors.pinkAccent,
                     value: subscribed ?? false,
-                    onChanged: (bool value) {
+                    onChanged: (bool value) async {
+                      await Firestore.instance.collection("MasterPDFMods")
+                          .document(widget.module.moduleCode)
+                          .collection("PDFs")
+                          .document(PDFHash).collection("Users")
+                          .document(user.id)
+                          .setData({"subscribed": value}, merge: true);
                       setState(() {
                         value ? FirebaseMessaging().unsubscribeFromTopic(PDFHash) : FirebaseMessaging().subscribeToTopic(PDFHash);
                         asyncWidget[i] = _buildItem(i, PDFHash, PDFName, lastUpdated, uri, userPDFName, !subscribed, true, quizNames);
@@ -104,9 +110,11 @@ class _MasterPDFFilesState extends State<MasterPDFFiles> {
               SizedBox(height: 4),
               Row(
                   children: [
-                    Text("Last updated on: \n ${lastUpdated == null ? "No info" : DateFormat('dd-MM-yyyy kk:mm').format(lastUpdated.toDate())}"),
-                    Spacer(),
-                    Text("Your PDF is named:  \n  ${userPDFName ?? "No similar PDF uploaded"}"),
+                    Expanded(child: Text("Last updated on: \n ${lastUpdated == null ? "No info" : DateFormat('dd-MM-yyyy kk:mm')
+                        .format(lastUpdated.toDate())}")),
+                    Expanded(
+                        child: Text("  Your PDF is named:  \n${userPDFName ?? "No similar PDF uploaded"}")
+                    ),
                   ]
               ),
               Divider(height: 4),

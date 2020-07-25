@@ -1,6 +1,7 @@
 import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/loginPage.dart';
 import 'package:HyperBeam/moduleDetails.dart';
+import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/router.dart' as router;
@@ -12,15 +13,21 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
         if (userSnapshot.connectionState == ConnectionState.active) {
-            return userSnapshot.hasData ?
-            MaterialApp(
-              title: 'Hyper Beam',
-              onGenerateRoute: router.generateRoute,
-              initialRoute: HomeRoute,
-            )
-                : LoginPage();
+            if(userSnapshot.hasData){
+              if(userSnapshot.data.verified){
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Hyper Beam',
+                  onGenerateRoute: router.generateRoute,
+                  initialRoute: HomeRoute,
+                );
+              } else {
+                return LoginPage();
+              }
+            } else {
+              return LoginPage();
+            }
         }
         return Scaffold(
           body: Center(

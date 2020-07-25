@@ -266,7 +266,6 @@ class QuizResultPage extends StatelessWidget{
               color: Colors.amber,
             ),
             onRatingUpdate: (rating) {
-              print(rating);
               quizRating = rating;
             },
           ),
@@ -284,7 +283,12 @@ class QuizResultPage extends StatelessWidget{
                 };
                 quizRepo.getCollectionRef()
                     .document(quiz.reference.documentID.toString()).setData(map, merge: true);
-                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return ModuleDetails(module.moduleCode);
+                    })
+                );
               } else {
                 if (quiz.reviewers.contains(user.id)) {
                   showDialog(
