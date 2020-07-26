@@ -26,10 +26,10 @@ COPY . /app
 WORKDIR /app
 
 # Set the environment variables
-# ENV PUBSUB_VERIFICATION_TOKEN=abc
-# ENV PUBSUB_TOPIC=hyper-beam
-# ENV GOOGLE_CLOUD_PROJECT=hyper-beam
-# ENV GOOGLE_APPLICATION_CREDENTIALS="pdf_highlights/hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json"
+ENV PUBSUB_VERIFICATION_TOKEN=abc
+ENV PUBSUB_TOPIC=hyper-beam
+ENV GOOGLE_CLOUD_PROJECT=hyper-beam
+ENV GOOGLE_APPLICATION_CREDENTIALS="pdf_highlights/hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json"
 
 # Listen to port 8080
 EXPOSE 8080
