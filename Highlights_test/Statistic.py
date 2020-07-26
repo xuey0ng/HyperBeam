@@ -40,7 +40,15 @@ class Statistics:
                     word_x = (word.getX1() + word.getX2())/2
                     if word_x <= current.getX2() and word_x >= current.getX1():
                         word.incrCount()
-                    j += 1
+                        j += 1
+                    elif word_x > current.getX2():
+                        if (i<max):
+                            i += 1
+                            current = linelist[i]
+                        else:
+                            j += 1
+                    else:
+                        j += 1
                 elif word.getPage() > current.getPage():
                     if (i < max):
                         i+=1
@@ -71,7 +79,6 @@ class Statistics:
         # print(len(student_upload))
         new_stats = self.gatherStatistics(student_upload, position_list)
         # for word in new_stats:
-        #     continue
         #     print(str(word.getCount()) + " | " + word.getContent() + ' | ' + str(word.getY2()))
         # for i in range(300):
         #     word = new_stats[i]
@@ -88,7 +95,7 @@ class Statistics:
 #         def default(self, o):
 #             return o.__dict__
 
-# current = Statistics()
-# current.compute('tmp/FinancialAccounting1.pdf', 'tmp/FinancialAccounting1.pdf')
+current = Statistics()
+current.compute('gw/test2.pdf', 'gw/test2.pdf')
 #print(StatisticsEncoder.encode(current))
         

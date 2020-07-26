@@ -1,0 +1,4561 @@
+%PDF-1.3
+1 0 obj
+<<
+/Type /Pages
+/Count 2
+/Kids [ 3 0 R 4 0 R ]
+>>
+endobj
+2 0 obj
+<<
+/Producer (PyPDF2)
+>>
+endobj
+3 0 obj
+<<
+/Resources 312 0 R
+/MediaBox [ 0 0 612 792 ]
+/Type /Page
+/Parent 1 0 R
+/Contents [ 346 0 R ]
+/Rotate 0
+/CropBox [ 0 0 612 792 ]
+/Annots [ 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R 16 0 R 17 0 R 18 0 R 19 0 R 20 0 R 21 0 R 22 0 R 23 0 R 24 0 R 25 0 R 26 0 R 27 0 R 28 0 R 29 0 R 30 0 R 31 0 R 32 0 R 33 0 R 34 0 R 35 0 R 36 0 R 37 0 R 38 0 R 39 0 R 40 0 R 41 0 R 42 0 R 43 0 R 44 0 R 45 0 R 46 0 R 47 0 R 48 0 R 49 0 R 50 0 R 51 0 R 52 0 R 53 0 R 54 0 R 55 0 R 56 0 R 57 0 R 58 0 R 59 0 R 60 0 R 61 0 R 62 0 R 63 0 R 64 0 R 65 0 R 66 0 R 67 0 R 68 0 R 69 0 R 70 0 R 71 0 R 72 0 R 73 0 R 74 0 R 75 0 R 76 0 R 77 0 R 78 0 R 79 0 R 80 0 R 81 0 R ]
+>>
+endobj
+4 0 obj
+<<
+/Resources 347 0 R
+/MediaBox [ 0 0 612 792 ]
+/Type /Page
+/Parent 1 0 R
+/Contents [ 348 0 R ]
+/Rotate 0
+/CropBox [ 0 0 612 792 ]
+/Annots [ 82 0 R 83 0 R 84 0 R 85 0 R 86 0 R 87 0 R 88 0 R 89 0 R 90 0 R 91 0 R 92 0 R 93 0 R 94 0 R 95 0 R 96 0 R 97 0 R 98 0 R 99 0 R 100 0 R 101 0 R 102 0 R 103 0 R 104 0 R 105 0 R 106 0 R 107 0 R 108 0 R 109 0 R 110 0 R 111 0 R 112 0 R 113 0 R 114 0 R 115 0 R 116 0 R 117 0 R 118 0 R 119 0 R 120 0 R 121 0 R 122 0 R 123 0 R 124 0 R 125 0 R 126 0 R 127 0 R 128 0 R 129 0 R 130 0 R 131 0 R 132 0 R 133 0 R 134 0 R 135 0 R 136 0 R 137 0 R 138 0 R 139 0 R 140 0 R 141 0 R 142 0 R 143 0 R 144 0 R 145 0 R 146 0 R 147 0 R 148 0 R 149 0 R 150 0 R 151 0 R 152 0 R 153 0 R 154 0 R 155 0 R 156 0 R 157 0 R 158 0 R 159 0 R 160 0 R 161 0 R 162 0 R 163 0 R 164 0 R 165 0 R 166 0 R 167 0 R 168 0 R 169 0 R 170 0 R 171 0 R 172 0 R 173 0 R 174 0 R 175 0 R 176 0 R 177 0 R 178 0 R 179 0 R 180 0 R 181 0 R 182 0 R 183 0 R 184 0 R 185 0 R 186 0 R 187 0 R 188 0 R 189 0 R 190 0 R 191 0 R 192 0 R 193 0 R 194 0 R 195 0 R 196 0 R 197 0 R 198 0 R 199 0 R 200 0 R 201 0 R 202 0 R 203 0 R 204 0 R 205 0 R 206 0 R 207 0 R 208 0 R 209 0 R 210 0 R 211 0 R 212 0 R 213 0 R 214 0 R 215 0 R 216 0 R 217 0 R 218 0 R 219 0 R 220 0 R 221 0 R 222 0 R 223 0 R 224 0 R 225 0 R 226 0 R 227 0 R 228 0 R 229 0 R 230 0 R 231 0 R 232 0 R 233 0 R 234 0 R 235 0 R 236 0 R 237 0 R 238 0 R 239 0 R 240 0 R 241 0 R 242 0 R 243 0 R 244 0 R 245 0 R 246 0 R 247 0 R 248 0 R 249 0 R 250 0 R 251 0 R 252 0 R 253 0 R 254 0 R 255 0 R 256 0 R 257 0 R 258 0 R 259 0 R 260 0 R 261 0 R 262 0 R 263 0 R 264 0 R 265 0 R 266 0 R 267 0 R 268 0 R 269 0 R 270 0 R 271 0 R 272 0 R 273 0 R 274 0 R 275 0 R 276 0 R 277 0 R 278 0 R 279 0 R 280 0 R 281 0 R 282 0 R 283 0 R 284 0 R 285 0 R 286 0 R 287 0 R 288 0 R 289 0 R 290 0 R 291 0 R 292 0 R 293 0 R 294 0 R 295 0 R 296 0 R 297 0 R 298 0 R 299 0 R 300 0 R 301 0 R 302 0 R 303 0 R 304 0 R 305 0 R 306 0 R 307 0 R 308 0 R 309 0 R 310 0 R ]
+>>
+endobj
+5 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (this)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 101.40088 196.42455 119.51769 207.99339 ]
+/QuadPoints [ 101.40088 207.99339 119.51769 207.99339 101.40088 196.42455 119.51769 196.42455 ]
+>>
+endobj
+6 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (The)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 101.40088 253.66718 120.73242 265.23602 ]
+/QuadPoints [ 101.40088 265.23602 120.73242 265.23602 101.40088 253.66718 120.73242 253.66718 ]
+>>
+endobj
+7 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (way)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 101.40088 224.98802 122.20166 236.55686 ]
+/QuadPoints [ 101.40088 236.55686 122.20166 236.55686 101.40088 224.98802 122.20166 224.98802 ]
+>>
+endobj
+8 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (even)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 101.40088 239.27554 125.04759 250.84438 ]
+/QuadPoints [ 101.40088 250.84438 125.04759 250.84438 101.40088 239.27554 125.04759 239.27554 ]
+>>
+endobj
+9 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (success)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 101.40088 210.71208 138.83765 222.28092 ]
+/QuadPoints [ 101.40088 222.28092 138.83765 222.28092 101.40088 210.71208 138.83765 210.71208 ]
+>>
+endobj
+10 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (decades)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 101.40088 182.03291 141.3828 193.60175 ]
+/QuadPoints [ 101.40088 193.60175 141.3828 193.60175 101.40088 182.03291 141.3828 182.03291 ]
+>>
+endobj
+11 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (call)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 126.1582 253.66718 143.82382 265.23602 ]
+/QuadPoints [ 126.1582 265.23602 143.82382 265.23602 126.1582 253.66718 143.82382 253.66718 ]
+>>
+endobj
+12 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (issue)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 122.68755 196.42455 147.8035 207.99339 ]
+/QuadPoints [ 122.68755 207.99339 147.8035 207.99339 122.68755 196.42455 147.8035 196.42455 ]
+>>
+endobj
+13 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (under)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 125.92683 224.98802 155.19599 236.55686 ]
+/QuadPoints [ 125.92683 236.55686 155.19599 236.55686 125.92683 224.98802 155.19599 224.98802 ]
+>>
+endobj
+14 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (at)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 136.45447 239.27554 145.87151 250.84438 ]
+/QuadPoints [ 136.45447 250.84438 145.87151 250.84438 136.45447 239.27554 145.87151 239.27554 ]
+>>
+endobj
+15 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 142.58595 210.71208 152.46574 222.28092 ]
+/QuadPoints [ 142.58595 222.28092 152.46574 222.28092 142.58595 210.71208 152.46574 210.71208 ]
+>>
+endobj
+16 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\050e)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 145.47816 182.03291 155.55462 193.60175 ]
+/QuadPoints [ 145.47816 193.60175 155.55462 193.60175 145.47816 182.03291 155.55462 182.03291 ]
+>>
+endobj
+17 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (a)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 150.91552 239.27554 156.68837 250.84438 ]
+/QuadPoints [ 150.91552 250.84438 156.68837 250.84438 150.91552 239.27554 156.68837 239.27554 ]
+>>
+endobj
+18 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (for)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 149.29588 253.66718 163.52556 265.23602 ]
+/QuadPoints [ 149.29588 265.23602 163.52556 265.23602 149.29588 253.66718 163.52556 253.66718 ]
+>>
+endobj
+19 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (g)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 158.66664 182.03291 164.45106 193.60175 ]
+/QuadPoints [ 158.66664 193.60175 164.45106 193.60175 158.66664 182.03291 164.45106 182.03291 ]
+>>
+endobj
+20 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (one)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 153.80773 196.42455 172.21375 207.99339 ]
+/QuadPoints [ 153.80773 207.99339 172.21375 207.99339 153.80773 196.42455 172.21375 196.42455 ]
+>>
+endobj
+21 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 159.24508 224.98802 174.7589 236.55686 ]
+/QuadPoints [ 159.24508 236.55686 174.7589 236.55686 159.24508 224.98802 174.7589 224.98802 ]
+>>
+endobj
+22 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (terms)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 156.00581 210.71208 184.07181 222.28092 ]
+/QuadPoints [ 156.00581 222.28092 184.07181 222.28092 156.00581 210.71208 184.07181 210.71208 ]
+>>
+endobj
+23 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (time)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 161.55885 239.27554 183.78259 250.84438 ]
+/QuadPoints [ 161.55885 250.84438 183.78259 250.84438 161.55885 239.27554 183.78259 239.27554 ]
+>>
+endobj
+24 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\217an)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 168.96291 253.66718 185.20556 265.23602 ]
+/QuadPoints [ 168.96291 265.23602 185.20556 265.23602 168.96291 253.66718 185.20556 253.66718 ]
+>>
+endobj
+25 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 175.32577 196.42455 185.08987 207.99339 ]
+/QuadPoints [ 175.32577 207.99339 185.08987 207.99339 175.32577 196.42455 185.08987 196.42455 ]
+>>
+endobj
+26 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 175.32577 182.03291 191.18665 193.60175 ]
+/QuadPoints [ 175.32577 193.60175 191.18665 193.60175 175.32577 182.03291 191.18665 182.03291 ]
+>>
+endobj
+27 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 187.93581 210.71208 197.58422 222.28092 ]
+/QuadPoints [ 187.93581 222.28092 197.58422 222.28092 187.93581 210.71208 197.58422 210.71208 ]
+>>
+endobj
+28 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 188.16718 196.42455 204.02806 207.99339 ]
+/QuadPoints [ 188.16718 207.99339 204.02806 207.99339 188.16718 196.42455 204.02806 196.42455 ]
+>>
+endobj
+29 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (pressure)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 178.91211 224.98802 220.68719 236.55686 ]
+/QuadPoints [ 178.91211 236.55686 220.68719 236.55686 178.91211 224.98802 220.68719 224.98802 ]
+>>
+endobj
+30 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (when)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 188.86131 239.27554 217.01987 250.84438 ]
+/QuadPoints [ 188.86131 250.84438 217.01987 250.84438 188.86131 239.27554 217.01987 239.27554 ]
+>>
+endobj
+31 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (sheer)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 201.0086 210.71208 228.07968 222.28092 ]
+/QuadPoints [ 201.0086 222.28092 228.07968 222.28092 201.0086 210.71208 228.07968 210.71208 ]
+>>
+endobj
+32 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (feminist)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 195.22418 182.03291 235.53002 193.60175 ]
+/QuadPoints [ 195.22418 193.60175 235.53002 193.60175 195.22418 182.03291 235.53002 182.03291 ]
+>>
+endobj
+33 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (effects)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 207.14008 196.42455 239.0238 207.99339 ]
+/QuadPoints [ 207.14008 207.99339 239.0238 207.99339 207.14008 196.42455 239.0238 196.42455 ]
+>>
+endobj
+34 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (epistemology)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 190.48095 253.66718 258.13553 265.23602 ]
+/QuadPoints [ 190.48095 265.23602 258.13553 265.23602 190.48095 253.66718 258.13553 253.66718 ]
+>>
+endobj
+35 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 224.49334 224.98802 234.25744 236.55686 ]
+/QuadPoints [ 224.49334 236.55686 234.25744 236.55686 224.49334 224.98802 234.25744 224.98802 ]
+>>
+endobj
+36 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 221.83251 239.27554 237.80908 250.84438 ]
+/QuadPoints [ 221.83251 250.84438 237.80908 250.84438 221.83251 239.27554 237.80908 239.27554 ]
+>>
+endobj
+37 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 242.19367 196.42455 251.95777 207.99339 ]
+/QuadPoints [ 242.19367 207.99339 251.95777 207.99339 242.19367 196.42455 251.95777 196.42455 ]
+>>
+endobj
+38 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (growth)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 231.55033 210.71208 266.76588 222.28092 ]
+/QuadPoints [ 231.55033 222.28092 266.76588 222.28092 231.55033 210.71208 266.76588 210.71208 ]
+>>
+endobj
+39 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (and)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 239.8799 182.03291 258.56358 193.60175 ]
+/QuadPoints [ 239.8799 193.60175 258.56358 193.60175 239.8799 182.03291 258.56358 182.03291 ]
+>>
+endobj
+40 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (successive)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 238.37595 224.98802 290.4473 236.55686 ]
+/QuadPoints [ 238.37595 236.55686 290.4473 236.55686 238.37595 224.98802 290.4473 224.98802 ]
+>>
+endobj
+41 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (discipline)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 242.77211 239.27554 290.79436 250.84438 ]
+/QuadPoints [ 242.77211 250.84438 290.79436 250.84438 242.77211 239.27554 290.79436 239.27554 ]
+>>
+endobj
+42 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (for)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 263.36464 253.66718 277.59432 265.23602 ]
+/QuadPoints [ 263.36464 265.23602 277.59432 265.23602 263.36464 253.66718 277.59432 253.66718 ]
+>>
+endobj
+43 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (As)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 274.00798 210.71208 286.9188 222.28092 ]
+/QuadPoints [ 274.00798 222.28092 286.9188 222.28092 274.00798 210.71208 286.9188 210.71208 ]
+>>
+endobj
+44 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Marxist)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 262.7862 182.03291 300.43121 193.60175 ]
+/QuadPoints [ 262.7862 193.60175 300.43121 193.60175 262.7862 182.03291 300.43121 182.03291 ]
+>>
+endobj
+45 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropology\220s)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 255.03508 196.42455 329.60782 207.99339 ]
+/QuadPoints [ 255.03508 207.99339 329.60782 207.99339 255.03508 196.42455 329.60782 196.42455 ]
+>>
+endobj
+46 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Pina)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 290.43573 210.71208 312.52065 222.28092 ]
+/QuadPoints [ 290.43573 222.28092 312.52065 222.28092 290.43573 210.71208 312.52065 210.71208 ]
+>>
+endobj
+47 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (self)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 294.25345 224.98802 311.30592 236.55686 ]
+/QuadPoints [ 294.25345 236.55686 311.30592 236.55686 294.25345 224.98802 311.30592 224.98802 ]
+>>
+endobj
+48 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (may)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 295.7574 239.27554 316.90524 250.84438 ]
+/QuadPoints [ 295.7574 250.84438 316.90524 250.84438 295.7574 239.27554 316.90524 239.27554 ]
+>>
+endobj
+49 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropology\220)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 282.91598 253.66718 354.13376 265.23602 ]
+/QuadPoints [ 282.91598 265.23602 354.13376 265.23602 282.91598 253.66718 354.13376 253.66718 ]
+>>
+endobj
+50 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (critiques)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 304.54971 182.03291 347.65521 193.60175 ]
+/QuadPoints [ 304.54971 193.60175 347.65521 193.60175 304.54971 182.03291 347.65521 182.03291 ]
+>>
+endobj
+51 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (critical)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 315.07736 224.98802 348.82367 236.55686 ]
+/QuadPoints [ 315.07736 236.55686 348.82367 236.55686 315.07736 224.98802 348.82367 224.98802 ]
+>>
+endobj
+52 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Cabral)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 316.46562 210.71208 348.59229 222.28092 ]
+/QuadPoints [ 316.46562 222.28092 348.59229 222.28092 316.46562 210.71208 348.59229 210.71208 ]
+>>
+endobj
+53 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (appear)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 322.25004 239.27554 356.37812 250.84438 ]
+/QuadPoints [ 322.25004 250.84438 356.37812 250.84438 322.25004 239.27554 356.37812 239.27554 ]
+>>
+endobj
+54 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 351.75058 182.03291 361.63037 193.60175 ]
+/QuadPoints [ 351.75058 193.60175 361.63037 193.60175 351.75058 182.03291 361.63037 182.03291 ]
+>>
+endobj
+55 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (numerous)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 332.77768 196.42455 383.40293 207.99339 ]
+/QuadPoints [ 332.77768 207.99339 383.40293 207.99339 332.77768 196.42455 383.40293 196.42455 ]
+>>
+endobj
+56 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (argues)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 352.44471 210.71208 385.02257 222.28092 ]
+/QuadPoints [ 352.44471 222.28092 385.02257 222.28092 352.44471 210.71208 385.02257 210.71208 ]
+>>
+endobj
+57 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 365.5175 182.03291 381.37838 193.60175 ]
+/QuadPoints [ 365.5175 193.60175 381.37838 193.60175 365.5175 182.03291 381.37838 182.03291 ]
+>>
+endobj
+58 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (seems)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 359.73308 253.66718 391.03836 265.23602 ]
+/QuadPoints [ 359.73308 265.23602 391.03836 265.23602 359.73308 253.66718 391.03836 253.66718 ]
+>>
+endobj
+59 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (somewhat)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 361.46841 239.27554 412.64896 250.84438 ]
+/QuadPoints [ 361.46841 250.84438 412.64896 250.84438 361.46841 239.27554 412.64896 239.27554 ]
+>>
+endobj
+60 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (reorientations)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 352.67609 224.98802 421.92717 236.55686 ]
+/QuadPoints [ 352.67609 236.55686 421.92717 236.55686 352.67609 224.98802 421.92717 224.98802 ]
+>>
+endobj
+61 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 388.65518 210.71208 398.53497 222.28092 ]
+/QuadPoints [ 388.65518 222.28092 398.53497 222.28092 388.65518 210.71208 398.53497 210.71208 ]
+>>
+endobj
+62 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (1970s)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 385.41591 182.03291 413.94467 193.60175 ]
+/QuadPoints [ 385.41591 193.60175 413.94467 193.60175 385.41591 182.03291 413.94467 182.03291 ]
+>>
+endobj
+63 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (critical)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 386.11004 196.42455 420.20341 207.99339 ]
+/QuadPoints [ 386.11004 207.99339 420.20341 207.99339 386.11004 196.42455 420.20341 196.42455 ]
+>>
+endobj
+64 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (his)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 402.19072 210.71208 416.72119 222.28092 ]
+/QuadPoints [ 402.19072 222.28092 416.72119 222.28092 402.19072 210.71208 416.72119 210.71208 ]
+>>
+endobj
+65 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (justi\223ed)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 396.52199 253.66718 437.18647 265.23602 ]
+/QuadPoints [ 396.52199 265.23602 437.18647 265.23602 396.52199 253.66718 437.18647 253.66718 ]
+>>
+endobj
+66 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 417.57728 239.27554 427.60747 250.84438 ]
+/QuadPoints [ 417.57728 250.84438 427.60747 250.84438 417.57728 239.27554 427.60747 239.27554 ]
+>>
+endobj
+67 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 421.16362 182.03291 437.0245 193.60175 ]
+/QuadPoints [ 421.16362 193.60175 437.0245 193.60175 421.16362 182.03291 437.0245 182.03291 ]
+>>
+endobj
+68 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (and)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 425.67547 224.98802 444.70621 236.55686 ]
+/QuadPoints [ 425.67547 236.55686 444.70621 236.55686 425.67547 224.98802 444.70621 224.98802 ]
+>>
+endobj
+69 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (turns)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 423.13032 196.42455 449.34532 207.99339 ]
+/QuadPoints [ 423.13032 207.99339 449.34532 207.99339 423.13032 196.42455 449.34532 196.42455 ]
+>>
+endobj
+70 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (have)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 432.73246 239.27554 456.34446 250.84438 ]
+/QuadPoints [ 432.73246 250.84438 456.34446 250.84438 432.73246 239.27554 456.34446 239.27554 ]
+>>
+endobj
+71 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (contribution)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 420.46949 210.71208 482.40906 222.28092 ]
+/QuadPoints [ 420.46949 222.28092 482.40906 222.28092 420.46949 210.71208 482.40906 210.71208 ]
+>>
+endobj
+72 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 452.39949 196.42455 462.16359 207.99339 ]
+/QuadPoints [ 452.39949 207.99339 462.16359 207.99339 452.39949 196.42455 462.16359 196.42455 ]
+>>
+endobj
+73 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (due)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 448.46608 224.98802 466.87211 236.55686 ]
+/QuadPoints [ 448.46608 236.55686 466.87211 236.55686 448.46608 224.98802 466.87211 224.98802 ]
+>>
+endobj
+74 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (re\224exivism)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 441.17772 182.03291 496.25696 193.60175 ]
+/QuadPoints [ 441.17772 193.60175 496.25696 193.60175 441.17772 182.03291 496.25696 182.03291 ]
+>>
+endobj
+75 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (lost)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 461.3075 239.27554 479.40116 250.84438 ]
+/QuadPoints [ 461.3075 250.84438 479.40116 250.84438 461.3075 239.27554 479.40116 239.27554 ]
+>>
+endobj
+76 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (laudable)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 448.81315 253.66718 492.902 265.23602 ]
+/QuadPoints [ 448.81315 265.23602 492.902 265.23602 448.81315 253.66718 492.902 253.66718 ]
+>>
+endobj
+77 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 470.67826 224.98802 480.70844 236.55686 ]
+/QuadPoints [ 470.67826 236.55686 480.70844 236.55686 470.67826 224.98802 480.70844 224.98802 ]
+>>
+endobj
+78 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (recent)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 465.2409 196.42455 495.82892 207.99339 ]
+/QuadPoints [ 465.2409 207.99339 495.82892 207.99339 465.2409 196.42455 495.82892 196.42455 ]
+>>
+endobj
+79 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (its)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 484.44518 224.98802 496.19912 236.55686 ]
+/QuadPoints [ 484.44518 236.55686 496.19912 236.55686 484.44518 224.98802 496.19912 224.98802 ]
+>>
+endobj
+80 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (its)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 484.44518 239.27554 496.19912 250.84438 ]
+/QuadPoints [ 484.44518 250.84438 496.19912 250.84438 484.44518 239.27554 496.19912 239.27554 ]
+>>
+endobj
+81 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 486.1805 210.71208 495.86362 222.28092 ]
+/QuadPoints [ 486.1805 222.28092 495.86362 222.28092 486.1805 210.71208 495.86362 210.71208 ]
+>>
+endobj
+82 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (a)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 116.03547 182.86583 121.80832 194.43467 ]
+/QuadPoints [ 116.03547 194.43467 121.80832 194.43467 116.03547 182.86583 121.80832 182.86583 ]
+>>
+endobj
+83 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 116.03547 354.59373 125.71859 366.16257 ]
+/QuadPoints [ 116.03547 366.16257 125.71859 366.16257 116.03547 354.59373 125.71859 354.59373 ]
+>>
+endobj
+84 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 116.03547 383.2729 125.79957 394.84174 ]
+/QuadPoints [ 116.03547 394.84174 125.79957 394.84174 116.03547 383.2729 125.79957 383.2729 ]
+>>
+endobj
+85 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 116.03547 626.50774 125.79957 638.07658 ]
+/QuadPoints [ 116.03547 638.07658 125.79957 638.07658 116.03547 626.50774 125.79957 626.50774 ]
+>>
+endobj
+86 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (be)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 116.03547 154.31394 127.96294 165.88278 ]
+/QuadPoints [ 116.03547 165.88278 127.96294 165.88278 116.03547 154.31394 127.96294 154.31394 ]
+>>
+endobj
+87 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (cal)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 116.03547 411.82479 130.5775 423.39363 ]
+/QuadPoints [ 116.03547 423.39363 130.5775 423.39363 116.03547 411.82479 130.5775 411.82479 ]
+>>
+endobj
+88 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 116.03547 168.58992 135.74877 180.15876 ]
+/QuadPoints [ 116.03547 180.15876 135.74877 180.15876 116.03547 168.58992 135.74877 168.58992 ]
+>>
+endobj
+89 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (than)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 116.03547 655.07121 138.40961 666.64005 ]
+/QuadPoints [ 116.03547 666.64005 138.40961 666.64005 116.03547 655.07121 138.40961 655.07121 ]
+>>
+endobj
+90 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (ence)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 116.03547 125.63482 139.30041 137.20366 ]
+/QuadPoints [ 116.03547 137.20366 139.30041 137.20366 116.03547 125.63482 139.30041 125.63482 ]
+>>
+endobj
+91 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (draw)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 116.03547 683.75036 141.32495 695.3192 ]
+/QuadPoints [ 116.03547 695.3192 141.32495 695.3192 116.03547 683.75036 141.32495 683.75036 ]
+>>
+endobj
+92 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (mess)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 116.03547 397.54884 141.44064 409.11768 ]
+/QuadPoints [ 116.03547 409.11768 141.44064 409.11768 116.03547 397.54884 141.44064 397.54884 ]
+>>
+endobj
+93 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (teristic)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 116.03547 139.9108 149.95531 151.47964 ]
+/QuadPoints [ 116.03547 151.47964 149.95531 151.47964 116.03547 139.9108 149.95531 139.9108 ]
+>>
+endobj
+94 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (mology)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 116.03547 368.86968 153.49537 380.43852 ]
+/QuadPoints [ 116.03547 380.43852 153.49537 380.43852 116.03547 368.86968 153.49537 368.86968 ]
+>>
+endobj
+95 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (In)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 130.68162 426.11231 140.79278 437.68115 ]
+/QuadPoints [ 130.68162 437.68115 140.79278 437.68115 130.68162 426.11231 140.79278 426.11231 ]
+>>
+endobj
+96 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (problem)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 116.03547 669.34716 158.04193 680.916 ]
+/QuadPoints [ 116.03547 680.916 158.04193 680.916 116.03547 669.34716 158.04193 669.34716 ]
+>>
+endobj
+97 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 130.14945 383.2729 146.01033 394.84174 ]
+/QuadPoints [ 130.14945 394.84174 146.01033 394.84174 130.14945 383.2729 146.01033 383.2729 ]
+>>
+endobj
+98 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (theoretical)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 116.03547 640.78368 168.63898 652.35252 ]
+/QuadPoints [ 116.03547 652.35252 168.63898 652.35252 116.03547 640.78368 168.63898 640.78368 ]
+>>
+endobj
+99 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (other)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 129.45532 354.59373 155.94797 366.16257 ]
+/QuadPoints [ 129.45532 366.16257 155.94797 366.16257 129.45532 354.59373 155.94797 354.59373 ]
+>>
+endobj
+100 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (crucial)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 125.98467 182.86583 160.07804 194.43467 ]
+/QuadPoints [ 125.98467 194.43467 160.07804 194.43467 125.98467 182.86583 160.07804 182.86583 ]
+>>
+endobj
+101 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (a)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 142.06536 655.07121 147.83821 666.64005 ]
+/QuadPoints [ 142.06536 666.64005 147.83821 666.64005 142.06536 655.07121 147.83821 655.07121 ]
+>>
+endobj
+102 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 139.17315 168.58992 155.38109 180.15876 ]
+/QuadPoints [ 139.17315 180.15876 155.38109 180.15876 139.17315 168.58992 155.38109 168.58992 ]
+>>
+endobj
+103 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (or)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 147.50271 397.54884 158.26173 409.11768 ]
+/QuadPoints [ 147.50271 409.11768 158.26173 409.11768 147.50271 397.54884 158.26173 397.54884 ]
+>>
+endobj
+104 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (this)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 144.7956 426.11231 163.25947 437.68115 ]
+/QuadPoints [ 144.7956 437.68115 163.25947 437.68115 144.7956 426.11231 163.25947 426.11231 ]
+>>
+endobj
+105 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 146.57721 683.75036 162.43809 695.3192 ]
+/QuadPoints [ 146.57721 695.3192 162.43809 695.3192 146.57721 683.75036 162.43809 683.75036 ]
+>>
+endobj
+106 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (transnational\220)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 119.50612 698.02631 189.79839 709.59515 ]
+/QuadPoints [ 119.50612 709.59515 189.79839 709.59515 119.50612 698.02631 189.79839 698.02631 ]
+>>
+endobj
+107 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (appraisal)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 134.08286 411.82479 179.39801 423.39363 ]
+/QuadPoints [ 134.08286 423.39363 179.39801 423.39363 134.08286 411.82479 179.39801 411.82479 ]
+>>
+endobj
+108 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 154.55971 139.9108 164.67087 151.47964 ]
+/QuadPoints [ 154.55971 151.47964 164.67087 151.47964 154.55971 139.9108 164.67087 139.9108 ]
+>>
+endobj
+109 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (task)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 151.08905 655.07121 171.64688 666.64005 ]
+/QuadPoints [ 151.08905 666.64005 171.64688 666.64005 151.08905 655.07121 171.64688 655.07121 ]
+>>
+endobj
+110 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropology)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 129.22395 626.50774 195.95302 638.07658 ]
+/QuadPoints [ 129.22395 638.07658 195.95302 638.07658 129.22395 626.50774 195.95302 626.50774 ]
+>>
+endobj
+111 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Nevertheless)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 130.68162 197.15339 195.76791 208.72223 ]
+/QuadPoints [ 130.68162 208.72223 195.76791 208.72223 130.68162 197.15339 195.76791 197.15339 ]
+>>
+endobj
+112 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (what)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 150.74199 125.63482 176.00834 137.20366 ]
+/QuadPoints [ 150.74199 137.20366 176.00834 137.20366 150.74199 125.63482 176.00834 125.63482 ]
+>>
+endobj
+113 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (has)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 156.29503 368.86968 173.60202 380.43852 ]
+/QuadPoints [ 156.29503 380.43852 173.60202 380.43852 156.29503 368.86968 173.60202 368.86968 ]
+>>
+endobj
+114 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 161.38532 669.34716 169.43723 680.916 ]
+/QuadPoints [ 161.38532 680.916 169.43723 680.916 161.38532 669.34716 169.43723 669.34716 ]
+>>
+endobj
+115 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (at)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 161.03826 397.54884 170.45529 409.11768 ]
+/QuadPoints [ 161.03826 409.11768 170.45529 409.11768 161.03826 397.54884 170.45529 397.54884 ]
+>>
+endobj
+116 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (epistemological)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 132.34753 154.31394 211.21232 165.88278 ]
+/QuadPoints [ 132.34753 165.88278 211.21232 165.88278 132.34753 154.31394 211.21232 154.31394 ]
+>>
+endobj
+117 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (notion)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 158.72449 168.58992 191.39489 180.15876 ]
+/QuadPoints [ 158.72449 180.15876 191.39489 180.15876 158.72449 168.58992 191.39489 168.58992 ]
+>>
+endobj
+118 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (knowledge)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 150.39492 383.2729 205.12711 394.84174 ]
+/QuadPoints [ 150.39492 394.84174 205.12711 394.84174 150.39492 383.2729 205.12711 383.2729 ]
+>>
+endobj
+119 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (sense)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 164.27753 182.86583 191.93863 194.43467 ]
+/QuadPoints [ 164.27753 194.43467 191.93863 194.43467 164.27753 182.86583 191.93863 182.86583 ]
+>>
+endobj
+120 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 176.42481 368.86968 192.28569 380.43852 ]
+/QuadPoints [ 176.42481 380.43852 192.28569 380.43852 176.42481 368.86968 192.28569 368.86968 ]
+>>
+endobj
+121 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (least)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 173.30123 397.54884 196.48518 409.11768 ]
+/QuadPoints [ 173.30123 409.11768 196.48518 409.11768 173.30123 397.54884 196.48518 397.54884 ]
+>>
+endobj
+122 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (more)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 172.6071 669.34716 198.41718 680.916 ]
+/QuadPoints [ 172.6071 680.916 198.41718 680.916 172.6071 669.34716 198.41718 669.34716 ]
+>>
+endobj
+123 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (disciplines)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 159.76568 354.59373 212.93607 366.16257 ]
+/QuadPoints [ 159.76568 366.16257 212.93607 366.16257 159.76568 354.59373 212.93607 354.59373 ]
+>>
+endobj
+124 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 182.90336 411.82479 191.07096 423.39363 ]
+/QuadPoints [ 182.90336 423.39363 191.07096 423.39363 182.90336 411.82479 191.07096 411.82479 ]
+>>
+endobj
+125 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (premise)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 167.40112 683.75036 207.09381 695.3192 ]
+/QuadPoints [ 167.40112 695.3192 207.09381 695.3192 167.40112 683.75036 207.09381 683.75036 ]
+>>
+endobj
+126 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (used)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 179.31702 125.63482 202.74392 137.20366 ]
+/QuadPoints [ 179.31702 137.20366 202.74392 137.20366 179.31702 125.63482 202.74392 125.63482 ]
+>>
+endobj
+127 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (has)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 183.25043 655.07121 200.32604 666.64005 ]
+/QuadPoints [ 183.25043 666.64005 200.32604 666.64005 183.25043 655.07121 200.32604 655.07121 ]
+>>
+endobj
+128 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (atmosphere)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 167.23915 426.11231 225.90474 437.68115 ]
+/QuadPoints [ 167.23915 437.68115 225.90474 437.68115 167.23915 426.11231 225.90474 426.11231 ]
+>>
+endobj
+129 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (idiosyncrasy)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 171.5659 640.78368 234.24588 652.35252 ]
+/QuadPoints [ 171.5659 652.35252 234.24588 652.35252 171.5659 640.78368 234.24588 640.78368 ]
+>>
+endobj
+130 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (or)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 198.63699 698.02631 209.04894 709.59515 ]
+/QuadPoints [ 198.63699 709.59515 209.04894 709.59515 198.63699 698.02631 209.04894 698.02631 ]
+>>
+endobj
+131 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 194.35652 411.82479 214.06982 423.39363 ]
+/QuadPoints [ 194.35652 423.39363 214.06982 423.39363 194.35652 411.82479 214.06982 411.82479 ]
+>>
+endobj
+132 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 195.16633 168.58992 215.11101 180.15876 ]
+/QuadPoints [ 195.16633 180.15876 215.11101 180.15876 195.16633 168.58992 215.11101 168.58992 ]
+>>
+endobj
+133 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (for)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 199.56249 397.54884 213.56079 409.11768 ]
+/QuadPoints [ 199.56249 409.11768 213.56079 409.11768 199.56249 397.54884 213.56079 397.54884 ]
+>>
+endobj
+134 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropological)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 169.13644 139.9108 248.11692 151.47964 ]
+/QuadPoints [ 169.13644 151.47964 248.11692 151.47964 169.13644 139.9108 248.11692 139.9108 ]
+>>
+endobj
+135 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\050US)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 199.56249 626.50774 218.16519 638.07658 ]
+/QuadPoints [ 199.56249 638.07658 218.16519 638.07658 199.56249 626.50774 218.16519 626.50774 ]
+>>
+endobj
+136 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 202.6398 197.15339 218.50068 208.72223 ]
+/QuadPoints [ 202.6398 208.72223 218.50068 208.72223 202.6398 197.15339 218.50068 197.15339 ]
+>>
+endobj
+137 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 201.87626 669.34716 221.58956 680.916 ]
+/QuadPoints [ 201.87626 680.916 221.58956 680.916 201.87626 669.34716 221.58956 669.34716 ]
+>>
+endobj
+138 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (promise)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 195.39771 368.86968 235.78453 380.43852 ]
+/QuadPoints [ 195.39771 380.43852 235.78453 380.43852 195.39771 368.86968 235.78453 368.86968 ]
+>>
+endobj
+139 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (we)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 209.5117 383.2729 224.1 394.84174 ]
+/QuadPoints [ 209.5117 394.84174 224.1 394.84174 209.5117 383.2729 224.1 383.2729 ]
+>>
+endobj
+140 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 212.17253 683.75036 222.16801 695.3192 ]
+/QuadPoints [ 212.17253 695.3192 222.16801 695.3192 212.17253 683.75036 222.16801 683.75036 ]
+>>
+endobj
+141 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 217.60988 411.82479 227.37398 423.39363 ]
+/QuadPoints [ 217.60988 423.39363 227.37398 423.39363 217.60988 411.82479 227.37398 411.82479 ]
+>>
+endobj
+142 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 219.80796 354.59373 227.97556 366.16257 ]
+/QuadPoints [ 219.80796 366.16257 227.97556 366.16257 219.80796 354.59373 227.97556 354.59373 ]
+>>
+endobj
+143 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 218.53539 168.58992 234.39627 180.15876 ]
+/QuadPoints [ 218.53539 180.15876 234.39627 180.15876 218.53539 168.58992 234.39627 168.58992 ]
+>>
+endobj
+144 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (other)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 214.37061 698.02631 240.74756 709.59515 ]
+/QuadPoints [ 214.37061 709.59515 240.74756 709.59515 214.37061 698.02631 240.74756 698.02631 ]
+>>
+endobj
+145 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (inappropriate)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 196.32322 182.86583 264.70663 194.43467 ]
+/QuadPoints [ 196.32322 194.43467 264.70663 194.43467 196.32322 182.86583 264.70663 182.86583 ]
+>>
+endobj
+146 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 224.66688 669.34716 240.52776 680.916 ]
+/QuadPoints [ 224.66688 680.916 240.52776 680.916 224.66688 669.34716 240.52776 669.34716 ]
+>>
+endobj
+147 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (UK)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 225.01394 626.50774 240.49305 638.07658 ]
+/QuadPoints [ 225.01394 638.07658 240.49305 638.07658 225.01394 626.50774 240.49305 626.50774 ]
+>>
+endobj
+148 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (contributed)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 203.72728 655.07121 261.8607 666.64005 ]
+/QuadPoints [ 203.72728 666.64005 261.8607 666.64005 203.72728 655.07121 261.8607 655.07121 ]
+>>
+endobj
+149 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (sometimes)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 206.04104 125.63482 260.36832 137.20366 ]
+/QuadPoints [ 206.04104 137.20366 260.36832 137.20366 206.04104 125.63482 260.36832 125.63482 ]
+>>
+endobj
+150 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (main)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 222.19114 197.15339 247.80455 208.72223 ]
+/QuadPoints [ 222.19114 208.72223 247.80455 208.72223 222.19114 197.15339 247.80455 197.15339 ]
+>>
+endobj
+151 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (call)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 228.48459 383.2729 245.80315 394.84174 ]
+/QuadPoints [ 228.48459 394.84174 245.80315 394.84174 228.48459 383.2729 245.80315 383.2729 ]
+>>
+endobj
+152 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (an)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 232.83447 426.11231 245.3751 437.68115 ]
+/QuadPoints [ 232.83447 437.68115 245.3751 437.68115 232.83447 426.11231 245.3751 426.11231 ]
+>>
+endobj
+153 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (achieving)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 216.56869 397.54884 264.92644 409.11768 ]
+/QuadPoints [ 216.56869 409.11768 264.92644 409.11768 216.56869 397.54884 264.92644 397.54884 ]
+>>
+endobj
+154 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 238.4338 368.86968 248.1979 380.43852 ]
+/QuadPoints [ 238.4338 380.43852 248.1979 380.43852 238.4338 368.86968 248.1979 368.86968 ]
+>>
+endobj
+155 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (contradicts)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 215.64318 154.31394 271.70578 165.88278 ]
+/QuadPoints [ 215.64318 165.88278 271.70578 165.88278 215.64318 154.31394 271.70578 154.31394 ]
+>>
+endobj
+156 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (rolled)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 230.79836 411.82479 259.43124 423.39363 ]
+/QuadPoints [ 230.79836 423.39363 259.43124 423.39363 230.79836 411.82479 259.43124 411.82479 ]
+>>
+endobj
+157 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (clarity)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 237.85535 168.58992 269.8779 180.15876 ]
+/QuadPoints [ 237.85535 180.15876 269.8779 180.15876 237.85535 168.58992 269.8779 168.58992 ]
+>>
+endobj
+158 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (While)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 239.82206 640.78368 269.68123 652.35252 ]
+/QuadPoints [ 239.82206 652.35252 269.68123 652.35252 239.82206 640.78368 269.68123 640.78368 ]
+>>
+endobj
+159 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (imagined)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 231.72387 354.59373 277.94138 366.16257 ]
+/QuadPoints [ 231.72387 366.16257 277.94138 366.16257 231.72387 354.59373 277.94138 354.59373 ]
+>>
+endobj
+160 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (particularism)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 227.21202 683.75036 293.62873 695.3192 ]
+/QuadPoints [ 227.21202 695.3192 293.62873 695.3192 227.21202 683.75036 293.62873 683.75036 ]
+>>
+endobj
+161 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (such)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 251.27521 368.86968 274.69054 380.43852 ]
+/QuadPoints [ 251.27521 380.43852 274.69054 380.43852 251.27521 368.86968 274.69054 368.86968 ]
+>>
+endobj
+162 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (image)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 249.26223 426.11231 279.58416 437.68115 ]
+/QuadPoints [ 249.26223 437.68115 279.58416 437.68115 249.26223 426.11231 279.58416 426.11231 ]
+>>
+endobj
+163 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (France\051)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 247.45749 626.50774 285.39172 638.07658 ]
+/QuadPoints [ 247.45749 638.07658 285.39172 638.07658 247.45749 626.50774 285.39172 626.50774 ]
+>>
+endobj
+164 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 263.53818 125.63482 273.33699 137.20366 ]
+/QuadPoints [ 263.53818 137.20366 273.33699 137.20366 263.53818 125.63482 273.33699 125.63482 ]
+>>
+endobj
+165 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (up)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 262.95974 411.82479 276.09037 423.39363 ]
+/QuadPoints [ 262.95974 423.39363 276.09037 423.39363 262.95974 411.82479 276.09037 411.82479 ]
+>>
+endobj
+166 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 265.38919 655.07121 275.30369 666.64005 ]
+/QuadPoints [ 265.38919 666.64005 275.30369 666.64005 265.38919 655.07121 275.30369 655.07121 ]
+>>
+endobj
+167 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (putatively)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 245.83785 698.02631 296.13917 709.59515 ]
+/QuadPoints [ 245.83785 709.59515 296.13917 709.59515 245.83785 698.02631 296.13917 698.02631 ]
+>>
+endobj
+168 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (premise)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 251.80737 197.15339 291.73144 208.72223 ]
+/QuadPoints [ 251.80737 208.72223 291.73144 208.72223 251.80737 197.15339 291.73144 197.15339 ]
+>>
+endobj
+169 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (thought)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 253.01053 139.9108 292.27518 151.47964 ]
+/QuadPoints [ 253.01053 151.47964 292.27518 151.47964 253.01053 139.9108 292.27518 139.9108 ]
+>>
+endobj
+170 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (for)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 269.09122 182.86583 283.3209 194.43467 ]
+/QuadPoints [ 269.09122 194.43467 283.3209 194.43467 269.09122 182.86583 283.3209 182.86583 ]
+>>
+endobj
+171 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (sedimentation)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 243.98684 669.34716 315.18148 680.916 ]
+/QuadPoints [ 243.98684 680.916 315.18148 680.916 243.98684 669.34716 315.18148 669.34716 ]
+>>
+endobj
+172 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (for)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 273.14032 168.58992 287.36999 180.15876 ]
+/QuadPoints [ 273.14032 180.15876 287.36999 180.15876 273.14032 168.58992 287.36999 168.58992 ]
+>>
+endobj
+173 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (some)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 267.70296 397.54884 294.20717 409.11768 ]
+/QuadPoints [ 267.70296 409.11768 294.20717 409.11768 267.70296 397.54884 294.20717 397.54884 ]
+>>
+endobj
+174 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (a)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 278.69336 655.07121 284.46621 666.64005 ]
+/QuadPoints [ 278.69336 666.64005 284.46621 666.64005 278.69336 655.07121 284.46621 655.07121 ]
+>>
+endobj
+175 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (still)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 272.56187 640.78368 290.80593 652.35252 ]
+/QuadPoints [ 272.56187 652.35252 290.80593 652.35252 272.56187 640.78368 290.80593 640.78368 ]
+>>
+endobj
+176 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (be)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 276.72666 125.63482 288.65413 137.20366 ]
+/QuadPoints [ 276.72666 137.20366 288.65413 137.20366 276.72666 125.63482 288.65413 125.63482 ]
+>>
+endobj
+177 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (as)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 281.93263 354.59373 292.52969 366.16257 ]
+/QuadPoints [ 281.93263 366.16257 292.52969 366.16257 281.93263 354.59373 292.52969 354.59373 ]
+>>
+endobj
+178 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (what)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 276.14821 154.31394 301.64594 165.88278 ]
+/QuadPoints [ 276.14821 165.88278 301.64594 165.88278 276.14821 154.31394 301.64594 154.31394 ]
+>>
+endobj
+179 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropological\077)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 250.3497 383.2729 333.28672 394.84174 ]
+/QuadPoints [ 250.3497 394.84174 333.28672 394.84174 250.3497 383.2729 333.28672 383.2729 ]
+>>
+endobj
+180 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (clarity)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 277.65216 368.86968 308.98058 380.43852 ]
+/QuadPoints [ 277.65216 380.43852 308.98058 380.43852 277.65216 368.86968 308.98058 368.86968 ]
+>>
+endobj
+181 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (and)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 288.98963 626.50774 307.90468 638.07658 ]
+/QuadPoints [ 288.98963 638.07658 307.90468 638.07658 288.98963 626.50774 307.90468 626.50774 ]
+>>
+endobj
+182 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 295.53759 197.15339 305.186 208.72223 ]
+/QuadPoints [ 295.53759 208.72223 305.186 208.72223 295.53759 197.15339 305.186 197.15339 ]
+>>
+endobj
+183 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 296.278 354.59373 312.13888 366.16257 ]
+/QuadPoints [ 296.278 366.16257 312.13888 366.16257 296.278 354.59373 312.13888 354.59373 ]
+>>
+endobj
+184 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (on)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 298.93883 683.75036 311.71083 695.3192 ]
+/QuadPoints [ 298.93883 695.3192 311.71083 695.3192 298.93883 683.75036 311.71083 683.75036 ]
+>>
+endobj
+185 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (conjured)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 283.62168 426.11231 327.64112 437.68115 ]
+/QuadPoints [ 283.62168 437.68115 327.64112 437.68115 283.62168 426.11231 327.64112 426.11231 ]
+>>
+endobj
+186 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (which)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 291.07202 168.58992 322.23847 180.15876 ]
+/QuadPoints [ 291.07202 180.15876 322.23847 180.15876 291.07202 168.58992 322.23847 168.58992 ]
+>>
+endobj
+187 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (called)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 291.88184 125.63482 321.6716 137.20366 ]
+/QuadPoints [ 291.88184 137.20366 321.6716 137.20366 291.88184 125.63482 321.6716 125.63482 ]
+>>
+endobj
+188 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (shirtsleeves)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 279.2718 411.82479 337.53248 423.39363 ]
+/QuadPoints [ 279.2718 423.39363 337.53248 423.39363 279.2718 411.82479 337.53248 411.82479 ]
+>>
+endobj
+189 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (situation)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 287.94843 655.07121 331.60923 666.64005 ]
+/QuadPoints [ 287.94843 666.64005 331.60923 666.64005 287.94843 655.07121 331.60923 655.07121 ]
+>>
+endobj
+190 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 305.99582 154.31394 314.04773 165.88278 ]
+/QuadPoints [ 305.99582 165.88278 314.04773 165.88278 305.99582 154.31394 314.04773 154.31394 ]
+>>
+endobj
+191 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (tracing)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 293.73285 640.78368 328.09231 652.35252 ]
+/QuadPoints [ 293.73285 652.35252 328.09231 652.35252 293.73285 640.78368 328.09231 640.78368 ]
+>>
+endobj
+192 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (clarity)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 296.97213 397.54884 328.64761 409.11768 ]
+/QuadPoints [ 296.97213 409.11768 328.64761 409.11768 296.97213 397.54884 328.64761 397.54884 ]
+>>
+endobj
+193 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (infra)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 301.48397 698.02631 324.84146 709.59515 ]
+/QuadPoints [ 301.48397 709.59515 324.84146 709.59515 301.48397 698.02631 324.84146 698.02631 ]
+>>
+endobj
+194 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (this)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 308.95744 197.15339 327.42131 208.72223 ]
+/QuadPoints [ 308.95744 208.72223 327.42131 208.72223 308.95744 197.15339 327.42131 197.15339 ]
+>>
+endobj
+195 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (namely)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 300.44278 139.9108 337.67131 151.47964 ]
+/QuadPoints [ 300.44278 151.47964 337.67131 151.47964 300.44278 139.9108 337.67131 139.9108 ]
+>>
+endobj
+196 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (a)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 316.87053 683.75036 322.64338 695.3192 ]
+/QuadPoints [ 316.87053 695.3192 322.64338 695.3192 316.87053 683.75036 322.64338 683.75036 ]
+>>
+endobj
+197 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropology)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 287.2543 182.86583 354.6775 194.43467 ]
+/QuadPoints [ 287.2543 194.43467 354.6775 194.43467 287.2543 182.86583 354.6775 182.86583 ]
+>>
+endobj
+198 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 318.49017 669.34716 328.25427 680.916 ]
+/QuadPoints [ 318.49017 680.916 328.25427 680.916 318.49017 669.34716 328.25427 669.34716 ]
+>>
+endobj
+199 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (built)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 312.01162 368.86968 335.31126 380.43852 ]
+/QuadPoints [ 312.01162 380.43852 335.31126 380.43852 312.01162 368.86968 335.31126 368.86968 ]
+>>
+endobj
+200 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (more)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 311.43318 626.50774 337.24326 638.07658 ]
+/QuadPoints [ 311.43318 638.07658 337.24326 638.07658 311.43318 626.50774 337.24326 626.50774 ]
+>>
+endobj
+201 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (pursuit)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 315.94502 354.59373 351.62333 366.16257 ]
+/QuadPoints [ 315.94502 366.16257 351.62333 366.16257 315.94502 354.59373 351.62333 354.59373 ]
+>>
+endobj
+202 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\217the)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 324.62165 125.63482 344.30025 137.20366 ]
+/QuadPoints [ 324.62165 137.20366 344.30025 137.20366 324.62165 125.63482 344.30025 125.63482 ]
+>>
+endobj
+203 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (by)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 331.40099 426.11231 343.8722 437.68115 ]
+/QuadPoints [ 331.40099 437.68115 343.8722 437.68115 331.40099 426.11231 343.8722 426.11231 ]
+>>
+endobj
+204 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (self)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 331.67865 669.34716 349.07818 680.916 ]
+/QuadPoints [ 331.67865 680.916 349.07818 680.916 331.67865 669.34716 349.07818 669.34716 ]
+>>
+endobj
+205 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (arguably)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 318.49017 154.31394 362.42862 165.88278 ]
+/QuadPoints [ 318.49017 165.88278 362.42862 165.88278 318.49017 154.31394 362.42862 154.31394 ]
+>>
+endobj
+206 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (larger)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 327.86093 683.75036 356.43596 695.3192 ]
+/QuadPoints [ 327.86093 695.3192 356.43596 695.3192 327.86093 683.75036 356.43596 683.75036 ]
+>>
+endobj
+207 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (loose)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 331.33158 640.78368 357.48873 652.35252 ]
+/QuadPoints [ 331.33158 652.35252 357.48873 652.35252 331.33158 640.78368 357.48873 640.78368 ]
+>>
+endobj
+208 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 335.1493 655.07121 354.8626 666.64005 ]
+/QuadPoints [ 335.1493 666.64005 354.8626 666.64005 335.1493 655.07121 354.8626 655.07121 ]
+>>
+endobj
+209 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (about)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 331.33158 397.54884 360.06858 409.11768 ]
+/QuadPoints [ 331.33158 409.11768 360.06858 409.11768 331.33158 397.54884 360.06858 397.54884 ]
+>>
+endobj
+210 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (article)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 331.16961 197.15339 362.76411 208.72223 ]
+/QuadPoints [ 331.16961 208.72223 362.76411 208.72223 331.16961 197.15339 362.76411 197.15339 ]
+>>
+endobj
+211 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (into)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 338.04151 368.86968 357.78952 380.43852 ]
+/QuadPoints [ 338.04151 380.43852 357.78952 380.43852 338.04151 368.86968 357.78952 368.86968 ]
+>>
+endobj
+212 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (cultural)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 328.78644 698.02631 367.62303 709.59515 ]
+/QuadPoints [ 328.78644 709.59515 367.62303 709.59515 328.78644 698.02631 367.62303 698.02631 ]
+>>
+endobj
+213 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Is)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 344.17299 411.82479 352.91904 423.39363 ]
+/QuadPoints [ 344.17299 423.39363 352.91904 423.39363 344.17299 411.82479 352.91904 411.82479 ]
+>>
+endobj
+214 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\223rm)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 340.70234 626.50774 361.7692 638.07658 ]
+/QuadPoints [ 340.70234 638.07658 361.7692 638.07658 340.70234 626.50774 361.7692 626.50774 ]
+>>
+endobj
+215 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 344.86712 139.9108 364.58043 151.47964 ]
+/QuadPoints [ 344.86712 151.47964 364.58043 151.47964 344.86712 139.9108 364.58043 139.9108 ]
+>>
+endobj
+216 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Indeed)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 337.81013 383.2729 371.88037 394.84174 ]
+/QuadPoints [ 337.81013 394.84174 371.88037 394.84174 337.81013 383.2729 371.88037 383.2729 ]
+>>
+endobj
+217 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (this)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 347.82874 426.11231 366.4083 437.68115 ]
+/QuadPoints [ 347.82874 437.68115 366.4083 437.68115 347.82874 426.11231 366.4083 426.11231 ]
+>>
+endobj
+218 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 355.39477 354.59373 365.15887 366.16257 ]
+/QuadPoints [ 355.39477 366.16257 365.15887 366.16257 355.39477 354.59373 365.15887 354.59373 ]
+>>
+endobj
+219 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Other\220)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 347.41227 125.63482 379.41168 137.20366 ]
+/QuadPoints [ 347.41227 137.20366 379.41168 137.20366 347.41227 125.63482 379.41168 125.63482 ]
+>>
+endobj
+220 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (it)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 360.60075 368.86968 367.47264 380.43852 ]
+/QuadPoints [ 360.60075 380.43852 367.47264 380.43852 360.60075 368.86968 367.47264 368.86968 ]
+>>
+endobj
+221 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropologists)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 325.89423 168.58992 404.05331 180.15876 ]
+/QuadPoints [ 325.89423 180.15876 404.05331 180.15876 325.89423 168.58992 404.05331 168.58992 ]
+>>
+endobj
+222 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (In)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 361.52625 182.86583 372.10017 194.43467 ]
+/QuadPoints [ 361.52625 194.43467 372.10017 194.43467 361.52625 182.86583 372.10017 182.86583 ]
+>>
+endobj
+223 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (there)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 356.0889 411.82479 381.55192 423.39363 ]
+/QuadPoints [ 356.0889 423.39363 381.55192 423.39363 356.0889 411.82479 381.55192 411.82479 ]
+>>
+endobj
+224 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 366.2232 197.15339 374.62218 208.72223 ]
+/QuadPoints [ 366.2232 208.72223 374.62218 208.72223 366.2232 197.15339 374.62218 197.15339 ]
+>>
+endobj
+225 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (critique)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 352.61825 669.34716 390.92268 680.916 ]
+/QuadPoints [ 352.61825 680.916 390.92268 680.916 352.61825 669.34716 390.92268 669.34716 ]
+>>
+endobj
+226 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (a)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 368.93031 354.59373 374.70316 366.16257 ]
+/QuadPoints [ 368.93031 366.16257 374.70316 366.16257 368.93031 354.59373 374.70316 354.59373 ]
+>>
+endobj
+227 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (could)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 358.28698 655.07121 385.99435 666.64005 ]
+/QuadPoints [ 358.28698 666.64005 385.99435 666.64005 358.28698 655.07121 385.99435 655.07121 ]
+>>
+endobj
+228 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (it)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 369.27738 139.9108 376.14927 151.47964 ]
+/QuadPoints [ 369.27738 151.47964 376.14927 151.47964 369.27738 139.9108 376.14927 139.9108 ]
+>>
+endobj
+229 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (ties)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 364.99691 626.50774 382.53527 638.07658 ]
+/QuadPoints [ 364.99691 638.07658 382.53527 638.07658 364.99691 626.50774 382.53527 626.50774 ]
+>>
+endobj
+230 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 366.96361 154.31394 382.82449 165.88278 ]
+/QuadPoints [ 366.96361 165.88278 382.82449 165.88278 366.96361 154.31394 382.82449 154.31394 ]
+>>
+endobj
+231 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (what)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 363.14589 397.54884 388.41224 409.11768 ]
+/QuadPoints [ 363.14589 409.11768 388.41224 409.11768 363.14589 397.54884 388.41224 397.54884 ]
+>>
+endobj
+232 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (If)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 373.78922 368.86968 381.23956 380.43852 ]
+/QuadPoints [ 373.78922 380.43852 381.23956 380.43852 373.78922 368.86968 381.23956 368.86968 ]
+>>
+endobj
+233 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (canvas)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 361.52625 683.75036 395.95512 695.3192 ]
+/QuadPoints [ 361.52625 695.3192 395.95512 695.3192 361.52625 683.75036 395.95512 683.75036 ]
+>>
+endobj
+234 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 380.84622 139.9108 388.89813 151.47964 ]
+/QuadPoints [ 380.84622 151.47964 388.89813 151.47964 380.84622 139.9108 388.89813 139.9108 ]
+>>
+endobj
+235 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (issue\220s)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 370.04092 426.11231 403.54428 437.68115 ]
+/QuadPoints [ 370.04092 437.68115 403.54428 437.68115 370.04092 426.11231 403.54428 426.11231 ]
+>>
+endobj
+236 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\050e)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 382.46585 125.63482 392.42663 137.20366 ]
+/QuadPoints [ 382.46585 137.20366 392.42663 137.20366 382.46585 125.63482 392.42663 125.63482 ]
+>>
+endobj
+237 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 379.92071 383.2729 395.43452 394.84174 ]
+/QuadPoints [ 379.92071 394.84174 395.43452 394.84174 379.92071 383.2729 395.43452 383.2729 ]
+>>
+endobj
+238 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (allegiances)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 360.25368 640.78368 415.27508 652.35252 ]
+/QuadPoints [ 360.25368 652.35252 415.27508 652.35252 360.25368 640.78368 415.27508 640.78368 ]
+>>
+endobj
+239 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (that)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 378.37048 197.15339 398.08378 208.72223 ]
+/QuadPoints [ 378.37048 208.72223 398.08378 208.72223 378.37048 197.15339 398.08378 197.15339 ]
+>>
+endobj
+240 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 385.93651 626.50774 396.08238 638.07658 ]
+/QuadPoints [ 385.93651 638.07658 396.08238 638.07658 385.93651 626.50774 396.08238 626.50774 ]
+>>
+endobj
+241 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 391.48955 397.54884 399.65715 409.11768 ]
+/QuadPoints [ 391.48955 409.11768 399.65715 409.11768 391.48955 397.54884 399.65715 397.54884 ]
+>>
+endobj
+242 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (certain)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 378.64814 354.59373 412.82249 366.16257 ]
+/QuadPoints [ 378.64814 366.16257 412.82249 366.16257 378.64814 354.59373 412.82249 354.59373 ]
+>>
+endobj
+243 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (g)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 395.65433 125.63482 401.43875 137.20366 ]
+/QuadPoints [ 395.65433 137.20366 401.43875 137.20366 395.65433 125.63482 401.43875 125.63482 ]
+>>
+endobj
+244 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (scope)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 385.011 411.82479 413.48191 423.39363 ]
+/QuadPoints [ 385.011 423.39363 413.48191 423.39363 385.011 411.82479 413.48191 411.82479 ]
+>>
+endobj
+245 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (most)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 387.20908 154.31394 412.12836 165.88278 ]
+/QuadPoints [ 387.20908 165.88278 412.12836 165.88278 387.20908 154.31394 412.12836 154.31394 ]
+>>
+endobj
+246 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (best)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 389.52285 655.07121 410.16166 666.64005 ]
+/QuadPoints [ 389.52285 666.64005 410.16166 666.64005 389.52285 655.07121 410.16166 655.07121 ]
+>>
+endobj
+247 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (particular)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 376.33437 182.86583 425.27056 194.43467 ]
+/QuadPoints [ 376.33437 194.43467 425.27056 194.43467 376.33437 182.86583 425.27056 182.86583 ]
+>>
+endobj
+248 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (phenomena)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 372.86372 698.02631 432.2003 709.59515 ]
+/QuadPoints [ 372.86372 709.59515 432.2003 709.59515 372.86372 698.02631 432.2003 698.02631 ]
+>>
+endobj
+249 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (at)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 402.36426 397.54884 411.78129 409.11768 ]
+/QuadPoints [ 402.36426 409.11768 411.78129 409.11768 402.36426 397.54884 411.78129 397.54884 ]
+>>
+endobj
+250 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\050cf)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 401.09169 683.75036 414.6735 695.3192 ]
+/QuadPoints [ 401.09169 695.3192 414.6735 695.3192 401.09169 683.75036 414.6735 683.75036 ]
+>>
+endobj
+251 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (very)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 400.05049 383.2729 421.77677 394.84174 ]
+/QuadPoints [ 400.05049 394.84174 421.77677 394.84174 400.05049 383.2729 421.77677 383.2729 ]
+>>
+endobj
+252 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (such)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 401.85523 197.15339 425.61762 208.72223 ]
+/QuadPoints [ 401.85523 208.72223 425.61762 208.72223 401.85523 197.15339 425.61762 197.15339 ]
+>>
+endobj
+253 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (oriented)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 393.34056 139.9108 435.3933 151.47964 ]
+/QuadPoints [ 393.34056 151.47964 435.3933 151.47964 393.34056 139.9108 435.3933 139.9108 ]
+>>
+endobj
+254 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (more)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 402.36426 669.34716 427.82728 680.916 ]
+/QuadPoints [ 402.36426 680.916 427.82728 680.916 402.36426 669.34716 427.82728 669.34716 ]
+>>
+endobj
+255 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (call)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 407.63965 426.11231 424.9582 437.68115 ]
+/QuadPoints [ 407.63965 437.68115 424.9582 437.68115 407.63965 426.11231 424.9582 426.11231 ]
+>>
+endobj
+256 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (anthropology)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 383.9698 368.86968 450.69887 380.43852 ]
+/QuadPoints [ 383.9698 380.43852 450.69887 380.43852 383.9698 368.86968 450.69887 368.86968 ]
+>>
+endobj
+257 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (be)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 413.70172 655.07121 425.51351 666.64005 ]
+/QuadPoints [ 413.70172 666.64005 425.51351 666.64005 413.70172 655.07121 425.51351 655.07121 ]
+>>
+endobj
+258 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (ought)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 407.9173 168.58992 436.88568 180.15876 ]
+/QuadPoints [ 407.9173 180.15876 436.88568 180.15876 407.9173 168.58992 436.88568 168.58992 ]
+>>
+endobj
+259 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 418.44495 640.78368 428.12807 652.35252 ]
+/QuadPoints [ 418.44495 652.35252 428.12807 652.35252 418.44495 640.78368 428.12807 640.78368 ]
+>>
+endobj
+260 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (for)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 416.70962 411.82479 431.17067 423.39363 ]
+/QuadPoints [ 416.70962 423.39363 431.17067 423.39363 416.70962 411.82479 431.17067 411.82479 ]
+>>
+endobj
+261 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in\224uential)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 399.47205 626.50774 450.91868 638.07658 ]
+/QuadPoints [ 399.47205 638.07658 450.91868 638.07658 399.47205 626.50774 450.91868 626.50774 ]
+>>
+endobj
+262 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (type)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 416.70962 354.59373 438.35492 366.16257 ]
+/QuadPoints [ 416.70962 366.16257 438.35492 366.16257 416.70962 354.59373 438.35492 354.59373 ]
+>>
+endobj
+263 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (stake)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 414.62723 397.54884 440.66869 409.11768 ]
+/QuadPoints [ 414.62723 409.11768 440.66869 409.11768 414.62723 397.54884 440.66869 397.54884 ]
+>>
+endobj
+264 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Fabian)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 411.73502 125.63482 444.98387 137.20366 ]
+/QuadPoints [ 411.73502 137.20366 444.98387 137.20366 411.73502 125.63482 444.98387 125.63482 ]
+>>
+endobj
+265 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (I)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 431.8648 182.86583 435.50899 194.43467 ]
+/QuadPoints [ 431.8648 194.43467 435.50899 194.43467 431.8648 182.86583 435.50899 182.86583 ]
+>>
+endobj
+266 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 429.27338 426.11231 438.9565 437.68115 ]
+/QuadPoints [ 429.27338 437.68115 438.9565 437.68115 429.27338 426.11231 438.9565 426.11231 ]
+>>
+endobj
+267 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (Tsing)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 423.18817 683.75036 449.56513 695.3192 ]
+/QuadPoints [ 423.18817 695.3192 449.56513 695.3192 423.18817 683.75036 449.56513 683.75036 ]
+>>
+endobj
+268 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (an)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 431.28636 669.34716 443.71129 680.916 ]
+/QuadPoints [ 431.28636 680.916 443.71129 680.916 431.28636 669.34716 443.71129 669.34716 ]
+>>
+endobj
+269 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (notion)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 426.08038 383.2729 458.75078 394.84174 ]
+/QuadPoints [ 426.08038 394.84174 458.75078 394.84174 426.08038 383.2729 458.75078 383.2729 ]
+>>
+endobj
+270 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (distinctive)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 416.47824 154.31394 469.01235 165.88278 ]
+/QuadPoints [ 416.47824 165.88278 469.01235 165.88278 416.47824 154.31394 469.01235 154.31394 ]
+>>
+endobj
+271 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 440.31005 168.58992 450.34024 180.15876 ]
+/QuadPoints [ 440.31005 180.15876 450.34024 180.15876 440.31005 168.58992 450.34024 168.58992 ]
+>>
+endobj
+272 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 442.16107 354.59373 451.92517 366.16257 ]
+/QuadPoints [ 442.16107 366.16257 451.92517 366.16257 442.16107 354.59373 451.92517 354.59373 ]
+>>
+endobj
+273 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 443.54933 397.54884 453.42912 409.11768 ]
+/QuadPoints [ 443.54933 409.11768 453.42912 409.11768 443.54933 397.54884 453.42912 397.54884 ]
+>>
+endobj
+274 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (national)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 431.28636 640.78368 472.43672 652.35252 ]
+/QuadPoints [ 431.28636 652.35252 472.43672 652.35252 431.28636 640.78368 472.43672 640.78368 ]
+>>
+endobj
+275 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (sorting)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 434.52563 411.82479 469.23215 423.39363 ]
+/QuadPoints [ 434.52563 423.39363 469.23215 423.39363 434.52563 411.82479 469.23215 411.82479 ]
+>>
+endobj
+276 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (want)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 439.96299 182.86583 465.11365 194.43467 ]
+/QuadPoints [ 439.96299 194.43467 465.11365 194.43467 439.96299 182.86583 465.11365 182.86583 ]
+>>
+endobj
+277 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (questions)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 429.27338 197.15339 477.81623 208.72223 ]
+/QuadPoints [ 429.27338 208.72223 477.81623 208.72223 429.27338 197.15339 477.81623 197.15339 ]
+>>
+endobj
+278 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (seems)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 440.8885 698.02631 471.84671 709.59515 ]
+/QuadPoints [ 440.8885 709.59515 471.84671 709.59515 440.8885 698.02631 471.84671 698.02631 ]
+>>
+endobj
+279 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (toward)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 439.96299 139.9108 475.07442 151.47964 ]
+/QuadPoints [ 439.96299 151.47964 475.07442 151.47964 439.96299 139.9108 475.07442 139.9108 ]
+>>
+endobj
+280 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (by)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 456.39074 368.86968 468.51489 380.43852 ]
+/QuadPoints [ 456.39074 380.43852 468.51489 380.43852 456.39074 368.86968 468.51489 368.86968 ]
+>>
+endobj
+281 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (characterized)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 428.97259 655.07121 496.12971 666.64005 ]
+/QuadPoints [ 428.97259 666.64005 496.12971 666.64005 428.97259 655.07121 496.12971 655.07121 ]
+>>
+endobj
+282 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (1983\051)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 448.29255 125.63482 476.97171 137.20366 ]
+/QuadPoints [ 448.29255 137.20366 476.97171 137.20366 448.29255 125.63482 476.97171 125.63482 ]
+>>
+endobj
+283 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (the)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 456.39074 397.54884 472.25162 409.11768 ]
+/QuadPoints [ 456.39074 409.11768 472.25162 409.11768 456.39074 397.54884 472.25162 397.54884 ]
+>>
+endobj
+284 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (attitude)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 447.01998 669.34716 485.67148 680.916 ]
+/QuadPoints [ 447.01998 680.916 485.67148 680.916 447.01998 669.34716 485.67148 669.34716 ]
+>>
+endobj
+285 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (strive)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 453.72991 168.58992 481.85376 180.15876 ]
+/QuadPoints [ 453.72991 180.15876 481.85376 180.15876 453.72991 168.58992 481.85376 168.58992 ]
+>>
+endobj
+286 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (of)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 463.10067 383.2729 473.21183 394.84174 ]
+/QuadPoints [ 463.10067 394.84174 473.21183 394.84174 463.10067 383.2729 473.21183 383.2729 ]
+>>
+endobj
+287 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (2004\051)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 454.7711 683.75036 483.10319 695.3192 ]
+/QuadPoints [ 454.7711 695.3192 483.10319 695.3192 454.7711 683.75036 483.10319 683.75036 ]
+>>
+endobj
+288 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 469.23215 182.86583 479.26234 194.43467 ]
+/QuadPoints [ 469.23215 194.43467 479.26234 194.43467 469.23215 182.86583 479.26234 182.86583 ]
+>>
+endobj
+289 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (epistemologi)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 443.0403 426.11231 506.99284 437.68115 ]
+/QuadPoints [ 443.0403 437.68115 506.99284 437.68115 443.0403 426.11231 506.99284 426.11231 ]
+>>
+endobj
+290 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (out)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 472.47143 411.82479 488.94546 423.39363 ]
+/QuadPoints [ 472.47143 423.39363 488.94546 423.39363 472.47143 411.82479 488.94546 411.82479 ]
+>>
+endobj
+291 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (individuals)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 454.42404 626.50774 510.48664 638.07658 ]
+/QuadPoints [ 454.42404 638.07658 510.48664 638.07658 454.42404 626.50774 510.48664 626.50774 ]
+>>
+endobj
+292 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (knowledge)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 455.8123 354.59373 510.42879 366.16257 ]
+/QuadPoints [ 455.8123 366.16257 510.42879 366.16257 455.8123 354.59373 510.42879 354.59373 ]
+>>
+endobj
+293 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (just)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 477.21465 698.02631 495.65538 709.59515 ]
+/QuadPoints [ 477.21465 709.59515 495.65538 709.59515 477.21465 698.02631 495.65538 698.02631 ]
+>>
+endobj
+294 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (are)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 481.56453 197.15339 497.07835 208.72223 ]
+/QuadPoints [ 481.56453 208.72223 497.07835 208.72223 481.56453 197.15339 497.07835 197.15339 ]
+>>
+endobj
+295 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (and)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 480.10686 125.63482 499.13761 137.20366 ]
+/QuadPoints [ 480.10686 137.20366 499.13761 137.20366 480.10686 125.63482 499.13761 125.63482 ]
+>>
+endobj
+296 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (charac)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 473.39694 154.31394 506.73833 165.88278 ]
+/QuadPoints [ 473.39694 165.88278 506.73833 165.88278 473.39694 154.31394 506.73833 154.31394 ]
+>>
+endobj
+297 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (analogy)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 471.43023 368.86968 510.85684 380.43852 ]
+/QuadPoints [ 471.43023 380.43852 510.85684 380.43852 471.43023 368.86968 510.85684 368.86968 ]
+>>
+endobj
+298 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (episte)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 477.56172 383.2729 506.95814 394.84174 ]
+/QuadPoints [ 477.56172 394.84174 506.95814 394.84174 477.56172 383.2729 506.95814 383.2729 ]
+>>
+endobj
+299 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (\217styles\220)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 475.36364 640.78368 510.13957 652.35252 ]
+/QuadPoints [ 475.36364 652.35252 510.13957 652.35252 475.36364 640.78368 510.13957 640.78368 ]
+>>
+endobj
+300 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (pursuit)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 475.01657 397.54884 510.81056 409.11768 ]
+/QuadPoints [ 475.01657 409.11768 510.81056 409.11768 475.01657 397.54884 510.81056 397.54884 ]
+>>
+endobj
+301 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (differ)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 479.7598 139.9108 506.59951 151.47964 ]
+/QuadPoints [ 479.7598 151.47964 506.59951 151.47964 479.7598 139.9108 506.59951 139.9108 ]
+>>
+endobj
+302 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (show)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 483.34614 182.86583 510.60233 194.43467 ]
+/QuadPoints [ 483.34614 194.43467 510.60233 194.43467 483.34614 182.86583 510.60233 182.86583 ]
+>>
+endobj
+303 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (must)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 485.31284 168.58992 510.34781 180.15876 ]
+/QuadPoints [ 485.31284 180.15876 510.34781 180.15876 485.31284 168.58992 510.34781 168.58992 ]
+>>
+endobj
+304 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (now)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 488.78349 669.34716 510.8337 680.916 ]
+/QuadPoints [ 488.78349 680.916 510.8337 680.916 488.78349 669.34716 510.8337 669.34716 ]
+>>
+endobj
+305 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (The)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 491.44433 683.75036 510.77586 695.3192 ]
+/QuadPoints [ 491.44433 695.3192 510.77586 695.3192 491.44433 683.75036 510.77586 683.75036 ]
+>>
+endobj
+306 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (this)
+/C [ 0.74118 0.65882 0 ]
+/Rect [ 492.36983 411.82479 510.71801 423.39363 ]
+/QuadPoints [ 492.36983 423.39363 510.71801 423.39363 492.36983 411.82479 510.71801 411.82479 ]
+>>
+endobj
+307 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (as)
+/C [ 0.57647 0.5098 0 ]
+/Rect [ 499.6582 655.07121 510.48664 666.64005 ]
+/QuadPoints [ 499.6582 666.64005 510.48664 666.64005 499.6582 655.07121 510.48664 655.07121 ]
+>>
+endobj
+308 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (to)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 500.6994 698.02631 510.84527 709.59515 ]
+/QuadPoints [ 500.6994 709.59515 510.84527 709.59515 500.6994 698.02631 510.84527 698.02631 ]
+>>
+endobj
+309 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (in)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 500.8845 197.15339 510.76428 208.72223 ]
+/QuadPoints [ 500.8845 208.72223 510.76428 208.72223 500.8845 197.15339 510.76428 197.15339 ]
+>>
+endobj
+310 0 obj
+<<
+/F 4
+/Type /Annot
+/Subtype /Highlight
+/T (Hyper\055Beam)
+/Contents (is)
+/C [ 0.85882 0.76471 0 ]
+/Rect [ 502.31904 125.63482 510.48664 137.20366 ]
+/QuadPoints [ 502.31904 137.20366 510.48664 137.20366 502.31904 125.63482 510.48664 125.63482 ]
+>>
+endobj
+311 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+>>
+endobj
+312 0 obj
+<<
+/XObject <<
+/Image1 313 0 R
+>>
+/Font <<
+/F1 314 0 R
+/F2 322 0 R
+/F3 330 0 R
+/F4 338 0 R
+>>
+>>
+endobj
+313 0 obj
+<<
+/ColorSpace /DeviceRGB
+/BitsPerComponent 8
+/Width 22
+/Height 43
+/Filter /DCTDecode
+/Subtype /Image
+/Type /XObject
+/Length 1028
+>>
+stream
+ÿØÿà JFIF       ÿÛ C 
+
+
+ÿÛ C		ÿÀ  + " ÿÄ           	
+ÿÄ µ   } !1AQa"q2‘¡#B±ÁRÑð$3br‚	
+%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzƒ„…†‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚáâãäåæçèéêñòóôõö÷øùúÿÄ        	
+ÿÄ µ  w !1AQaq"2B‘¡±Á	#3RðbrÑ
+$4á%ñ&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz‚ƒ„…†‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚâãäåæçèéêòóôõö÷øùúÿÚ   ? û»ÊŽ¼cÅ¾ ÿ „·âµ¶‰gûÈ4ÿ Üÿ ÛVù¤ÿ ¾kÑ~$xÚÛáß‚uoÜÿ Ë¤Ò9?ŽVùc_ø5xßì©¢\êÑê>'¿ýäŽî‰$ŸÇ+üÒ5 }j«mq¯ÝEÛEIE |oûn|H›Vñ—…>èÿ ¿»yþîÿ ŽWù-ãÿ Ðßþý×Ðþ Óáðn è–_Ú_aM—^fÈ^_ùiµ¿‹æ¯…d½7Xý©¿h|HÔ¼È4˜nžòoï¢·Éoj­ÿ \×ÿ !×éîtÛm‰vðBŸêãùhGÂÚkëv&IË‘q˜ý2OøQRø3VöNßzgÝùóE |Çÿ ûðMŸƒeŸ
+Kl#{½aU»™?Ýö¯ýó¢W­øƒ[›Ä·ü#Ú?ï<—ÿ ‰×ðAÿ Lÿ Þ¯ÎOø'n±ªßøŽßÃRkZ´zà3éöúŒðÄIêB£Œí_¨ºfe¢é6öÖ6ÑÚ[ùA¼¨FÕÉ~Ns@³µ[;xáUÜ¨»CQSÑ@ÿÙ
+endstream
+endobj
+314 0 obj
+<<
+/BaseFont /CIDFont+F1
+/ToUnicode 315 0 R
+/Encoding /Identity-H
+/DescendantFonts [ <<
+/BaseFont /CIDFont+F1
+/CIDToGIDMap /Identity
+/W 316 0 R
+/Type /Font
+/Subtype /CIDFontType2
+/CIDSystemInfo <<
+/Ordering 317 0 R
+/Supplement 0
+/Registry 318 0 R
+>>
+/FontDescriptor <<
+/ItalicAngle 0
+/FontFile2 319 0 R
+/Flags 6
+/FontBBox 320 0 R
+/CapHeight 670
+/Type /FontDescriptor
+/FontName /CIDFont+F1
+/Descent -250
+/Ascent 903
+/StemV 321 0 R
+>>
+>> ]
+/Type /Font
+/Subtype /Type0
+>>
+endobj
+315 0 obj
+<<
+/Filter /FlateDecode
+/Length 388
+>>
+stream
+xœ]SËnƒ0ü•=¦‡ÛÓH)M)‡>TÚ °¤HÅ Cü}ÇJ£"ÁjÖ;»c{ˆö§ÃÉ´Eï¶¯
+ž¨iMmyì¯¶b:ó¥5$Õm5ä¿UW9r1w'Óô”e}¸Åq²3­vuæŠÞlÍ¶5Z}í‡‹ë0üpÇf"AyN57®ÑK9¼–SäiëSíÖÛi^;Î_Åç<0)eÑ×<eÅ¶4¦L¸'§ìèžœØÔÿÖã´sS}—Ö—Ë|	Jø b =ÐÆ‡8¬i ” @[ $ÅIqð!ÁXñ„ž2O¢YžÄôÍ$’	šÉ' #znÂV0hºBR‡McžÆt…y:ð@Ð(QØ­F‰Ât¤‚$Õ
+Z4J´hœ§‚@}¸?V’’ôñþS”Ä‘ªûCN¡3†Î%1$¥áâ %×±RBÆ÷°Ûz›?,†Y|}scuµÖÑ›ß;pñ^køöý°°üûXQÕÐ
+endstream
+endobj
+316 0 obj
+[ 1 1 296 3 3 296 5 5 518 6 6 518 7 7 518 8 8 518 9 9 518 10 10 518 13 13 703 14 14 592 20 20 703 21 21 296 22 22 389 25 25 851 27 27 703 30 30 500 33 33 667 35 35 537 36 36 537 37 37 407 38 38 555 39 39 444 41 41 481 42 42 555 43 43 296 46 46 277 47 47 851 48 48 592 49 49 500 50 50 537 52 52 370 53 53 407 54 54 315 55 55 574 59 59 481 62 62 518 65 65 500 ]
+endobj
+317 0 obj
+(Identity)
+endobj
+318 0 obj
+(Adobe)
+endobj
+319 0 obj
+<<
+/Filter /FlateDecode
+/Type /Stream
+/Length1 11628
+/Length 8791
+>>
+stream
+xœíšyxSÕ¾÷w);Å"ÝÉÞºw=Ê$ó,"PdÊP†ÒyžÓ¤Mš4sš6óÜMè …Ê¬L‚
+Å‚ *z½ç€]ÁÅûrWÚxÎñêyÏóÞçýãþñv?Ÿ$;{X¿áûû­µûdõ†«±¡˜ÅžZº4r\íã]†y0lLãêõ“¦=<ø†½º}·3!+.w\ëÏ+Ð>:‡525).k¹}ÃÆõ ã3SÑaS‡¢ý¿¢ýWS³¸EÏ•¡OØøQòBV\Q.¶dÚŸ0½°²ã²’:»G¶£ýéèø¨ÜœîS6Ã&¢1°Èlð ,$$„Z³aåÚUëÇ¯ÏLËŠKH¸(''c7.3-!pxŽŸ
+ñ³K‡zêù_(œ®Æ*++-O+*þþiØ—1LýÐ§F4¾4¦""p±9*'·8?-%•ùFÂØÈ)sæL‰\˜˜Ÿ¹¾¸€›”U¹,;!'?7'?Ž›”øfdäÂÌÌÈuó"×%$åóÐ·Ë6DEþj\dZAd\d~RJº<?)1’›—˜”—Ÿ™“Œn†¾ÌŽã¦ådÇeFn(ÎMJŽKHŠŒ
+Ž€¾~EmX†=‚À0"‰aœAX$†½2›†c‹8X†å`XIÖŒaaØÇvÃ– haƒP&çc˜»2#äÃA«Ý	Ê}4ØˆÏÄ+pÈò™1¤#LvqèägðgâžÝ:lÄ°øa÷ž³‡Ç†+ž7àŒhñ¿#D(¡a;’íùÒÈÿõbâ¨µ£~á,àÜ'¹Ô0JI=~©õå©tý5³ù$òväO£GŒ~st÷èã£ÏŽ¾îÏñü€qK®kˆj0ÔŸÇ†]v^;ú1y<Þ'KdeJ:½¨L€×©š„iäæõ¼Ã /ä¯}¡µ0Œ}ÚþðÀ²7cwz©H¡”Ñ|tv£¬IG®_›—¥DgKìLH#Èm26HeÙÎà0•nwøì9ÒÎõ…‚1ä÷ ±ù8Ê×Àãpœt-ñ!ó(`ƒ—[A˜ù½sÂr‘¯ÃÉSs.ƒgèpCÅ%ÿ±£!þ—ûBëF‚[¬]ÕF±{<ŸXö…qYòÙs)8‚•.3îj¡7Ýc®?zëò§µ³â¥¢\º°43­çŽjlêiè¥NJYº"{Á²÷™ùQ‹¶¬^¹Y“,MXŽeG# ¼¹é*ñÌð_dW×l>F®5%®^¸aë{Fž•­Ë¢Tj•BÅf˜d¸Ön©°Sèüç>Ì‹\›18tnÊÉ
+¦„•³×¨4e*rÇQþg`Þ#0°¯oïˆ³ÒE±ÙFš+-M<8Y{¼÷+²ïý¶wãc$‚|Z$ÍÉ÷Ûä?)ŒîË¯†úø¿d{ô:‹“qYuVSe]ï(±
+%…r…VAÁL–DŠ‹·dÀ—cÉL“ð(Ÿþ$ëÇrˆ‘cß›>oÑ–žn]ÂÊÞ€kÔj¥Š,1I-RZj9#è @Â'`2ïEø¼ê&&ÓÁu#Ý¶Ýt0•Ç¯:.éÁìšOS/÷ WÌ&îƒ0øk@0à¹	æZ’øÎ"z&ïo:2…&~€#&Í83ÿJA1:$Ø)OJ¥Ó3“7-'‰{pÈíí÷Ñ9þZöGÎ\;qlÇ’µëg%Jaø¡ohâþ|øˆýã¿_©²uå¶ÓÝéÞôMä‚è¨Ù¢ÏÜ
+T\=à|GÈ›À|3ôH)»¶®¼ŽÁJ ö¿l½	#à‹0†ÏÃ¡½±wŸk´xãn\)Ì–'PKÒN}ò çþoë—¼	­ð]¸®V1áâ‡àÈÃˆ³?§ýL|
+f°ÕË^_}ýž‚Ê¼^~NVMq3C¬ùÔùGÂá«â‡ß¶øg÷ ª»úþÏ__%þ
+º@»\kdÒ
+•S}°÷³3O2¾ÚýÇN’×Z£ÞJŒÍË¦Å¸Ãµ§þÕ±?{;*fÆšmŒF^&’“éÞÅ_zëŒF/M”¡#q¡kv5¶¸òŠósr}<44X[áåà)?Dñxl¨b$Èe|kÝ¸D_jµ’£Ñh£ï€xS¯m£ÀXÖ^ƒ6ËÈì‚ãñ
+DIòåjŠ^ËWóq A—nõZÔNU=çÿu™eIð£'‡“—+<9'U„û_A©³veÒ«ŠôL3Ün%V’¢’
+1IV‘Fë°˜ÐÀLøg­àl+p´ò}þß,»KÜG&YÄðÆÞ]¾fæt[ûÍsäGÙÍ›«éôÊL™‡$îï³M`ù—ÕÓhxƒE|ZÆo/Å;$&u)Tò4Rúí'SÄKÌâmBN‚Gj4ú{Ù§meº?S·p¿òîjøòª2“Ç¬Õéì>Ïî6´¡bþ»B8†/ÝŸVØÐê5x^d¥¸ÓÿKgÈÉ»¡þS`;.ç­©p8Éè;àµ‡@;( ÏuÏÙb`¼,_7n´+íäÅã`|ÀdXžK‘Ÿ_¯³XéÎ½»7d¦Õÿ}¿ã¹K\AnŸe{§ÀYð&xgJœÎÀïXD{¿o{$ö€oŠ^ðß® ßN²OÙŒZ0”1u+F‘Íß2†™™˜¶N –L·íwiÝz7Þ‰B}¬TFQ}ÄÅH¿–e1µ€xkób|]|‰h4õZºát•±
+¹]ÆãM&]E=uŸÕjRçZï¼†ÕRðBVJ4žÁSëR©7YbI…Ë¤3kÍÌ^ð>~Ð\]ñõ RSÍÔ/ÇkYõà•	’Í"nôûÒ^jVòÉbUqYqž–šE¾„‹T‘…ÿ`!°"É­ñá"CÅCºÌûLô.ðÞdÔW4P7þvÍ°«Â¬33í`KÐ®;NeLÕoìŠÿ×vRÜ	â}þQ!½HG»Øuàcs…µÁÎÙë4øpXÆRó¯ãnµS-"åòr-Š*jŠe2Nqñ:I'.¿&‚÷î€x°?3;™ÍòœÅuVƒÍFžœÙú*4À?ÁõPÝŸ~ûC«c=P¿—;AƒÕ¯2P¿e("Iv<É.³;I¯±Æà¡[@¾×¤ÓµSÀÎòY+„ò2¹FÎdÃ™È‹¥Ê÷®üÜ¿Úv¬B¿ÏÅét82PKR“ÅBY„bQ ÙxŠB«L¥ •ÅU¸­:‹ÎÂ4€qÖc]—ûŸ_¹àÉÔ¿‡Wø?ƒœ ÿ‰È”ÿ»ÂâÎÇƒ|!5ÎPðÈšíèUx:\£WËPFÐÕ­¥Ö²BR æ©tÔ“ñh©ìí÷©èüFÌ*Ø†—)UJ)ÕJLrZbi¶P^ÛÛÝÈ4ppÝÿ>hõã¹«å,£o§OµiLU¤ÏäÑUÑ`Š¡Z[Yeâ4Zp­Á¡3Pfs‰ÌÈ€áP‰ÇÔYŠŽQ}ÈÙUÂêõ?r&ƒ·p¥]ew·Ýé Á0æô	ke——ÓÚï5Ù}¸·©l*d—¤T*¡á$8;;K¡Ìs’¥¸F©)×P
+m¹ÑHZôV­…ÞFÛÏ¨k÷»8‡<ztë7ý0Ð3~«gÔ	ü9åo@Nù%,s°¬™‹oNÊ“N£âfUœðœsÍÿšíLÙ®C.NO¿yzÖ¯µ"/"‹T%eE{—.5ý­V¾ªðù/ÜFœýËd¢={$æ›*<Ó¦1T‘5¶ý¦Ýô]?÷èõ•6Ê¢•rL¬¶ìlÇ»æsšQ9ª‹e59|•ŽZN}oÕÞË`xêuãÁ^ÜnÖ[l”Q¯P©ËÑÆ,~²HºÒP°]Ì‰©Ê,½/ËŠgZ¥Ö*Òc¨Ö{è‹þé8Ñn»¤¬<ìíÐÇ{,™R±qì{pÒÐ‚—*å"¥PÛ«ÔÌ`’w6Žä‚²YÙ¢0B¨ùm¥¸OQ«Î'Ke.ýÊ“)E‹,ò˜bNRÀóµ¿jÅÐŠieO¶Ê•¤ÇT­wÓû	Ü¡ÓÛDô*‰‰£¡é*Œ8:Á“Î±+ñVÔŒõ5»ÁdÏÎYÐæ<'uõ¸9ûúã.@£âRGE.’³@# —<‰À‹Õ™mv*H·‹{ °‹“v^Ð"h!«ÃÑu{Jñ6‘EWH«yê"z6Ê×jc~‚h _kæ¶ãwý	wCA'ZŽ·ƒ! ƒ¹ûàëÐ–K©3Á°XÆÀq@Î9·Á°¼|rZNÍXåp4å$C‡×¢~¥o·šøP|“ø…CƒT
+Þ¦°{I·©Vï¢ïùSðýf›á.B]kVBfå8™Q«´jJ%¯ÍA-$œ£AXšmMÁfqk@Üb“æÅý¿§ìÿ3=0¾ŸjÇj«›ÌoÒŒº¦Q[GÕ²h
+“¼ÌWpWå-è¢® ìe:ÒÚ·~ÏyM7*K™ÍZVÕ€…$xþÍ
+FCÍ¯¶ bPýmâ˜,Zb	ÚB|¬þkl4WY®Q·N,œ—ø*|K”¥Õk˜2C™ÁAuF­‘äàÛ« ­å·øìúÓ¸Áª5˜H‡Æ¥pÐ{øk}ïSðõIã_y­W°Ì©ìKüIäü5Ë§Ãç³ôÊébVÁ\Yª–‰ÈRc‘UD§Ô~Æ;G×þÿ¾ªiî>æöeÕ÷É+ÿ„;§&™é@{óÃÖˆëþ{ðö5âðâHTdõ(T›]xŠMju‘Nã.Ô›¿ôgãífgE/u×R’XÉÔ,Ãw£	tl`=ÌR(sàX¼™Õ}oÛ­©~H±WðTå*TœÓŸ¤ˆ—™ÄÛK8k‹Øtì/o†>æø÷²W¶žª}Y‚¤ÚS‚×Êmrê÷|u1½žÂ_á¡Åí<*jþ¾»û-û,û˜På¼ª°ñrö»úšß+ÄëäF©˜ä+e|z=ºP™*ËL!ßmæôó ¼ÝŒ¦Ó‰Õ¼Ç´/äÖãgBqäÉ@É™õ&½‰c÷Uµu^ÿ¼=êÐ½GàmgMeÇè0{¬ýÆe¢¾×ÃÇ*RNróã³VÑp)ü/–º†\SåÖ0Ëýðrk¹ÑJÚ]†j+}Ô¸RŽ¬Û/Ø+RkÌ‰œûO®àáþè
+0hjÀŒˆÏ™ôDñ‘2FžGÏ`E›…ã¨k<wôûŸAü(»Éä²QVD göÀ8cª)Í˜Æ1Å’ô\“rÔ¨u[¼µg›¯p.‚×:¿¹	æ{Ú9ö:‹¾Æ¹{ ªÉhø£|Ü«0kDdQòìü4Ñ‡£øErµTNÉÊ½N³ÔH-åfét+tw`6B
+ÖJ­jCGÏÅµŠ
+¹‚,‰™žµ††lhÀÅ
+•DAÉ4¶êr&Ó?/¯Ô¸*I—AWo§÷û/Et7”ê”†\Že•mšbN8s”q¡i¾”¯wù£ÚÅüˆ–›Äëu¶”ŸÄK¦ò¹î®*S«¹i£ÝŸÖ}¡wp¤VÔÄs%¸Z¦PÉ(©Bo(eˆ+zI‰>—‚²waýkãö%Â|~ý ¯¶:vuäRÓÍÀU`[¼I]T–š½±8ŸZ—ßzé^Pƒ‰­{ãÒeŠtÙÑîêùWù!Gî€=7CæñB¶Ö¤7˜I«È*l**YB—	»ø.µUÅ#ÅòL¤´wŸ„à¢ÅEkE¤Ð,v–Òï'hFœ;t®‹9óµ?EÞÊê]J[Ç¥äå&Ôpœ:#¹l0¤ºý£ÎÔn\ÿZ"Ì…ô’ôŽžZc½±–	÷øßji¼	tžPÿsß°’£2¢©EÝ7:¢}fž“¡g<¬=p½Éh±¶2§ÒFûJ·;R¨ÙQÉË71Û—gŽ™HF^J¸òõõî†N:¼³?ØN6ßõºÎ.-L,JGá®lÛkÚkÙËÜñÄ½_Øª¼¤©Ô¦Â!ÙªBäu¯¯Sé$rRZ&)—Ñ¢x¶R­(,åêJ)X0	Âñã$dÀ c[kªb÷S‡/vU3pXÌ–%ÈbxIa;Væ¥Q+r;®]ßÊÀœ3Þ‚mªB—	_2àlûM`@f½vŸ-Êž“¸ŒšZ|öãVÙdbL¦6K‹ñœ}ÔYÛ¥ªšÝauõÞÖò£uMËáæ‰0N{(æ›ïn©é¢aHd—•”¨K£Á¼­·GöÔ¥o_²Ž»Z‚Æ·>žÛÆ~"Ý¡`{ï±¦nßí]`ç:¸cÞcÐ68w¬zß<'žmPªÉËú>îñlÒnVÍ	\V¿Ò$q*L´YÆÕò©¤%¢9±/N¡ÈWäDÛ•›£Êø'¥ø.•^UJ*4’r%½¶Ë·ËvÈ¶s¸pPÑRuqXx:ÜÖî¶äµDð¯z>_Ü¶õ-»J<ò›ýl™gV^&W”ÉÅ±®-ñä,X8e»»Ð%fˆÇn‘K%&IÒÂZ&UK³öW“Ä'_¹û˜þ—{ÿqP¸kMM<^Ð
+GšNÎêZ']å,÷Q÷ÀàÃ?3ÄÏnõn;é´¡Ó°{û£§.ÓÄ£ZR×¾³°"«õC†øaÌûƒS½g? /¤Ï_¼~ÛÌÙóÚþ- ¨y<\˜ï"UEìïé}e}DèZ6ÏRît‘Õ±šî18‘-dË×ÆêPM~&OÅW1D¶ÆãJž<¯Ü¡kË8H;ÖåÛøŸŒ´(¶ *Èµ·4™›LÁ“pc¥fÙ‘RMÏ\+¤å½IgÑš˜£ ×¡'>i[$Üå…¥ëidK™'øØ9Þ¤ÖI%$¿èÍÒMô˜'³qJ«R“¹Õ³ë€Ó`£ÃÅ'ÒyþM¾}|ðÌ7gûŒ÷w|Oˆˆ£`Ïu¶0?±8âçX{í‡¬-!¨ÿ3î»Vÿ¹´WÉxc³¥94zÌê*?¬M#…òTE!MˆâÑÌ(M*IL ·uev¼ÐåCéºÝ€=k¬­j©VfåçdzJ6-p[¯ÿóàø`î÷/>¶`š0Jº>l›¬XJ¥ŠÌ!#-õfZÄIM9çè‡'?n`û¼_ØO´5£ìçœ+kÒÅò&m:)¬QeÒÄ¨GÿpðZñ¥¼°ìq|Ÿõ×”žî#fô‚I¿f³Fï1ÖÐ5ÆkZËªR'-51'ßÀ‰èÞ¨}mKRÎv{¢²%P&L)È¢bŠ:N§3ë¿Å•6•ÙAZœv»•¾­·û|OS5G‰ÚúÌÞ÷XE%åâRN…oÉäJ¹RÅQÈŠÔbTÃ³QoÓ™¯ü!¿OîŒÞ@rgöþ=¹…äŽû£äB©øÄc|À«c}D7hø’-äÆgÆS9%Uíöìßñ£ÐÄþ¢;0Î¿Ã›&ŽAké¼¬T%“‹ò›ŽŸ?á­EkŒ¯‚EBvjºüQ‚ÌØvîú’:êL*.RUEÌ"¸×(4")´ó<®îJ•Ö;ð«ÌZKºí¦:z?˜ƒ0¢ñãº#ÔzAL‰JT&bˆžh˜‚ªFÁå‘ñ-q=½g{wÓ¦&¼”¿%;J•øZ+µnC%’é9 ÄÕw5YSzè]zÊæ	ºî¥«'Äó
+•TæªŸQåáWï¥lMeÉEJ¾ª˜yvÿ.ˆ:ÔÉcª¡Ã?û_ó•_Ôï(Á¸úuÎ™–W¤*V£ n€ù¸ºDUX‚N:zâÃ£.mjÄ%Èà*Ÿgßßÿ°ÆÜ Ùb©ö’ûí“èÕ“þû†Vu¡	þ½öÝ7A'šÛßGÏ9%çÐC„n95n™ ÂÅ0ìêŽ»ÌðûëVÆ~Ò²u6¾¾_œ•Ós=ÜÀm>0¯]Öï±?ê&qcÜÆ´b^éÆE‘ÑEÚô^‘&º]—ðZ£Îá¡¬6M¹“!nhnMuãÏ‰cÌ±ÇÀ¸‡d_ò™¹ôòEÉ¹Y{µsW’Ï¨‘N—®’jsˆsRKÓiÌ;ð¯âU;K9‰¥8(õ—²/8÷Þ!Ôñæ´5ÓR¡þiEJãµZ&ÜÐod`¦GÞ†‚è€…ÇŸX7.1LÒiÿÀ~Šþüä¾î»eÙÍá²rq™D®òù:>íQPŸ™°7ús÷\Ge0hä
+\£d
+à yŠN“)å¬â`–[_“Ÿ–™SK­Ì=x°/€ðêé~ZÂ#‡ÃW]<ÿ(0d[xº‚q¦Ø¦Õ°E&‰®=ûŒnú8ØŒÖÏ«w>A§;kâ„Z¦’µën°˜l&´´q(­´Y%6S‰¹R)!öH
+K¤J¢°ÙåŒM&µ	¨Ìè€<ëo¢d<€¦Ò
+¹œ”Tæ;w×ÛL^­°ŠˆøÐí¾ðËÄðxÊÞ…&x£Îj"½J«ÂLW–ä;¶S&m˜ÄÀ¡à=	BnOMÞNþÙ9Ÿu«!+w-^¦,S(ÈbC©^NMÇsNQ »}õÁQ^UJ3Ê{L×Â¦Ëäþ=ÍG>®\–‰žºàVñ	ÿj~HïO|¡ á*Zóf¥P©…înŸí°¹™9¶˜v[FÎ×N½o®êJ´ÒTaÔšhÃ¼;Vœ[®NWs6ÈËøÇ¤¸WmQÈIY™¢\N¯„µ¸2_ÅÏ'·´q[O^Øç©§ÃÏ¡¥ß¬þë}šÛ`ãD§ÿJ`õ_˜IÅÊÛë<öh±}qIk4‘>—_2£P’CŸª¸¸ÁåÖWR•õéùÒlU“#K·J6dq9¹iq%9ÔâŠÃµu–6Ë”™óÀ€:h…ÉL:$5¹™‹¹²|š¸¨æâ:§ÓPIªà•ò<Jbg4DËy´R’k:
+ŽÐ·¿;Rãõmm£ŽÜW»›	OŸö¿Ú0û«+)Ÿ‚¸>ÂEœwýkØD³ÎbÖY¨zoaÄGÃÒ	okƒ¾ÁÐÀö Àµ6­ÍFîÏwçÆoÏÐÄYsª,§ÑIu˜Š3òÊ
+ÊòÂU cpMI¹DH.kÏksÀ›à«ŸÚM	)…â<ÔÍyÈˆ×Ž÷qïJú§`}ØÜG¸‰sþwÙÆJ—ÁM5ZJršÒ2C¸³¡
+×ˆ+$bre{n+}ãÓ[µµås?¦Àdtç[ l·|ÿ–¬”"aC´ ƒôV»ÎFÕ¹rRá³S`>”VÔÐVmØm¨F*PãZ«Îf%[Š¼©éÛ¹üš¸€®1º\F7ÕV‘S"+idL!ŠÏí„ì7¨lž§»ÆP­«aG0áZ‹]ß˜çÉMŒÉÚà¹Õ`08ô×ç‘C»ªÀ’Ë`º0€àU¶ÓâÜe£ìÆ<‘q¯Á—ú<¹û¨ó>j®b.œ/ÊOK¡²K»$LÎx™]épDƒ»j·½Šn:ˆÛS[å¦<v‘‘y‡\¸ÞirxÉÝ%Õ…¹ÙÒÛèô¸HV’'£»GÍä}‡×)Ä-iTtâªìB¦²'6Ù¬õ-T£1½ÐÌì‰Äõ­BB
+JŠ¤":~¾rGN±€*•9kV¯'ù,Â ãr¡”' ³jJ|u®['éÀººGèö~>ÂOFä*à<6ÑÞÎÃU6»ÂA¡ Ûì«=_A,—ÏÏbxCŒV»ÁN¹báëp¬ã—”ƒÁì<æžHvu›‘ÊÏgò‡m>ÔÎO™¦ó0U0ÄŸÕæ…¹ãgožFYá›Å—byþå§‹½i~5ÑXRÊvz¼Þ]`dÆIêNÇ_NÔ3Ev<·89jÅ…lÃÁrÆítØ4`ÀœpÞúò@Ï‘¶0"UåÅa=ëmÙ¦•±ŒS„w¶66Ý¦~bYå2¹Z-3p'änX½h~N!'üûþ5k\›3°f”uE€± ãõ™¾Dk×äêß=áàÌS#E$¿X¬®®Š”by¢¼€A§þáZµ¾­ã~·öÝøÎo¿’â²²\šH‰Tç$—m¦°2Ô¶š‹úï¯›˜ÿÇMDzµ¿îñiöïW°†þ_øúqàßøÅÁ“-¬pÿA°<„ƒ¨PÐè?È®öÀa`..bÅÇãá3ù! ìyèXFæÃKXpœ…‡‹€¨õD-Wi9Ôzã"ø“ë»ÖP¨&›§–nZOÅäw_þ¬îàánÏÆ'ãÒãJ†(Uj™\ r'Pkß_5{þ‰õ×¿2_j60ƒ«Ø `F/û3Œ@öFà`o€n…ìŸ¿¾0€}=;rôäYèlòŸèð%×*‚oÑá¢G íŠ§:áV'(0³@UÅ“äŠ!íÏœ{ô¼à·³±PLbÄp,“ Ãž¾£×‹Ø¿ú{‹|ú4Tý”…a¡jì—ÿr42ðcl"ñzEû¡°aƒ¡ïÏZÜæ ó'	\31È`Ää 8bj4.6-ÈÄŒ aˆÙA†"æy17È³ˆA-òbQpDTáA[÷G	Ã–X$ñnñ^Ë‚°ï‰XäEÄŠ £+ƒp«‚ˆÕA(Äš /!Öy±>Ø„AD	ÄzcÑˆMA^AìˆK\1ˆø ¯"‚¼†Hò'DR×ÉAÞ@¤‹H2‘d<"=H ÷A¹Ïò&"+È$Dv€&r‚LAä	è#/H@ùA¦#
+‚´Â2Qd‚$ !~€†Š‚4TdBä-DS€ž:ƒôþ H@Oß	èìÇ H[‘Ä ØÛè3@ †`È Ø|lð “è½Õ():El"ŠÂTäådídÙ4ò"4Êb¤Ð¥Hï!å½T¶)jRÏ¤”õHÑH›P¶ãPfP“PÆRPvÒP&2PÔ³P„sP4óPä
+P”
+QDøÈûbäiòêòàÇH"’Cž>Å°ÿ9¶<½û´m×ž~Š¶Ož^íß.=½ø/¶ÿ°Ýyzò¿±9ŸjŸn}ºåéÚ/Æßù«¿£ýOùA=u0êŸ,Ô+ÃP_|õÀa¨ß…£Þö<êc¨g½€úÓHÔ‹F¡¾C¢óê'4ê‘¨O¼‚r9Õÿk¨Ö_Gu=ÕðøþŒ¿‰*r2ª¾@Þ§£ÌÏD4ýy¨"íG!,Fš„ô;`K?—‡<;ü­ŸP»ÔvùôèþÃ—?,zÚñ”5xšW}{P0’¤¾ÜŽöÂ7þÎË%;ý~Kÿ4±¤?>a¨®~å³ÁLfÒhÍÐƒ‡b_­¾ü<©cjðs(RÁ;ÁÏƒÑ9;ƒŸq¤^ð3©D¿tÉÒi³—NŸ³pÎÔø8q]NV\6ê>0éc)ÒÊ¤Ž9h„u¨ÞSPMg¢úÏÿ'çD"*›õOŽoD÷ô†4Ô'²ÑÙS.'£íÏžˆÆÌA]%®	ÏSOÿ¼ñ_þ0ì?¨½Á­
+endstream
+endobj
+320 0 obj
+[ -851 -250 851 903 ]
+endobj
+321 0 obj
+851
+endobj
+322 0 obj
+<<
+/BaseFont /CIDFont+F2
+/ToUnicode 323 0 R
+/Encoding /Identity-H
+/DescendantFonts [ <<
+/BaseFont /CIDFont+F2
+/CIDToGIDMap /Identity
+/W 324 0 R
+/Type /Font
+/Subtype /CIDFontType2
+/CIDSystemInfo <<
+/Ordering 325 0 R
+/Supplement 0
+/Registry 326 0 R
+>>
+/FontDescriptor <<
+/ItalicAngle 0
+/FontFile2 327 0 R
+/Flags 6
+/FontBBox 328 0 R
+/CapHeight 670
+/Type /FontDescriptor
+/FontName /CIDFont+F2
+/Descent -250
+/Ascent 906
+/StemV 329 0 R
+>>
+>> ]
+/Type /Font
+/Subtype /Type0
+>>
+endobj
+323 0 obj
+<<
+/Filter /FlateDecode
+/Length 521
+>>
+stream
+xœ]”ÍnÛ0„_…ÇôHüwC€£Ø€i‚º} Y¢]±$ÐòÁo_Š³`j‡C~Ôõþu?ô³(>âØÂ,NýÐÅpo±âÎý ¤]ßÎ¤ò{i&Q¤âÃý:‡Ë~8b½ÅÏ4yã]<mºñ¾‰â=v!öÃY<ý®InÓô.a˜E)ªJtá”ŒÞšéGs	¢ÈeÏû.Í÷óý9Õ<ÞøuŸ‚PYKŠ1vá:5mˆÍpb]¦§ë]z*†î¿yOeÇSû§‰ùuY-ƒ*óPê4¨R~‡2˜[AY(šsP5”‡z…BÚB¡@í 6yÐ´ÞB”0Ó
+
+fZCÁL#R	3Hf‘$Ì4"I˜iD’0Óˆ$a¦IÂL#’„™ÆBfÖfÖtXÖfÖf†rb†rb†rb†rbYCG‡eÌ2(WXÈ \a!ƒr……lÉ1ZÍ1ZBŒÔÖr¨Ö?p¨›&NrNqNsÎpÎrÎqÎsnÅq8¼¢‘ÌÑ%Â8ºD8WspŽGà¶£ÛqŒ¾ä½ä½â½æ½á½å½ã=]"„÷+ÕÓ%Bx¿áˆ}ý€º{¡6CM
+É¬#d±°ÞÊÜè[_šÁÒ³¾:M{‹15™ÜØrwYúJ?„¯Þ7ÓR•¬5µ
+endstream
+endobj
+324 0 obj
+[ 1 1 296 3 3 296 4 4 389 5 5 389 6 6 296 7 7 315 8 8 296 9 9 462 10 10 518 11 11 518 12 12 518 13 13 518 14 14 518 15 15 518 16 16 518 17 17 518 18 18 518 19 19 518 20 20 296 21 21 296 22 22 389 23 23 685 24 24 611 25 25 629 26 26 703 27 27 574 28 28 537 29 29 685 30 30 721 31 31 315 33 33 648 35 35 870 36 36 740 37 37 703 38 38 574 40 40 518 41 41 611 42 42 685 44 44 981 50 50 296 51 51 499 52 52 555 53 53 462 54 54 555 55 55 481 56 56 314 57 57 500 58 58 574 59 59 278 60 60 277 61 61 537 62 62 277 63 63 851 64 64 574 65 65 537 66 66 555 67 67 555 68 68 370 69 69 426 70 70 314 71 71 574 72 72 537 73 73 796 74 74 518 75 75 518 76 76 499 77 77 333 79 79 592 80 80 592 86 86 981 88 88 356 ]
+endobj
+325 0 obj
+(Identity)
+endobj
+326 0 obj
+(Adobe)
+endobj
+327 0 obj
+<<
+/Filter /FlateDecode
+/Type /Stream
+/Length1 13088
+/Length 9432
+>>
+stream
+xœízt×Úí{4¦âAŽ5"#…:LI(¡)ôbÀƒîÝ–«z³$KVsÁEîlÆ¦_ZH¨	vh”HHO8ãçù‘‡´?÷ÝûÞzë­õ¯õ,¶5’ŽÎùÎ·÷ùŠ™%+W.Ázc
+Ì8/(H¢íôOÄ0¬Ã†ãKV¼Øû¸÷5t]ƒÞÛ¼564A6¬Îa#¼1Ìg`Dxh&»ÃÆBŸO‰@oÐ{zý6z=4"6%}ûft…OÀ0^Blhz²½žð ýâÇ…Æ†7åöÑ¢×Ðç	ñÉ)Ýn,Ã&²_’ð0ï^Ç,y{Þ[ëV^»%tkÄØ¹ññÑìSxÏ…–_ŽþBãtV\\ìè6™~¿êG¼€a¹Ëûõ pþ¹úÁÃù±ß´Ï‹OÈHŠÜ‘"±u¤dÂÔ©$sÂâ·„KVd$§„Ç&KÅmOJˆO
+M	'‘Ì‰‰‘,gÇ'K–‡'‡'¥¡w­œ'yf“$2Y*I
+ß‰¾ž&II
+MŠ–ÄoC“¡7ãBS"ããBc$+3Â·…n—ÌãV@oC@ŒðÂúÀ$6d 6Ç¦õÂfbØl¶Ã"1,¶&Å°ËÁ09Ú†Ù0ì"†½aW1ì&†… ‡a½™yÞ¼ù<o?ïï‹^ý{…ô*ìõ«—Ñ»¿·Éû	¾¿ÆŸÈOàŸ"¦w|â}.öÙûxŸY}öô]Ô×Ô·½Ÿ±ßþG|ßñ-Ðg€{ ßÀø7žö›ãw…$ÓÉ“äAýU
+^dú÷õOôú|kÀ„ ³2Ô~ÑHQü`þ`ó`øÂºÒ£èÝb›$Ròë‹Ë_ŒxñÊÂ—V¿õÒÍ¡/7Ô<´rèÝ¡Ÿýrè÷Cñõ½ kI¨ìôjökéh¾{x_ÿÖ|ž<¤ S±NÚßMdZñÄüá­Uz¯ðÂ©o©«Û"U*­AE‡Hq9Q-¿DmË\›ž ç€¸zºÌ9¼©öµmoÒäQÅBˆm†ýÅ#ö¤Ç³S¤Ã‘[á 
+öºÓ ß©Ó¥"2Sá®ÛrJï0-‚#µgÏßµyõ$H¬V¦f<n¡ÉƒØËðÁÝkm%eÅ&¿KßÖ”‘M¥/JÝ©ßµÓ¾L$ˆ‚Ë¤`BÙ©ß08è™Bî0‘‚~Ø•‚kÇoQ§#ªÓ4*½^K¯NÄ3ˆêæ„°­áÒ8…Ø®‡k;oÕòÀ€k^
+óóƒÏ¦|ï“}9ç³ï(P¦>Gï;zØÑdó©%àÔ™ð%xv\‡>`¶î¬½æU'
+ÀìüëÀtPàÄLðœJ'MÚÃê}!>‡—Ái0€–˜ýòrðŠù:_èWÍc?ôº÷‘ ƒØi8”´ŽZ¹&=ZA'—óŸùŠºº©<V­Ñ´´/¬YçyÇ@¼×1% ñça<ßWpÞ ÷#dhÃ5M{“*¢£“S#Ð®…~³¤¼Zæ%¯v8[pŒFæÁþGk+VC”u½÷|ÞÇw¾ì óÕA^ë}°ã¾¨éÀÁã!&Ãˆ&HñàµÀ@ É[¿†“Å ¢NI‡’að¹LÐ¬¥àùŸ@ï*èÑ¾óMîNZÊÉ^_1«ôž?`4É#¨®D¬Y®¤ƒ2p)huA¥x¤Cë¬£˜BîÄÑWo0Myàö}¯½þÅ·Û*Àp<™»IÓê¢DðU~²Ò\YñÒ¹âë;n !|Þ>5bíŠ4•–ÖkÕjn}p@i^]{¤ñ´èÞîåS^Þ¼nò$ñ¸Ñ«ÂÔaŠuì~AëEqÞ\¾·ùùè¦CP*ÅÉï*kÔŸ]ß¹qÑ°™“ÅéüÈ•NžWXn©‘@@ëÆáW,}kúæ”b?fnÐê´zJmËÌ×Ñ9ÅÇ¥ï‰À˜G $À–Uns‰£R³‹"¿«˜ô§ž¬><6dK†VEkt:­!×‡õ<Ç!‡µux12.Ð:ð‰ü´\K˜y‰PÙ§$¦Å¯š¹äáú9¢Öd.php`çW™t)âED¸QŸ‚Ä…<*w‹ð—ÑºŸºJ”çå—Óø°ýœ Ynv—4^ÚsNüÃùóÿtˆ&eŽž$ÒMª4D˜ì8öxóCÞÓ# ¢ÃŒeNê¬y»iËwØjŸâ‰üØx«*Tsø3ˆÕ¦­—éëÆÆKyÐG8a{ÐØ×·lVÑ2~D0®×æê´”Ê¡°«h¹óÃÌƒ" ÞAà“„ú5Õâˆ’ÑÚí.Ÿ$[†å2åaãöi ¬6IýÚîÒ{ä]°<8Ópgå®¢½¢Ïê—¾2:cÆ$Øwë7@ &Ÿ€`ä#0¦‚Î­ž‹¿‘åcà
+^^}~¾
+¦þ®@~¸J«ÉaõXÈ\ý°ÏÁ‚o¼À6k!®q©\ÕÔ©ªËM—è0}ïU@PjÞÕ›¯UKa ^Ëßy¯(vXˆÀ8~K›²zÝdñkp:ÄX*µ8ÛMsgÇïÄ•m·Á¶+ko#•hdò3@z</Ã i¬¦ÈŽ_×üD^‹Ž3r9Äièÿ™1•"%Ã¾r(¤ uùÏ4Ù1i¼ß¸ïü£ëæ®Üž!ƒw>M~
+žÜk.vÌÌ©§Ï$ì‹›BÍ_?kÌ’SÀ™áHÛ™*O‚÷ú¹L÷Él²­’ý©ÿÂ6‚Þ`?^]òBôš‡À/ÙX`µÑ7›5¸&3Q&š’ðîã[%w?þöè0ØWL¶Á½pìD82fc¨¸Š7dÅ¿8äff÷ß¢j&}ùg€/ú|pú	Èkqkcñ?‡Aró#&öïÛzdÎý½Ì¨s~ŸÜxÁ-ò'°Är­¸Q§3éD+··ìom;¹§AÜ¸»aïêÎêæù‘±r¥Œ~cùŽ4¼`GóîVÑ±¦ˆ•Ã Ï¨ˆh±^Ž‡í{ãNy¹ÅVN“†É0-¼»gá˜è$´p»ðt\­- à;¤Ö’ÎadG‰?HvóƒKñ4»ÚZB•;Jíôžoð¶R{Òýü:§!Á)nƒcp‹2_©¤ä
+mŽž^‘‰Î«ÎMÄm*Ë+L»(„K˜ý:+¾†¯ÕÃØ®Æ´5†Ä°Lad6Žõ>³Sà°X\6‘-O›f¿7âf½U«£”}6I¾Te*°çY,N±o•©œi®&©Ûô»_,}L~ÙâvóQn
+8&|pa•xEY¢¾˜"Ÿ¸j,åEô¾š‹¥O(à±ü‘4læ“·¥Ä±l¼AiÊ\@u#fu1Jz}ŽŽß«ÌYÁ1“ãàK>%d-§45Ñ°¯÷A“õM~ùÝ§Ûá èý2äkßûµ1_¶ñÚ{1_ƒ™‚äB|SÒÚ—¡¿NY€å`å¥GàEÀ¿´À).å7\Ãó¬V§º	ûÔÌ†«àø¡° Fÿ ûß^®rí Ë
+«OW÷ñ„©…ù¤…ÝªÏ}ðëc²c¯?ØÏÑHï^Àz]TP!îêÇ'[¥ÄÑl¼QnÊöì'È˜­¤CÐ~:Ð~N	Nºò€7õÙ\¸®Û
+	8+x„é*í›cjGZ€ëÙëÝ×êòkÉ¯Qz2òíÌI$RCð™Û™°Ÿ>oª8+3‰ƒyÖôGü«am…¸(wƒ0)?'IW¶‹fó7çæ5‰Áâ )¢Éoë7Šë‚ñ:0’¯±ã]Ñ|ò^Å
+SæBÖâ7Œ²‹}ƒ‘Oµ€ªg6…¸¯Ö‘ß ›Ýü¥n<Ña²·S`*Q]bª¥?à¶7¹Å¥áÈˆ­Èˆ(|cºV*šÅÓ›êÅ`qÄdý	øå*ï¡k6 FñÕÈ‚(>yÿ™òyT×Xâu£†³à‰¬­Êø²”2Ø}/æ“FGMº½¥tuî†*)q:? 37Qó‰Ð`ùrô:èÂÁ¼÷‘`ðÁ9vÐ;øM·Õ–õ.ôÙ5ŽkfÂz(^ïüTïÜKû!Úð{-`·›Çn·ƒ-€ÞÍ)Á#ÌE×Ù½6Z¬4JŠ}”N%æ›e‘
+ÖV)I ‘Ñ.ãŽk3Ž¸j*i, î@Fê=ûÛ£0æÌ§ MÄjLÑ44ò£5¦]b@×Å{þ4y"ëÏêAeªvúxã¬Z_‚G˜mìZíFZëØŸf`}9Ž˜eT?›a:¿ "QñÕÆìÜ2:Ÿ}É‰¼˜ïW˜Ô³(ø	1Þ4ãµ•©k•t?q®Wë4j*êŒ¼å3ÐçXIû^øÝ˜ÎÞnÁüÆ-×çüü4NM“r—5¶ÐŸ?Ýw¨nçÑa™-‘á9çz—NNI·o‰¦Ã–oYž¤	É0hrMz‘Üä,ƒQÄ‡¹®=Ý‹ìv/Ósõ1Êß|Íîßevž§À<¢Âd/Ë§ë¸ÙšoÎí°èÐ\“ O*©ŒÜ+ú†ï…ðÓbß­ñÚëH9Á¬YIDòj|ALv$DŸ§p½K1¯åÚZ
+è3œwÚ²ð…Q6ÿw—ú‚&üªA@Ú!¦¨{S‘ªýA†G1qÎ4ç^ª™ ;*o¼ÔRhwäÉcŠh0þZ¶Á½Æž.tèñÝ|‡=¿°æRqƒÌe†à…ùùyVQ~žN!vuÆ‰“,FE¯`ëXŠâ…a;Ìc³PÆÌÁå&w9Õhµ*£w";§"j=ô™/„ÏÁ}xºÚlÒŠ4¹ŽZ1|…y.í¸ô¬¦LˆNœ$åJÇ÷f™Õ[¹
+ª’º$ºé&MxŽpRÃQ<è3ê˜W«?Èró—”ã[
+Íå‡(&€(48òmª´£
+øËñ…›J¤ÂB5ÞÂ·9pwî»—(†BÊvœsÓuNdœILŠ7g[´!T— U„JT™ÚZÂ›Ë;ÖßHnÊ‘a)¿%¯R(¢©mD—„˜gJ”Ñë¤È&âYxg&?öŸÈ¨€“ ‚è!OQß3NóaôWP –‰á
+†/ õàe0øç+pœ“
+Ç¡q“‚ D°A×ìûÁÍf.Ài¾ Ÿ ÃUàæ//ÁÃ\æüÛÄUtÿÞ­dØŠ¦l@gñ5Ú¢hÜè@áOÆ}Í/™ºÃC|òî¿:~ÐZ'Z@Ý³µR{Ö’»ùa(¼šónP`Q›o©¤Ëøótëv‹ÁPˆx/¬È®}îæo®Ê,[‹tv­ÝY†jÁëÔÓE-ÃhøþVVÌ¥º^%Þ6É£z›H/™lï?¾{Yèk¶KÞ6˜v±U¥Ç¡ÿ¸ÊQOÈä	êÚñ<»Åî -Ü'	{/D	¶×õ¸›)ôçq?fB‚š»x4ì¿í»sJä‰è©¸A¡×©(%Ã)£3
+ïlìñÏQ²6Ú<µIüVÝ°’¯©Ë‡}ôÍÞ×ƒwÐ¨lp3L3¯v'¿ÂwzÌò•nþê|K)ÿ*ÅÄæüSwË•ëkè]Ëð`¸'Síç«QK0|'±û~¤Æ]xWtÒ¤‹wÅózÔë­îÉlˆûî>¸sÓ‹¹ƒ‚Ü‡F×³ —ý¬ÒPÏ¤`ßÚ9Žˆ¼HEázGCáoa‡èIáð.7‚7Á¢»@íû‘é‡©i´Û¯¾“ Àÿ‹Hð…·À–½Ÿ	?Kö}¥³+–ÛÑDRâD^¦uè³©¬UpFô§É}‹á,\¡3ªµ"ÁU¬Ã f®-WÕ9¨"»µÊA/íIlõ²CR³´f–ðtÙSí)öaÝ„ÊÙ¶_æÀ_ñØQ÷Ë|dÇ>ÿ³È»»êlÕá7 /²Z¬vIY6ñWðlADÑ–ül¡SŸà;Ð¸ò¥§…èèüR~¾úJ¹C¸§¤ÇÞ3R¼TãÔ)¨”`øvêëÈÜUp%®0äju"µÁU©§ñ”ïREEÖ6º™uYŠ”8^¡´é\±Â¢­¸Uf•Ë¨„­ãfÒsÑ÷Õú\ƒA¤ÎuºuâùÀŒ'=Œ>åTa±µÌAïg'PJ‰C™'Ó,kZàPá'ðº3² ÙËOÚ…’Ö°Ã#”mf×Tñ~k÷yú#0ä: óœm•Â2zàVtÒñbË  ²³ÃcÓ¯ÂixŽÆˆªu­ÖU¤«ðôæœÝNªÈa®vÒ-¬
+)Q'?$-Šº û/C?|çŠ¢´•Ôb®Q±½G^VS3óÏfÞÍ:fA×.¦ÂS™-J bßÁg„É”p¬è™¦òb  KïRü%þðkg­®( +ÑÓÐ¾ZGèÀ[*
+w ¾èŸÇLéé8r$)„ƒÇÁçÒÓ||a\ww¬ëÆ†+°Î†C‰µ~@t…¼D8T Hƒ×Jñ8›)/Õù±×”_oC4}^Š“×j	¤Q«ð¿›e;‹ÍÒùP;a'÷%äµÏ3ñz­I·úõb»I§¥'d¢ÄÐ ß‰ð¹ã<cð‚Ïy3†ã]~Ï_Â–)R¿;×‚À`24€˜ÎY¨‹Y¨Z;›ZÕ”\awZ­6úT-^F$‡×íoiv×ˆ}eG#ÝÌôÓ~GîÍíd+™ÎHýÝÄÆb<Æiv§€Žø2ñ<ìµfK6jŸ´:ƒA§[º$`G^]wxïYQGEØhe®F£«µ’œÅi>YÚÉ[§SdëôSk>¦–Þ%"Óm™9v±­IÆÉYt†<YnôYÞr}y]“K\ØtÝåÕ˜4ibß(Y‹&Ys$Ký>mÅ÷È¶oe··Øl»ý|Ö1Ñåëå[ÅGí¼ø÷fô£''lL)sn1j|)µ”‡ønµYF‘Ù]D;¸/h¶T:vÐ»JZKZEßœÅl§û|Ä¢ó¬õi´¼T_ºBM«ì43©…wìP–y1‹dá±‰áë§Š^Üx¼ßòEýôfqïUÜê°:ÔÑWk—ÀŸƒà„sÃÁ¨¶Ý®‚JÚ™_W_±ÓmŒuö¢X¤~hjk;ÙDndê{<ë4YOSL'¡²Á‘¬ñ­
+|¯Ê¬ßD&sMše^žœ&›Ìòœ¼Ê}}ƒàVHhñƒ­Õ"2®À–.³‰U@" ›Ö*ÒÒåtFB”.I4$æ1zïÙ¯+ŽR«Åe™öìw(_‰ì4ØÖ¦yö©½íÅ¼ñªÏˆÝ’,‚/'¿Ó»JØFAÉ/1›ì.±Ó–g®¤ÀèUõô6Â™ŽÂc§‹Êkh¸Ôâ¦Æ3»>ºwûØ¼)*CjØëPÀ|Õyí^üu*Åx„Ãìj£ÀY¢6ÏÚd§¯â%D°+ÜžiÈmæîÑ4ÖQõÕõû
+SSé~ù1</?Ï–O5$ÙÃ¶¤¤&%ÑQQYá†]Œ66ƒÊ1ªâtô:%žE‘ãuj›9†‚gˆ•&C¬ŠÞ˜Ã›ìñÇÍ «Å¯±}ù=s/®ìd²˜|¢xÊv\¯Të”™iî·DäÏÐkäJÈ_U•T–.v§îÊ“Q*En†’–k”:½ÂG'RÅžUgRdgê¤²	Ä¬ƒA¿Ÿn€ç¯Å4,+¥íÉáÆÕ"ò)ÄP•+>`Ù_ôžè³ï/ñÁ¬ª"ÊU`³;hxj´à|Së•‡–¿±hÛ¶w®=y‹&;“º^|üyÁåÛçLß°nòˆ·Ûx*#f.{(x?´ƒÄv¯þ ÍÍßTŒÚ³íŒÄ¹ŠÖ{?Ï†ÁD°I«dw.E£<êr™ØQZŒaÙ@Ê
+‰)LE%b ÿí´Và»ÔfE8Õå V™ôœëà»hå)ðýÑïóÇ·“~[9Æ3'3ˆÐÚáðTä{tÜÕæÜÍ<H¬1éz, Ç>s£]•å©îØ˜4itTEún$ËL†´Î3õ£ÛÉ3|Sp(7ä[ôQQž­´PÜt²lgi]ñaaÑ~Ó©sYÏ<Ghþ°ž*ÏˆÖë$¶Û¶ÇSksâ²éTEŠB¦óAítüuáÊô]b¶îÆ>S`-ÝØ^æ
+Ö«¿»4Æi²¤€7QkÊ/³ÐåTxma¾>OçP~…ËÔlk}ææG–d»æ>Zø  ú€¢¸ˆr8v'ÝþIÃ¾‚¼ÆBa›ýVI‰F9^¤Ë×«)•<;+•ŽÜ˜)Wfê…I­QcÔš…²<SQ5Å<Ïr1„åâ oP›”›©.+±ÊÈr±‰åâ2:KKÿllÿ(nüÁ&G#(ñH'õ{Ú"Øƒ“w<³ôÄ{vËâý½ûo>(_°œ†)Är£±gaŠz·œ¦@:ñ°¾éƒ[M›_¢áF"Ø¨ùÃ¨ß"ˆ$€—ô&ì›”fÐgÒú¬wBÓsÒOE§ëdI(ìæ$¥f+vËÄPÄòÙ¢ÀëÕyú-=úÑÆôl:ç†'·“¿ÙŒ4mG9ÊB|r­°ùIùÒ‰¬5¿éî6³£Íªy‹ž"‘­2}M©æ÷ew«L¹¡ì²èà Ž–]6XÖÂÌõ„Æú{^À‚Z›Wî	–	3®ÁA€}Â·àø¼^Ã~ ^ ì»ñÏZ'C?ø\Ò¸Ç­¹¦Ò¾Q0Ä¦·ÈÒ˜ì¾lö{ä-7€<7q1NÚæ4™ÏRW‰â¼‚"[‘1·˜&o‹Ks‹D@òã'¨¡š¶²R™©z½LL^É	KJ‘Š²åjT§²æ`½fF^ë’!óu=æƒÑ(°‘·î»÷=É£Qºz™Õ?v>ÄÆ¦6Þsfe¦£lÄ¦¢ÒvÔ”œ`­2=s­í8EÞí”N„oÇ5•F)Rkòò²Ääsvj^˜h$§Ã¹pÙù…  ¡Ô’_,.=°«ª@d·¨äbÈGÄ°ME/ÍÁ¿ç³æe…Â€àó3í}ÿ[Ð«lã[4ª‰µ…òwuÒ©ßwí¤¹ÖÈÜü`¤j‡Éz†"k€“8\Üx©Í–’è¤wð«.àæ|TPUÑ…±Ùé:µŒ&?H‹O×Šä†jTÃ8—ìR™s‘ýQ8¥‡Òó—Àò«^àx"¨¼çÙò
+\TÓëîÍSÆmKÃU ÿk8’Zµflü½j:›Ÿ´7¨ôZ5µå^ôé'ßœ }i0Ì ÕÚT×z§fN˜í¦Nv˜÷¸Ýœ,èÊp£*;W%š“yà36Æî7YŽ:èw]¸›xÛn3˜ÕÂŒïñT~Ò+šx“&^'VâRâˆ¯ÔY5©¼HL¨Iø¸·OéŽb¥ß·žCPJÆ0GýŸEvG…Õvø2»ùÃlT4é·RPMAë'Í¾t›ïJ;!²ØÊm]äÞöùž*«½”&C
+ëÝN‘Ë–®°²AòË9iL˜Û¯Š‘Á¥`)êidþ§Ùž¦¼é§–/…dý{`Båé\kÓa)Û\-õüU¦XçÐË©Ì­Ð+e!½öÅst=ê¬ôÎƒ8lÀ³§Ÿ.£\E–r]ÇþÅp”¨P6fåª‹"…àøæaC‰B_fút£å;UpXF> iþÇÐò6wÅù²£ÂK`"î´äÙ"”-dVñ]˜fOs&Z•B»?…ú ›»òfM‡¼v—±×¸„ž?Ê,“Ç3ñ½ªÈY1záÙúÜ\=j mNƒx"pàªZU}>å²YŠò{ÚÔÅÎ*ÖZu¶,¡=ÏÓæiµ”B/×+é@˜ƒH“V+Òæ:JuâÀ‰k*µeNªÀe-E»n¨”Ø-/ÓØÔÎxáCXP¾¬ìGŠýo@f©ÛÏÎ˜»"ÀÒÁTòÝ¬vóCKp¥UcqRŽÒê‚úÜC¼ÀnsÚD6‹^aàV­íA­Ñ+t¸E¼p7SœìRÛÓw
+aoð:®uèŠì”Ób/qÓdÇGßTÖ¸ªíÂ–®©R¢ZÛsmheVRJ8°WëPc(ÒêóZñ‚opƒÕhÍ§ìVK‰®qôp\¥*S;U;Ò„ßÂ¡¸]‘¯ÐPjT=)é	·9Xž)¦ªqßù0ä(ó«Û¯€ÑôÐ÷>äéñ£üù;ËÄm·ËT´ú èð°úœ}Ç®aq~?GrPîÔ+©lÅ¦„ÙôÛpž­5¨u"½ÁŠúóá ×–h‹íT¡Ãì¶Ó¬Š6°ÝbÜ™P/½`^7ß™œFe¥¯Š§£bBLY"ß@SØ”UâwÛ¾s“{ü™9|+ê_¯o±GÃ‘¢77å‹ÉÖJ`÷Ï¾‡œ¦)ñü× ê{»‰÷ëlU€':ßbÊN†-]½¢Qã€–_²y`H›-‚¶_²×ñ}%hËn³mY›§7K!UŒ˜1¡ªäXñ×N4À€Ú;
+õ¿nfFèõcìy?T`ƒH¶B»ý×2û±ÓU´‹cøå;Ô!bxào³$[EôCµuüðLk]®Ø°G»ç£ù…øéßqò	3	ƒÿµ´zš”ŒØ]¤¡Vô?kÈŽÿûÍ8#ü©¶"[{ª«¾luU¥Â«TùÊ­®®‚<·h0Ó<·h0ÓÎwM{¦€g·¨|ËÞ¢Òæ¹O%•4|ûŸÜ§BªÀ;IÿÁí,Ì¦§¼Ÿ‚4öß èß«¯vïiLqÇÆ&K£"«¥»Äàáþ®/Ìîœ!å¬÷ƒ™Ã0£N+Ìð8åÑlæÁÓL©Ÿ<"7“µÌV¨¥UûDuujuµX]S¥.h8Yïg•âéÒä´hQF¼Ãž v$$Ø3D+RW'%±†{ÜöKoÛ~é}þôæ?ë7þ\ÿG†oàÓ°Ú7ð&z
+ö•<Bùc5š/ÎrÑ…¬¨3°®/Év>ª†»¶šˆ–>í}AÛ ´öN8/,‹—á˜¦@È=£ß¼÷°÷3“tw{»ùh"#öË_>•°wa½<«`Ø ô½öŽÀú±z¯äF­÷Œì;~ö{#8x#Œä€#Œá€ÖÅÆr ÆqðAx…Coö&A}Ø9ôEäÀZ4‘C„I|&s€0…Ã@„W9<‡ð?„©H„iØ{§s`Ý>‹ƒ?ÂÏ#Ìå€0ƒáÂ|"„ ƒpxa!a1Â›X_¿ÅáE„·9Ax‡ÃK‹9EXÂáe„¥Xž–sŽ°‚ËÙJ,g«8ŒBXÍa4Â,—k9°\®ãÀr¹žËå,—›8°\†r`ùÛÂåo+–¿0,áXþ¶q`ùÛÎå/‚Ë_$–¿(3¢9¼ŽÃa&B,–ã8³â9°|'p`ùNäÀòÄå;™Ëw
+–ïT,ßiX¾¥X¾Ó9°|gp`ùÎäÀòÍåû –³‡‚>åÀró˜ËÍ×7¼	=`¹ìu·,ß²Ø2ô<¨,÷’€°gO"ì#$ƒ{ÀjNòBXmI†õ€Õäõ€Õ"ìÕ¤Eo¯zôÜŠâ1)AÊ”7©iRÎx¤’@¤ŽIH	Së¯!†§!6g!&æ"¯¿<„¼¹yîMä¥·‘G£–¢ÕW ¬BV¯AX‡v»©.)l+RS8RÎv¤’H¤ˆhÄ~,b:±šˆLFl¥"f¤ˆ…äñläÝ‡È“±¯yzÝ•’A’ ‰P2Xò‚däÁ^ÝÝößÕòî‡Ýw=ÛÿæÑÞ}ëß<>üÃãÏãf÷ÿ£ÇõîŠniwZwbw\÷°_3Ì|0÷õñ—L~0_Œ/öä›ÿž?ì­ØÞ(òQÞóA9®ÊgýPîòEyj ÊI~(ÿB¹Æå• ”C(”/£Ü@£< A1ŠïCQ,†â6«·Q(ÿQsÿUq3P”›‰t7û¡¼•(bôhmRÞ2¤½@t®{´¸Ä“1x=¸r’×Ó€?£cÿˆÝÎ•¼èÙÖ•K™s»wó½‡¡z‚Í×½8Žxl…ÁÖÞûÐ«9ÞñÿÅ#!ìLÿÿïà)B<¾÷AÑäO}9–Ùêì9ô
+U}Þ½Ñ;þH=×½J¹k/¤ÆÙÜµ7³™»Æ‘jÓ¸k>R«%h~Ð«A&Îð‡Ë±ËãcCãY-¾ŠèÑn Rè¤ºpãRQtEQíïÇHÐ3«÷WÿÅç«ÑlDŒDÑ1ž€NÈxôøûÑcÑšñ(–†z2¾W0»K=5æ_~0ìø.À
+endstream
+endobj
+328 0 obj
+[ -981 -250 981 906 ]
+endobj
+329 0 obj
+981
+endobj
+330 0 obj
+<<
+/BaseFont /CIDFont+F3
+/ToUnicode 331 0 R
+/Encoding /Identity-H
+/DescendantFonts [ <<
+/BaseFont /CIDFont+F3
+/CIDToGIDMap /Identity
+/W 332 0 R
+/Type /Font
+/Subtype /CIDFontType2
+/CIDSystemInfo <<
+/Ordering 333 0 R
+/Supplement 0
+/Registry 334 0 R
+>>
+/FontDescriptor <<
+/ItalicAngle 0
+/FontFile2 335 0 R
+/Flags 6
+/FontBBox 336 0 R
+/CapHeight 670
+/Type /FontDescriptor
+/FontName /CIDFont+F3
+/Descent -250
+/Ascent 932
+/StemV 337 0 R
+>>
+>> ]
+/Type /Font
+/Subtype /Type0
+>>
+endobj
+331 0 obj
+<<
+/Filter /FlateDecode
+/Length 282
+>>
+stream
+xœ]‘Ûj„0†_e.·K¢Ä¶"lÝ.xÑµ}€˜Œ6PcˆñÂ·oÌÈÐŸ/óO˜«›KcM öî'Õb€ÞXíqž¯:Œ…,mTØ)ýÕ(°˜Ü®sÀ±±ýe	ì#çàW8œõÔá°7¯Ñ;Àá«n#·‹s?8¢À¡ª@cz‘îUŽ,¥ã&¬Ç˜óçø\Bž8ÛË˜4ÎN*ôÒ%§‚òOhõ¿x&(­ëÕ·ôÉžU›ä<	Ï“ºä‚ˆ„D$üžèˆD<‘ˆ‰¨‰žˆž‰èR\‰.IŠ½²T'KAµdd)N©É½›­Ým+·YªÅû8Æ´º4¿mrÆâm»nr[Vú~¿J•f
+endstream
+endobj
+332 0 obj
+[ 1 1 296 2 2 722 4 4 722 5 5 592 6 6 685 7 7 740 8 8 352 9 9 574 11 11 703 12 12 703 13 13 611 14 14 685 15 15 629 16 16 666 ]
+endobj
+333 0 obj
+(Identity)
+endobj
+334 0 obj
+(Adobe)
+endobj
+335 0 obj
+<<
+/Filter /FlateDecode
+/Type /Stream
+/Length1 7008
+/Length 4849
+>>
+stream
+xœÍYyxSUÚ¿!½¹e+ÐK
+IôÞ :(È2²Œˆ…BZ[Zd©’¶)-toÓtËÖl-Ðì[÷¤´ÐB«|c‹TEGAG@™Gtœ—Ù™æð}ýÞ¤Qá™yžoþørù]îrÎ{Þ÷÷þÞsNÒ„-[ˆ±„šà“ãâãÅ;œ?ÿœ ˆf‚˜jNH~|ÑØÂ¾$þcðlWFž¤p\ëƒûÁõdK%™ÄÅO.„ Þ/É†áéÜá~'ÜGgç•–7ÇÂ!PÃÉ›')/$báR(†/_’'ý¤ï_Ã}Ap¦””Ž´‹Bè%æac‡Ãß¼&yí³[MÎÍÉK—ddÏ[]›x±Ô/âø§†­Ã¦‡Âäÿ\F2^¢¡¡Á>²ÿW¨‡	¢î…‰H7	õNé}hj~d «-® °¢8gwv©8&ãgâ…Ë—/¯Ê,H—Š“+JJ¥y%âùÅ…Å’Riæ|±xUn®8)Ð¾Dœ$-‘—ÁÓ[âÄß9%Î)KÄÅÒÝ9Ð½Xš).-–dJó$Å{ÅY`æKJs
+ò%¹â-…Ò,I†TÏà âÆ1cˆyaÄb‚x‚ ~A«Ã‰gI"™$¶DxÜ1ÀÏÙÃÁcr¹c¹¹aå$—L!Oòžã£ž¢ÞwŽ]8Ö2.|Ü…ñ©ãû'$M80ñ©‰oDŒè˜4vRÎ¤3“×N>;åXäSô|-þ}½ß‡ôÃè¶œã¹ý,×…>Þ6/YnSÙš…6¯µ™9rƒðØ¬‡E(’wÈR›ëb‰§f•µB'ÔhµJ³MFÊÐIµ·iw‹±¡èC^îßRÓ¡íÐv
+46ò	žVWSTS¬)à5w6äÇi‹w•	ä½î×ð&“Å,²ÔëöM¼‚<`¨7„ÚZ}5#æUÍ›ÙQoc#ÌÊ+þwNqŽ¢\ÿm´ž_ÔDJ“çãpŽÙŽH”€–¿ü×[hZ/ŽL±±m¼³#-Îz³Mx‡õá)x=ž1·bù­h”|ñ·óÓjinmì
+†ýç‡e¾È[HŒúÑúãž(t™‡’Pô§h ¹ñ¸ãx{g”Q/W‘½J“2Mx'•J«UîQ2U$ý1ÊõŸä7Y®"úâzœ†%Ùsñì¹zïûLÄžýÃ¨wé¾a¥ïƒå ýMO”ÿÏi'Q¢”ÊXG&å(ËŠf×4|Ä¢TÙÜÉœçu›^Ö›NúP±Œ'O'3åuú½¢õ¼b£¹‡Eó¨A»ý:Cÿù›zc?Û•F ¥<¼câÑ×àlÄ9å)$õ¡ÿ’‰š‘˜ëÿSñ©WMÎNs´‰ôaˆôµR²¯Ú¬É¦P[ëñ£éh:Ú‰íG4EÃtŠƒiå½õwÒl¯w:„pØQ<	ïÄEc®üË#(ý/_uºO2ˆ•½=Œ¼>N€€0"0<èãe4‘{<µž!!J¢:,ÖN%ò:-†b'ýà¯ZRß·ô§RC&O¯‡y9äæ÷1â¹T±ÁPÌàD^±ÁÒÉ¢¹jù#6p×~ßm^Ð³{½zðX?²ð<èçKç[­«ÛåwñÖ„ªh¹ú}þÑrEóEÖ¿Ì5ô»™á€¹·d:‰ˆ9¯úëFˆZ5AßhŠBog¹£¥¶ù²°] Õ5Õ;ìV“¦ÒÎ ±øHïŠÃ+e§Ž<ÁsÚlÍCˆî|K€¸¨™t[Ìf‹È~À 8ÀÚñõÏèÊŠ4‚49{Èm+uéÜuŸ	Ôèä¾ö}ííÂ#çA3ÐŽ¦S5:M®:W/ÀÑød¥®N«évÅsÐß½ª^u_ ÐqºŒ÷_r²KiQH„ªº¢}å}CŽ/è0·®,§ZYAF\eûÏgý3ÎrÛ£ÚÇKh'3ë^¢)o½Åjµè*´7Ÿ}êÜÏÝU—–¼¨ÿaê´ÉÛ×È¼Ô~©eÔ¹RòåêzEŠ¿N•ÕF½Å¥eðF´?é£äO*»jpêpJJö˜+s„wæP©µà
+“Y	®(Oùÿ0Z—`VAŸ+ùH‚¦Â\ÒdÑŸáí83³p=–‰Ç!	‹£ÑÿðÑ¢ƒh2š‚Æžš×áUåxŽÂB)tÚÆD(@çMeÈÿ]©oF1ô× ª3>ž¤‘Ìô\'…þ\ªÇiútP*ÆÓÖ•¬Ñ3Úš¦tÒËCOýáS4ÍŸÛÇ±øs}õÃür¹ÃT¦ûžŠZA2Y› @=fCA3‹¬&‹;+;DhŽ·çPÆ«;>ŒAs¦lz«ã @„hâ²®þûƒÇ¦¿†™î~ŸÃr®'7/x®hÅ^½ùaÞïó9Ìñ@ÔùÀÔehqz–“r«¶ñ•@ä‡,Îž=Ú,óJ,ÌUK‚sÕ»<–ÄK¨W.“>·íÑa›¦€½“K½P«Ø£f¶lŽÊ2#æ¢­?õ5xÀÝÔÃ i>°º:Ý‚ÞFH¾Œ”“½[¯*µ•z3g“*½^oôÖ&û3”KÂë—Ðe³yL 0‡d”WÝSÕ ïÝ(@S±‰ô™•{…3îJ€Xyn§Ov¢ºÑ?õ½È…f¡(z³ßå£¤dËØ0,Dy"Îà;3Uª"FkÔ×¨”[Ÿ›ÞRI¶ù^yé´è7Þ¬¸åþ”vQ5_Š'
+iÓÂ7·x¢Çåö2ô.¯ËeÑ›ÖêJ+KÏW 	|IqnZjÙ‰·»»»ŒÍ÷šÕ!j1×æ±Ï+‡ü1ÕçP‰<ò
+x´1ôÉ/”üv;imn¶:\'åï‰ÐêOo¢õhÅ¦ Ù"µºœ¥¯ªÊUj•H[kob‘’Ò8qb)£Ž*É•I¿Sxç+Š>	önòß´½tñZïj<OT­xlmÅÀ¯™­¼äqzƒÖµqýY(’_ÖJ–îHzZ4»è÷hòWM×ÏÿÎ-Î6Ã’ü««¤Õn‡¥âD|ï,xdŽÅËß˜‡¡‰}Ÿ¾Å@A^þ˜!½ÕË#†7¹Õþ×€ÝÝAv§„þ¯ê*½N½Œ’
+­¦þ€š¡÷«ëÕÊ
+Ç¯Á‰xáà<$<èvµ±ôµ»Õåòˆ¬–Z½™óf½I[¯	§UW£(~²¼0qAõ·hòMïÕË´îƒP§(/¡MChñh´«P×Ÿ}¯n'Å)y‰¢˜í—®uÙMÝ,*æõºš£‡7Ç3ñ´G~ŸÀk.<Žæ¾Äáífñ
+tˆŸ«¶úÞñ^8s®?a]q­¾ }SW9×ÁjK:êãm…HíFç!:…l9heÞMS;œäFOvû%a{Kwc©ÌÍ4ò¾Mšl»]hÕ5êmŒ[]QŸ'ZùÔã³ÔlmA]õžšÝšé2ê˜šìÑÔ×æ	ñqjë¾š\³»šŒXŒË‡Ð3hÌ•!”7¤”Gö}±MÎnBñhò&NK£F4†Ÿ(3÷lñœþ=îF³Ù—íN¡Íá²Ù™×Î*Úæï%u­V¤ÕšÌ•,ýwµ©¢Ð´C„Ç,NˆIðå·Ã³[±¾JŸQ-£ùK8,¸Z%]yè	!ƒÂ³azôÛ 4*®‡3X‚×óß¹j{ûƒw«7Ä¿°wÅâgú/3`÷ÿrþëmC§O÷Jã6VìJy¶ää…àÌë_Ü Êÿ&Yš9Ù…>^QYÐh´ž"5ÔÖýæ5Ç¶X¿@¥î3äV1E
+Xw)I)•þ*ž°;_­*cè«ê2¥Jbñ²HqŸQÜÅ&x±G~=ùš‹nŒB­>ÞºZ(¼Û¶ÿ`^€Dþãü¡nßÐP¾/--_––Ö-bƒ>ëCj9çKÐÈ=VÿX7mõL½ÕZo™í•ýÏ%wû:¤ý"4ÓÇK:ŽW¡ªN¡Åá²Ú cÞv§óKp"¸ÀË¨#Õ¤Ã`5ê…juUyS(­(Rhªu]u±b·6³þèûíÍ÷õî~µú£ž¨)”=Ãhòbj}ô>)lî>÷^ãOR¸ÏGÝÓêôošÿ½D3ñ[Ÿ—ÉT¯ÍŽÍN+ÑŸ(ŒÞ6ØÚ¬{`’FÕö·©}|?ÿ]©e¥6¨.S¨T"Ñb7²µö:g­¼˜þ /Ã”¿dt6‚Ùž‹Ì°YòÇk(Å.yÏÂ‘˜ÚˆSðÓ/G3Ø'Q?ÿ¦÷ú{ŸyWà¨Ù*L¬ZPqÍ‚9ïô¡åCåeþDX> &˜ƒàËCÿå¢?ò/7wüêOM`lfEÜÒXÍ‰÷¼½Ï¿;•;~ðI†º!¾’>’Õh Þ šL.—Ã¹¯Î÷¹=u!â
+JDKÓ®â™°
+ÉYú£À*¤„U9¹Á^ë¬u„Gà@3Û9,ï$¹3¸“*p]@_õ’½}ðdSv©‹iæõDš¬&›UØ›ïÌdÒ·T‹èÕÆ®‹×>8—xÃ(ƒß Øo¸è+ˆyà"i¶™váÀÊö']2Ái¨ý*ž"LË-N{<ãú ž©âíZIu^¸ý÷¿CQŸCaJÆíkQ˜°ÿoàÊá5¬ƒö2¬È\ô[/ßGÍs”4A$¡Ž™ímæ"T •âÜcÕÔëdˆKfð21WSh4äëøý’šlÓ›jò…¸ŸZâMÿêH‹ÕÙSÞèbYÕäNù$íéà&äú–ÉûL7ô|\JmÖì]³ùEÍ™‹,:wŸ))¢M1Ç7ýíÌ—ËÚŒ¸EV“QobéÍ&}½¶^±v?Š˜]æO÷E6ø;ð´….D²¨›°W·µú.|O@wJZMÖCA³æš-2ê„œtì†¡Z'3T3+q©1î3èD†Z›ÛÈ®FedÍA}+ìÉ\¶6Óå‚nNØ“©º+ÍÊ†,Áï±¬ã™æD{‘ eîG,Š.C;}‘-·p*J¥ÿŠö=°¶6¾Þø²`Ñ¤Óøöc5ª-ìkø1G¡+Ó\%pjÉ §Í-g}¿Ð7®¡š¦!“³Û-hwÀ©2êxéÖÛuZ¡ÚX]“Ã¤à]d•±Ö_~jÍFv=Ê#õ­ºvÐå°6Z™N'tÓÊ¨.U“ÖTc­8sÉz`J'¬ÔUjr™çq4©2ì«ÕA'ô%“ê^]§[è†HíÌ¡@¤våÓùtV…3_ð'Ü×˜Ö˜j©D¬ÅYd–Ýžë‹ôø»p2J¦û¯à,þYâº>Aôi–îFÑè‹Ï­ÍG.XJ–QCå°ýµ×ª„
+Õ®ò`>Ym€ïI@µÅed—¢*ÒàÑµ9„N›µÕÎvRíSu(U½O
+Ð4|‘´U8Ê*…/®KHbŠyta~Üë/¾†J½œ.6‡V»ßþtïÒerdÐ4^©"Åž»§ŠÖ{…JsÓ»Ex1oÛöc—¾ßá°ÿ§ýµÿÅû®¨JÏíE¼ÃƒJœ<ä°ßÉwRCãPÔø"Ð…©·I>Ap‰*Ž… ‰pBM~ÑœúÎœw‰õ‰%Ä##ÜÎê$þyÏ[qàÇ?b… ¦Âî9~bBà%ç¡Vs‚-Gh¿*„@¿¸ý×„X	Xø@¬l!ðlc›BØÂx@BïC˜H
+!°%„I€m!LHB˜H!Èa*@$€È
+!
+°;„i€ì¦rB ö† ä† "‚?¢ñ ?„‡!0€ÂX@qÞKB˜(á€,„™€²¿‹ËC˜¨a6A`Î( §aoÃXÈÑdcäqälägäbðž ï“€ÏmÀ]:ð”	œdAüÙë^ˆ+b( ‹Á·Rð£Æ¬Àœ‘‘ ×ÿQ‹#×G^9<Náï“#¯Ž¼2Òÿ“ãØ]ÇÑ»Ž>rvPÇÿÙêÚ'Açhz,èw<hu"èr0<ôFƒ¶ø £i èCZxòÎ[3 Ÿ3!w³ OsˆÑJœ?Å™øâ¤· Än†9ÿæŒàpçU¹"ç…É¡®µ2&'Pézë'ˆ‘[a¯þÄÓ˜€¥ÿÏ–vLÐ×pPÇwq±˜I¦ÀÌVacáI°8z=¸^ºæ§±¡ë0h³+tM÷e¡kpnŠ_¿pù²¸ø'­¾ër^RAž$ŸˆýÆ‰åÄ2Ps<ñØ_
+–‚fe W	(õþmÄp^ O—>à}*Ø¨<ôž­ó¡ý‚´žc@uH‚³w4‘#Í¿[Ýû!ˆÿ`@¶N
+endstream
+endobj
+336 0 obj
+[ -740 -250 740 932 ]
+endobj
+337 0 obj
+740
+endobj
+338 0 obj
+<<
+/BaseFont /CIDFont+F4
+/ToUnicode 339 0 R
+/Encoding /Identity-H
+/DescendantFonts [ <<
+/BaseFont /CIDFont+F4
+/CIDToGIDMap /Identity
+/W 340 0 R
+/Type /Font
+/Subtype /CIDFontType2
+/CIDSystemInfo <<
+/Ordering 341 0 R
+/Supplement 0
+/Registry 342 0 R
+>>
+/FontDescriptor <<
+/ItalicAngle 0
+/FontFile2 343 0 R
+/Flags 6
+/FontBBox 344 0 R
+/CapHeight 700
+/Type /FontDescriptor
+/FontName /CIDFont+F4
+/Descent -250
+/Ascent 917
+/StemV 345 0 R
+>>
+>> ]
+/Type /Font
+/Subtype /Type0
+>>
+endobj
+339 0 obj
+<<
+/Filter /FlateDecode
+/Length 284
+>>
+stream
+xœ]‘Ýnƒ0…_Å—ÝEE ¬¬Bêè*q±õBbX¤¢.xû…8ê¤E"Öçœ`;©›K£•ƒäÃN¢E½ÒÒâ<-V t8(iR	)ìbä/n×ÙáØè~‚²„äÓ'ggWØåÔá$ïV¢Uz€Ý­n=·‹1?8¢vÀ ª@bï^¹yã#BdûFú¼rëÞkþn|­!œÆß˜$Î†´\%ó«‚òêW¨å¿|š“¬ëÅ7·ázZmápe!ätÈDÏDyÇ˜{$";‘€D$`OD$`'¢+=[Dz¨ˆ.5Qt¹‘5{!:…"c5[¹ÛTî½‹µ¾at¡[ç”ÆûtÍd6Uø~Æ.•n
+endstream
+endobj
+340 0 obj
+[ 1 1 315 2 2 722 3 3 666 4 4 555 5 5 537 6 6 444 7 7 555 8 8 463 9 9 518 10 10 407 11 11 426 12 12 352 13 13 759 14 14 500 ]
+endobj
+341 0 obj
+(Identity)
+endobj
+342 0 obj
+(Adobe)
+endobj
+343 0 obj
+<<
+/Filter /FlateDecode
+/Type /Stream
+/Length1 3252
+/Length 2574
+>>
+stream
+xœWPSW>!Ü ‚ÁÃÊ½öÞèØZÙÖ·µê* »‹ð…!—y„@‚æ	y!¯˜ðµ¢ÈŠµˆ­Öv·>ÚN[ÛµÓévÚwìtwÖ:'öº“=Álw§]»3{ï|'ÿþó¿orÿl(+Û Ò€0Á¬‚¢"Þë³¸¯ ºHm(}zIÚ—É7HKE{{*Å|óà¬0âk `Èkü*pûó· ˜ñ’?_ƒ6R#L! é³¿ F¬Ô, 
+¤/EË
+1_#™ã¼-,	_,¸8š:‰øFdoŽLªPÆúÀ 2:‘œÇ ÉI€Á`/o]·cûŽ_–Š„â½üÊš§ò¥¢ªuJ¾HX/ŒèìäæŒ¤\Ú97ùè÷‹0²ƒAOìàÁS)ÐÆŸ	™pð‘csS‹³âÚî©L+V×(yOT.âå-[–Ç[S%Ý+à•jJXÁ['©”ÊeR9_)¨ZÌã­‰x›ãç¼Í…@^v×•ðþO¨àñyrAµ©ËU<¥œ_%óåu<é>dmJøJ¡TÂñÊ´2Á>~¥€Wð€¶£R €ù <	@~2@+MÛ( $µàïŒ‹I›’þÄÌe~š¼2Ù‚±°ìcÖ@Ê/Øz8ªàÜ¬óðñáãœ/8ý0]ÏÍ “CÇOŽIÃ•;¤BAåbŒâl¼
+ÿñßlxè`ZÏÁïÕÍ½"¦&6±ÚC›B˜ÆÓÖÄ=ˆ§‹|bØp—Ë1HÀGY÷“
+Ñ1‹ÃdÁ5-V­™,WYU<ŽT+B’À_ë‘œµÑ-¦mÇmC9Fö,Ëh6Ô5Š½9ô¡ûåü|“EeÌ7bÑ9Q7ÐÑîn'Ú6µ“ŠÐ«a³×·h i«Ébït:=N
+¶{á	1ïU1³á8ËÂ¤>³7ŒÛ}®WÏ Ìãìvvú©Ÿ×é!|®æ&7u—V`‡Bº)&³Ü!_0XûNu˜Ågñp·³»›„y0÷Ô¨Ï	äŒt¹B­dµªNh1ŸÅmmÆõJÙ¾Jòé…R±Á 6ç´6é¬Í„¥ÕåöØ=†œÀGíCœ‰¾¸î8Ò=©ÃžfÞbÛ´dþ}²©Ð¦—rv«1ömýÅÒ÷£óÇõê!uVÌæD8ë£—¾àš4µš:BTß÷jÀÞç¢&`eàrà”+˜Ãé4ú÷°VCC«™h1:]:Šqêê‚Þ¶€® W/Ûóá©“>ÿå;öùû+^'.~4ì¡h-\Ê¯j(ZA(j‡§¾š‚VÈëÄZsu‹ˆbª>Ó§¾KÔ—ÔY£0Ö¢ÎÃñ{‹¸Ÿ+ÀýÍ^£„ÆE–ý¤M;Ú„Eš;mJÜ`®µ5kéXÃm‰
+ßôôPõ!¬†+/k>X¹»ÆdÚOr>7ío0‰–Vw{‡£Óá¦6Óí\Îù¿ôÜ¹Iœ	wËè^z_6|)èD7ÅnÔÇkÃ£@6õ1£¿ºÃUVlSl%^úú¯gàÊW\¹»©>Ö•O0w§ÛïÃ'*†èçhDkèä©ß}ûÅÔàiò‡2[Õ°:žZ/JëUNE¼ÒÍê:m-QÓØ{*èèrõPmÅWï!É6·5ÙšIÝo0­µÍ¦'Z­v‡•â¼j·´Ø›‰_(ÊwPù…záj<wt×µÓ§}þã¤ïø/px bœxã½s=aŠVÃÜbÞ*b«åÜ¥›oBõ×œ¢jµ©Òª¢Ø®y£(áF˜ÍŒæC&W]]$,$Öó'®O8;ÎtR03Œ]ÜìýÿxËH½žÎ séR:åÒ–;ßÝ¾#iÜÅmk60&›ÛÛ3
+ŸülÂ_·g£D\n¢Ø—Q¯W=ð¡@>`±ž·ÃL˜ùpÖKçPùhœ®¢3>Ùù%%„yÜÉA„3ÏŒÔ®”Òmtz…hôS’½Í_Í˜TgE»OBçoœ[ð•W×nìáýîw„œ„»°kÝ#žCÄ™®-rÕË:{k÷tx=ø@Ã dŸÔ W’Uƒ¾QmœU«ª›eú=qýv?1ÜcëZ¤­:ª„¶a6ƒMÓ„+zeá£—»Ú»Ivít"YW{ÍwoÞå|iøgî‰·±¯=àÃO—…×/ä•Ï#çÁ’‹ñ*±L@rn­~yÁFiXUë0sS›Áˆïº^÷>LùöíoHd ›.9ú5~"rxìzßs"7Éæéß/¯Ï:³ÏáÈ8£ðêç\³¦J[MH»GÃîîaôý\ï±{Ž¶çÜ
+ºBKû0Y‡¥ýþ•8¥x¾Qc= ±æ¬Ó[Uoê1O[À¦Çmæ63YB;0K½EZoN~põw¡c$^Ð¿Íz·ôâAuÖ8c	dÃE0.„I/ç­Ht×ðÙ½Ä‘Cõu¦6M›–â•tÖ¦9hlÀ·¾V7F^ÿèý½Cë/p,†!¸ä}ÃâÊÝ2ý~Š3¤Nqz½ö¢¯ß°™fü–®ÉUÕw?ì
+µ¦ÎBæð9^üì¾°tÛVICÉyW•â<äµûˆp—©VkÓØ´”Œæ`eå‚ÕD½¶çXÈr†(Žw iÛŽ` †«÷”Ô5IIöizSý=ªç¤š}â+&¼}™{lÈüÊóÑ•Ö†Â#EÔ”A3¶ƒ(«­USÒ·?èî#FµAj„fÐ¯ð…Ë[ÈVÝY1féôYýDäÔð;g(˜Ÿ‡/Á«ïá“’Ãòj‘²QN²õ{KôÎ TxY°Ós_âMŸÙéö6¼>;º›‹æ£` ÍBF4}ÌJ|¢•qü¯k5X‹1½1 L/øþGRziôÚFB„ÙhóW@Æ´t"qŠ°<¸|Mq½ââúü’ö&€!T&€b U	¤ ˆÏpÒÒä	Ì@P$Ž L :™ÚØÈó ú$Q˜ˆ[Ž¢,FíEÞ«')²ª@Ô@‹Mçó3òØÛ±7b±ðwW,0}ûbÞé*üÜ…˜(åœ‚òKC¹¤£¸gN×òA®M1fîÎ\q•ïV|ûÚ¥yÓâk¿oÈõÅXÉGQÏâuHJxdÄ»ïeò( ±–ñÏ™qKÿ/@|¤Ëœ¶“
+öýà3=q¼ƒ =%Éih'ÌMÐI(¯%	š‰žªÕ	:Ù“ 10Ô'h"Ek‹–­yvéy…Ëþƒ|j³TÌ—€"4Je¨CÏ‚¥à
+·u©¨€uMþ3<É3ˆ~á!ò­ÈF¼ÏBÔo	:£óÏ<äôSÈ§ˆ‘?	xð”£+Öÿ/ðã€‘˜Œ.
+endstream
+endobj
+344 0 obj
+[ -759 -250 759 917 ]
+endobj
+345 0 obj
+759
+endobj
+346 0 obj
+<<
+/Filter /FlateDecode
+/Length 4892
+>>
+stream
+xœÕ]K¯ä:¹ï_±ÇH)âGìX:Š´û±H€– WWÐÕiLøû8ûÕ^ë‹—+§[œê–8ìªTbû{y}/g¾äe®ÿîçË<ã“½–‹ýó?ßýóÎ½~²üë¯w.,Wê¿|_²¿Ä\Ê:ß¾KÉ]b¬?òí÷?¶ß»úŸ‹õÞýBó ¼ð·»¿Üý®Î£N0'çÜÁ*Ä¥º„Ãß¿-àÝ§»ùþÓ¿î~ùèî]z»òé/wõq¡êÕ\ò%ÖiÅú·/1\ü<»²Üú|÷§êŸ·úßàöÿúesùåÞýã»mŠÍÇ°µ?n“_>Ï~<Øš‹aÞœ‡'Á½õYÍ“Ã»Í5Ÿúí»Í'¸ÜÜ:œÎÉ»­´ã<¯ÇÎ›oïx¬ƒ—æsÞ¦Ô_óº¹µùXìqn'×.ÄÕu¶CïëðÑá<Û‰Ôyá“];ËTŸì‘Ú_¿È<Ðáqó®K•ëx³šPiA*íìn??à¯-a-Å<»}Xøˆc=~ÁÐÇŠOòÂßÎ·–¸–û—uZ-½¶E(ÃCý¼tu‡Vì*sËtå^;EfˆÕFGŠ‚÷çûO¿¹ûøé¿cÏü{\Ìo¿}¶g!!ù¢CòVëÒðÜE”Íw[ZA@@^V6qe…{A|ÜÒå>«Ô_7—ã²µb€«<ðûmíKñM#ð`Áxõ?>¾—WYPžþðû÷¿ªÌþMýßÿß¹·/[ïXëÿÿ»ÝS}^.Ký{-/›³_wmj¿ÿñîßr¼rIuÓ/Ç{ûþËx¾^IáPº—N(B(BJ•uz®BWwŽúëªé¯jPy…ÜpÉ‡<Î¶{éÎ¶äpYv§{çJðâo ¤êN I
+ÄnÊ¸-`Aßg¿‘@ƒ…oí`ÕP¤ÑÏÌQ·¤'™œc9d©»-–úJÀWÀ{ÄSdÄn[.Æ£ýºúK¥ÿ¼ôhØß+–%_\eÈnXQñÇÑê·€¤â$€¬R+@¾Û¨QÝ–‹OÇÄè]ú–a®ì{U£êU-÷’ÞžðL2@³ø”ˆs]j»/¿ƒír¿Ü^-/ p}&<‚÷ÄÔíð€ã{µCßÌ=z°„õ2¸ˆãøêÓ\a–Ýéh¶t‚!ôDö®vë`ò®|FRÖ…;\9	‘KyŽÇBÔ»ôÝæ¸ìZô¬Q>‡pÉi—ô7!*äo¼îví“¶€Ýê|ß¦"ÔV\•p‘ÉÏÞáû€Räarf“™‹áØ.w/àC)s™ó%Um^båI\.¥Z6ï;›Å
+v8ß|zÂ½ÃWÜ V€^îÈ×ÿ|DòCó_¡ê‹°iWTÒÔ®ÍÙ£/è—pDÔ-ë<74žÕÖxß5.d—y	uÒäšÓ‡ê‡ž–qòYšØ/sÝ_“EˆTiI¼ó 1gë\Ù
+Ÿ[Œï/‰xdnRŸGHõ=ÕÁº^¿ž…­ôØP?Áæ@Š?UZÁ–ªÄ¬ŠF†õ-pXCVbwµ§aé>Únp>Þ®Í Ãš«ÍÈKuÎÞP’Á%}q{R!8”?¶ðä˜ñÎèÀ(cÔâÚ*Kß¹-´ìZ)îë\WLxFI C™9³ˆ9ß×
+˜|ÝýfßÖ¤ñ‘Ú2qE‹
+(!¬ÆÒ!éI¿A×[YK#¢°"™¡QˆÊ
+Û±ðç‚;¡ó/¨úíoTB@’*Žno¥<Êäû"^X.o×<•jž^B¾¯Q^dCZ¢xÞBK	Œcâ£ëÖ;€q yCÔû!‹uHcÜ¬8ðÖ¶*­Ê Íu 'P
+Á<”hk-'iãh›åÛúAë*_x‹~·ùµkªfè‘Xðœ!áe²úÀˆ5È¬å¥ìðëjÇ¥±¤Äƒ!Idê{xX²ü#yÕø÷f­Õâbº¬¹¬khrR‚,Àú„Å¢#×‡%ÂMÐwR:=¸û
+x„©£m”Ì(E¡¤£ÄÞÍw»{rã0øò@h¡dBl¼Í‹-šXd¹ ‚‡v`¨òG÷²ck`Oö0Üà´·ÍþôVæ=M¸‰ÆÖy^®ö©Ù©a6¹ïÄ/\B5e/I‘W¿óÔ2¤Q75—ûÂÏnb9*¯èØüÕÉ¸þ‚)4óG´»€œ‰ÃÇm„…Š‰÷R¾ 7
+W8çÖ<=…¨åõð„xc­64é…XÏºty2ä€Ë¸/»¥)¤|È¥ã-¡œÀŽÌFÎ  pmÁ|@„ñia2¸ÅÑHÃáïÆ-Õù8û/ùX‰VØÿ¦MÞfÂ€=#mÀŽ‘Î§U"ç¤8¢bÍ‡¾Gv™T‡AÑ’z2düƒmæÅ—jC®7ÇŠåR_íÈoãÇÔ§r%\ÀI‡$Ú²L ²ãÚ¶3©6Áá ¸¡‰u¥oÁh´•ñ“É=2y ¼g{$=èe^Øäõ[ØkÖ_tl$÷\)@rÓV-›D‘L"†ÎU<	šdÖCÂÕƒ¨GþUžž	g©õ˜¬Ý •bšêPÙ¦€d Ö½»®÷Î^.éaLJyQ8Dá$M›£ŽŒè`@Ç-‚a“ðÖê
+|îñ3’	?Â*ýgq²ÁZØÐu2Çzè},; ´q?@X¾2ÊÑGvƒüv-`¤­[=Ï:é´ÐÅÔ@(!0&"„8™t	˜tI};í7Éœ’R4Ž$vÒ¼×ù."˜c1Ö´ÐÆ®“Ô—1AZ¢‰ÄÅn¸Šì¬„ÆzÛD	âøuÔ1“ %BÊÒ8
+ÔÝîš\ªŒáÀ9ƒo;nðh“,KÈºAj,ß®•JÎd‹“"5o²r¸99µÊÈf¸A4Ž·˜&d‰º*>(xœ¹4m&D%W³†±Ü«Cî§ƒ—]èÈ8`ˆÆ•³m[ËJ‰`8I!TtW”£(cw4ÈÐìþœ«;ÑÜCR8LkLbdþÈ™±ëow’›¶~Áf3uÒJ§ç²2w¶À<öY«Ó?ãº~Qóª])ËUh"‚P=zÜa¤¢„²”+ÊjŽá…Ø—Í¯–º¥?–u£šéãSŸûM\7îå"Bvå'KƒÂÇvËdlÑQlC‹"}Ã¯[G`µ2ÕŒW#â“£Ûµy‹I{êÍŒó×Fê­cOå6aî#ËJFÕa¢Uè :ì'‡Ä,VÆ`Ü böƒñYL Ì£òªH‘^Ú¸à‹Â9^–¸péŸ“ÑŸþzàÅ>óF•î9¨Æno¦tÏƒQ™¢´ o9FõR«q¼—„„â SëÙrèµ´×©0ÌíÚ´lr¨ºÄŸ÷*SWûÂ-%EÅáˆÑ$y‹|¶ƒ­Årë’EÜ¶ÐwÁ¬-HýiŠ)téÑÈbùåêá=Ñ‹4ËÔ®õ×œMºÂ]ÇTà{`]èšÊ'•Ž¸o²_'ËÄ¨;Žéù±—wévû,ó¼æËÊ¿ô¿àþ~ I[xôtfÐ~ÖB*›è¶„R¥ýp€[î•ò)øKYJIî8„¶mòŠÂ$"àþÚ0uSð{APKØ$j;†Š×·;u&~îiŽ-ˆëgú(GåûTeRŠ`Ïí‘cÂG~&e…4Wç¶w@Cø`E‡ŒêTŸÎÝ‚¥|e$`Ù×(¼Jì2¡ÀÛz}NI³Ë,ƒ ¦¾ ¦þ¨d3ËAQµ­3ÑQp¯™z³ -ûj[?Ï~þo”„ø¤äÓ	½z›ú9ƒ‚"’9L©+Sœs‡±Kß’±l_žÎŒ¬ŒÝÏdñ¹äõíLÝ„oîsTfòúNû°Õ”G¢Äña~X	Ïï:—Ð/j´·g®´Dƒ7u0èüQoR(LŒ'p4""LCŽ‰¯§Úîˆ§®°ØŒ/b^Ye0"Ã ‡ƒ®”D ¸ïr$1É¶ï´]ÉÕQ÷‹ÊY’(=b¸f?ø“²	í®º¤5,t#Tô,[8À?xôÑ¸Þ/V/Íñ\Y=Ôm7„bŸÚ÷u€80lnŠ}d34zªcž¸pÅçˆ¯Iºó“t¯`ªˆ(zÒœ:,ß¡^,ø1Ö½Ó£ÏÅÍ’ân¦2ÜËº wû;M;+!:È£/±K.2•Tedê¾&X¦L3Iã|Ðö'vlKŸYbBGHŒxeNÃZZÙ²3#€Gñf³Ü®¥[gÇµÜ¦Ý¨nØ*’!—I§ºÀ†tÅe81¯ÓÉºsë§9ãGu–#kà”‡Q˜(Vu¸¦ºarª»µïË˜€±X= TŽKÅ#b§ÂÛ{F‘%Qqê€	³$)ìcøþ;æQÝõåÝºDû¨[†µÍä¡¯ÄÜ©Åe¸„¨x¿K[J¹„¥¬)7#[½éðj=¢§Íîå£ŠN…¡3ÑêŒrÉä¹5r’&¹óì$>G[Éï-›»ºˆiÏ)eÛû¢¯>ÅÏ»6Š{:°¨ÐM…8Ö}“½u®\m2-…Ê‰òÏîŠFÇÙÉVlókÙ'9PSþÈ‘»~3Ã`Ëâó¹²x”)BÄ¹RÂõÕí–-åêJzMWõrýšµÓ Š­ïDÐgö5Žf¨ÆÕA•ñU„6ª"î™†°ó5Õ)6!p”yÀézÃl‹.tÃWœ<
+/Ò^|?¦ÇU¼’6ã”£y	NZYVsŽ›†Ü}Õ;{þ¶JfSFË¯MòãúžnÍü æ¯—Ì›¶º¡¤·Ÿ~yÍrµþÛêNåå¸&pBÄ‡‘Ý]0wLÚú¾²Í„{]‡ïÀ›‚%PÚ§A‘Cq"ÃÁRíöcÕç¾‰¥¤¾Ih4kAö³ÆFy¿aà‚²‹Äà2Ÿ—ËáéßjÞ³6|Í’xG¯Á„DhKX­Œg i~M§ü°vÓ‘¤¦)ÛøÈv‡»à òþvlèRž^”ær\ qPÝL;w@ÍTÚË72lÖWf™]òàlà‘:›S ruãj»Øƒ7ç%©¿“Ðö“ýH0ÒŒ#í/(}öT7ˆ¢í¯ß¡NÇçÊïq‰^(¿M¼)•Í‚u«ÌÂ*ÇmÎ”›cï‘JDjàQnÑWˆ^Ÿy«“†ï·~”å§7—{¼Ë,eDioÚtæR×w~}}²ÝG¿qÑ9Æ¼È‘ÂÝ‰±žG›„bœªôÓu·Òm˜3ÙYeƒƒêwàŠq½eàQ\»îûÒåÒ›Ìü^(JMæp¶Iœaª)®/3µq™3ÛLßºÿŒ•}ªê¼¼tÈuåÛ©|±µq‚&Ót}•¨ì<ã9qwØô$©Ö²®—¸Ö)±ÂRB®h¦¤íŠ²óÎ+·J:tœ„Ua›xæUNÃD±<f__ÑU‰³¸oÂÖ;(ƒª’ %zÇ±¶@‰¯(x~¶RXîÔ±ò<¨C}y ¶˜‡é¢qŽÎÑr²Øl\ÎAyRU´#c-ãîÊÕau£ðïMÒÄ¼óâ{1¦Å­yírZ×¦ÿ«}ñ?Èc8Ìc¸,.¿¾NSá$"½ÝácR"á°Uy…õYI$(•‹êßˆ*7­K<®E* ‰Bî*ËâuxŒ¢íqà§|ÖIÁaåÑ]„Í}qQŠ®~÷ÖÈÕûŠƒgLB*Øù>éø„¤€;&’ƒrnÝú$Ù—‡!Þ´mëÛûi¿¼òBß¸™×õCWÇ²©#ÜX¤LIëã›Ñù'“H§K!á`¯¥ìÊƒö†EÃ½F$°õ4¬õ< IÙ­K?$v*«|p¦gï O™_)óÃÈ?sLÜ“Ò·ZÿÛ`‡oêà9
+
+<pëÔ·¢!3àX@p¶Ü¦å+¹­¾‘GsÈ¨ÂMËeõ—ìJöùº‚¨s¯N2q…AgPŒ#ù|5NÌ»(¸‹IôÖDý§Ø5já«ÞóL.»Öç”ÇEÕ÷h‹N?-Ž´jn—/=(0Q×WÑqÄ‡–!bˆ<KY’ì_¼,×´_¬W»º:%{¼åÏ2rzºpÁTN›L^+%ù†m`^çKý¹[zïxÎêm‚47ñŸ¥ë»À“<Ågç²(‚É”m{‘LyÜÕ&s=ã!r0fyê¿#¨ÂáŒç·¸¤	)Òiqð&„£7³F´ú®oCõQ{*'»×Ðûn¹¾<ôÁ¼CPF0 öh-Ó$±ù0ƒgl-=H“ñî×ûÓ²ßSºR§eh;³ÐÍ0–ßØ6	|l“O*ákNˆFÓátäŽïG#S]Qµ’ÕfÝ—ô„àJv÷ŸïRrW?øþGø¾,{è°”°ß<§ýþowüÅýßŸ.ÇúÝ:?=nYêåÕóò½æõ9Ãüó®Ê^
+õËr`Ø÷žZîŸS÷…_þúóÿüõÿÜý‡Tòüîî?ýRÉ0
+endstream
+endobj
+347 0 obj
+<<
+/Font <<
+/F1 314 0 R
+/F2 322 0 R
+>>
+>>
+endobj
+348 0 obj
+<<
+/Filter /FlateDecode
+/Length 6684
+>>
+stream
+xœÕ]ËŽ$¹‘¼×WÔD._Á` ƒ ª«ºØƒvû¶ØÓ h«Ëþþ2»»rÂÍIsr²GÈ@Pgå#"H§?ÌÍÝÝe[]ýïÙ]œ“ÿXô{ÛÞÿù?¿>ýï“þÒíÿñ§'÷üçú¿¿?ùÛÿ½~£Ôÿÿ¿'¿ÆKJõoá9—Ë¾îõ¿ç_Ÿò¶_ÖPÿêNþÇÓ>ýåûÕŠ÷e}n^¶÷V½Qr›ÿüÛÓ§¯õ.¿þóéß¾øgŸoï|ýë“>/‡Î~O—\ˆéyKñââ¾oåùë¯Oÿõ‹sþÓáãO×—Ñáô*ëé•?n‹R_†ýXÂ~z;éüv<ñËáØNï¾Ëù§ë]øß^:,IüÔ&nqñåôn?U¿òéå[½Ëó…?‹ß¶#‰ç¹þí“¸X‘OÇ?ýóÓç¯ÿš­ÆVo¥JbD¿¯­¾®ªOr•áõyåÒÛé‡Ù—}ÝíÓ9µP{Nnk/Tï­Ÿ¸PõÝt=Ó.íÏ>¬û%×kz_©*«çMOUÂüye¾IF¼
+øé>´âe}ûô¿\¯p^¾*X§ÕKþ,³­_:ýTî"lSOöm×Ô½Tª·åpÓû‡uŠ/ÇùÚq;–WQÿd8Ÿ°´É…Q—ˆÇ.ÞMb—“2Kåð›¸›îª¥úMÈ2áOÃ–%/gÍˆ;æ¶ë¯ŸÞ_¥ˆ%«øùX"‘ÍMÜJãÒÑwL‹ƒØŒºŸâ1Å
+ÂHÉˆ_ÄÖ_¿éGÏ†)²u¹Bêþ8¾”w‚_Vâ_åroG ×–¨eŽy]¤³HÖÏ?®–Lëvñ¾z6ëMK
+[X%ÍKIóçuÞM”'WšgË„€wB Oòzä®Æúvá(ÕŸôq
+ß~yŸ »¾©C¥ßäíUÕ‚<ìâÓò8·. ŸWüÀýÀÄ<Ès«Ïd¥E¥/jU×~ÛÐ ê—<ÄncïÉƒz—Äâu¥8}Î7]ýi/îRŠ"·8õxyf¨Ýëqö™Ý¾”öî3¼^ÏkRÄ³E¹>ÈÄY~\•—×|‰Uå¥ü®òÀ9‘ŠL^’‡Žæõäîâà¥âÄî"”ä+‡Ž¨F¼jUF´²§>,ž9nÚ7ô{ÿÛ ¦põ2F“E,ñ”ÛÏ¬ýt¢ž-õèû¸Œúùûf	E«È}ØäÚ¬ç ¿mŒ‡Œà Í‡ï
+ùÕz†ØWø\$áWþ°ð6¬ç•¡l®D„OŒ5Êštÿª"ð¸ª±¬ñ²åzî¦•²`ç¨å9t?m©ømÐoçs¶f ­^„+ j!:íjî}éï'W-×à::!vç»Ú/Z¡R'œÏVT 4ÁÝØûïr7EŸÑS9©Z—á`‚]~¨n°DaÉ`õ°PjQS_m ØiË*ÞjÔ™
+"OÔZé‚\Ô‹¡+UMWwõõèÃ\†Õ½¢Sô°Ê3¸Õ_b®ºsTž`	g|:z¨tœÔw+êŠ&˜2L›*7gõhÆ6ó¾ƒ¯€â$ñƒåÝ¨xåô*¼J™ƒO)V<h)ŸaýÃBuÐ¥×vDïX&=
+²ÿˆ¢	– 2'_Á³ê°"õ0tåéïRØatR‚$¤
+ªpÉÅããgÝAð•Ãe††x<|8z|ßÁº¦ B}\ÕRyÿ÷»êÅ8Œe¹¸KýŽø¸ˆO·Âà÷#ÛÊSôÑ©kÎõì(„ßÎ2s
+Ï)ÛàÏ*þ
+Òû¾#å_Áb©|ˆ\T?|lÝª1Æá3<ŒŸˆ¤|‘Ž$äÕèÉ Ò3ôØ2•€Xüpškuò¡¶‰ìz%­…„æÔ-ªt=$·þªfLCúaMü\Ñ”Êí£?X	2ª‹DíGí–ýü~P±"ò¡ŸÌýŽío"¸3&CfeãßGž¯§[Ü{ÔÚ/Ü£I
+$Š‚ÌÚzžïRëp½ñB\CÁ´²žìv[V1ÐÄAÛhÎ0<hïI f¦¨ü4ÙU´æ~Îœ›Ñ™¥™¼¶²i¨²u–~p>ÆËi½¤¸ïÉß<@Æ\ På1£àÇ]¨'–µYVfä9EB«›Ü6U¸²l>)þ6ªQ•rë#“`xØe€À&6$@Ò4*IÎ¸ÜþH½Zp7åÈFÀÞ“íav5²Bˆ¤¢RoCüÏ=l-\°^H!Ú¤ìÅóz2—0¡–®„›rßÀ«˜¢d˜Zúq5cIáR¶½”xcøDšÍ yí$ý‰;ÿv^VyØõ¹~:Žû*\Y8ñÃ†+~Ùêlp@ÎR^Ý“;?`žuµWÃ	Ú¤‚Ò¯g¾r#Ý²·~£°Û‹ò%³F3!›U®ìWvž+;¹¨xw«T+pe æÁp%Œß²²XäÃØœ©ˆòŸº2c×=²2ŒUl.iÛ÷rŒyé>ÓyÐ®ÍÐÖIa~hž	Ñ†r–ð¾¾k4Ðjõµ@uDÅ+p8}s®X4u(Ù,³©ùFž„ÏW–‹ï.ˆ=ÖmtÅ!=+½ø¬J7”f@»²§î²Ó&˜²ëg#
+<ND-$èùh‡1’üòç~¾«­ÑE-«Ð¦ÇU…!ÞÊÛ~KW£Ž™(niÉD–	zýÈK+T9Lƒ‡ŽOfžXc}ŒÈøÝû¹’”öñßà	ÆÖ#b†D”„¼aŽÛ³çEØÂfîC}ÉKÎ§úÒKx‰ƒ² C‹Ý2NNäœŒk:•Á KŸøêš|
+#­dw®¿¥O*î¬ˆÐ^¥êàIÀR@7ð¾W9¦º>8ïo\#¢ì ¯@Q¦v“x«Hü_cL÷Ï0¦}9ÀÌárÆ—¶¼MÈ~ƒf¿ß[`XÆã²*žhâà²›ð”è­gìGÃE\)¬Ç¤ÆNš&$Á Ú-"!¨4B"nƒÅá“ ý-ù–»±…¶¢ªüeÆú@s®§iÍÕ{Ù{šp.eŠgí‰‘2¾Û¶È
+0Ñ  Èt6V=ª`ÿ‘Sç8›2ÜÂ¸¶…`â6ÁÊJ&‹°ëDƒ7<8âÍë<Ö~§ëîú€×IüJéÛ€²â\ÌFúe¯Y’H}—jÍ«ƒú–]-7µåx›QZze˜ÎH$?_8¬Gì+•S^Ë-xS˜´6ù78Žf$wrÞ¾n@‰+îÂÈ+¥@‚ÊT’ÆL—®3`¨UX‰‡út2£t¤EÈ^b‹÷¢²šðöLvóõÁ­\i†À»s_BUlå…*I‚RäR”8uHµô“JG•'áÉjÎ.ÚJ^8îÛãjÀäªÚÿÖRâÆÅ1èÿºpaM°R5Õ—…å UÞx‚4Â;’¨ÛRÀt`~0hfY•ê€O–†á}åQ@ÐÐi¢^“ã»œ¦ñ›Ô^¤4=‚{ËDö}óVú8õ6ºPº‘(Jx
+ƒ»ÎÓLq¬µÍŒ}â\Ž¼ÄÛ
+”[†gRÀÆÛm=²G™B(—o9ë[žFÈ[O¾!gŠÌ	!#jD½²¦ÂÍøl%uo:›¨Fè|äa£•ª'Yõ?³Ú:½+@3.,0ó,Ñî/6?¢yº1ös‚ÀÇ9v	ôfçeÝ½ÐI§P,`"Í/Z©·}4À/ÂÞ=<gßªóqLÅnß°‚3{\™ªœüèÚìj¦V=c }1éŽrä—‡ohíP‘¿U¦¬ŒÑÎJS®%Áp£ÇYì»ëfbü¥PÓPèMŠ}+ªÕXwcLJ;më+Ç[3yi¨É4jÌðé#)ÿcéh,® þXª—Œ0äOVôÛ9‰@éÖÈ1¶$e‰
+3D Dž•Œ<®"Í5É¥îQËþ¸FS€¾ÌÉü8ï> uë[AqGu¡Ü¿,¸/éãÝßœjð@Ô-koÄ¬¾ªáøþ…DW±FŸB8Ðœ?‚¬8Õ· ôÈ¨ìO™Ý¢ôm•iJDS[2eÕ@I…¤#VúÏ <—½/F­U¤‰{"¬z”újÖXs¬EÆÐs–€•5¼k¯‰uª7 c@p©ÊSð£ºWØð1uÐ.£ª¥Ï3»~ªû…Ýñ­ýXsqžt*&Åm—¸î{YŸWW5Jô{	·˜Ç‘EöîjÃx1§ƒû‰2ÞCcJö7cš¦„rÍPÉÆbÅ¾ûg¤…šåí&cŒtRÝËI9{Ô]UWò`Àˆ•E““,Shâ¸G­y¼¾Ÿ>Ê“«‡˜T$}X?óÂXž•P2h¹ÑÊú!ò†øl'S'-æ#[â5TÃºû}á¦LwYH]že	*¢÷Ý×‡[xÕÞeaöõÜœi£Õ@’ûÄßÄÒÕQÛÑgÁî`¿r|MñE‘1f¹Ø5Pv •æ€*ÊU<©óNûk›µ« ÆD{îFÉmØÇ×V[$Ô¡² [Š_hÉ´Ã•—¤ãypÂI§~ËøÆLøñÜÌGÅÖTe´:¦%Ç	N×^ÂBm‹U‘Ø¤(¤Q¥Žwâø!'C%í›/óy–x³&œD¤{Ê	ä·®¬9€éw¶¦ðèC‚4x Ì6ÅìÑãçýîµ+ËÚ—ª7“‡\¬ŽNòzpÉ±.ë‰í!Í&Á½÷Ì5JÇi\;‡•ú¾€Ž‹DöS··ðÐÊ7W |Ë¯×Q¬H¤¿âÒ“H&0Ó@nAµ¼¨ñ¶dTfÊL0ˆ
+˜h›ÀF7º>ÆX[çó±½çpr
+qwÑÿN=go¤©6ëJHt½+!d˜}:h×9ÞòÕˆ±A’ÕÎq¿j`a„<HŒoTc˜ÈˆWÈO×Ð`=xÌÔš©£ÙEZÔ`5ÑÐ@\:«kU —Ø|?w¤©‹œ¯ˆ	HßÏ@¢s¸MÔ´N¥±ysN?‘"Fµ0¯1#Çz§±SÆÎOY»º‘™·3‡}+•‚•øÖn¢|£«W ByX½šÛ±ßª•Œýˆw¦b…|h‰Äð@…ÜUº@oš9XÙ(£Áš‘‹ª]å¢P„Œ2eŸêÃæô¦gƒ>KZj”_F‚»._ž‹jÃÉ2f£¦~’Ïl#·ÂjV¿‘¨¤óºk=VRÆ
+àóú&‰1íxðq5hpõÙÒõÆÛ=úñX¹¿ªÛÖxÄñU½K©:5ÁËÐÈeì«]Ô}æüøSN¹Vº47ºí
+(ƒbÖ/*²å:”ä›HÄfÍ8 ÒóØ‚Öwyáw„.Œ-Ýä¬b*ifÃ‹8yœÐh7)O‹Hh¿rFmú¥„6 -mþ05sõj	½Úõ"õ"É@yÉ“U¶u¡ndé*jÃJœ®•H$Ô2$
+YàI{ÂÍ¨ˆNNU.>0Ã™øƒ÷¦¡BæX[µ¹?‚™9÷	U¹B,ÅÆ†#ÍšÓÐ$h1;ƒ{zp³]ùÖÍT­ ‰„.ÊmuVÒmˆAhúÔj}¦;Ú$‰‡¯]½ûÐÊ3;¬úÐóRB?ÔËŒÀ‚{^&(ø:ð÷yTšt?tâ?k0•Ùjq7B÷‡j(àQ}X<m\O„ááÆœ~wÇÈ{ª€u2›øO†–£¹lª¹ç¦–£5Î}Ÿ¾9—Ï=Ð=B_ßÏÐ†Ò/îÑŽv"tKk¬ß7¼á}?®J­ÚÊòT‚§l±LùávGå•ÈÐÄ€ž¶ýFÌ»ôóàõÈ3é(Gæ«5°2l÷mµ˜^ûj‹ƒÊôN¦fÇÃGšÓ‘wÙhŒ|cá]éÏ|p¾D“ÒÍë),1
+ Ü}Ÿ²73F]7ô&Y/Ý“L3§ûI^Ùà€ãýÈéø\rì&K›#r1³;¿%67&J¥ÔUt´ÑÐT‹>»	GåìeëâàFï‹ö^1²J?£i¥Àè¤0ÚD¸QÈfÅ©i…¨ØtýãTÞª·ú¤%¨·ÓcÓ`ï×v¾Í9´ÊèîHäÃÊò:+0n(¤ŒÓA97¿çKýƒ_Û3$c.™!55ÒÞ.'£dy[rHÿÄ&x'ö\¶RêªeÇË¦­zz( }ú¨wžèÌÛ\Ö'ºòþõØXd÷Þ®]„ š¿dI·ƒ6%YðS¯ãÁ|«ºð]yíÑÒ·Ë¹•kC-|‘ËÚ=®²‹»ª)zTeg sFsdNUÔ£vOKð¢ÝÏ‡W©*­ncËDm‰Ñ²~†bßœ›«b¸Ew±±9Vi‘d†MÕœHœõÄfrúÚÖfž#å7¾„Lž¾p¡3õîOV»x¶>ˆ®\w,ªGß‹e†lÝØ‘Í
+4Ž÷/´35É ß¯Š&›ãyrá†¢oO6¥LÞ‰Çªù(Ê;_Jaz“GKÜ¶æAû”2ÿ=Sœš’à‡†ÆXèÉ1^:áßÎ¶Ç(%ÿ]‚Õ¶ÅO‘ÇU–Ûî [lš7°”@ÞTð7ñÃ¬•åi$YÉóvÐxÉË['Ùö™\œíçþ6ð|e@„Js,tn }4ÿPOÈ'Û0øÉjŸÇÇ•«îLU&¦ÿxèc#xÀ0†;= y¼B^S9´ü{§ëZÿ¸Úo/Û¥Ä½¤4Î”Äðu¢x‡?,ˆ4èx:ú'}ôén—~çÊhÿ¤ÝL1gî[gkëäóS3Ðúaû)_2t÷HTÈ-$Ÿ„iPZ±Ã'âç*ùÜWíüN”³Bìv‘v-\úC¤t’·¡&—p4äÒ¿ËÛãÌ¼³˜°¢ì*'|„®
+Ô†'ÙcóqËŽaPc„Íù·"©l®T«Ò2EòPãýèÆz¸Ò†g^Q‰%]R©KÛì¼êÀé9uSæxœ˜ÓhÕ’Ó°žÐ;NDËañ#Ï°a Ínè“ÖÉkŽHêRQÁÏ»ë4èÜÔytqŒÎ8!vPW+ÐQEÀÉIçôMáÌ…k¿„À-ç¾•³õ?Aü(ªÏêˆ±Ÿ·ªAÏXá!!}*	,ÐÌiª+„ú1s6]&Á8/|Ú{y\Eºmm­öh³ó‚Ôq³(8ýýÉŽŒÅZžÈ˜ëË°cQfÇ{†§îJˆ™6±n8½{€ÃØ•õfnR·À½®û’ï¿¸;;›aÖ¥Ì9X×rã™c£0iƒa1Õ'6P¡ñ –^8q`£g£ºþ ÑD,>´JÝ¶ýsõß:…ó2z6…²ÑB-ÐU
+Ã¹&{Ðâ§j-ñ‹Y˜ãÐ‰OÄ‹30ª1ÕÌ ^ÀÐCÈúkŽKä&rïc¼zDzø¾3ƒŒ¡ll]‹*^î0mrÃ•ü±*­FtŸ!G~w›6ñ¡w–ÒãkÀ‹éŒýU™Å}>rYFÙ·rY×}Ý\ÏÑœê]Áí­qÞ•T›d#˜Ð‹å’SÂVfwnîˆŽ&F¶ŠÆñ®~8ìÑ^Kã+x¬1aI]#€ºë¢Ñ—ºWQÌ¡Ú¨îo¨yÚ.ñ«`@$º<P"û"aYŸF&èKº1£¡„A' á•-¤ÔK8Ã˜ùÒÚFô˜z`Mºû-ß>úÃ¿Ôˆ"‹)å§×â #º9±u÷ãPèuG£ÜqÊòô’§»bÉÓ6Â÷“ø Rr!Ê¼Pénª§V?)<Õ|Â>µ‚óÔpŸ@d€Î*ÕyŽ¿÷·ÚóºÙÉ¥”µÊWRœ8áEMÿàU(y;!d2=dõE2é#¼’ôÿÞºì`Æi[¨$pfó—?LùÚ·xY÷=»[¢ˆƒŠ»vGòx×0Ô~M½- 
+HEâß#?géêIÃÎ+Æ|ÆÀ•ºcµaœ‡ë‘U •çt¾M¥A€;"­Õ÷FbÐ’É¨9õŸ¤¸Ñh±‘ý%ù÷*šÄ¿ˆe¹¾$ªÃëŸ>gG‚?<™m,gË·bŒ–¼ÌŸÑË‡<gÑ¼‡g^éæ‡*9}_U÷6
+D{‚#Ãm36÷\õ¹n;È¾J¤wd;¿ýIíÓ¡úž‰ðV7JŽÀ"tEóÄ>²â š¶^Wãk(H Rúd×¨D}*:/›ê?‹ÓÉsØªYƒ£‹
+¦!FRŠ"œëÐ×Fn•Y±F›!dñ®îh—)'ÔX1MQm¤®íU–³ŒqhÄˆú•üò×jæ¡£q_ƒÇ ÿ‡V‘Ûf—v9o¦µ2kÛ©NÂ]½Ø0ðé@=¸Ô?"ïYjH¹ž¤ÆÑ3a|öŒj6?ÓãQå%Ãp~Ô
+õÌ¿QwLÔÒJ¬æil@»>¬EŸd¦fæÇ˜·2ƒS¹u…ªmMBzôÒ®Fq‚hÚìXø9Œmîy»ämÏ¥e‰E?AÈ£MS5öÆÄŠÔ­qíÓ¨6ÃêÜþi»úËT>û¦!ÒSùßd4mÈ#Ýi³R¦º€Û,¶M³Ö*X{°(Þ×YÓÐù7àø@Ì—E¿2Š·Ðw0±2g°†ûc|ÜÜw>×‘xgcÄï
+¶£'Ê–6J,%dŽ&“ˆÅØa¶§£|ÄUÊmSÑ$¦gµ·«n\«ñéÅfs«>ñµÅ¾ÌzðÑ‘zh/ƒà±Àì!¨¬UDè>D·ª!›¡¯³y¯2ˆs‡,³Ñó<¯­ì
+¥¼ñLÖTãP9}„Ä§J¾«Ó¿<ý?}ÕN
+endstream
+endobj
+xref
+0 349
+0000000000 65535 f 
+0000000009 00000 n 
+0000000074 00000 n 
+0000000114 00000 n 
+0000000809 00000 n 
+0000002784 00000 n 
+0000003050 00000 n 
+0000003315 00000 n 
+0000003579 00000 n 
+0000003845 00000 n 
+0000004113 00000 n 
+0000004380 00000 n 
+0000004644 00000 n 
+0000004909 00000 n 
+0000005176 00000 n 
+0000005441 00000 n 
+0000005705 00000 n 
+0000005973 00000 n 
+0000006237 00000 n 
+0000006503 00000 n 
+0000006767 00000 n 
+0000007033 00000 n 
+0000007295 00000 n 
+0000007562 00000 n 
+0000007829 00000 n 
+0000008098 00000 n 
+0000008363 00000 n 
+0000008629 00000 n 
+0000008893 00000 n 
+0000009159 00000 n 
+0000009429 00000 n 
+0000009696 00000 n 
+0000009960 00000 n 
+0000010231 00000 n 
+0000010498 00000 n 
+0000010773 00000 n 
+0000011037 00000 n 
+0000011303 00000 n 
+0000011568 00000 n 
+0000011836 00000 n 
+0000012099 00000 n 
+0000012368 00000 n 
+0000012641 00000 n 
+0000012907 00000 n 
+0000013168 00000 n 
+0000013435 00000 n 
+0000013715 00000 n 
+0000013981 00000 n 
+0000014247 00000 n 
+0000014510 00000 n 
+0000014789 00000 n 
+0000015061 00000 n 
+0000015331 00000 n 
+0000015599 00000 n 
+0000015868 00000 n 
+0000016133 00000 n 
+0000016404 00000 n 
+0000016672 00000 n 
+0000016935 00000 n 
+0000017203 00000 n 
+0000017474 00000 n 
+0000017750 00000 n 
+0000018014 00000 n 
+0000018282 00000 n 
+0000018553 00000 n 
+0000018818 00000 n 
+0000019092 00000 n 
+0000019357 00000 n 
+0000019620 00000 n 
+0000019885 00000 n 
+0000020153 00000 n 
+0000020420 00000 n 
+0000020694 00000 n 
+0000020959 00000 n 
+0000021224 00000 n 
+0000021500 00000 n 
+0000021764 00000 n 
+0000022029 00000 n 
+0000022293 00000 n 
+0000022559 00000 n 
+0000022824 00000 n 
+0000023090 00000 n 
+0000023351 00000 n 
+0000023615 00000 n 
+0000023880 00000 n 
+0000024141 00000 n 
+0000024406 00000 n 
+0000024670 00000 n 
+0000024933 00000 n 
+0000025199 00000 n 
+0000025465 00000 n 
+0000025732 00000 n 
+0000025996 00000 n 
+0000026262 00000 n 
+0000026530 00000 n 
+0000026799 00000 n 
+0000027064 00000 n 
+0000027327 00000 n 
+0000027589 00000 n 
+0000027863 00000 n 
+0000028131 00000 n 
+0000028402 00000 n 
+0000028666 00000 n 
+0000028932 00000 n 
+0000029197 00000 n 
+0000029462 00000 n 
+0000029726 00000 n 
+0000030007 00000 n 
+0000030280 00000 n 
+0000030543 00000 n 
+0000030810 00000 n 
+0000031086 00000 n 
+0000031362 00000 n 
+0000031630 00000 n 
+0000031897 00000 n 
+0000032156 00000 n 
+0000032421 00000 n 
+0000032699 00000 n 
+0000032968 00000 n 
+0000033237 00000 n 
+0000033506 00000 n 
+0000033773 00000 n 
+0000034041 00000 n 
+0000034299 00000 n 
+0000034574 00000 n 
+0000034840 00000 n 
+0000035108 00000 n 
+0000035376 00000 n 
+0000035642 00000 n 
+0000035916 00000 n 
+0000036189 00000 n 
+0000036455 00000 n 
+0000036723 00000 n 
+0000036990 00000 n 
+0000037256 00000 n 
+0000037532 00000 n 
+0000037802 00000 n 
+0000038066 00000 n 
+0000038327 00000 n 
+0000038598 00000 n 
+0000038845 00000 n 
+0000039108 00000 n 
+0000039374 00000 n 
+0000039640 00000 n 
+0000039906 00000 n 
+0000040175 00000 n 
+0000040452 00000 n 
+0000040712 00000 n 
+0000040978 00000 n 
+0000041249 00000 n 
+0000041522 00000 n 
+0000041790 00000 n 
+0000042054 00000 n 
+0000042317 00000 n 
+0000042589 00000 n 
+0000042849 00000 n 
+0000043123 00000 n 
+0000043393 00000 n 
+0000043660 00000 n 
+0000043929 00000 n 
+0000044201 00000 n 
+0000044475 00000 n 
+0000044743 00000 n 
+0000045012 00000 n 
+0000045286 00000 n 
+0000045552 00000 n 
+0000045818 00000 n 
+0000046083 00000 n 
+0000046357 00000 n 
+0000046628 00000 n 
+0000046896 00000 n 
+0000047160 00000 n 
+0000047430 00000 n 
+0000047696 00000 n 
+0000047963 00000 n 
+0000048227 00000 n 
+0000048496 00000 n 
+0000048762 00000 n 
+0000049028 00000 n 
+0000049295 00000 n 
+0000049571 00000 n 
+0000049842 00000 n 
+0000050109 00000 n 
+0000050369 00000 n 
+0000050630 00000 n 
+0000050893 00000 n 
+0000051165 00000 n 
+0000051433 00000 n 
+0000051700 00000 n 
+0000051973 00000 n 
+0000052245 00000 n 
+0000052510 00000 n 
+0000052781 00000 n 
+0000053051 00000 n 
+0000053320 00000 n 
+0000053588 00000 n 
+0000053855 00000 n 
+0000054117 00000 n 
+0000054387 00000 n 
+0000054646 00000 n 
+0000054915 00000 n 
+0000055183 00000 n 
+0000055454 00000 n 
+0000055725 00000 n 
+0000055988 00000 n 
+0000056249 00000 n 
+0000056520 00000 n 
+0000056787 00000 n 
+0000057056 00000 n 
+0000057317 00000 n 
+0000057585 00000 n 
+0000057856 00000 n 
+0000058124 00000 n 
+0000058396 00000 n 
+0000058662 00000 n 
+0000058929 00000 n 
+0000059194 00000 n 
+0000059460 00000 n 
+0000059725 00000 n 
+0000059991 00000 n 
+0000060264 00000 n 
+0000060530 00000 n 
+0000060808 00000 n 
+0000061074 00000 n 
+0000061340 00000 n 
+0000061603 00000 n 
+0000061868 00000 n 
+0000062133 00000 n 
+0000062401 00000 n 
+0000062664 00000 n 
+0000062932 00000 n 
+0000063198 00000 n 
+0000063465 00000 n 
+0000063731 00000 n 
+0000063998 00000 n 
+0000064261 00000 n 
+0000064535 00000 n 
+0000064804 00000 n 
+0000065067 00000 n 
+0000065342 00000 n 
+0000065610 00000 n 
+0000065876 00000 n 
+0000066141 00000 n 
+0000066412 00000 n 
+0000066677 00000 n 
+0000066940 00000 n 
+0000067207 00000 n 
+0000067474 00000 n 
+0000067748 00000 n 
+0000068018 00000 n 
+0000068283 00000 n 
+0000068547 00000 n 
+0000068811 00000 n 
+0000069079 00000 n 
+0000069345 00000 n 
+0000069606 00000 n 
+0000069871 00000 n 
+0000070144 00000 n 
+0000070409 00000 n 
+0000070674 00000 n 
+0000070940 00000 n 
+0000071207 00000 n 
+0000071484 00000 n 
+0000071752 00000 n 
+0000072020 00000 n 
+0000072290 00000 n 
+0000072552 00000 n 
+0000072815 00000 n 
+0000073081 00000 n 
+0000073340 00000 n 
+0000073606 00000 n 
+0000073880 00000 n 
+0000074145 00000 n 
+0000074411 00000 n 
+0000074676 00000 n 
+0000074948 00000 n 
+0000075219 00000 n 
+0000075487 00000 n 
+0000075760 00000 n 
+0000076026 00000 n 
+0000076293 00000 n 
+0000076559 00000 n 
+0000076835 00000 n 
+0000077107 00000 n 
+0000077373 00000 n 
+0000077638 00000 n 
+0000077907 00000 n 
+0000078169 00000 n 
+0000078435 00000 n 
+0000078701 00000 n 
+0000078974 00000 n 
+0000079241 00000 n 
+0000079516 00000 n 
+0000079786 00000 n 
+0000080054 00000 n 
+0000080321 00000 n 
+0000080588 00000 n 
+0000080857 00000 n 
+0000081128 00000 n 
+0000081394 00000 n 
+0000081672 00000 n 
+0000081942 00000 n 
+0000082206 00000 n 
+0000082474 00000 n 
+0000082741 00000 n 
+0000082998 00000 n 
+0000083262 00000 n 
+0000083530 00000 n 
+0000083792 00000 n 
+0000084055 00000 n 
+0000084318 00000 n 
+0000084584 00000 n 
+0000084635 00000 n 
+0000084749 00000 n 
+0000085945 00000 n 
+0000086431 00000 n 
+0000086893 00000 n 
+0000087270 00000 n 
+0000087298 00000 n 
+0000087323 00000 n 
+0000096218 00000 n 
+0000096257 00000 n 
+0000096278 00000 n 
+0000096764 00000 n 
+0000097359 00000 n 
+0000098074 00000 n 
+0000098102 00000 n 
+0000098127 00000 n 
+0000107663 00000 n 
+0000107702 00000 n 
+0000107723 00000 n 
+0000108209 00000 n 
+0000108565 00000 n 
+0000108710 00000 n 
+0000108738 00000 n 
+0000108763 00000 n 
+0000113715 00000 n 
+0000113754 00000 n 
+0000113775 00000 n 
+0000114261 00000 n 
+0000114619 00000 n 
+0000114762 00000 n 
+0000114790 00000 n 
+0000114815 00000 n 
+0000117492 00000 n 
+0000117531 00000 n 
+0000117552 00000 n 
+0000122519 00000 n 
+0000122578 00000 n 
+trailer
+<<
+/Size 349
+/Root 311 0 R
+/Info 2 0 R
+>>
+startxref
+129337
+%%EOF

@@ -5,7 +5,7 @@ import firebase_admin
 from firebase_admin import credentials
 from google.cloud import firestore, storage
 
-cred = credentials.Certificate("hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json")
+cred = credentials.Certificate("hyperbeam1-7ec13-firebase-adminsdk-6hitn-84f95b3bd1.json")
 firebase_admin.initialize_app(cred)
 
 class PDFhighlights:
@@ -58,4 +58,4 @@ class PDFhighlights:
 
 
 test = PDFhighlights()
-test.process("hyper-beam.appspot.com", "pdf/FinancialAccounting1.pdf")
+test.process("hyperbeam1-7ec13.appspot.com", "master/3dfc0a034724ab695ae8fc00dd1bbc50.pdf")

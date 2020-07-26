@@ -85,7 +85,7 @@ class Highlights:
                         #         print(annotation.contents())
 
         if total_annotations > 0:
-            print("line list is {}".format(len(linelist)))
+            # print("line list is {}".format(len(linelist)))
             return linelist
         else:
             print ("no annotations found")

@@ -16,7 +16,7 @@ class PDFhighlights:
     def __init__(self):
         self.db = firestore.Client()
         self.stor = storage.Client()
-        cred = credentials.Certificate("hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json")
+        cred = credentials.Certificate("hyperbeam1-7ec13-firebase-adminsdk-6hitn-84f95b3bd1.json")
         firebase_admin.initialize_app(cred)
     
     def update_highlights(self):
@@ -85,6 +85,6 @@ class PDFhighlights:
 
 test = PDFhighlights()
 # test.download("hyper-beam.appspot.com", "master/e443ce30f16dc6bddaa6c839f8fcfc81.pdf")
-# test.download("hyper-beam.appspot.com",'pdf/tBqBjEWxZiRwGwMk2uzyEaYTNvl1/IqCt9Gxm33fbHxppSy9A/link.txt')
+test.download("hyperbeam1-7ec13.appspot.com", "master/6c0ba98a464e7084bd2908ea8fc2df00.pdf")
 # test.update_highlights()
-test.update_time('CS2030', 'thisispdfid', 's7CbPVYl55dxVgG9mSIyKfxw1Vr1', 'test.pdf')
+#test.update_time('CS2030', 'thisispdfid', 's7CbPVYl55dxVgG9mSIyKfxw1Vr1', 'test.pdf')

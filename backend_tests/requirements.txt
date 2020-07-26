@@ -1,0 +1,7 @@
+# Function dependencies, for example:
+# package>=version
+google-api-core==1.21.0
+google-cloud-tasks==1.5.0
+google-cloud-firestore
+firebase-admin
+protobuf

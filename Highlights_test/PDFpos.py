@@ -97,7 +97,8 @@ class PDFpos:
             self.y2 = -1
             self.pageno = -1
         thisword = obj.get_text()
-        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—' or thisword == '-':
+        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—' or thisword == '-' or \
+            (self.y1 != -1 and self.y1 != obj.bbox[1]):
             if self.x1 != -1:
                 temp = Token(self.pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
                 self.word_array.append(temp)

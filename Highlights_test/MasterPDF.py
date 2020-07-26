@@ -14,7 +14,8 @@ from GetHighlights import Highlights
 
 class GenerateMaster:
 
-    # x1, y1 starts in bottom left corner
+    # Function to generate a new PDF highlight object in accordance to PDF documentation by adobe
+    # x1, y1 starts in bottom left corner | color is in the form of RGB
     def createHighlight(self,x1, y1, x2, y2, meta, color = [1, 0, 0]):
         newHighlight = DictionaryObject()
 
@@ -47,6 +48,7 @@ class GenerateMaster:
 
         return newHighlight
 
+    # Function to determine if there is an existing array of annotations, before adding the highlight to the page
     def addHighlightToPage(self,highlight, page, output):
         highlight_ref = output._addObject(highlight)
 
@@ -55,30 +57,57 @@ class GenerateMaster:
         else:
             page[NameObject("/Annots")] = ArrayObject([highlight_ref])
 
+    # Main function for processing code that replaces the highlights in a pdf with one of varying shades based
+    # on the number of users that have highlighted that specific word
     def main(self, filename, text_array, maxcount):
-        
-        print("Generating masterpdf at {}".format(filename))
+        # Opens the file specified
         pdfInput = PdfFileReader(open(filename, "rb"))
         pdfOutput = PdfFileWriter()
-        
-        os.remove('tmp/test.pdf')
-        
+
+        # Remove the existing file after processing as PdfFileWriter is unable to overwrite the file
+        os.remove(filename)
+
+        # Tranfer every page from the original pdf into the new pdf and remove existing annotations and links
         for page in pdfInput.pages:
             pdfOutput.addPage(page)
         pdfOutput.removeLinks()
 
-        print("The length of the text_array is {}".format(len(text_array)))
+        # Based on the information regarding the highlighted pdfs obtained from firebase, highlight with a new shade
         for text in text_array:
             if (text.getCount() >0):
-                shade = 1 - ((text.getCount() / maxcount)* 220 + 30) / 255
+                ratio = text.getCount() / maxcount
+                # Shade is calculated based on RGB, and has to be scaled to support 0 to 1 instead of 0 to 255
+                # if ratio <= 0.5:
+                #     shade = 1 - (ratio * 440 + 35) / 255
+                #     highlight = self.createHighlight(text.getX1(), text.getY1(), text.getX2(), text.getY2(), {
+                #         "author": "Hyper-Beam",
+                #         "contents": text.getContent()
+                #     }, [1, 1, shade])
+                # else :
+                #     shade = ((1-ratio) * 30 + 190) / 255
+                #     highlight = self.createHighlight(text.getX1(), text.getY1(), text.getX2(), text.getY2(), {
+                #         "author": "Hyper-Beam",
+                #         "contents": text.getContent()
+                #     }, [shade, shade/2, 0])
+                if ratio <= 0.25:
+                    red = 1
+                    green = 1
+                elif ratio <= 0.5:
+                    red = 219/255
+                    green = 195/255
+                elif ratio <= 0.75:
+                    red = 189/255
+                    green = 168/255
+                else:
+                    red = 147/255
+                    green = 130/255
                 highlight = self.createHighlight(text.getX1(), text.getY1(), text.getX2(), text.getY2(), {
                     "author": "Hyper-Beam",
                     "contents": text.getContent()
-                }, [1, 1, shade])
-                
+                }, [red, green, 0])
                 self.addHighlightToPage(highlight, pdfOutput.getPage(text.getPage()-1), pdfOutput)
 
-        print("writing file to {}". format('/tmp'))
-        outputStream = open('tmp/test.pdf', "wb")
+        # Outputs the file to the original filename
+        outputStream = open(filename, "wb")
         pdfOutput.write(outputStream)
 
