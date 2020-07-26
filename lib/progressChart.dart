@@ -1,7 +1,10 @@
 import 'dart:core';
 import 'package:HyperBeam/createQuiz.dart';
 import 'package:HyperBeam/objectClasses.dart';
+<<<<<<< HEAD
 import 'package:HyperBeam/services/firebase_auth_service.dart';
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
 import 'package:HyperBeam/services/firebase_module_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -52,8 +55,7 @@ class _ProgressChartState extends State<ProgressChart>{
   Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot, Size size) {
     Module module = Module.fromSnapshot(snapshot);
     return ProgressCard(
-        moduleCode: module.moduleCode,
-        title: module.title,
+        title: module.name,
         size: size,
         pressCreateQuiz: () {
           _createQuiz(module);
@@ -106,6 +108,7 @@ class _ProgressChartState extends State<ProgressChart>{
                                     border: OutlineInputBorder(),
                                     hintText: "Enter a quiz name",
                                   ),
+<<<<<<< HEAD
                                   autovalidate: true,
                                   validator: (val) => val.isEmpty ? 'Please fill in this field' : null,
                                   onSaved: (text) {
@@ -147,6 +150,28 @@ class _ProgressChartState extends State<ProgressChart>{
                       ),
                     ]
                 ),
+=======
+                                  RaisedButton(
+                                    child: Text("Add"),
+                                    color: kAccentColor,
+                                    onPressed: () async {
+                                      quizFormKey.currentState.save();
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context){
+                                          return QuizForm(quizName, module: module,);
+                                        }),
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        )
+                    ),
+                  ]
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
               ),
             ),
           );
@@ -312,6 +337,8 @@ class _ProgressChartState extends State<ProgressChart>{
         }
     );
   }
+
+
 }
 
 class AlertDialogWidget extends StatefulWidget {

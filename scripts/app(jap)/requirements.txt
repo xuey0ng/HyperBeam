@@ -2,6 +2,7 @@ Flask==1.0.2
 google-api-core==1.21.0
 google-cloud-storage==1.28.1
 google-cloud-pubsub==1.5.0
+<<<<<<< HEAD:scripts/app(jap)/requirements.txt
 google-cloud-logging
 google-cloud-tasks==1.5.0
 google-cloud-firestore
@@ -9,3 +10,7 @@ firebase-admin
 protobuf
 pdfminer
 PyPDF2
+=======
+firebase-admin
+pdfminer
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/requirements.txt

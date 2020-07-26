@@ -83,6 +83,7 @@ class _AtAGlanceState extends State<AtAGlance> {
             )
         ),
       ),
+<<<<<<< HEAD
       list2.length == 0 ? ConstrainedBox(
         constraints: const BoxConstraints.expand(),
         child: Container(
@@ -130,6 +131,61 @@ class _AtAGlanceState extends State<AtAGlance> {
                               color: Colors.black,
                               fontSize: kMediumText
                           )
+=======
+    ),
+    new ConstrainedBox(
+      constraints: const BoxConstraints.expand(),
+      child: new FlutterLogo(style: FlutterLogoStyle.stacked, colors: Colors.red),
+    ),
+    new ConstrainedBox(
+      constraints: const BoxConstraints.expand(),
+      child: new FlutterLogo(style: FlutterLogoStyle.horizontal, colors: Colors.green),
+    ),
+  ];
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Opacity(
+          opacity: 0.6,
+          child: Container(
+              margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
+              padding: EdgeInsets.only(left: 10,top: 10),
+              height: widget.screenHeight * 0.20,
+              width: widget.screenWidth * 0.8,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 2.0, color: kPrimaryColor),
+                color: kPrimaryColor,
+              ),
+          ),
+        ),
+        Container(
+            margin: EdgeInsets.only(left: widget.screenWidth*0.1 - 8, top: 16),
+            padding: EdgeInsets.only(left: 10,top: 10),
+            height: widget.screenHeight * 0.20,
+            width: widget.screenWidth * 0.8,
+            child: Stack(
+              children: <Widget>[
+                PageView.builder(
+                  physics: new AlwaysScrollableScrollPhysics(),
+                  controller: controller,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _pages[index % _pages.length];
+                  },
+                ),
+                Positioned(
+                    bottom: 4,
+                    left: 0.0,
+                    right: 0.0,
+                    child: Center(
+                      child: SmoothPageIndicator(
+                        controller: controller,
+                        count: 3,
+                        effect: WormEffect(),
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
                       ),
                     ]
                 )

@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:HyperBeam/createQuiz.dart';
-import 'package:HyperBeam/dataRepo.dart';
+import 'package:HyperBeam/homePage.dart';
 import 'package:HyperBeam/pastResultsPage.dart';
 import 'package:HyperBeam/pdfViewer.dart';
 import 'package:HyperBeam/routing_constants.dart';
-import 'package:HyperBeam/services/firebase_auth_service.dart';
-import 'package:HyperBeam/services/firebase_reminder_service.dart';
 import 'package:HyperBeam/services/firebase_task_service.dart';
-import 'package:expand_widget/expand_widget.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/objectClasses.dart';
@@ -18,39 +17,40 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:provider/provider.dart';
+import 'package:HyperBeam/quizHandler.dart';
+import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
+import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
+import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
-import 'package:HyperBeam/masterPDFFiles.dart';
 
 class ModuleDetails extends StatefulWidget {
-  String moduleCode;
-
-  ModuleDetails(this.moduleCode);
-
   @override
   _ModuleDetailsState createState() => _ModuleDetailsState();
 }
 
 class _ModuleDetailsState extends State<ModuleDetails> {
   var size;
-  Module args; //Module>
+  var args;
 
-  Widget buildQuizItem(DocumentReference docRef) { //docRef of a quiz
+  Widget buildQuizItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) return LinearProgressIndicator();
+          print("NOW IT IS ${snapshot.data.documentID} , ${args}");
           return QuizCard(snapshot.data, args);
         }
     );
   }
 
+
   Widget buildQuizList(DocumentSnapshot modSnapshot) {
+    print(modSnapshot.documentID);
     return SingleChildScrollView(
       child: Column(
           children: Module.fromSnapshot(modSnapshot)
@@ -70,7 +70,6 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         }
     );
   }
-
   Widget buildTaskItem(DocumentReference docRef) {
     return StreamBuilder<DocumentSnapshot> (
         stream: docRef.snapshots(),
@@ -80,6 +79,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
         }
     );
   }
+
 
   Widget buildTaskList(DocumentSnapshot modSnapshot) {
     print(modSnapshot.documentID);
@@ -103,6 +103,7 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     );
   }
 
+<<<<<<< HEAD
   Widget examInfo(List<SemesterDatum> sems, var size){
     List<Widget> lst = List();
     for (SemesterDatum sem in sems) {
@@ -343,33 +344,28 @@ class _ModuleDetailsState extends State<ModuleDetails> {
     );
   }
 //page builder
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    final modRepo = Provider.of<FirebaseModuleService>(context, listen: false).getRepo();
+    args = ModalRoute.of(context).settings.arguments; //Module
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(context, HomeRoute);
         return true;
       },
-      child: FutureBuilder<DocumentSnapshot>(
-        future: modRepo.getCollectionRef().document(widget.moduleCode).get(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return LinearProgressIndicator();
-          if (snapshot.data.data == null) return LinearProgressIndicator();
-          args = Module.fromSnapshot(snapshot.data);
-          return Scaffold(
-              body: Stack(
-                  children: <Widget> [
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/bg1.jpg"),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+      child: Scaffold(
+          body: Stack(
+              children: <Widget> [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/bg1.jpg"),
+                      fit: BoxFit.fill,
                     ),
+<<<<<<< HEAD
                     SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,44 +517,32 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                   ),
                                 ),
                               ),
+=======
+                  ),
+                ),
+                SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.topCenter,
+                          padding: EdgeInsets.only(top: size.height * .03),
+                          height: size.height * .1,
+                          decoration: BoxDecoration(
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(50),
+                              bottomRight: Radius.circular(50),
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
                             ),
-                            SizedBox(height: 10),
-                            Container(
-                              margin: EdgeInsets.only(left: size.width*0.1),
-                              width: size.width * 0.8,
-                              child: OutlineButton(
-                                splashColor: Colors.grey,
-                                onPressed: () async {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                        return MasterPDFFiles(module: args);
-                                      })
-                                  );
-                                },
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                highlightElevation: 0,
-                                borderSide: BorderSide(color: Colors.grey),
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 10),
-                                        child: Text(
-                                          'View master PDFs',
-                                          style: TextStyle(
-                                            fontSize: kMediumText,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                          ),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black, fontSize: kExtraBigText),
+                              text: " ${args.name}",
                             ),
+<<<<<<< HEAD
                             SizedBox(height: 10),
                             Container(
                               margin: EdgeInsets.only(left: size.width*0.1),
@@ -633,54 +617,55 @@ class _ModuleDetailsState extends State<ModuleDetails> {
                                   ),
                                 ),
                               ),
+=======
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.width*0.01),
+                          child: Container(
+                            width: size.width*0.98,
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
                             ),
-                            SizedBox(height: 10),
-                            Padding(
-                              padding: EdgeInsets.only(left: size.width*0.01),
-                              child: Container(
-                                  width: size.width*0.98,
-                                  decoration: BoxDecoration(
-                                    border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
-                                  ),
-                                  child: RichText(
-                                      textAlign: TextAlign.left,
-                                      text: TextSpan(
-                                          style: Theme.of(context).textTheme.headline5,
-                                          children: [
-                                            TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
-                                          ]
-                                      )
-                                  )
+                            child: RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                    style: Theme.of(context).textTheme.headline5,
+                                    children: [
+                                      TextSpan(text: "Tasks", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                    ]
+                                )
+                            )
+                          ),
+                        ),
+                        _taskList(args),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.width*0.01, top: 8),
+                          child: Container(
+                              width: size.width*0.98,
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
                               ),
-                            ),
-                            _taskList(args),
-                            Padding(
-                              padding: EdgeInsets.only(left: size.width*0.01, top: 8),
-                              child: Container(
-                                  width: size.width*0.98,
-                                  decoration: BoxDecoration(
-                                    border: Border(bottom: BorderSide(width: 2.0, color: Colors.black)),
-                                  ),
-                                  child: RichText(
-                                      textAlign: TextAlign.left,
-                                      text: TextSpan(
-                                          style: Theme.of(context).textTheme.headline5,
-                                          children: [
-                                            TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
-                                          ]
-                                      )
+                              child: RichText(
+                                  textAlign: TextAlign.left,
+                                  text: TextSpan(
+                                      style: Theme.of(context).textTheme.headline5,
+                                      children: [
+                                        TextSpan(text: "Quizzes", style: TextStyle(fontWeight: FontWeight.bold, ))
+                                      ]
                                   )
-                              ),
-                            ),
-                            _quizList(args),
-                            SizedBox(height: 30),
-                          ],
-                        )
-                    ),
-                  ]
-              )
-          );
-        }
+                              )
+                          ),
+                        ),
+                        _quizList(args),
+                        SizedBox(height: 30),
+                      ],
+                    )
+                ),
+              ]
+          )
       ),
     );
   }
@@ -920,57 +905,18 @@ class TaskCard extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
 class QuizCard extends StatelessWidget {
-  DocumentSnapshot snapshot; //json of quiz
+  DocumentSnapshot snapshot;
   Module module;
   QuizCard(this.snapshot, this.module);
-  void obtainPDF(BuildContext context) async {
-    final user = Provider.of<User>(context, listen: false);
-    String Url = snapshot.data['masterPdfUri'].toString();
-    print("Obtaining $Url}");
-    final storageReference = FirebaseStorage.instance.ref()
-        .child("/pdf/${user.id}/link.txt");
-    Uint8List data =  await storageReference.getData(128)
-        .catchError((e) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("File does not exist"),
-              content: Text("Please come back in a while"),
-              actions: <Widget>[
-                FlatButton(
-                    child: Text("Ok"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }
-                ),
-              ],
-            );
-          }
-      );
-    }).then((value) => value);
-    if(data != null) {
-      File file = File.fromRawPath(data);
-      final uri = file.uri.toFilePath();
-      if (await canLaunch(uri.toString())) {
-        await launch(uri.toString());
-      } else {
-        throw 'Could not launch $uri';
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context, listen: false);
-    final quizFormKey = new GlobalKey<FormState>();
-    final quiz = Quiz.fromSnapshot(snapshot);
-    final reminderRepository = Provider.of<FirebaseReminderService>(context).getRepo();
+    print("SNAP IS ${snapshot.data}");
     var size = MediaQuery.of(context).size;
-    if(snapshot.data == null) return Container();
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -991,9 +937,25 @@ class QuizCard extends StatelessWidget {
                       SizedBox(
                         width: 180,
                         child: RaisedButton(
-                          child: Text("Set reminder"),
+                          child: Text("Obtain Master PDF"),
                           color:  kAccentColor,
+                          onPressed: () async {
+                            String Url = snapshot.data['masterPdfUri'].toString();
+                            print("Obtaining $Url}");
+                            final storageReference = FirebaseStorage.instance.ref()
+                                .child("/pdf/fc4u68mNKdYBroNQjBmvxj2XtWB3/POuYbE2uS9gMjowBZ0jS/link.txt");
+                            Uint8List data =  await storageReference.getData(128).then((value) => value);
+                            File file = File.fromRawPath(data);
+                            final uri = file.uri.toFilePath();
+                            if (await canLaunch(uri.toString())) {
+                              await launch(uri.toString());
+                            } else {
+                              throw 'Could not launch $uri';
+                            }
+                          }
+                          /*
                           onPressed: () async  {
+<<<<<<< HEAD
                             DateTime reminderDate;
                             showDialog(
                                 context: context,
@@ -1085,98 +1047,23 @@ class QuizCard extends StatelessWidget {
                                   );
                               }
                             );
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 180,
-                        child: RaisedButton(
-                          child: Text("View reminders set"),
-                          color:  kAccentColor,
-                          onPressed: () async  {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                final dialogContext = context;
-                                return StreamBuilder<QuerySnapshot> (
-                                    stream: Firestore.instance.collection("Reminders")
-                                        .where("uid", isEqualTo: user.id)
-                                        .where("quizDocRef", isEqualTo: quiz.reference)
-                                        .snapshots(),
-                                    builder: (context, snapshot) {
-                                      if (!snapshot.hasData) return LinearProgressIndicator();
-                                      List<Widget> colItems = snapshot.data.documents.map((e){
-                                        var timeDisplayed = DateFormat('dd-MM-yyyy  kk:mm').format(e.data['date'].toDate());
-                                        return Container(
-                                            padding: EdgeInsets.only(top: 0, bottom: 0, left: 8),
-                                            margin: EdgeInsets.all(8),
-                                            width: size.width,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(12),
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 8,
-                                                  color: Color(0xFFD3D3D3).withOpacity(.88),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.all(8),
-                                              child: Row(
-                                                  children: [
-                                                    RichText(
-                                                      textAlign: TextAlign.center,
-                                                      text: TextSpan(
-                                                        style: TextStyle(color: Colors.black, fontSize: kMediumText, fontWeight: FontWeight.bold),
-                                                        text: " ${timeDisplayed}",
-                                                      ),
-                                                    ),
-                                                    Spacer(),
-                                                    IconButton(
-                                                      icon: Icon(Icons.close),
-                                                      onPressed: () async {
-                                                        await Firestore.instance.collection("Reminders").document(e.documentID).delete();
-                                                      },
-                                                    ),
-                                                  ]
-                                              ),
-                                            )
-                                        );
-                                      }).toList();
-                                      return Dialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:  BorderRadius.circular(20.0)
-                                          ),
-                                          backgroundColor: kSecondaryColor,
-                                          child: Column(
-                                              children: [
-                                                SizedBox(height: 12),
-                                                RichText(
-                                                  overflow: TextOverflow.fade,
-                                                  text: TextSpan(
-                                                    text: "Reminders set",
-                                                    style: TextStyle(
-                                                      fontSize: kBigText,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  child: Column(
-                                                    children: colItems,
-                                                  ),
-                                                ),
-                                              ]
-                                          )
-                                      );
-                                    }
-                                );
-                              }
-                            );
+=======
+                            String Url = snapshot.data['masterPdfUri'].toString();
+                            print("Obtaining $Url}");
+                            PDFDocument doc = await PDFDocument.fromURL(snapshot.data['masterPdfUri'].toString());
+                            print("Obtained $doc");
 
+                            if (snapshot.data['masterPdfUri'] != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PdfViewer(doc)
+                                      )
+                              );
+                            }
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
                           },
+                           */
                         ),
                       ),
                       SizedBox(
@@ -1194,27 +1081,40 @@ class QuizCard extends StatelessWidget {
                       SizedBox(
                         width: 180,
                         child: RaisedButton(
+                          child: Text("Upload PDF file"),
+                          color: kAccentColor,
+                          onPressed: () async {
+                            final firebaseStorageReference = Provider.of<FirebaseStorageService>(context);
+                            final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
+                            File file = await FilePicker.getFile(
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf'],
+                            );
+                            final pdfUrl = await firebaseStorageReference.uploadPdf(file: file,
+                                docId: snapshot.documentID);
+                            print("PDFURL is $pdfUrl");
+                            snapshot.data['masterPdfUri'] = pdfUrl;
+                            await quizRepository.updateDoc(Quiz.fromSnapshot(snapshot));
+                            await file.delete();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: RaisedButton(
                           child: Text("Delete quiz"),
                           color: kAccentColor,
                           onPressed: () async {
-                            final user = Provider.of<User>(context);
                             final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
                             //DataRepo reminderRepo = DataRepo.fromInstance(Firestore.instance.collection("Reminders"));
                             final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                            if(snapshot.data["uid"] == user.id) {
-                              DocumentSnapshot snap = await quizRepository.getCollectionRef().document(snapshot.documentID).get();
-                              List<dynamic> userList = List.from(snap.data["users"]);
-                              for(var user in userList){
-                                DataRepo repo = DataRepo.fromInstance(Firestore.instance.collection('users').document(user)
-                                    .collection("Modules"));
-                                await repo.decrementList(module.moduleCode, "quizzes", quiz.reference);
-                              }
-                              await moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
-                              await quizRepository.delete(snapshot);
-                            } else {
-                              await moduleRepository.decrementList(module.reference.documentID, "quizzes", snapshot.reference);
-                              await quizRepository.decrementList(snapshot.documentID, "users", user.id);
-                            }
+                            quizRepository.delete(snapshot);
+                            print(module);
+                            Module mod = module;
+                            var newList = new List<DocumentReference>.from(mod.quizList);
+                            newList.remove(snapshot.reference);
+                            mod.quizList = newList;
+                            moduleRepository.updateDoc(mod);
                             Navigator.pop(dialogContext);
                             List<String> lst = await Firestore.instance.collection("Reminders")
                                 .where("quizDocRef", isEqualTo: quiz.reference)
@@ -1257,7 +1157,7 @@ class QuizCard extends StatelessWidget {
                 child: RichText(
                   overflow: TextOverflow.fade,
                   text: TextSpan(
-                    text: " ${snapshot.data == null ? "NOTHING" : snapshot.data['name']} \n",
+                    text: " ${snapshot.data == null ? "NOTHING":snapshot.data['name']} \n",
                     style: TextStyle(
                       fontSize: kMediumText,
                       color: Colors.black,
@@ -1273,8 +1173,7 @@ class QuizCard extends StatelessWidget {
               child: RichText(
                 overflow: TextOverflow.fade,
                 text: TextSpan(
-                  text: "Score: \n${snapshot.data['score'] == null ? "Not attempted" :
-                  "${snapshot.data['score']} out of ${snapshot.data['fullScore']}"} \n",
+                  text: "Score: \n${snapshot.data['score'] == null ? "Not attempted" : "${snapshot.data['score']} out of ${snapshot.data['fullScore']}"} \n",
                   style: TextStyle(
                     fontSize: kSmallText,
                     color: Colors.black,
@@ -1287,7 +1186,7 @@ class QuizCard extends StatelessWidget {
                 Icons.arrow_forward_ios,
                 size: 18,
               ),
-              onPressed: () {
+              onPressed: (){
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context){
@@ -1301,6 +1200,7 @@ class QuizCard extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class PdfViewPage extends StatefulWidget {
@@ -1319,6 +1219,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("THIS PATH IS ${widget.path}");
     return Scaffold(
       appBar: AppBar(
         title: Text("My Document"),

@@ -33,6 +33,7 @@ class Statistics:
             maxword = len(wordlist)
             while j < maxword: 
                 word = wordlist[j]
+<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/Statistic.py
                 if word.getY2() <= current.getY1() and word.getY2() >= current.getY2():
                     word_x = (word.getX1() + word.getX2())/2
                     if word_x <= current.getX2() and word_x >= current.getX1():
@@ -46,6 +47,17 @@ class Statistics:
                         j+=1
                 elif word.getY2() < current.getY2():
                     if (i < max and word.getPage() == current.getPage()):
+=======
+                #print("word: " + str(word.getYCoord()) + " | " + str(word.getXCoord()) + " | " + word.getContent())
+                #print("line: " + str(current.getY1()) + " | " + str(current.getY2()) + " | " + str(current.getX1()) + " | " + str(current.getX2()) )
+                # " | " +  current.getContent())
+                if word.getYCoord() <= current.getY1() and word.getYCoord() >= current.getY2():
+                    if word.getXCoord() <= current.getX2() and word.getXCoord() >= current.getX1():
+                        word.incrCount()
+                    j += 1
+                elif word.getYCoord() < current.getY2():
+                    if i < max:
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/Statistic.py
                         i+=1
                         current = linelist[i]
                     else: 

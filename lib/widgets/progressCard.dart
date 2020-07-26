@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:HyperBeam/moduleDetails.dart';
-import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/progressChart.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/services/firebase_module_service.dart';
@@ -10,11 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:HyperBeam/moduleDetails.dart';
 import '../objectClasses.dart';
 import '../routing_constants.dart';
 
 class ProgressCard extends StatelessWidget {
-  final String moduleCode;
   final String title;
   final int score;
   final int fullScore;
@@ -27,7 +24,6 @@ class ProgressCard extends StatelessWidget {
 
   const ProgressCard({
     Key key,
-    this.moduleCode,
     this.title,
     this.score,
     this.fullScore,
@@ -46,11 +42,10 @@ class ProgressCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return ModuleDetails(moduleCode);
-          })
+        Navigator.pushNamed(
+            context,
+            ModuleDetailsRoute,
+            arguments: Module.fromSnapshot(snapshot),
         );
       },
       child: Container(
@@ -137,7 +132,7 @@ class ProgressCard extends StatelessWidget {
                           style: TextStyle(color: Colors.black),
                           children: [
                             TextSpan(
-                              text: "$moduleCode\n",
+                              text: "$title\n",
                               style: TextStyle(
                                 fontSize: kBigText,
                                 fontWeight: FontWeight.bold,
@@ -146,22 +141,6 @@ class ProgressCard extends StatelessWidget {
                           ]
                         )
                       )
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 24,),
-                        child: RichText(
-                            text: TextSpan(
-                                style: TextStyle(color: Colors.black),
-                                children: [
-                                  TextSpan(
-                                    text: "$title\n",
-                                    style: TextStyle(
-                                      fontSize: kMediumText,
-                                    ),
-                                  ),
-                                ]
-                            )
-                        )
                     ),
                     Spacer(),
                     Row(
@@ -215,6 +194,35 @@ class ProgressCard extends StatelessWidget {
                         ),
                       ],
                     ),
+                    /*
+                    Spacer(),
+                    Row(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(left: 24),
+                            child: RichText(
+                                text: TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    children: [
+                                      TextSpan(
+                                        text: "Completed quiz:",
+                                        style: TextStyle(
+                                          fontSize: kSmallText,
+                                        ),
+                                      ),
+                                    ]
+                                )
+                            )
+                        ),
+                        Spacer(),
+                        Padding(
+                            padding: EdgeInsets.only(right: 24),
+                            child: Text("$quizCount"),
+                        ),
+                      ]
+                    ),
+                     */
+                    Spacer(),
                     Spacer(),
                     Row(
                       children: <Widget>[
@@ -251,16 +259,6 @@ class ProgressAdditionCard extends StatefulWidget {
 class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
   String moduleName;
   final moduleFormKey = new GlobalKey<FormState>();
-  DocumentSnapshot moduleCodes;
-  bool validateAndSave() {
-    final form = moduleFormKey.currentState;
-    if(form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -295,14 +293,18 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+
                             TextFormField(
+<<<<<<< HEAD
                               validator: (val) {
                                 return !NUS_MODULES.containsCode(val.toUpperCase())? "Module not found": null;
                               },
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
                               autofocus: true,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: "Enter a module code",
+                                hintText: "Enter a module name",
                               ),
                               onSaved: (text) {
                                 setState(() {
@@ -324,12 +326,11 @@ class _ProgressAdditionCardState extends State<ProgressAdditionCard> {
                                   child: Text("Add"),
                                   color: kAccentColor,
                                   onPressed: () {
-                                    if(validateAndSave()){
-                                      final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
-                                      Module newModule = NUS_MODULES.getModule(moduleName);
-                                      Navigator.of(context).pop();
-                                      moduleRepository.addDocByID(newModule.moduleCode, newModule);
-                                    }
+                                    moduleFormKey.currentState.save();
+                                    final moduleRepository = Provider.of<FirebaseModuleService>(context).getRepo();
+                                    Module newModule = Module(moduleName, taskList: List(), quizList: List());
+                                    Navigator.of(context).pop();
+                                    moduleRepository.addDoc(newModule);
                                   },
                                 )
                               ],

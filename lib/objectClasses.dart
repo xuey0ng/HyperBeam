@@ -1,9 +1,48 @@
+import 'package:HyperBeam/attemptQuiz.dart';
 import 'package:HyperBeam/iDatabaseable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
-ModulesList NUS_MODULES;
+class Module implements iDatabaseable {
+  String name;
+  List<dynamic> quizList;
+  List<dynamic> taskList;
+  @override
+  DocumentReference reference;
 
-//todo class Task is incomplete
+  Module(String name, {List<dynamic> quizList, List<dynamic> taskList}) {
+    this.name = name;
+    this.quizList = quizList;
+    this.taskList= taskList;
+  }
+
+  //factory constructor
+  factory Module.fromJson(Map<String, dynamic> json) {
+    return Module(json['name'] as String,
+        quizList: json['quizzes'] as List<dynamic>,
+        taskList: json['tasks'] as List<dynamic>
+    );
+  }
+  //factory constructor
+  factory Module.fromSnapshot(DocumentSnapshot snapshot) {
+    Module newModule = Module.fromJson(snapshot.data);
+    newModule.reference = snapshot.reference;
+    return newModule;
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic> {
+      'name': this.name,
+      'quizzes': this.quizList,
+      'tasks': this.taskList,
+    };
+  }
+
+  toString() {
+    return "$name with a task list of $taskList";
+  }
+}
+
 class Task implements iDatabaseable {
   final String name;
   bool completed;
@@ -36,132 +75,13 @@ class Task implements iDatabaseable {
   }
 }
 
-class MasterPDF implements iDatabaseable {
-  String uri;
-  List<String> subscribers = List();
-  @override
-  DocumentReference reference;
-
-  MasterPDF({this.uri, this.subscribers, this.reference});
-
-  //factory constructor
-  factory MasterPDF.fromJson(Map<String, dynamic> json) {
-    return MasterPDF(
-        uri: json['uri'] as String,
-        subscribers: json['subscribers'] as List<String>,
-    );
-  }
-  //factory constructor
-  factory MasterPDF.fromSnapshot(DocumentSnapshot snapshot) {
-    MasterPDF newObj = MasterPDF.fromJson(snapshot.data);
-    newObj.reference = snapshot.reference;
-    return newObj;
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic> {
-      'uri': this.uri,
-      'subscribers': this.subscribers,
-    };
-  }
-}
-
-class Reminder implements iDatabaseable {
-  String uid;
-  String quizName;
-  String moduleName;
-  DocumentReference quizDocRef;
-  DateTime date;
-  @override
-  DocumentReference reference;
-
-  Reminder({
-    this.uid,
-    this.quizName,
-    this.moduleName,
-    this.quizDocRef,
-    this.date,
-    this.reference,
-  });
-
-  //factory constructor
-  factory Reminder.fromJson(Map<String, dynamic> json) {
-    return Reminder(
-      uid: json['uid'] as String,
-      quizName: json['quizName'] as String,
-      moduleName: json['moduleName'] as String,
-      quizDocRef: json['quizDocRef'] as DocumentReference,
-      date: json['date'] as DateTime,
-    );
-  }
-  //factory constructor
-  factory Reminder.fromSnapshot(DocumentSnapshot snapshot) {
-    Reminder newReminder = Reminder.fromJson(snapshot.data);
-    newReminder.reference = snapshot.reference;
-    return newReminder;
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic> {
-      'uid' : uid,
-      'quizName': quizName,
-      'moduleName': moduleName,
-      'quizDocRef': quizDocRef,
-      'date' : date,
-    };
-  }
-}
-
-class ProblemSet {
-  int number;
-  bool MCQ;
-  List<dynamic> options; //changed from string to dynamic
-  String question;
-  String answer;
-
-  ProblemSet({
-    this.number,
-    this.MCQ,
-    this.options,
-    this.question,
-    this.answer,
-  });
-
-  factory ProblemSet.fromJson(Map<String, dynamic> json) => ProblemSet(
-    number: json["number"],
-    MCQ: json["MCQ"],
-    question: json["question"],
-    answer: json["answer"],
-    options: json["options"],
-  );
-
-  factory ProblemSet.fromSnapshot(DocumentSnapshot snapshot) {
-    ProblemSet newSet = ProblemSet.fromJson(snapshot.data);
-    return newSet;
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic> {
-      'number' : number,
-      'MCQ' : MCQ,
-      'options': options,
-      'question': question,
-      'answer' : answer,
-    };
-  }
-  String toString(){
-    return "number: $number  MCQ:$MCQ  options:${options.toString()}  question: $question  answer: $answer";
-  }
-}
-
 class Quiz implements iDatabaseable {
   bool private;
   String name;
-  List<dynamic> users;
-  List<ProblemSet> sets;
+  List<dynamic> questions;
+  List<dynamic> answers;
   List<dynamic> attempts;
-  List<dynamic> reviewers;
-  Timestamp dateCreated;
+  Timestamp quizDate;
   String masterPdfUri;
   int score;
   int fullScore;
@@ -171,13 +91,18 @@ class Quiz implements iDatabaseable {
   @override
   DocumentReference reference;
 
+<<<<<<< HEAD
   Quiz(this.name, {
     this.private,
     this.users,
     this.sets,
     this.reviewers,
+=======
+  Quiz(this.name, {this.questions,
+    this.answers,
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
     this.attempts,
-    this.dateCreated,
+    this.quizDate,
     this.score,
     this.masterPdfUri,
     this.fullScore,
@@ -188,13 +113,10 @@ class Quiz implements iDatabaseable {
   //factory constructor
   factory Quiz.fromJson(Map<String, dynamic> json) {
     return Quiz(json['name'] as String,
-      reviewers: json['reviewers'] as List<dynamic>,
-      users: json['users']  as List<dynamic>,
-      sets: json['sets'] == null ? List() :
-        List<ProblemSet>.from(json["sets"]
-        .map((x)=>ProblemSet.fromJson(Map<String,dynamic>.from(x)))),
+      questions: json['question'] as List<dynamic>,
+      answers: json['answer'] as List<dynamic>,
       attempts: json['attempts'] as List<dynamic>,
-      dateCreated: json['quizDate'] as Timestamp,
+      quizDate: json['quizDate'] as Timestamp,
       score: json['score'] ?? 0,
       fullScore: json['fullScore'] ?? 0,
       masterPdfUri: json['masterPdfUri'] ??  "",
@@ -213,17 +135,26 @@ class Quiz implements iDatabaseable {
   Map<String, dynamic> toJson() {
     return <String, dynamic> {
       'name' : this.name,
-      'users' : this.users,
+      'question': this.questions,
+      'answer' : this.answers,
       'attempts' : this.attempts,
-      'quizDate' : this.dateCreated,
+      'quizDate' : this.quizDate,
       'score' : this.score,
       'masterPdfUri' : this.masterPdfUri,
       'fullScore' : this.fullScore,
       'moduleName' : this.moduleName,
+<<<<<<< HEAD
       'uid' : this.uid,
       'sets' : sets == null ? null : List<dynamic>.from(sets.map((x) => x.toJson())),
       'private' : this.private,
+=======
+      'uid' : this.uid
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
     };
+  }
+
+  toString(){
+    return 'Quiz: $name with a score of $score';
   }
 }
 
@@ -276,6 +207,7 @@ class QuizAttempt implements iDatabaseable {
     return "QuizAttempt: Attempted on $date. $givenAnswers with a score of $score";
   }
 }
+<<<<<<< HEAD
 
 class ModulesList {
   final List<Module> mods;
@@ -458,3 +390,5 @@ class MyPDFUpload extends iDatabaseable{
     "quizRef": quizRef,
   };
 }
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3

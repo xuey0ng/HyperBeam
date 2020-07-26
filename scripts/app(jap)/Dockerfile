@@ -26,10 +26,17 @@ COPY . /app
 WORKDIR /app
 
 # Set the environment variables
+<<<<<<< HEAD:scripts/app(jap)/Dockerfile
 ENV PUBSUB_VERIFICATION_TOKEN=abc
 ENV PUBSUB_TOPIC=projects/hyperbeam1-7ec13/topics/hyperbeam1-7ec13.appspot.com
 ENV GOOGLE_CLOUD_PROJECT=hyperbeam1-7ec13
 ENV GOOGLE_APPLICATION_CREDENTIALS="pdf_highlights/hyperbeam1-7ec13-firebase-adminsdk-6hitn-84f95b3bd1.json"
+=======
+# ENV PUBSUB_VERIFICATION_TOKEN=abc
+# ENV PUBSUB_TOPIC=hyper-beam
+# ENV GOOGLE_CLOUD_PROJECT=hyper-beam
+# ENV GOOGLE_APPLICATION_CREDENTIALS="pdf_highlights/hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json"
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/Dockerfile
 
 # Listen to port 8080
 EXPOSE 8080

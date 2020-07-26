@@ -7,7 +7,6 @@ from flask import escape
 from pdf_highlights.Statistic import Statistics
 from pdf_highlights.TextStore import Token
 from pdf_highlights.PDFpos import PDFpos
-from pdf_highlights.MasterPDF import GenerateMaster
 
 
 class PDFhighlights:
@@ -16,37 +15,31 @@ class PDFhighlights:
     def __init__(self):
         self.db = firestore.Client()
         self.stor = storage.Client()
+        # Set the logging for the GAE application
+        # logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 
-   
-    # Function to create new collection on firebase when new pdf is uploaded
+    # Function to create new collection when new pdf is uploaded
     def new_pdf(self, wordlist, filename):
-        # Initialises the nested collection and creates a counter to track the number of uploads
         stats_collection = self.db.collection(u'pdfs').document(filename).collection(u'words')
         stats_collection.document(u'total').set({
-            u'total' : 1
+            u'count' : 1
         })
-
-        # Iterates through the list generated after parsing the pdf
         for wordstore in wordlist:
-            
-            # Unique identifier within each document to identify each word
-            name = str(wordstore.getPage()) + "_" + str((wordstore.getX1()+wordstore.getX2())/2) + "_" + str(wordstore.getY2())
-
-            # Sets the information within the database
+            name = str(wordstore.getPage()) + "_" + str(wordstore.getXCoord()) + "_" + str(wordstore.getYCoord())
             current = stats_collection.document(name)
             x = wordstore.to_dict()
-            current.set(x)       
+            current.set(x)
+            #stats_collection.add(wordstore.to_dict())
+        
 
-    # Function to update highlights on cloud firebaes when existing pdf is uploaded
+    # Function to update highlights when existing pdf is uploaded
     def update_highlights(self, wordlist, filename):
-        # Increments the firestore total upload count for that particular document
         stats_collection = self.db.collection(u'pdfs').document(filename).collection(u'words')
         stats_collection.document(u'total').update({u'total' : firestore.Increment(1)})
-
-        # Iterates through the collection to upload the highlight count of each individual word on the firebase
         for wordstore in wordlist:
-            name = str(wordstore.getPage()) + "_" + str((wordstore.getX1()+wordstore.getX2())/2) + "_" + str(wordstore.getY2())
+            name = str(wordstore.getPage()) + "_" + str(wordstore.getXCoord()) + "_" + str(wordstore.getYCoord())
             current = stats_collection.document(name)
+<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/PDFHighlights.py
             if current.get().exists:
                 current.update({'count' : firestore.Increment(wordstore.getCount())})
             else:
@@ -87,11 +80,16 @@ class PDFhighlights:
         users.set({'subscribed' : True,
         'userFileName' : pdf_name,
         'quizzes': quizzes})
+=======
+            current.update({'count' : firestore.Increment(wordstore.getCount())})
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/PDFHighlights.py
         
+    def gen_master(self, filename):
+        stats_collection = self.db.collection(u'pdfs').document(filename).collection(u'words')
 
     # Function to process the newly uploaded file from cloud storage
     def process(self, bucket_name, blob_name):
-        # Initialises the bucket and the object path on cloud storage 
+        # Download the file from gcloud storage into a temporary folder tmp
         bucket = self.stor.bucket(bucket_name)
         blob = bucket.blob(blob_name)
         
@@ -99,27 +97,24 @@ class PDFhighlights:
         this = os.getcwd()
         if this[-1] != '/':
             this += '/'
-
-        ## May have to move to tmp
-        # Sets the download directory before downloading the file
-        temp = '{}tmp/{}'.format(this, blob_name.split('/')[-1])
-        check = '{}tmp'.format(this)
+        # May have to move to tmp
+        temp = '{}temp/{}'.format(this, blob_name.split('/')[-1])
+        check = '{}temp'.format(this)
         if not os.path.isdir(check):
-            logging.info('Directory %s is created.', check)
+            logging.info('Directory %s is created.', this)
             os.mkdir(check)
         # logging.info('Download {}'.format(temp))
         blob.download_to_filename(temp)
         
-        # Process the file and check if pdf exists
+        # Process the file and check if pdf exist
         current = Statistics()
         current_list = current.compute(temp, temp)
-
-        # Obtain the unique hash for the file
         if len(current_list) > 0:
             filename = str(current_list[0].getHashed())
         else:
             logging.error('File hash failed')
             return
+<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/PDFHighlights.py
 
 
         # Check if the document exists
@@ -135,20 +130,25 @@ class PDFhighlights:
         else:   
             # logging.info('filename: %s does not exists, creating new entry', filename)
             # Initialise a new collection for the new pdf upload and generate the corresponding master pdf
-            self.new_pdf(current_list, filename)
-            master_pdf = GenerateMaster()
-            master_pdf.main(temp, current_list, 1)
+=======
+        doc_ref = self.db.collection('pdfs').document(filename)
+        doc = doc_ref.get()        
+        # Insert module to amend the masterlist to correctly reflect the latest highlights
+        if doc.exists:
+            logging.info('filename: %s exists', filename)
+            self.update_highlights(current_list, filename)
             
-        # Set the new path to upload a text file containing the link to the master pdf
-        file_len = len(blob_name.split('/')[-1])
-        new_url = blob_name[:-file_len]
-        new_url += 'link.txt'
-
-        # Initialise the upload path for google cloud storage
-        filename = filename + '.pdf'
+        else:
+            logging.info('filename: %s does not exists\ncreating new entry', filename)
+            ## run get pos and initalise
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/PDFHighlights.py
+            self.new_pdf(current_list, filename)
+            
+        # generate and upload pdf from new info [TO DO]
         destination = 'master/{}'.format(filename)
         blob_up = bucket.blob(destination)
         blob_up.upload_from_filename(temp)  
+<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/PDFHighlights.py
 
         # Obtain and upload the link to the master pdf to the directory 
         master_url = blob_up.public_url    
@@ -156,6 +156,9 @@ class PDFhighlights:
             master_url = ''
         blob_link = bucket.blob(new_url)
         blob_link.upload_from_string(str(master_url))
+=======
+        master_url = blob_up.public_url      
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/PDFHighlights.py
         os.remove(temp) 
 
         # Update the MasterPDFMods collection in firestore

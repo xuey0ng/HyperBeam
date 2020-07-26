@@ -1,13 +1,10 @@
-import 'package:HyperBeam/moduleDetails.dart';
 import 'package:HyperBeam/objectClasses.dart';
 import 'package:HyperBeam/quizHandler.dart';
 import 'package:HyperBeam/routing_constants.dart';
-import 'package:HyperBeam/services/firebase_auth_service.dart';
 import 'package:HyperBeam/services/firebase_quiz_service.dart';
 import 'package:HyperBeam/widgets/designConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class QuizResultPage extends StatelessWidget{
@@ -17,155 +14,85 @@ class QuizResultPage extends StatelessWidget{
   final int quizScore;
   final Module module;
 
-
   const QuizResultPage({Key key, this.quiz, this.givenAnswers, this.fullScore, this.quizScore, this.module}) : super(key: key);
 
-  Widget _listItem(ProblemSet set, String givenAnswer, int index, var size){
-    String question =  set.question;
-    String answer = set.answer;
-    List<dynamic> options = set.options;
-    if(set.MCQ) {
-      List<Widget> widgetList = List();
-      for(int i = 0; i < options.length; i++) {
-        if(options[i] != null) {
-          Widget opt = givenAnswer != options[i] ?
-          Text("${i+1}) ${options[i]}") : Card(
-            color: options[i] == answer ? Color(0xFF00FF00) : Color(0xFFF70D1A),
-            child: Text("${i+1}) ${options[i]}"),
-          );
-          widgetList.add(opt);
-        }
-      }
-      return Container(
-          alignment: Alignment.topLeft,
-          padding: EdgeInsets.only(top: 20, left: 16, right:16),
-          height: 176,
-          child: Stack(
-              children: [
-                Opacity(
-                  opacity: 0.25,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: givenAnswer == answer ? Color(0x9998FB98) : Color(0x99FE4242),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+  Widget _listItem(String question, String answer, String givenAnswer, int index){
+    return Container(
+      alignment: Alignment.topLeft,
+      padding: EdgeInsets.only(top: 20, left: 16, right:16),
+      height: 176,
+      child: Stack(
+        children: [
+          Opacity(
+            opacity: 0.25,
+            child: Container(
+              decoration: BoxDecoration(
+                color: givenAnswer == answer ? Color(0x9998FB98) : Color(0x99FE4242),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
+          ),
+          Positioned(
+            left:8,
+            top:8,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kMediumText),
+                          text: "Question ${index+1}: \n $question",
+                      )
+                  ),
+                  SizedBox(height:8),
+                  RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: kSmallText),
+                          text: "Answer: $answer",
+                      )
+                  ),
+                  SizedBox(height: 4),
+                  Container(
+                    child: RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                            style: TextStyle(color: Colors.black,
+                                fontSize: kSmallText,
+                                decoration: TextDecoration.underline
+                            ),
+                            text: "Your answer: ${givenAnswer?? "No answers given"}",
+                        )
                     ),
                   ),
-                ),
-                Positioned(
-                  left:8,
-                  top:8,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: size.width * 0.80,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                                  text: "Question ${index+1}: \n $question",
-                                )
-                            ),
-                            SizedBox(height:8),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: widgetList,
-                            ),
-                            SizedBox(height: 4),
-                          ]
-                      ),
-                    ),
-                  ),
-                ),
-              ]
-          )
-      );
-    } else {
-      return Container(
-          alignment: Alignment.topLeft,
-          padding: EdgeInsets.only(top: 20, left: 16, right:16),
-          height: 176,
-          width: size.width * 0.95,
-          child: Stack(
-              children: [
-                Opacity(
-                  opacity: 0.25,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: givenAnswer == answer ? Color(0x9998FB98) : Color(0x99FE4242),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left:8,
-                  top:8,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: size.width * 0.80,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.black, fontSize: kMediumText),
-                                  text: "Question ${index+1}: \n $question",
-                                )
-                            ),
-                            SizedBox(height:8),
-                            RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.black, fontSize: kSmallText),
-                                  text: "Answer: $answer",
-                                )
-                            ),
-                            SizedBox(height: 4),
-                            RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.black,
-                                      fontSize: kSmallText,
-                                      decoration: TextDecoration.underline
-                                  ),
-                                  text: "Your answer:\n${givenAnswer?? "No answers given"}",
-                                )
-                            ),
-                          ]
-                      ),
-                    ),
-                  ),
-                ),
-              ]
-          )
-      );
-    }
+                ]
+            ),
+          ),
+        ]
+      )
+    );
   }
   
   @override
   Widget build(BuildContext context) {
     final quizRepository = Provider.of<FirebaseQuizService>(context).getRepo();
-    var size = MediaQuery.of(context).size;
     List<Widget> columnItems = new List(fullScore);
     for(int i = 0; i < fullScore; i++) {
-      if(quiz.sets[i] != null) {
-        columnItems[i] = _listItem(quiz.sets[i], givenAnswers[i], i, size);
+      if(quiz.questions[i] != null) {
+        columnItems[i] = _listItem(quiz.questions[i], quiz.answers[i], givenAnswers[i], i);
       }
     }
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return ModuleDetails(module.moduleCode);
-            })
+        Navigator.pushNamed(
+          context,
+          ModuleDetailsRoute,
+          arguments: module,
         );
         return true;
       },
-      child:
-      Scaffold(
+      child: Scaffold(
         body: Stack(
           children: [
             Container(
@@ -177,64 +104,53 @@ class QuizResultPage extends StatelessWidget{
                 ),
               ),
             ),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top:24, left: 32),
-                        child: RichText(
-                            text: TextSpan(
-                                style: Theme.of(context).textTheme.headline3,
-                                children: [
-                                  TextSpan(text: "Summary\n", style: TextStyle(fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "Score: $quizScore out of $fullScore", style: TextStyle(fontSize: kMediumText)),
-                                ]
-                            )
-                        ),
-                      ),
-                      Spacer(),
-                    ]
+            ListView(
+             // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top:24, left: 32),
+                  child: RichText(
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline3,
+                          children: [
+                            TextSpan(text: "Summary\n", style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: "Score: $quizScore out of $fullScore", style: TextStyle(fontSize: kMediumText)),
+                          ]
+                      )
                   ),
-                  Container(
-                    width: size.width*0.95,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: columnItems,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: columnItems,
+                ),
+                Row(
+                  children: [
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.all(30),
+                      child: RaisedButton(
+                        color: kAccentColor,
+                        child: Text('Return'),
+                        onPressed: () => {
+                          Navigator.pushNamed(
+                          context,
+                          ModuleDetailsRoute,
+                          arguments: module,
+                          ),
+                        },
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.all(30),
-                        child: RaisedButton(
-                          color: kAccentColor,
-                          child: Text('Return'),
-                          onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                            return ModuleDetails(module.moduleCode);
-                            })
-                          )
-                          },
-                        ),
-                      ),
-                      Spacer(),
-                    ]
-                  ),
-                  _buildRating(quiz, context),
-                ],
-              ),
+                    Spacer(),
+                  ]
+                )
+              ],
             ),
           ]
         ),
       ),
     );
   }
+<<<<<<< HEAD
 
   Widget _buildRating(Quiz quiz, BuildContext context) {
     final user = Provider.of<User>(context);
@@ -338,4 +254,6 @@ class QuizResultPage extends StatelessWidget{
     );
   }
 
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
 }

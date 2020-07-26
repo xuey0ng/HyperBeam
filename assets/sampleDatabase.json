@@ -1,25 +1,28 @@
 {
   "users": {
-    "Unique auto-generated user id": {
-      "firstName": "String",
-      "lastName": "String",
-      "email" : "String",
-      "access" : ["String"],
+    "fc4u68mNKdYBroNQjBmvxj2XtWB3": {
+      "firstName": "Christine",
+      "lastName": "Soh",
       "Modules": {
-        "Module code": {
-          "ModuleTitle":{},
-          "Department": {},
-          "ModuleDescription": {},
-          "ModuleCredit": {},
-          "Workload" : {},
-          "ExamDate" : {},
+        "AiMksYn3O6gyQfVgC6lB": {
+          "name": "CS1101S",
           "quizzes": [
-            "DocumentReference of Quiz"
+            "Quizzes/POuYbE2uS9gMjowBZ0jS"
           ],
           "tasks": [
-            "DocumentReferenece of Task"
+            "users/fc4u68mNKdYBroNQjBmvxj2XtWB3/Tasks/i2O7dZCv9qH9lTFaETbw"
           ]
         },
+        "PhF1oBieEu7fSpiDGY9o": {
+          "name": "CS2040S",
+          "quizzes": [
+            "Quizzes/LU9biy0taFMoyBaafZ9u",
+            "Quizzes/10VSbvxjTX4PyKMaPJmC"
+          ],
+          "tasks": [
+            "users/fc4u68mNKdYBroNQjBmvxj2XtWB3/Tasks/DG3OYcTiFBHs4tODoHPI"
+          ]
+        }
       },
       "Task": {
         "DG3OYcTiFBHs4tODoHPI": {
@@ -27,26 +30,47 @@
           "name": "Homework 2"
         }
       }
+    },
+    "9qX1FzQkK5cFP8zuXZ3JdOMDS1n1": {
+      "firstName": "Travis",
+      "lastName": "Toh",
+      "Module": {
+        "AiMksYn3O6gyQfVgC6lB": {
+          "name": "CS2040S",
+          "quizzes": [],
+          "tasks": []
+        },
+        "PhF1oBieEu7fSpiDGY9o": {
+          "name": "CS1101S",
+          "quizzes": ["Quizzes/pqzKkShRonzcJvslT9ac"],
+          "tasks": ["users/9qX1FzQkK5cFP8zuXZ3JdOMDS1n1/Tasks/Ov1JyM8uKR3fLlHFH3TL"]
+        }
+      },
+      "Task": {
+        "i2O7dZCv9qH9lTFaETbw": {
+          "complete": false,
+          "name": "Homework 2"
+        }
+      }
     }
   },
   "Quizzes": {
-    "Unique auto-generated quiz id": {
-      "MCQ" : Boolean,
-      "Questions" : {
-
-      },
-      "fullScore": int,
-      "masterPdfUri": String,
-      "moduleName": String,
-      "name": String,
-      "quizDate": "timeStamp",
-      "uid": "DocumentRef of User",
+    "10VSbvxjTX4PyKMaPJmC": {
+      "answer": [],
+      "question": [],
+      "fullScore": 2,
+      "masterOdfUri": "",
+      "moduleName": "2040S",
+      "name": "MergeSort",
+      "quizDate": "28/06/2020 3:45:23 PM",
+      "score": 1,
+      "uid": "fc4u68mNKdYBroNQjBmvxj2XtWB3",
       "attempts": {
         "BMcFJHNmSVXpgTmmPyTC": {
-          "date": "timeStamp",
-          "givenAnswers": ["String"],
-          "score": int,
-          "quiz": "DocumentReference of Quiz",
+          "date": "28/06/2020 7,:00:01 PM",
+          "givenAnswers": ["answer1"],
+          "score": 0,
+          "quiz": "Quizzes/Zb3KgN7GngRYPEeCU54m",
         }
       },
     }

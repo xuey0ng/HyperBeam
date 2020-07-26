@@ -12,3 +12,4 @@ To-do|Redesign firestore database to support sharing of quizzes, push notificati
 12/07/20|UI optimisation and fixed the bug on route navigation ( back button was not working as intended). Added function to add reminders during quiz creation.|Implemented the cloud scheduler api to call on certains cloud functions to check of changes in the firestore.
 
 ### Sprint review and retrospective
+We were given the green light to start on our user testing. We also discussed how our current solution tackles on initial problem statement.

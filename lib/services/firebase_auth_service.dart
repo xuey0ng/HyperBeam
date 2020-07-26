@@ -1,72 +1,45 @@
-import 'package:HyperBeam/dataRepo.dart';
-import 'package:HyperBeam/iDatabaseable.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-class User extends iDatabaseable{
+class User {
   final String id;
-  String name;
+  String firstName;
+  String lastName;
   String email;
+<<<<<<< HEAD
   String token;
   dynamic createdAt;
   String platform;
   List<String> friendList;
   DocumentReference ref;
   bool verified;
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
 
-  User({
-    @required this.id,
-    this.name,
+  User({@required this.id,
+    this.firstName,
+    this.lastName,
     this.email,
+<<<<<<< HEAD
     this.token,
     this.createdAt,
     this.platform,
     this.friendList,
     this.ref,
     this.verified,
+=======
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
   });
-
-  factory User.fromJson(Map<String, dynamic> json, String ID) {
-    return User(
-      id: ID,
-      name: json['name'] as String,
-      email: json['email'] as String,
-      token: json['token'] as String,
-      createdAt: json['createdAt'] as dynamic,
-      platform: json['platform'] as String,
-      friendList: json['friendList'] as List<String>,
-    );
-  }
-  factory User.fromSnapshot(DocumentSnapshot snapshot) {
-    User newModule = User.fromJson(snapshot.data, snapshot.documentID);
-    newModule.ref = snapshot.reference;
-    return newModule;
-  }
-  Map<String, dynamic> toJson() => {
-    "name": name,
-    "id": id,
-    "email": email,
-    "token": token,
-    "createdAt" : createdAt,
-    "platform" : platform,
-    "friendList" : friendList,
-    "ref" : ref,
-  };
-
-  DataRepo getRepo() {
-    return DataRepo.fromRepo("users");
-  }
 
   @override
   String toString() {
-    return "$id  account of $name  email: $email";
+    return "$id  account of $firstName   $lastName  email: $email";
   }
 }
 
 class FirebaseAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
+<<<<<<< HEAD
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<void> resetPassword(String email) async {
@@ -109,6 +82,11 @@ class FirebaseAuthService {
 
   User _userFromFirebase(FirebaseUser user) {
     return user == null ? null : User(id: user.uid, email: user.email, verified: user.isEmailVerified);
+=======
+
+  User _userFromFirebase(FirebaseUser user) {
+    return user == null ? null : User(id: user.uid);
+>>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3
   }
 
   Stream<User> get onAuthStateChanged {
