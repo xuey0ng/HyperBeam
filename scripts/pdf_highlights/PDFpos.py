@@ -8,28 +8,18 @@ from pdfminer.pdfdevice import PDFDevice
 from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
 # from pdfminer.high_level import extract_pages
+import hashlib
 import pdfminer
 from pdf_highlights.TextStore import Token
 
 ## Program returns the an array containing all of the coords of the pdf to be preprocessed
 
 
-<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/PDFpos.py
-=======
-#consider comparing base on creationg date of the pdf
-
-## Program returns the an array containing all of the coords of the pdf to be preprocessed
-
-
-#consider comparing base on creationg date of the pdf
-
->>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/PDFpos.py
 class PDFpos:
     
     def __init__(self, filename):
         self.word_array = list()
         self.filename = filename
-<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/PDFpos.py
         self.hashed = ''
         self.current = ""
         self.x1 = -1
@@ -37,12 +27,6 @@ class PDFpos:
         self.y1 = -1
         self.y2 = -1
         self.pageno = -1
-=======
-<<<<<<< HEAD:scripts/app/pdf_highlights/PDFpos.py
-        self.hashed = 0
-=======
->>>>>>> master:scripts/PDFpos.py
->>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/PDFpos.py
 
     def parse_page(self, lt_page, pageno):
         # loop over the object list
@@ -53,7 +37,8 @@ class PDFpos:
             # if it's a textbox, also recurse
             if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal) or isinstance(obj, pdfminer.layout.LTTextBox):
                 if pageno == 1 or pageno == '1':
-                    self.hashed = hash(obj.get_text())
+                    hash_obj = hashlib.md5(str(obj.get_text()).encode())
+                    self.hashed = str(hash_obj.hexdigest())
                 self.parse_page(obj._objs, pageno)
 
             # if it's a container, recurse
@@ -64,7 +49,6 @@ class PDFpos:
                 self.parse_char(obj, pageno)
     
     def parse_line(self, lt_line, pageno):
-<<<<<<< HEAD:scripts/app(jap)/pdf_highlights/PDFpos.py
         # Allows for recursion if the text is stored in a line
         for obj in lt_line:
             if isinstance(obj, pdfminer.layout.LTChar)  and not isinstance(obj, pdfminer.layout.LTAnno):
@@ -82,7 +66,8 @@ class PDFpos:
             self.y2 = -1
             self.pageno = -1
         thisword = obj.get_text()
-        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—' or thisword == '-':
+        if thisword == '\n' or thisword == ' ' or thisword == '.' or thisword == ',' or thisword == '—' or thisword == '-' or \
+            (self.y1 != -1 and self.y1 != obj.bbox[1]):
             if self.x1 != -1:
                 temp = Token(self.pageno, self.x1, self.x2, self.y1, self.y2, self.current, self.filename, self.hashed)
                 self.word_array.append(temp)
@@ -103,34 +88,6 @@ class PDFpos:
             self.current += thisword
             self.x2 = obj.bbox[2]
             
-=======
-        current = ""
-        current_x = -1
-        current_y = -1
-        #print(str(lt_line.bbox[0]) + " | "+ str(lt_line.bbox[2]) + " | "+str(lt_line.bbox[1]) + " | "+str(lt_line.bbox[3]))
-        for obj in lt_line:
-            if isinstance(obj, pdfminer.layout.LTText) and not isinstance(obj, pdfminer.layout.LTAnno):
-                # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
-                thisword = obj.get_text()
-                if thisword == '\n' or thisword == ' ':
-<<<<<<< HEAD:scripts/app/pdf_highlights/PDFpos.py
-                    temp = Token(pageno, current_x, current_y, current, self.filename, self.hashed)
-=======
-                    temp = Token(pageno, current_x, current_y, current, self.filename)
->>>>>>> master:scripts/PDFpos.py
-                    self.word_array.append(temp)
-                    current = ""
-                    current_x = -1
-                    current_y = -1
-                elif current_x == -1:
-                    current_x = (obj.bbox[0] + obj.bbox[2])/2
-                    current_y = (obj.bbox[1])
-                    current += thisword
-                else:
-                    current += thisword
-            # elif isinstance(obj, pdfminer.layout.LTChar):
-                # print("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
->>>>>>> 363688c2edba0b457ebe4d9e93a3b87204bc0eb3:scripts/app/pdf_highlights/PDFpos.py
 
     def parsepdf(self):
         # Open a PDF file.

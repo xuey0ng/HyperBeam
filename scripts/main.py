@@ -1,96 +1,129 @@
-import firebase_admin
-from firebase_admin import credentials
-from google.cloud import firestore
-from flask import escape
-from Statistic import Statistics
-from TextStore import Token
-from PDFpos import PDFpos
+from pdf_highlights import PDFHighlights, message
+import base64
+import json
+import logging
+import os
 
-cred = credentials.Certificate("hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json")
-firebase_admin.initialize_app(cred, )
-db = firestore.Client()
-
-def new_pdf(wordlist):
-    if len(wordlist) > 1 :
-        doc = wordlist[0].getFilename()
-        stats_collection = db.collection(u'pdfs').document(doc).collection(u'words')
-        db.collection.document(u'total').set({
-            u'count' : 1
-        })
-        for wordstore in wordlist:
-            name = str(wordstore.getPage()) + "_" + str(wordstore.getXCoord()) + "_" + str(wordstore.getYCoord())
-            current = stats_collection.document(name)
-            current.set({wordstore.to_dict()})
-            #stats_collection.add(wordstore.to_dict())
+from flask import current_app, Flask, render_template, request
+from google.cloud import pubsub_v1
+import google.cloud.logging
 
 
-def update_highlights(wordlist):
-    if len(wordlist) > 1 :
-        doc = wordlist[0].getFilename()
-        stats_collection = db.collection(u'pdfs').document(doc).collection(u'words')
-        db.collection.document(u'total').update({u'total' : firestore.Increment(1)})
-        for wordstore in wordlist:
-            name = str(wordstore.getPage()) + "_" + str(wordstore.getXCoord()) + "_" + str(wordstore.getYCoord())
-            current = stats_collection.document(name)
-            current.update({'count' : firestore.Increment(wordstore.getCount())})
+app = Flask(__name__)
 
-def hello_gcs_generic(data, context):
-    """Background Cloud Function to be triggered by Cloud Storage.
-       This generic function logs relevant data when a file is changed.
+# Configure the following environment variables via app.yaml
+# This is used in the push request handler to verify that the request came from
+# pubsub and originated from a trusted source.
+app.config['PUBSUB_VERIFICATION_TOKEN'] = \
+    os.environ['PUBSUB_VERIFICATION_TOKEN']
+app.config['PUBSUB_TOPIC'] = os.environ['PUBSUB_TOPIC']
+app.config['PROJECT'] = os.environ['GOOGLE_CLOUD_PROJECT']
 
-    Args:
-        data (dict): The Cloud Functions event payload.
-        context (google.cloud.functions.Context): Metadata of triggering event.
-    Returns:
-        None; the output is written to Stackdriver Logging
-    """
 
-    # print('Event ID: {}'.format(context.event_id))
-    # print('Event type: {}'.format(context.event_type))
-    # print('Bucket: {}'.format(data['bucket']))
-    # print('File: {}'.format(data['name']))
-    # print('Metageneration: {}'.format(data['metageneration']))
-    # print('Created: {}'.format(data['timeCreated']))
-    # print('Updated: {}'.format(data['updated']))
-    doc_ref = db.collection('pdf').document(data['name'])
-    doc = doc_ref.get()
-    current_list = list()
-    if doc.exists:
-        doc = db.collection('pdf').document(data['name']).collection('words').get()
-        for ele in doc:
-            ele.to_dict()
-        current = Statistics()
-        Statistics.compute(current_list, data['name'])
+# Global list to storage messages received by this instance.
+MESSAGES = []
+
+# Initialize the publisher client once to avoid memory leak
+# and reduce publish latency.
+publisher = pubsub_v1.PublisherClient()
+log_client = google.cloud.logging.Client()
+log_client.get_default_handler()
+log_client.setup_logging()
+
+# Set the logging for the GAE application
+
+
+# [START gae_flex_pubsub_index]
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'GET':
+        return render_template('index.html', messages=MESSAGES, counter=len(MESSAGES))
+
+    data = request.form.get('payload', 'Example payload').encode('utf-8')
+
+    # publisher = pubsub_v1.PublisherClient()
+    topic_path = publisher.topic_path(
+        current_app.config['PROJECT'],
+        current_app.config['PUBSUB_TOPIC'])
+
+    publisher.publish(topic_path, data=data)
+
+    return 'OK', 200
+# [END gae_flex_pubsub_index]
+
+
+@app.route('/terms', methods=['GET'])
+def terms():
+    return render_template('privacy.html')
+
+
+
+# [START gae_flex_pubsub_push]
+@app.route('/pubsub/push', methods=['POST'])
+def pubsub_push():
+    if (request.args.get('token', '') !=
+            current_app.config['PUBSUB_VERIFICATION_TOKEN']):
+        return 'Invalid request', 400
+    
+    # Collect the metadata from the pubsub to determine message type
+    # logging.info('Document is created on cloud storage')
+    envelope = json.loads(request.data.decode('utf-8'))
+    payload = base64.b64decode(envelope['message']['data'])
+    attributes = envelope['message']['attributes']
+    event_type = str(attributes.get('eventType')) 
+    bucket = attributes.get('bucketId')
+    blob = attributes.get('objectId')
+    generation_number = str(attributes.get('objectGeneration'))
+    overwrote_generation = attributes.get('overwroteGeneration')
+    overwritten_by_generation = attributes.get('overwrittenByGeneration')
+
+    MESSAGES.append(attributes)
+
+    # To check if the upload is a new upload as well by checking if it overwrote something
+    if event_type == 'OBJECT_FINALIZE' and blob.split('/')[0] == 'pdf' and blob[-4:] == '.pdf':
+        logging.info("{} : {} : was downloaded".format(bucket, blob))
+        current = PDFHighlights.PDFhighlights()
+        link, filename = current.process(bucket, blob)
+        noti = message.PushNoti()
+        # noti.send_to_user(blob.split('/')[1], blob.split('/')[-1], link)
+        try:
+            noti.send_to_topic(filename.split('.')[0], blob.split('/')[-1], link)
+            logging.info('Attempted to send notification sent to topic {}'.format(filename))
+        except:
+            logging.error('Notification failed')
+    # Returning any 2xx status indicates successful receipt of the message.
+    return 'OK', 200
+# [END gae_flex_pubsub_push]
+
+@app.route('/task_handler', methods=['POST'])
+def task_handler():
+    """Log the request payload."""
+    payload = request.get_data(as_text=True) or '(empty payload)'
+    print('Received task with payload: {}'.format(payload))
+    noti = message.PushNoti()
+    payload = payload.split(',')
+    uid = payload[0]
+    module = payload[1]
+    quiz = payload[2]
+    if len(payload) > 3:
+        quiz_ref = payload[3]
+        noti.quiz_reminder(uid, module, quiz, quiz_ref)
     else:
-        ## run get pos and initalise
-        new_pdf = PDFpos()
-        
+        noti.quiz_reminder(uid, module, quiz)
+    return 'Printed task payload: {}'.format(payload), 200
+    # [END cloud_tasks_appengine_quickstart]
 
 
+@app.errorhandler(500)
+def server_error(e):
+    # logging.exception('An error occurred during a request.')
+    return """
+    An internal error occurred: <pre>{}</pre>
+    See logs for full stacktrace.
+    """.format(e), 500
 
 
-
-## for new_pdf old code
-# if len(wordlist) > 1 :
-#         doc = wordlist[0].getFilename()
-#         stats_collection = db.collection(u'pdfs').document(doc).collection('words')
-#         db.collection.document(u'total').set({
-#             u'count' : 1
-#         })
-#         for wordstore in wordlist:
-#             name = str(wordstore.getPage()) + "_" + str(wordstore.getXCoord()) + "_" + str(wordstore.getYCoord())
-#             current = stats_collection.document(name)
-#             current.set({ 
-#                 u'page': str(wordstore.getPage()),
-#                 u'x' : wordstore.getXCoord(),
-#                 u'y': wordstore.getYCoord(),
-#                 u'content' : wordstore.getContent(),
-#                 u'filename': wordstore.getFilename()
-#             })
-
-
-
-# gcloud functions deploy hello_gcs_generic \
-# --runtime python37 \
-# --trigger-resource YOUR_TRIGGER_BUCKET_NAME \
-# --trigger-event google.storage.object.finalize
+# if __name__ == '__main__':
+#     # This is used when running locally. Gunicorn is used to run the
+#     # application on Google App Engine. See entrypoint in app.yaml.
+#     app.run(host='127.0.0.1', port=8080, debug=True)

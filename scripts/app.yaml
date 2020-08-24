@@ -7,12 +7,12 @@ runtime_config:
 
 
 env_variables:
-    PUBSUB_TOPIC: projects/hyperbeam1-7ec13/topics/hyperbeam1-7ec13.appspot.com
+    PUBSUB_TOPIC: projects/hyperbeam1-7ec13/topics/hyper-pubsub
     PUBSUB_VERIFICATION_TOKEN: abc
-    GOOGLE_CLOUD_PROJECT: hyperbeam1-7ec13 
-    CLOUD_STORAGE_BUCKET: hyperbeam1-7ec13.appspot.com
-    FIREBASE_PROJECT_ID: hyperbeam1-7ec13 
-    GOOGLE_APPLICATION_CREDENTIALS: "pdf_highlights/hyperbeam1-7ec13-firebase-adminsdk-6hitn-84f95b3bd1.json"
+    GOOGLE_CLOUD_PROJECT: hyperbeam2-c67c0
+    CLOUD_STORAGE_BUCKET: hyperbeam2-c67c0.appspot.com
+    FIREBASE_PROJECT_ID: hyperbeam2-c67c0
+    GOOGLE_APPLICATION_CREDENTIALS: "pdf_highlights/hyperbeam2-c67c0-firebase-adminsdk-qvbju-a891c677a3.json"
 
   # handlers:
   #   - url: .*
@@ -27,7 +27,6 @@ resources:
     disk_size_gb: 10
 
 automatic_scaling:
-    min_num_instances: 1
     max_num_instances: 5
     cool_down_period_sec: 120
     cpu_utilization:

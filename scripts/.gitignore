@@ -1,1 +1,5 @@
-hyper-beam-firebase-adminsdk-3t5wg-60d7f00668.json
+*.json
+*.pyc
+!/*.json
+!/*.pyc
+pdf_highlights/*.pyc
